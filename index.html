@@ -1,1046 +1,244 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BlackRock Investment</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --bg: #0d1117;
-      --card: #161b22;
-      --card2: #1c2330;
-      --gold: #f0b429;
-      --gold2: #d4a017;
-      --green: #2ea043;
-      --red: #f85149;
-      --text: #e6edf3;
-      --text2: #8b949e;
-      --border: #30363d;
-      --blue: #1d6ef5;
-    }
-    html, body { height: 100%; background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow: hidden; }
-    body { display: flex; flex-direction: column; }
-
-    /* ===== TICKER ===== */
-    .ticker-wrap {
-      background: var(--card);
-      border-bottom: 1px solid var(--border);
-      overflow: hidden;
-      padding: 6px 0;
-      flex-shrink: 0;
-    }
-    .ticker-track {
-      display: flex;
-      gap: 32px;
-      animation: ticker 25s linear infinite;
-      white-space: nowrap;
-    }
-    @keyframes ticker {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
-    }
-    .ticker-item { display: flex; align-items: center; gap: 6px; font-size: 12px; }
-    .ticker-item .up { color: var(--green); }
-    .ticker-item .down { color: var(--red); }
-
-    /* ===== HEADER ===== */
-    .header {
-      background: var(--card);
-      border-bottom: 1px solid var(--border);
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-shrink: 0;
-    }
-    .header-left { display: flex; align-items: center; gap: 10px; }
-    .notif-btn {
-      position: relative;
-      background: var(--card2);
-      border: none;
-      border-radius: 50%;
-      width: 36px; height: 36px;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; color: var(--text);
-    }
-    .notif-badge {
-      position: absolute; top: -2px; right: -2px;
-      background: var(--red); color: white;
-      font-size: 9px; border-radius: 50%;
-      width: 16px; height: 16px;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .lang-btn {
-      background: var(--card2); border: 1px solid var(--border);
-      color: var(--text); border-radius: 20px;
-      padding: 4px 12px; font-size: 12px; cursor: pointer;
-    }
-    .token-btn {
-      background: var(--card2); border: 1px solid var(--border);
-      color: var(--green); border-radius: 20px;
-      padding: 4px 10px; font-size: 12px;
-      display: flex; align-items: center; gap: 4px; cursor: pointer;
-    }
-    .header-logo { text-align: center; }
-    .header-logo .brand { font-size: 18px; font-weight: 700; color: var(--gold); letter-spacing: 2px; }
-    .header-logo .sub { font-size: 10px; color: var(--text2); }
-    .header-right { display: flex; align-items: center; }
-    .invest-btn {
-      background: var(--gold);
-      border: none; border-radius: 10px;
-      width: 38px; height: 38px;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; font-size: 18px;
-    }
-
-    /* ===== MAIN SCROLL ===== */
-    .main { flex: 1; overflow-y: auto; padding: 14px; padding-bottom: 80px; }
-    .main::-webkit-scrollbar { width: 0; }
-
-    /* ===== BALANCE CARD ===== */
-    .balance-card {
-      background: var(--card);
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 14px;
-      border: 1px solid var(--border);
-    }
-    .balance-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; }
-    .avatar-wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-    .avatar {
-      width: 60px; height: 60px; border-radius: 50%;
-      background: linear-gradient(135deg, #f0b429, #d4a017);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 28px; border: 2px solid var(--gold);
-    }
-    .rank-badge {
-      background: var(--card2); border: 1px solid var(--gold);
-      color: var(--gold); font-size: 10px;
-      padding: 2px 10px; border-radius: 20px; font-weight: 600;
-    }
-    .balance-info { text-align: left; }
-    .balance-label { font-size: 12px; color: var(--text2); margin-bottom: 4px; }
-    .balance-amount { font-size: 32px; font-weight: 700; color: var(--gold); }
-    .balance-currency { font-size: 14px; color: var(--text2); margin-top: 2px; }
-    .balance-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
-    .stat-box { background: var(--card2); border-radius: 10px; padding: 10px; text-align: center; }
-    .stat-val { font-size: 18px; font-weight: 700; color: var(--blue); }
-    .stat-val.green { color: var(--green); }
-    .stat-val.white { color: var(--text); }
-    .stat-lbl { font-size: 10px; color: var(--text2); margin-top: 2px; }
-
-    /* ===== ACTION BUTTONS ===== */
-    .action-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
-    .action-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 14px; padding: 16px;
-      display: flex; align-items: center; justify-content: space-between;
-      cursor: pointer; transition: border-color 0.2s;
-    }
-    .action-card:hover { border-color: var(--gold); }
-    .action-card .label { font-size: 16px; font-weight: 700; color: var(--text); }
-    .action-card .sub { font-size: 11px; color: var(--text2); margin-top: 2px; }
-    .action-card .icon {
-      width: 42px; height: 42px; border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 20px;
-    }
-    .icon-green { background: rgba(46,160,67,0.2); }
-    .icon-blue { background: rgba(29,110,245,0.2); }
-
-    /* ===== PROMO CARD ===== */
-    .promo-card {
-      background: linear-gradient(135deg, #1a2a1a, var(--card));
-      border: 1px solid var(--gold);
-      border-radius: 16px; padding: 16px;
-      margin-bottom: 14px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .promo-text .title { font-size: 16px; font-weight: 700; color: var(--gold); }
-    .promo-text .desc { font-size: 12px; color: var(--text2); margin-top: 4px; max-width: 200px; }
-    .promo-btn {
-      background: var(--gold); border: none; border-radius: 12px;
-      width: 48px; height: 48px;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; font-size: 22px;
-    }
-    .promo-arrow { font-size: 20px; color: var(--text2); cursor: pointer; padding: 0 8px; }
-
-    /* ===== REFERRAL CARD ===== */
-    .ref-card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 16px; padding: 16px; margin-bottom: 14px;
-    }
-    .ref-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-    .ref-title { font-size: 15px; font-weight: 700; }
-    .ref-badge {
-      background: rgba(29,110,245,0.2); color: var(--blue);
-      font-size: 11px; padding: 3px 10px; border-radius: 20px;
-    }
-    .ref-desc { font-size: 12px; color: var(--text2); margin-bottom: 12px; }
-    .ref-progress { background: var(--card2); border-radius: 10px; height: 6px; margin-bottom: 8px; }
-    .ref-progress-fill { background: var(--gold); height: 100%; border-radius: 10px; width: 0%; }
-    .ref-counts { display: flex; justify-content: space-between; font-size: 11px; color: var(--text2); }
-
-    /* ===== BOTTOM NAV ===== */
-    .bottom-nav {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      background: var(--card); border-top: 1px solid var(--border);
-      display: flex; height: 64px; z-index: 100;
-    }
-    .nav-item {
-      flex: 1; display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 3px; cursor: pointer; color: var(--text2);
-      font-size: 10px; border: none; background: none;
-      transition: color 0.2s; position: relative;
-    }
-    .nav-item.active { color: var(--gold); }
-    .nav-item svg { width: 22px; height: 22px; }
-    .nav-badge {
-      position: absolute; top: 8px; right: calc(50% - 18px);
-      background: var(--red); color: white; font-size: 9px;
-      border-radius: 50%; width: 16px; height: 16px;
-      display: flex; align-items: center; justify-content: center;
-    }
-
-    /* ===== MODALS ===== */
-    .modal-overlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.7); z-index: 200;
-      align-items: flex-end; justify-content: center;
-    }
-    .modal-overlay.open { display: flex; }
-    .modal {
-      background: var(--card); border-radius: 24px 24px 0 0;
-      width: 100%; max-height: 90vh; overflow-y: auto;
-      padding: 20px; border: 1px solid var(--border);
-      animation: slideUp 0.3s ease;
-    }
-    @keyframes slideUp {
-      from { transform: translateY(100%); }
-      to { transform: translateY(0); }
-    }
-    .modal-handle {
-      width: 40px; height: 4px; background: var(--border);
-      border-radius: 2px; margin: 0 auto 16px;
-    }
-    .modal-title {
-      font-size: 18px; font-weight: 700;
-      text-align: center; margin-bottom: 20px;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-    }
-    .modal-close {
-      position: absolute; top: 20px; left: 20px;
-      background: var(--card2); border: none; border-radius: 50%;
-      width: 32px; height: 32px; color: var(--text);
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; font-size: 18px;
-    }
-
-    /* ===== DEPOSIT MODAL ===== */
-    .deposit-icon {
-      width: 80px; height: 80px; border-radius: 20px;
-      background: var(--gold); margin: 0 auto 16px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 36px;
-    }
-    .deposit-subtitle { text-align: center; color: var(--text2); font-size: 13px; margin-bottom: 20px; }
-    .signal-box {
-      background: var(--card2); border: 1px solid var(--border);
-      border-radius: 14px; padding: 16px; margin-bottom: 14px;
-    }
-    .signal-box .sig-title {
-      font-size: 15px; font-weight: 700; color: var(--gold);
-      margin-bottom: 8px; text-align: center;
-    }
-    .signal-box .sig-desc { font-size: 13px; color: var(--text2); margin-bottom: 12px; text-align: center; }
-    .signal-link-box {
-      background: var(--bg); border: 1px solid var(--border);
-      border-radius: 10px; padding: 12px;
-      font-size: 12px; color: var(--blue);
-      word-break: break-all; text-align: center;
-      cursor: pointer; transition: border-color 0.2s;
-    }
-    .signal-link-box:hover { border-color: var(--blue); }
-    .copy-btn {
-      background: var(--gold); border: none; border-radius: 10px;
-      color: #000; font-size: 13px; font-weight: 700;
-      padding: 10px; width: 100%; margin-top: 10px; cursor: pointer;
-    }
-    .info-box {
-      background: var(--card2); border: 1px solid var(--border);
-      border-radius: 14px; padding: 16px; margin-bottom: 14px;
-    }
-    .info-box .info-title {
-      font-size: 14px; font-weight: 700; margin-bottom: 10px;
-    }
-    .info-item {
-      display: flex; align-items: flex-start; gap: 8px;
-      font-size: 13px; color: var(--text2); margin-bottom: 8px;
-    }
-    .info-item::before { content: "•"; color: var(--gold); flex-shrink: 0; }
-    .info-item b { color: var(--gold); }
-    .signal-open-btn {
-      background: var(--blue); border: none; border-radius: 14px;
-      color: white; font-size: 15px; font-weight: 700;
-      padding: 16px; width: 100%; cursor: pointer;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      margin-top: 6px;
-    }
-
-    /* ===== WITHDRAW MODAL ===== */
-    .withdraw-icon {
-      width: 80px; height: 80px; border-radius: 20px;
-      background: rgba(46,160,67,0.2); border: 2px solid var(--green);
-      margin: 0 auto 16px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 36px;
-    }
-    .input-group { margin-bottom: 14px; }
-    .input-label { font-size: 12px; color: var(--text2); margin-bottom: 6px; }
-    .input-field {
-      width: 100%; background: var(--card2); border: 1px solid var(--border);
-      border-radius: 10px; padding: 12px; color: var(--text);
-      font-size: 14px; outline: none;
-    }
-    .input-field:focus { border-color: var(--gold); }
-    .withdraw-btn {
-      background: var(--green); border: none; border-radius: 14px;
-      color: white; font-size: 15px; font-weight: 700;
-      padding: 16px; width: 100%; cursor: pointer;
-    }
-    .withdraw-note {
-      background: rgba(248,81,73,0.1); border: 1px solid var(--red);
-      border-radius: 10px; padding: 12px; margin-bottom: 14px;
-      font-size: 12px; color: var(--red); text-align: center;
-    }
-
-    /* ===== AI CHAT MODAL ===== */
-    .chat-container {
-      height: 55vh; overflow-y: auto; margin-bottom: 12px;
-      display: flex; flex-direction: column; gap: 10px;
-    }
-    .chat-container::-webkit-scrollbar { width: 0; }
-    .msg { max-width: 85%; padding: 10px 14px; border-radius: 14px; font-size: 13px; line-height: 1.5; }
-    .msg.bot { background: var(--card2); color: var(--text); align-self: flex-start; border-bottom-left-radius: 4px; }
-    .msg.user { background: var(--gold); color: #000; align-self: flex-end; border-bottom-right-radius: 4px; font-weight: 600; }
-    .chat-suggestions { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
-    .suggestion-btn {
-      background: var(--card2); border: 1px solid var(--border);
-      color: var(--text); border-radius: 20px;
-      padding: 6px 12px; font-size: 12px; cursor: pointer;
-      transition: border-color 0.2s;
-    }
-    .suggestion-btn:hover { border-color: var(--gold); }
-    .chat-input-row { display: flex; gap: 8px; }
-    .chat-input {
-      flex: 1; background: var(--card2); border: 1px solid var(--border);
-      border-radius: 24px; padding: 10px 16px; color: var(--text);
-      font-size: 13px; outline: none;
-    }
-    .chat-input:focus { border-color: var(--gold); }
-    .chat-send-btn {
-      background: var(--gold); border: none; border-radius: 50%;
-      width: 42px; height: 42px;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; font-size: 18px;
-    }
-
-    /* ===== INVEST MODAL ===== */
-    .fund-card {
-      background: var(--card2); border: 1px solid var(--border);
-      border-radius: 14px; padding: 14px; margin-bottom: 10px;
-      cursor: pointer; transition: border-color 0.2s;
-    }
-    .fund-card:hover { border-color: var(--gold); }
-    .fund-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-    .fund-name { font-size: 14px; font-weight: 700; }
-    .fund-return { color: var(--green); font-size: 13px; font-weight: 700; }
-    .fund-desc { font-size: 12px; color: var(--text2); margin-bottom: 8px; }
-    .fund-min { font-size: 11px; color: var(--text2); }
-    .fund-min b { color: var(--gold); }
-
-    /* ===== TASKS MODAL ===== */
-    .task-item {
-      background: var(--card2); border: 1px solid var(--border);
-      border-radius: 12px; padding: 14px; margin-bottom: 10px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .task-info .task-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
-    .task-info .task-reward { font-size: 12px; color: var(--gold); }
-    .task-do-btn {
-      background: var(--gold); border: none; border-radius: 10px;
-      color: #000; font-size: 12px; font-weight: 700;
-      padding: 8px 14px; cursor: pointer;
-    }
-    .task-done { color: var(--green); font-size: 20px; }
-
-    /* ===== UPGRADE MODAL ===== */
-    .upgrade-card {
-      background: var(--card2); border: 1px solid var(--border);
-      border-radius: 14px; padding: 16px; margin-bottom: 10px;
-      text-align: center;
-    }
-    .upgrade-card.current { border-color: var(--gold); }
-    .upgrade-emoji { font-size: 32px; margin-bottom: 8px; }
-    .upgrade-name { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
-    .upgrade-req { font-size: 12px; color: var(--text2); margin-bottom: 10px; }
-    .upgrade-perks { font-size: 12px; color: var(--green); }
-    .upgrade-get-btn {
-      background: var(--gold); border: none; border-radius: 10px;
-      color: #000; font-weight: 700; padding: 10px 20px;
-      cursor: pointer; margin-top: 10px; font-size: 13px;
-    }
-
-    /* ===== PROFILE MODAL ===== */
-    .profile-avatar {
-      width: 80px; height: 80px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--gold), var(--gold2));
-      margin: 0 auto 12px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 36px; border: 3px solid var(--gold);
-    }
-    .profile-name { text-align: center; font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-    .profile-code { text-align: center; font-size: 12px; color: var(--text2); margin-bottom: 20px; }
-    .profile-stat-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-    .profile-stat { background: var(--card2); border-radius: 12px; padding: 12px; text-align: center; }
-    .profile-stat .val { font-size: 18px; font-weight: 700; color: var(--gold); }
-    .profile-stat .lbl { font-size: 11px; color: var(--text2); margin-top: 2px; }
-    .profile-menu-item {
-      background: var(--card2); border: 1px solid var(--border);
-      border-radius: 12px; padding: 14px 16px; margin-bottom: 8px;
-      display: flex; align-items: center; justify-content: space-between;
-      cursor: pointer;
-    }
-    .profile-menu-item .left { display: flex; align-items: center; gap: 10px; font-size: 14px; }
-    .profile-menu-item .arrow { color: var(--text2); }
-
-    /* ===== NOTIFICATIONS MODAL ===== */
-    .notif-item {
-      background: var(--card2); border: 1px solid var(--border);
-      border-radius: 12px; padding: 14px; margin-bottom: 10px;
-    }
-    .notif-item .notif-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
-    .notif-item .notif-body { font-size: 12px; color: var(--text2); }
-    .notif-item .notif-time { font-size: 11px; color: var(--text2); margin-top: 6px; }
-
-    /* ===== TOAST ===== */
-    .toast {
-      position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-      background: var(--green); color: white;
-      padding: 10px 20px; border-radius: 20px; font-size: 13px;
-      z-index: 9999; display: none; white-space: nowrap;
-    }
-    .toast.show { display: block; animation: fadeInOut 2s ease; }
-    @keyframes fadeInOut {
-      0% { opacity: 0; } 15% { opacity: 1; } 75% { opacity: 1; } 100% { opacity: 0; }
-    }
-  </style>
-</head>
-<body>
-
-<!-- TOAST -->
-<div class="toast" id="toast">✅ تم النسخ!</div>
-
-<!-- TICKER -->
-<div class="ticker-wrap">
-  <div class="ticker-track" id="ticker-track">
-    <span class="ticker-item">GOLD <span class="up">▲ 2,341.8</span></span>
-    <span class="ticker-item">USD/د.ج <span class="down">▼ 134.20</span></span>
-    <span class="ticker-item">BLK <span class="up">▲ 865.42</span></span>
-    <span class="ticker-item">EUR/USD <span class="up">▲ 1.0823</span></span>
-    <span class="ticker-item">BTC <span class="up">▲ 67,420</span></span>
-    <span class="ticker-item">OIL <span class="down">▼ 78.34</span></span>
-    <span class="ticker-item">NASDAQ <span class="up">▲ 18,432</span></span>
-    <span class="ticker-item">S&P500 <span class="up">▲ 5,234</span></span>
-    <!-- duplicate for loop -->
-    <span class="ticker-item">GOLD <span class="up">▲ 2,341.8</span></span>
-    <span class="ticker-item">USD/د.ج <span class="down">▼ 134.20</span></span>
-    <span class="ticker-item">BLK <span class="up">▲ 865.42</span></span>
-    <span class="ticker-item">EUR/USD <span class="up">▲ 1.0823</span></span>
-    <span class="ticker-item">BTC <span class="up">▲ 67,420</span></span>
-    <span class="ticker-item">OIL <span class="down">▼ 78.34</span></span>
-  </div>
-</div>
-
-<!-- HEADER -->
-<div class="header">
-  <div class="header-left">
-    <button class="notif-btn" onclick="openModal('notifModal')">
-      🔔
-      <span class="notif-badge">2</span>
-    </button>
-    <div class="token-btn">BLK ◎</div>
-    <button class="lang-btn">English</button>
-  </div>
-  <div class="header-logo">
-    <div class="brand">BLACKROCK</div>
-    <div class="sub">منصة الاستثمار</div>
-  </div>
-  <div class="header-right">
-    <button class="invest-btn" onclick="openModal('investModal')">◈</button>
-  </div>
-</div>
-
-<!-- MAIN -->
-<div class="main">
-
-  <!-- Balance Card -->
-  <div class="balance-card">
-    <div class="balance-top">
-      <div class="avatar-wrap">
-        <div class="avatar">👤</div>
-        <div class="rank-badge">Starter</div>
-      </div>
-      <div class="balance-info">
-        <div class="balance-label">إجمالي الرصيد</div>
-        <div class="balance-amount" id="balance-display">0,00</div>
-        <div class="balance-currency">د.ج</div>
-      </div>
-    </div>
-    <div class="balance-stats">
-      <div class="stat-box">
-        <div class="stat-val">43+</div>
-        <div class="stat-lbl">اليومي</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-val green" id="tasks-count">0/5</div>
-        <div class="stat-lbl">المهام</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-val white" id="team-count">0</div>
-        <div class="stat-lbl">الفريق</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Action Buttons -->
-  <div class="action-row">
-    <div class="action-card" onclick="openModal('withdrawModal')">
-      <div>
-        <div class="label">سحب</div>
-        <div class="sub">CCP فقط</div>
-      </div>
-      <div class="icon icon-green">⬇️</div>
-    </div>
-    <div class="action-card" onclick="openModal('depositModal')">
-      <div>
-        <div class="label">شحن</div>
-        <div class="sub">شحن الرصيد</div>
-      </div>
-      <div class="icon icon-blue">⬆️</div>
-    </div>
-  </div>
-
-  <!-- Promo Card -->
-  <div class="promo-card">
-    <div class="promo-arrow">‹</div>
-    <div class="promo-text">
-      <div class="title">📈 استثمار BlackRock</div>
-      <div class="desc">صناديق استثمارية بعوائد يومية مضمونة</div>
-    </div>
-    <button class="promo-btn" onclick="openModal('investModal')">↗</button>
-  </div>
-
-  <!-- Referral Card -->
-  <div class="ref-card">
-    <div class="ref-header">
-      <div class="ref-title">🏆 مسابقة الإحالة</div>
-      <div class="ref-badge" id="ref-badge">0/10</div>
-    </div>
-    <div class="ref-desc">10 أصدقاء = ترقية مجانية!</div>
-    <div class="ref-progress">
-      <div class="ref-progress-fill" id="ref-fill"></div>
-    </div>
-    <div class="ref-counts">
-      <span>تقدمك: <span id="ref-current">0</span>/10</span>
-      <span>الهدف: 10 أصدقاء</span>
-    </div>
-  </div>
-
-</div>
-
-<!-- BOTTOM NAV -->
-<nav class="bottom-nav">
-  <button class="nav-item" onclick="openModal('profileModal')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-    حسابي
-    <span class="nav-badge">2</span>
-  </button>
-  <button class="nav-item" onclick="openModal('upgradeModal')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6-6 6 6"/><path d="M6 15l6-6 6 6"/></svg>
-    الترقية
-  </button>
-  <button class="nav-item" onclick="openModal('tasksModal')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13,2 13,9 20,9"/></svg>
-    المهام
-    <span class="nav-badge">5</span>
-  </button>
-  <button class="nav-item active">
-    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-    الرئيسية
-  </button>
-</nav>
-
-<!-- ==================== MODALS ==================== -->
-
-<!-- DEPOSIT MODAL -->
-<div class="modal-overlay" id="depositModal">
-  <div class="modal" style="position:relative;">
-    <button class="modal-close" onclick="closeModal('depositModal')">×</button>
-    <div class="modal-handle"></div>
-    <div class="modal-title">💰 شحن الرصيد</div>
-    <div class="deposit-icon">⬆️</div>
-    <div style="text-align:center;font-size:18px;font-weight:700;margin-bottom:6px;">شحن الرصيد</div>
-    <div class="deposit-subtitle">تواصل معنا عبر Signal للشحن</div>
-
-    <div class="signal-box">
-      <div class="sig-title">🔒 Signal</div>
-      <div class="sig-desc">هذا رابطنا، تجدون فيه الوكلاء للشحن أو الاستثمار:</div>
-      <div class="signal-link-box" id="signal-link" onclick="copySignalLink()">
-        https://signal.me/#eu/__kL4ayCt64xdRiSQWwYpMxOo5_u-Br5Y87rLvt7vQ9c0zoJJ3BEHIfxtpSC5JSE
-      </div>
-      <button class="copy-btn" onclick="copySignalLink()">📋 نسخ الرابط</button>
-    </div>
-
-    <div class="info-box">
-      <div class="info-title">⚠️ تعليمات مهمة:</div>
-      <div class="info-item">تواصل مع الوكلاء عبر Signal فقط</div>
-      <div class="info-item">أرسل المبلغ المطلوب مع كود حسابك: <b id="user-code-deposit">43384R</b></div>
-      <div class="info-item">سيتم تفعيل الرصيد خلال 15 دقيقة</div>
-      <div class="info-item">الشحن بدون حد أدنى أو حد أقصى</div>
-      <div class="info-item">لا يوجد شحن عبر Baridimob أو CCP مباشرة</div>
-    </div>
-
-    <button class="signal-open-btn" onclick="openSignal()">
-      🔒 فتح Signal والتواصل مع الوكلاء
-    </button>
-  </div>
-</div>
-
-<!-- WITHDRAW MODAL -->
-<div class="modal-overlay" id="withdrawModal">
-  <div class="modal" style="position:relative;">
-    <button class="modal-close" onclick="closeModal('withdrawModal')">×</button>
-    <div class="modal-handle"></div>
-    <div class="modal-title">💸 سحب الرصيد</div>
-    <div class="withdraw-icon">⬇️</div>
-
-    <div class="withdraw-note">⚠️ السحب متاح عبر CCP فقط</div>
-
-    <div class="input-group">
-      <div class="input-label">المبلغ (د.ج)</div>
-      <input class="input-field" type="number" placeholder="أدخل المبلغ..." id="withdraw-amount" />
-    </div>
-    <div class="input-group">
-      <div class="input-label">رقم CCP</div>
-      <input class="input-field" type="text" placeholder="أدخل رقم CCP..." id="withdraw-ccp" />
-    </div>
-    <div class="input-group">
-      <div class="input-label">الاسم الكامل</div>
-      <input class="input-field" type="text" placeholder="الاسم كما في البطاقة..." id="withdraw-name" />
-    </div>
-    <button class="withdraw-btn" onclick="submitWithdraw()">✅ تأكيد طلب السحب</button>
-  </div>
-</div>
-
-<!-- AI CHAT MODAL -->
-<div class="modal-overlay" id="chatModal">
-  <div class="modal" style="position:relative;">
-    <button class="modal-close" onclick="closeModal('chatModal')">×</button>
-    <div class="modal-handle"></div>
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
-      <div style="width:42px;height:42px;background:var(--gold);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;">🤖</div>
-      <div>
-        <div style="font-weight:700;">AI ASSISTANT</div>
-        <div style="font-size:12px;color:var(--green);">● Online</div>
-      </div>
-    </div>
-
-    <div class="chat-container" id="chat-messages">
-      <div class="msg bot">👋 مرحباً! أنا مساعد BlackRock الذكي. كيف يمكنني مساعدتك؟</div>
-    </div>
-
-    <div class="chat-suggestions">
-      <button class="suggestion-btn" onclick="sendSuggestion('الشحن')">الشحن</button>
-      <button class="suggestion-btn" onclick="sendSuggestion('السحب')">السحب</button>
-      <button class="suggestion-btn" onclick="sendSuggestion('المهام')">المهام</button>
-      <button class="suggestion-btn" onclick="sendSuggestion('كيف أربح؟')">كيف أربح؟</button>
-    </div>
-
-    <div class="chat-input-row">
-      <input class="chat-input" id="chat-input" placeholder="اكتب سؤالك..." onkeydown="if(event.key==='Enter') sendChat()" />
-      <button class="chat-send-btn" onclick="sendChat()">➤</button>
-    </div>
-  </div>
-</div>
-
-<!-- INVEST MODAL -->
-<div class="modal-overlay" id="investModal">
-  <div class="modal" style="position:relative;">
-    <button class="modal-close" onclick="closeModal('investModal')">×</button>
-    <div class="modal-handle"></div>
-    <div class="modal-title">📈 صناديق الاستثمار</div>
-
-    <div class="fund-card" onclick="investFund('الصندوق الذهبي', '1.2%')">
-      <div class="fund-header">
-        <div class="fund-name">🥇 الصندوق الذهبي</div>
-        <div class="fund-return">+1.2% يومياً</div>
-      </div>
-      <div class="fund-desc">استثمار آمن بعوائد يومية مضمونة على الذهب والمعادن</div>
-      <div class="fund-min">الحد الأدنى: <b>5,000 د.ج</b></div>
-    </div>
-
-    <div class="fund-card" onclick="investFund('صندوق العملات', '0.8%')">
-      <div class="fund-header">
-        <div class="fund-name">💱 صندوق العملات</div>
-        <div class="fund-return">+0.8% يومياً</div>
-      </div>
-      <div class="fund-desc">تداول في أسواق العملات الأجنبية بإدارة احترافية</div>
-      <div class="fund-min">الحد الأدنى: <b>2,000 د.ج</b></div>
-    </div>
-
-    <div class="fund-card" onclick="investFund('صندوق التقنية', '1.8%')">
-      <div class="fund-header">
-        <div class="fund-name">💻 صندوق التقنية</div>
-        <div class="fund-return">+1.8% يومياً</div>
-      </div>
-      <div class="fund-desc">استثمار في أسهم شركات التقنية العالمية الكبرى</div>
-      <div class="fund-min">الحد الأدنى: <b>10,000 د.ج</b></div>
-    </div>
-
-    <div class="fund-card" onclick="investFund('صندوق VIP', '2.5%')">
-      <div class="fund-header">
-        <div class="fund-name">👑 صندوق VIP</div>
-        <div class="fund-return">+2.5% يومياً</div>
-      </div>
-      <div class="fund-desc">للمستثمرين المميزين - عوائد استثنائية مع حماية كاملة للرأس المال</div>
-      <div class="fund-min">الحد الأدنى: <b>50,000 د.ج</b></div>
-    </div>
-  </div>
-</div>
-
-<!-- TASKS MODAL -->
-<div class="modal-overlay" id="tasksModal">
-  <div class="modal" style="position:relative;">
-    <button class="modal-close" onclick="closeModal('tasksModal')">×</button>
-    <div class="modal-handle"></div>
-    <div class="modal-title">⚡ المهام اليومية</div>
-
-    <div class="task-item" id="task1">
-      <div class="task-info">
-        <div class="task-title">📲 دعوة صديق</div>
-        <div class="task-reward">+500 د.ج</div>
-      </div>
-      <button class="task-do-btn" onclick="doTask('task1', 500)">تنفيذ</button>
-    </div>
-
-    <div class="task-item" id="task2">
-      <div class="task-info">
-        <div class="task-title">📊 متابعة السوق</div>
-        <div class="task-reward">+100 د.ج</div>
-      </div>
-      <button class="task-do-btn" onclick="doTask('task2', 100)">تنفيذ</button>
-    </div>
-
-    <div class="task-item" id="task3">
-      <div class="task-info">
-        <div class="task-title">💰 أول إيداع</div>
-        <div class="task-reward">+1,000 د.ج</div>
-      </div>
-      <button class="task-do-btn" onclick="doTask('task3', 1000)">تنفيذ</button>
-    </div>
-
-    <div class="task-item" id="task4">
-      <div class="task-info">
-        <div class="task-title">🔗 مشاركة الرابط</div>
-        <div class="task-reward">+200 د.ج</div>
-      </div>
-      <button class="task-do-btn" onclick="doTask('task4', 200)">تنفيذ</button>
-    </div>
-
-    <div class="task-item" id="task5">
-      <div class="task-info">
-        <div class="task-title">⭐ تقييم التطبيق</div>
-        <div class="task-reward">+150 د.ج</div>
-      </div>
-      <button class="task-do-btn" onclick="doTask('task5', 150)">تنفيذ</button>
-    </div>
-  </div>
-</div>
-
-<!-- UPGRADE MODAL -->
-<div class="modal-overlay" id="upgradeModal">
-  <div class="modal" style="position:relative;">
-    <button class="modal-close" onclick="closeModal('upgradeModal')">×</button>
-    <div class="modal-handle"></div>
-    <div class="modal-title">🚀 الترقية</div>
-
-    <div class="upgrade-card current">
-      <div class="upgrade-emoji">🌱</div>
-      <div class="upgrade-name">Starter ← حالياً</div>
-      <div class="upgrade-req">المستوى الأساسي</div>
-      <div class="upgrade-perks">✅ الوصول للمنصة</div>
-    </div>
-
-    <div class="upgrade-card">
-      <div class="upgrade-emoji">🥈</div>
-      <div class="upgrade-name">Silver</div>
-      <div class="upgrade-req">10 إحالات أو 20,000 د.ج</div>
-      <div class="upgrade-perks">✅ عوائد +10% | ✅ سحب سريع</div>
-      <button class="upgrade-get-btn" onclick="upgradeAccount('Silver')">الترقية الآن</button>
-    </div>
-
-    <div class="upgrade-card">
-      <div class="upgrade-emoji">🥇</div>
-      <div class="upgrade-name">Gold</div>
-      <div class="upgrade-req">25 إحالة أو 100,000 د.ج</div>
-      <div class="upgrade-perks">✅ عوائد +25% | ✅ مدير خاص</div>
-      <button class="upgrade-get-btn" onclick="upgradeAccount('Gold')">الترقية الآن</button>
-    </div>
-
-    <div class="upgrade-card">
-      <div class="upgrade-emoji">💎</div>
-      <div class="upgrade-name">Diamond VIP</div>
-      <div class="upgrade-req">50 إحالة أو 500,000 د.ج</div>
-      <div class="upgrade-perks">✅ أعلى عوائد | ✅ أولوية السحب</div>
-      <button class="upgrade-get-btn" onclick="upgradeAccount('Diamond VIP')">الترقية الآن</button>
-    </div>
-  </div>
-</div>
-
-<!-- PROFILE MODAL -->
-<div class="modal-overlay" id="profileModal">
-  <div class="modal" style="position:relative;">
-    <button class="modal-close" onclick="closeModal('profileModal')">×</button>
-    <div class="modal-handle"></div>
-    <div class="modal-title">👤 حسابي</div>
-
-    <div class="profile-avatar">👤</div>
-    <div class="profile-name">المستخدم</div>
-    <div class="profile-code">كود الحساب: <b id="profile-code-display">43384R</b></div>
-
-    <div class="profile-stat-row">
-      <div class="profile-stat"><div class="val" id="profile-balance">0</div><div class="lbl">الرصيد</div></div>
-      <div class="profile-stat"><div class="val" id="profile-refs">0</div><div class="lbl">الإحالات</div></div>
-      <div class="profile-stat"><div class="val">0</div><div class="lbl">الأرباح</div></div>
-    </div>
-
-    <div class="profile-menu-item" onclick="copyReferralLink()">
-      <div class="left">🔗 رابط الإحالة</div>
-      <div class="arrow">›</div>
-    </div>
-    <div class="profile-menu-item" onclick="openModal('depositModal'); closeModal('profileModal')">
-      <div class="left">💰 شحن الرصيد</div>
-      <div class="arrow">›</div>
-    </div>
-    <div class="profile-menu-item" onclick="openModal('withdrawModal'); closeModal('profileModal')">
-      <div class="left">💸 سحب الرصيد</div>
-      <div class="arrow">›</div>
-    </div>
-    <div class="profile-menu-item" onclick="openSignal()">
-      <div class="left">📞 تواصل معنا</div>
-      <div class="arrow">›</div>
-    </div>
-  </div>
-</div>
-
-<!-- NOTIFICATIONS MODAL -->
-<div class="modal-overlay" id="notifModal">
-  <div class="modal" style="position:relative;">
-    <button class="modal-close" onclick="closeModal('notifModal')">×</button>
-    <div class="modal-handle"></div>
-    <div class="modal-title">🔔 الإشعارات</div>
-
-    <div class="notif-item">
-      <div class="notif-title">🎉 مرحباً بك في BlackRock!</div>
-      <div class="notif-body">تم إنشاء حسابك بنجاح. ابدأ الآن وشحن رصيدك للاستفادة من العوائد اليومية.</div>
-      <div class="notif-time">منذ لحظات</div>
-    </div>
-
-    <div class="notif-item">
-      <div class="notif-title">💡 مهام جديدة متاحة</div>
-      <div class="notif-body">لديك 5 مهام يومية جديدة. أكملها واحصل على مكافآت إضافية!</div>
-      <div class="notif-time">منذ ساعة</div>
-    </div>
-  </div>
-</div>
-
-<!-- AI BOT BUTTON -->
-<button style="
-  position:fixed; bottom:74px; right:14px;
-  width:52px; height:52px; border-radius:16px;
-  background:var(--gold); border:none; cursor:pointer;
-  font-size:24px; z-index:150; box-shadow:0 4px 15px rgba(240,180,41,0.4);
-  display:flex;align-items:center;justify-content:center;
-" onclick="openModal('chatModal')">🤖</button>
-
-<script>
-  const SIGNAL_URL = "https://signal.me/#eu/__kL4ayCt64xdRiSQWwYpMxOo5_u-Br5Y87rLvt7vQ9c0zoJJ3BEHIfxtpSC5JSE";
-
-  // State
-  let balance = parseFloat(localStorage.getItem('blk_balance') || '0');
-  let refs = parseInt(localStorage.getItem('blk_refs') || '0');
-  let tasksCompleted = JSON.parse(localStorage.getItem('blk_tasks') || '[]');
-  const userCode = localStorage.getItem('blk_code') || generateCode();
-
-  function generateCode() {
-    const code = Math.floor(10000 + Math.random() * 90000) + 'R';
-    localStorage.setItem('blk_code', code);
-    return code;
-  }
-
-  function saveState() {
-    localStorage.setItem('blk_balance', balance);
-    localStorage.setItem('blk_refs', refs);
-    localStorage.setItem('blk_tasks', JSON.stringify(tasksCompleted));
-  }
-
-  function updateUI() {
-    document.getElementById('balance-display').textContent = balance.toLocaleString('fr-DZ', {minimumFractionDigits:2});
-    document.getElementById('profile-balance').textContent = balance.toLocaleString('fr-DZ');
-    document.getElementById('profile-refs').textContent = refs;
-    document.getElementById('team-count').textContent = refs;
-    document.getElementById('ref-current').textContent = refs;
-    document.getElementById('ref-badge').textContent = refs + '/10';
-    document.getElementById('ref-fill').style.width = Math.min(refs/10*100, 100) + '%';
-    document.getElementById('tasks-count').textContent = tasksCompleted.length + '/5';
-    document.getElementById('user-code-deposit').textContent = userCode;
-    document.getElementById('profile-code-display').textContent = userCode;
-
-    // update task UI
-    tasksCompleted.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) {
-        const btn = el.querySelector('.task-do-btn');
-        if (btn) { btn.textContent = '✅'; btn.disabled = true; btn.style.background = 'var(--green)'; }
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BlackRock Investment</title>
+    <link rel="icon" href="/favicon-light.svg" type="image/svg+xml" media="(prefers-color-scheme: light)" />
+    <link rel="icon" href="/favicon-dark.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://019dd4c9-9670-7a42-a2a0-5ba232f347fb.arena.site/" />
+    <meta property="og:title" content="BlackRock Investment" />
+    <meta property="og:description" content="Check out what I built in Arena's Code Arena - Content is user-generated and unverified" />
+    <meta property="og:image" content="https://screenshot-taker-prod.weichiang.workers.dev/message/019dd4c9-9670-7a42-a2a0-5ba232f347fb/og-image.webp" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://019dd4c9-9670-7a42-a2a0-5ba232f347fb.arena.site/" />
+    <meta property="twitter:title" content="BlackRock Investment" />
+    <meta property="twitter:description" content="Check out what I built in Arena's Code Arena - Content is user-generated and unverified" />
+    <meta property="twitter:image" content="https://screenshot-taker-prod.weichiang.workers.dev/message/019dd4c9-9670-7a42-a2a0-5ba232f347fb/og-image.webp" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- ✅ تم إصلاح هذا السطر -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+    <script>
+      const REPORT_SURVEY_ID = "019a46ef-f7dd-0000-58be-14fbb8b91d15";
+      const MESSAGE_ID = "019dd4c9-9670-7a42-a2a0-5ba232f347fb";
+      const EVALUATION_SESSION_ID = "019dbbce-39ed-78a1-83f9-67f0dae53ca6";
+      const getStorageKey = (prefix) => `${prefix}_${MESSAGE_ID}`;
+      const hasStorageKey = (prefix) => !!localStorage.getItem(getStorageKey(prefix));
+      !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys onSessionId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+      const POSTHOG_API_KEY = "phc_LG7IJbVJqBsk584rbcKca0D5lV2vHguiijDrVji7yDM";
+      if (POSTHOG_API_KEY) {
+        posthog.init(POSTHOG_API_KEY, {
+          api_host: "/ph",
+          ui_host: "https://us.posthog.com",
+          person_profiles: "identified_only",
+          autocapture: false,
+          disable_session_recording: true,
+          before_send: (event) => {
+            if (event.event === "survey sent") {
+              if (!hasStorageKey("code_reported")) {
+                localStorage.setItem(getStorageKey("code_reported"), "true");
+                posthog.capture?.("code_preview_banner_report");
+              }
+              if (event.properties?.$survey_completed === true) {
+                localStorage.setItem(getStorageKey("survey_completed"), "true");
+                document.querySelector(".report-content-btn").style.display = "none";
+              }
+            }
+            return event;
+          },
+        });
+        posthog.register({ message_id: MESSAGE_ID, evaluation_session_id: EVALUATION_SESSION_ID });
       }
-    });
-  }
-
-  // Modal
-  function openModal(id) {
-    document.getElementById(id).classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeModal(id) {
-    document.getElementById(id).classList.remove('open');
-    document.body.style.overflow = '';
-  }
-  document.querySelectorAll('.modal-overlay').forEach(overlay => {
-    overlay.addEventListener('click', e => {
-      if (e.target === overlay) overlay.classList.remove('open');
-    });
-  });
-
-  // Toast
-  function showToast(msg, color = 'var(--green)') {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.style.background = color;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2000);
-  }
-
-  // Signal
-  function openSignal() {
-    window.open(SIGNAL_URL, '_blank');
-  }
-  function copySignalLink() {
-    navigator.clipboard.writeText(SIGNAL_URL).then(() => showToast('✅ تم نسخ رابط Signal!'));
-  }
-
-  // Tasks
-  function doTask(taskId, reward) {
-    if (tasksCompleted.includes(taskId)) return;
-    tasksCompleted.push(taskId);
-    balance += reward;
-    saveState();
-    updateUI();
-    showToast('🎉 +' + reward.toLocaleString() + ' د.ج!');
-  }
-
-  // Withdraw
-  function submitWithdraw() {
-    const amount = parseFloat(document.getElementById('withdraw-amount').value);
-    const ccp = document.getElementById('withdraw-ccp').value;
-    const name = document.getElementById('withdraw-name').value;
-    if (!amount || amount <= 0) { showToast('⚠️ أدخل المبلغ', 'var(--red)'); return; }
-    if (!ccp) { showToast('⚠️ أدخل رقم CCP', 'var(--red)'); return; }
-    if (!name) { showToast('⚠️ أدخل الاسم', 'var(--red)'); return; }
-    if (amount > balance) { showToast('❌ رصيد غير كافٍ', 'var(--red)'); return; }
-    balance -= amount;
-    saveState();
-    updateUI();
-    closeModal('withdrawModal');
-    showToast('✅ تم إرسال طلب السحب!');
-  }
-
-  // Invest
-  function investFund(name, ret) {
-    closeModal('investModal');
-    openModal('depositModal');
-    showToast('📈 شحن للاستثمار في ' + name);
-  }
-
-  // Upgrade
-  function upgradeAccount(level) {
-    closeModal('upgradeModal');
-    openModal('depositModal');
-    showToast('🚀 تواصل معنا للترقية إلى ' + level);
-  }
-
-  // Referral
-  function copyReferralLink() {
-    const link = 'https://blackrock.dz/ref/' + userCode;
-    navigator.clipboard.writeText(link).then(() => showToast('✅ تم نسخ رابط الإحالة!'));
-  }
-
-  // AI Chat
-  const chatAnswers = {
-    'الشحن': '💰 شحن الرصيد:\n\n• تواصل مع وكلاء الشركة عبر Signal فقط\n• هذا رابطنا: ' + SIGNAL_URL + '\n• أرسل المبلغ مع كود حسابك\n• يتم تفعيل الرصيد خلال 15 دقيقة\n• لا يوجد حد أدنى أو حد أقصى للشحن\n\n⚠️ لا يوجد شحن عبر Baridimob أو CCP مباشرة\n\n📱 افتح: الرئيسية ← شحن',
-    'السحب': '💸 سحب الرصيد:\n\n• السحب متاح عبر CCP فقط\n• الحد الأدنى للسحب: 500 د.ج\n• يتم المعالجة خلال 24-48 ساعة\n• تأكد من صحة رقم CCP\n\n📱 افتح: الرئيسية ← سحب',
-    'المهام': '⚡ المهام اليومية:\n\n• دعوة صديق: +500 د.ج\n• متابعة السوق: +100 د.ج\n• أول إيداع: +1,000 د.ج\n• مشاركة الرابط: +200 د.ج\n• تقييم التطبيق: +150 د.ج\n\n📱 افتح: تبويب المهام',
-    'كيف أربح؟': '📈 طرق الربح في BlackRock:\n\n1️⃣ المهام اليومية - ربح فوري\n2️⃣ الإحالات - 10 أصدقاء = ترقية مجانية\n3️⃣ صناديق الاستثمار - عوائد يومية من 0.8% إلى 2.5%\n4️⃣ الترقية - مستويات أعلى = عوائد أكبر\n\nابدأ بشحن رصيدك والاستثمار! 🚀',
-  };
-
-  function sendSuggestion(text) {
-    addMessage(text, 'user');
-    setTimeout(() => {
-      const ans = chatAnswers[text] || 'يسعدني مساعدتك! للمزيد من المعلومات تواصل معنا عبر Signal. 😊';
-      addMessage(ans, 'bot');
-    }, 500);
-  }
-
-  function sendChat() {
-    const input = document.getElementById('chat-input');
-    const text = input.value.trim();
-    if (!text) return;
-    input.value = '';
-    addMessage(text, 'user');
-    setTimeout(() => {
-      let ans = 'شكراً على سؤالك! 😊 للمزيد من المساعدة تواصل معنا عبر Signal.';
-      for (const key in chatAnswers) {
-        if (text.includes(key)) { ans = chatAnswers[key]; break; }
+    </script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
-      addMessage(ans, 'bot');
-    }, 600);
-  }
+      a {
+        text-decoration: none;
+      }
+      html, body {
+        height: 100%;
+        overflow: hidden;
+      }
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        background: #f5f5f5;
+      }
+      .floating-banner {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        z-index: 1000;
+        animation: slideIn 0.3s ease-out;
+        display: flex;
+        align-items: center;
+        will-change: transform, opacity;
+      }
+      @keyframes slideIn {
+        from { transform: translateY(100px) translateZ(0); opacity: 0; }
+        to { transform: translateY(0) translateZ(0); opacity: 1; }
+      }
+      .floating-banner.dismissed {
+        animation: slideOut 0.3s ease-out forwards;
+      }
+      @keyframes slideOut {
+        to { transform: translateY(100px) translateZ(0); opacity: 0; }
+      }
+      .banner-padding { padding: 10px 16px; }
+      .banner-link-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .banner-logo {
+        display: flex;
+        align-items: center;
+        color: #2d2d2d;
+        flex-shrink: 0;
+      }
+      .banner-logo svg { height: 28px; width: auto; }
+      .banner-text-container { display: flex; flex-direction: column; gap: 2px; }
+      .banner-text { margin: 0; white-space: nowrap; }
+      .banner-upper-text { color: #151617; font-size: 14px; }
+      .banner-lower-text { color: #878c9f; font-size: 10px; }
+      .banner-action-container {
+        border-left: 1px solid rgba(45, 47, 53, 0.08);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        align-self: stretch;
+      }
+      .action-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        color: #999;
+        cursor: pointer;
+        transition: color 0.2s;
+        flex-shrink: 0;
+      }
+      .action-btn:hover { color: #2d2d2d; }
+      .iframe-container {
+        flex: 1;
+        position: relative;
+        background: white;
+        overflow: hidden;
+        min-height: 0;
+      }
+      iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+        display: block;
+      }
+    </style>
+  </head>
+  <body data-ryu-obtrusive-scrollbars="false">
+    <svg style="display: none">
+      <symbol id="icon-flag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528" />
+      </symbol>
+      <symbol id="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 6 6 18" />
+        <path d="m6 6 12 12" />
+      </symbol>
+    </svg>
 
-  function addMessage(text, type) {
-    const container = document.getElementById('chat-messages');
-    const div = document.createElement('div');
-    div.className = 'msg ' + type;
-    div.textContent = text;
-    container.appendChild(div);
-    container.scrollTop = container.scrollHeight;
-  }
+    <div class="floating-banner" id="floating-banner">
+      <a
+        href="https://arena.ai/code"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="banner-link-wrapper banner-padding"
+        onclick="onCodePreviewBannerCTAClicked(event)"
+      >
+        <div class="banner-logo">
+          <svg width="167" height="124" viewBox="0 0 167 124" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M57.5364 53.3142C52.1508 53.3142 47.7887 57.6763 47.7887 63.0618V123.88H53.9963V63.0618C53.9963 61.0989 55.5902 59.505 57.5531 59.505C59.5161 59.505 61.11 61.0989 61.11 63.0618V123.88H67.3176V63.0618C67.3176 57.6763 62.9555 53.3142 57.5699 53.3142H57.5364Z" fill="currentColor" />
+            <path d="M109.121 53.3142C103.735 53.3142 99.3734 57.6763 99.3734 63.0618V123.88H105.581V63.0618C105.581 61.0989 107.175 59.505 109.138 59.505C111.101 59.505 112.695 61.0989 112.695 63.0618V123.88H118.902V63.0618C118.902 57.6763 114.54 53.3142 109.155 53.3142H109.121Z" fill="currentColor" />
+            <path d="M83.3286 53.3142C77.9431 53.3142 73.5809 57.6763 73.5809 63.0618V123.88H79.7886V63.0618C79.7886 61.0989 81.3824 59.505 83.3454 59.505C85.3083 59.505 86.9022 61.0989 86.9022 63.0618V123.88H93.1098V63.0618C93.1098 57.6763 88.7477 53.3142 83.3622 53.3142H83.3286Z" fill="currentColor" />
+            <path d="M143.782 28.035L148.077 20.5691H158.06L166.667 0H0L8.60681 20.5691H18.5894L22.8676 28.035C14.5292 30.8872 7.66727 38.135 7.66727 49.0571C7.66727 59.9792 15.5526 69.2235 27.3639 69.2235C29.9477 69.2235 32.3468 68.6867 34.4776 67.7471V123.901H40.6684V62.7978C42.6146 60.1637 43.7555 56.8754 43.8393 53.1508C43.8393 53.1005 43.8561 53.0333 43.8561 52.9662C43.8561 52.9159 43.8393 52.8823 43.8393 52.832C43.8393 52.7985 43.8561 52.7649 43.8561 52.7314C43.8561 52.681 43.8393 52.6307 43.8393 52.5636C43.7722 50.047 43.1011 47.6981 41.9267 45.7016H124.74C123.566 47.6981 122.894 50.047 122.827 52.5636C122.827 52.6307 122.811 52.681 122.811 52.7314V52.9662C122.811 52.9662 122.827 53.1005 122.827 53.1508C122.911 56.8754 124.052 60.1637 125.998 62.7978V123.901H132.189V67.7471C134.32 68.6867 136.702 69.2235 139.303 69.2235C151.097 69.2235 158.999 59.5765 158.999 49.0571C158.999 38.5377 152.121 30.8872 143.782 28.035ZM12.734 14.3615L9.31146 6.20764H157.355L153.933 14.3615H12.734ZM140.93 20.5691L137.491 26.5586H29.1759L25.7365 20.5691H140.93ZM139.303 63.0159C133.246 63.0159 129.085 58.9222 129.018 52.8991C129.052 48.6377 131.803 45.7855 135.796 45.7352H135.914C138.414 45.7352 140.46 47.7988 140.46 49.9631V50.0637C140.41 51.3221 139.403 52.2951 138.145 52.2951C136.434 52.2951 135.041 53.6877 135.041 55.399C135.041 57.1103 136.434 58.5028 138.145 58.5028C142.843 58.5028 146.685 54.6943 146.685 49.9631C146.685 49.8121 146.651 49.6611 146.634 49.5269C146.383 43.9736 141.836 39.5443 135.83 39.5443H83.3166L82.9139 39.5275H82.4945L30.8369 39.5443C24.8305 39.5443 20.2839 43.9736 20.0322 49.5269C20.0154 49.6611 19.9819 49.8121 19.9819 49.9631C19.9819 54.6943 23.8239 58.5028 28.5216 58.5028C30.2329 58.5028 31.6254 57.1103 31.6254 55.399C31.6254 53.6877 30.2329 52.2951 28.5216 52.2951C27.2633 52.2951 26.2566 51.3221 26.1895 50.0637C26.1895 50.0302 26.2063 49.9966 26.2063 49.9631C26.2063 47.7988 28.2364 45.7352 30.753 45.7352H30.8536C34.8634 45.7855 37.6149 48.6377 37.6485 52.8991C37.5814 58.9222 33.4038 63.0159 27.3639 63.0159C19.4114 63.0159 13.8749 56.5902 13.8749 49.0571C13.8749 38.89 21.8442 32.7495 31.6925 32.7495H134.974C144.822 32.7495 152.792 38.89 152.792 49.0571C152.792 56.5902 147.255 63.0159 139.303 63.0159Z" fill="currentColor" />
+          </svg>
+        </div>
+        <div class="banner-text-container">
+          <p class="banner-text banner-upper-text">Built with Arena</p>
+          <p class="banner-text banner-lower-text">Content is user-generated and unverified</p>
+        </div>
+      </a>
+      <div class="banner-action-container banner-padding">
+        <button class="action-btn report-content-btn" style="display: none" onclick="reportContent(event)" aria-label="Report content">
+          <svg class="report-icon" width="20" height="20"><use href="#icon-flag" /></svg>
+        </button>
+        <button class="action-btn" onclick="dismissBanner(event)" aria-label="Close banner">
+          <svg width="20" height="20"><use href="#icon-close" /></svg>
+        </button>
+      </div>
+    </div>
 
-  // Init
-  updateUI();
-</script>
-</body>
-  </html>
+    <div class="iframe-container">
+      <iframe
+        id="preview-iframe"
+        src="https://019dd4c9-9670-7a42-a2a0-5ba232f347fb.arena.site/?embed=true"
+        sandbox="allow-scripts allow-same-origin allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-presentation allow-popups allow-popups-to-escape-sandbox allow-downloads allow-top-navigation-by-user-activation"
+        allow="accelerometer; autoplay; camera; encrypted-media; fullscreen; geolocation; gyroscope; microphone; midi; clipboard-read; clipboard-write; usb; vr; xr-spatial-tracking; screen-wake-lock; magnetometer; ambient-light-sensor; battery; gamepad; picture-in-picture; display-capture; bluetooth;"
+        referrerpolicy="origin-when-cross-origin"
+      ></iframe>
+    </div>
+
+    <script>
+      const iframe = document.getElementById("preview-iframe");
+      iframe.addEventListener("load", () => iframe.focus());
+      document.addEventListener("DOMContentLoaded", () => {
+        if (!hasStorageKey("code_reported") || !hasStorageKey("survey_completed")) {
+          document.querySelector(".report-content-btn").style.display = "block";
+        }
+      });
+      function onCodePreviewBannerCTAClicked(event) {
+        posthog?.capture?.("code_preview_banner_cta_clicked");
+      }
+      function reportContent(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        if (!posthog || !posthog.capture || !posthog.setPersonProperties || !posthog.displaySurvey) return;
+        if (!hasStorageKey("survey_completed")) {
+          posthog.setPersonProperties?.({
+            last_reported_message_id: MESSAGE_ID,
+            last_report_timestamp: Date.now(),
+          });
+          posthog.displaySurvey?.(REPORT_SURVEY_ID, {
+            ignoreConditions: true,
+            ignoreDelay: true,
+          });
+        }
+      }
+      function dismissBanner(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        posthog?.capture?.("code_preview_banner_dismiss");
+        const banner = document.getElementById("floating-banner");
+        banner.classList.add("dismissed");
+        setTimeout(() => banner.remove(), 300);
+      }
+    </script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"cfb6543e268d4ceb92c8170675caa481","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+  </body>
+            </html>
