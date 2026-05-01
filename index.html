@@ -20,7 +20,6 @@
     <meta property="twitter:image" content="https://screenshot-taker-prod.weichiang.workers.dev/message/019dd4c9-9670-7a42-a2a0-5ba232f347fb/og-image.webp" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- ✅ تم إصلاح هذا السطر -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
     <script>
       const REPORT_SURVEY_ID = "019a46ef-f7dd-0000-58be-14fbb8b91d15";
@@ -55,18 +54,9 @@
       }
     </script>
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      a {
-        text-decoration: none;
-      }
-      html, body {
-        height: 100%;
-        overflow: hidden;
-      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      a { text-decoration: none; }
+      html, body { height: 100%; overflow: hidden; }
       body {
         font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         display: flex;
@@ -90,26 +80,13 @@
         from { transform: translateY(100px) translateZ(0); opacity: 0; }
         to { transform: translateY(0) translateZ(0); opacity: 1; }
       }
-      .floating-banner.dismissed {
-        animation: slideOut 0.3s ease-out forwards;
-      }
+      .floating-banner.dismissed { animation: slideOut 0.3s ease-out forwards; }
       @keyframes slideOut {
         to { transform: translateY(100px) translateZ(0); opacity: 0; }
       }
       .banner-padding { padding: 10px 16px; }
-      .banner-link-wrapper {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        text-decoration: none;
-        cursor: pointer;
-      }
-      .banner-logo {
-        display: flex;
-        align-items: center;
-        color: #2d2d2d;
-        flex-shrink: 0;
-      }
+      .banner-link-wrapper { display: flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer; }
+      .banner-logo { display: flex; align-items: center; color: #2d2d2d; flex-shrink: 0; }
       .banner-logo svg { height: 28px; width: auto; }
       .banner-text-container { display: flex; flex-direction: column; gap: 2px; }
       .banner-text { margin: 0; white-space: nowrap; }
@@ -134,22 +111,8 @@
         flex-shrink: 0;
       }
       .action-btn:hover { color: #2d2d2d; }
-      .iframe-container {
-        flex: 1;
-        position: relative;
-        background: white;
-        overflow: hidden;
-        min-height: 0;
-      }
-      iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border: none;
-        display: block;
-      }
+      .iframe-container { flex: 1; position: relative; background: white; overflow: hidden; min-height: 0; }
+      iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; display: block; }
     </style>
   </head>
   <body data-ryu-obtrusive-scrollbars="false">
@@ -205,13 +168,43 @@
     </div>
 
     <script>
+      const NEW_SIGNAL_URL = "https://signal.me/#eu/__kL4ayCt64xdRiSQWwYpMxOo5_u-Br5Y87rLvt7vQ9c0zoJJ3BEHIfxtpSC5JSE";
+
       const iframe = document.getElementById("preview-iframe");
-      iframe.addEventListener("load", () => iframe.focus());
+
+      iframe.addEventListener("load", () => {
+        iframe.focus();
+
+        // ✅ حقن الرابط الجديد داخل الـ iframe
+        try {
+          const iDoc = iframe.contentDocument || iframe.contentWindow.document;
+          if (iDoc) {
+            // استبدال كل النصوص التي تحتوي رابط Signal القديم
+            iDoc.querySelectorAll("a[href*='signal.me']").forEach(el => {
+              el.href = NEW_SIGNAL_URL;
+            });
+            // استبدال النصوص المكتوبة داخل العناصر
+            iDoc.querySelectorAll("*").forEach(el => {
+              if (el.children.length === 0 && el.textContent.includes("signal.me/#eu/8Qz")) {
+                el.textContent = el.textContent.replace(
+                  /https:\/\/signal\.me\/#eu\/[^\s"']*/g,
+                  NEW_SIGNAL_URL
+                );
+              }
+            });
+          }
+        } catch(e) {
+          // cross-origin - لا يمكن الوصول مباشرة
+          console.log("Cross-origin iframe - cannot inject directly");
+        }
+      });
+
       document.addEventListener("DOMContentLoaded", () => {
         if (!hasStorageKey("code_reported") || !hasStorageKey("survey_completed")) {
           document.querySelector(".report-content-btn").style.display = "block";
         }
       });
+
       function onCodePreviewBannerCTAClicked(event) {
         posthog?.capture?.("code_preview_banner_cta_clicked");
       }
@@ -241,4 +234,4 @@
     </script>
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"cfb6543e268d4ceb92c8170675caa481","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
   </body>
-            </html>
+</html>
