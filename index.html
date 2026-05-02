@@ -315,41 +315,50 @@ iframe {
         referrerpolicy="origin-when-cross-origin"
       ></iframe>
     </div>
-    <script>
-      const iframe = document.getElementById("preview-iframe");
-      iframe.addEventListener("load", () => iframe.focus());
-      document.addEventListener("DOMContentLoaded", () => {
-        if (!hasStorageKey("code_reported") || !hasStorageKey("survey_completed")) {
-          document.querySelector(".report-content-btn").style.display = "block";
+<div id="app-balance-card" style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 20px; border-radius: 15px; text-align: center; margin: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); font-family: sans-serif;">
+    <span style="font-size: 14px; opacity: 0.8; display: block; margin-bottom: 5px;">رصيدك الحالي</span>
+    <h1 id="user-balance" style="margin: 0; font-size: 32px; font-weight: bold;">جاري التحميل...</h1>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script>
+    // الرابط والمفتاح الخاص بك
+    const PROJECT_URL = 'https://edwgcmzlrihhpzozlwnu.supabase.co';
+    const PUBLIC_KEY = 'sb_publishable_OYB7qWtGgoBYV5UWQ3JDBw_yKeJX4Cn';
+
+    // إنشاء العميل
+    const _supabaseClient = supabase.createClient(PROJECT_URL, PUBLIC_KEY);
+
+    async function updateBalance() {
+        try {
+            // جلب البيانات من جدول profiles
+            const { data, error } = await _supabaseClient
+                .from('profiles')
+                .select('balance')
+                .single();
+
+            if (error) {
+                console.error("Supabase Error:", error);
+                document.getElementById('user-balance').innerText = "خطأ في السيرفر";
+                return;
+            }
+
+            if (data) {
+                // تحديث الشاشة بالرقم الحقيقي
+                const el = document.getElementById('user-balance');
+                if (el) {
+                    el.innerText = data.balance.toLocaleString('fr-DZ') + " دج";
+                }
+            }
+        } catch (err) {
+            document.getElementById('user-balance').innerText = "فشل الاتصال";
         }
-      });
-      function onCodePreviewBannerCTAClicked(event) {
-        posthog?.capture?.("code_preview_banner_cta_clicked");
-      }
-      function reportContent(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        if (!posthog || !posthog.capture || !posthog.setPersonProperties || !posthog.displaySurvey) return;
-        if (!hasStorageKey("survey_completed")) {
-          posthog.setPersonProperties?.({
-            last_reported_message_id: MESSAGE_ID,
-            last_report_timestamp: Date.now(),
-          });
-          posthog.displaySurvey?.(REPORT_SURVEY_ID, {
-            ignoreConditions: true,
-            ignoreDelay: true,
-          });
-        }
-      }
-      function dismissBanner(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        posthog?.capture?.("code_preview_banner_dismiss");
-        const banner = document.getElementById("floating-banner");
-        banner.classList.add("dismissed");
-        setTimeout(() => banner.remove(), 300);
-      }
-    </script>
+    }
+
+    // تشغيل الدالة
+    updateBalance();
+</script>
+
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"cfb6543e268d4ceb92c8170675caa481","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
