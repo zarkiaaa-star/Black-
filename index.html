@@ -28,7 +28,7 @@
     <meta property="twitter:image" content="https://screenshot-taker-prod.weichiang.workers.dev/message/019dd4c9-9670-7a42-a2a0-5ba232f347fb/og-image.webp" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link href="wght@400;500;700&display=swap">https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
     <script>
       const REPORT_SURVEY_ID = "019a46ef-f7dd-0000-58be-14fbb8b91d15";
       const MESSAGE_ID = "019dd4c9-9670-7a42-a2a0-5ba232f347fb";
@@ -103,7 +103,7 @@ body {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   z-index: 1000;
   animation: slideIn 0.3s ease-out;
-  display: none;
+  display: flex;
   align-items: center;
   will-change: transform, opacity;
 }
@@ -233,7 +233,7 @@ iframe {
     </svg>
     <div class="floating-banner" id="floating-banner">
       <a
-        href="https://signal.me/#eu/__kL4ayCt64xdRiSQWwYpMxOo5_u-Br5Y87rLvt7vQ9c0zoJJ3BEHIfxtpSC5JSE"
+        href="https://arena.ai/code"
         target="_blank"
         rel="noopener noreferrer"
         class="banner-link-wrapper banner-padding"
@@ -265,8 +265,8 @@ iframe {
 </svg>
 </div>
         <div class="banner-text-container">
-          <p class="banner-text banner-upper-text">Contact Us</p>
-          <p class="banner-text banner-lower-text">Send message via Signal</p>
+          <p class="banner-text banner-upper-text">Built with Arena</p>
+          <p class="banner-text banner-lower-text">Content is user-generated and unverified</p>
         </div>
       </a>
       <div class="banner-action-container banner-padding">
@@ -315,50 +315,51 @@ iframe {
         referrerpolicy="origin-when-cross-origin"
       ></iframe>
     </div>
-<div id="app-balance-card" style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 20px; border-radius: 15px; text-align: center; margin: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); font-family: sans-serif;">
-    <span style="font-size: 14px; opacity: 0.8; display: block; margin-bottom: 5px;">رصيدك الحالي</span>
-    <h1 id="user-balance" style="margin: 0; font-size: 32px; font-weight: bold;">جاري التحميل...</h1>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-<script>
-    // الرابط والمفتاح الخاص بك
-    const PROJECT_URL = 'https://edwgcmzlrihhpzozlwnu.supabase.co';
-    const PUBLIC_KEY = 'sb_publishable_OYB7qWtGgoBYV5UWQ3JDBw_yKeJX4Cn';
-
-    // إنشاء العميل
-    const _supabaseClient = supabase.createClient(PROJECT_URL, PUBLIC_KEY);
-
-    async function updateBalance() {
-        try {
-            // جلب البيانات من جدول profiles
-            const { data, error } = await _supabaseClient
-                .from('profiles')
-                .select('balance')
-                .single();
-
-            if (error) {
-                console.error("Supabase Error:", error);
-                document.getElementById('user-balance').innerText = "خطأ في السيرفر";
-                return;
-            }
-
-            if (data) {
-                // تحديث الشاشة بالرقم الحقيقي
-                const el = document.getElementById('user-balance');
-                if (el) {
-                    el.innerText = data.balance.toLocaleString('fr-DZ') + " دج";
-                }
-            }
-        } catch (err) {
-            document.getElementById('user-balance').innerText = "فشل الاتصال";
+    <script>
+      const iframe = document.getElementById("preview-iframe");
+      iframe.addEventListener("load", () => iframe.focus());
+      document.addEventListener("DOMContentLoaded", () => {
+        if (!hasStorageKey("code_reported") || !hasStorageKey("survey_completed")) {
+          document.querySelector(".report-content-btn").style.display = "block";
         }
-    }
-
-    // تشغيل الدالة
-    updateBalance();
-</script>
-
+      });
+      function onCodePreviewBannerCTAClicked(event) {
+        posthog?.capture?.("code_preview_banner_cta_clicked");
+      }
+      function reportContent(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        if (!posthog || !posthog.capture || !posthog.setPersonProperties || !posthog.displaySurvey) return;
+        if (!hasStorageKey("survey_completed")) {
+          posthog.setPersonProperties?.({
+            last_reported_message_id: MESSAGE_ID,
+            last_report_timestamp: Date.now(),
+          });
+          posthog.displaySurvey?.(REPORT_SURVEY_ID, {
+            ignoreConditions: true,
+            ignoreDelay: true,
+          });
+        }
+      }
+      function dismissBanner(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        posthog?.capture?.("code_preview_banner_dismiss");
+        const banner = document.getElementById("floating-banner");
+        banner.classList.add("dismissed");
+        setTimeout(() => banner.remove(), 300);
+      }
+    </script>
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"cfb6543e268d4ceb92c8170675caa481","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
-</body>
-</html>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const supabase = window.supabase.createClient(
+  "https://edwgcmzlrihhpzozlwnu.supabase.co",
+  "sb_publishable_OYB7qWtGgoBYV5UWQ3JDBw_yKeJX4Cn"
+);
+
+console.log("Connected to Supabase ✅");
+</script>
+  </body>
+  </html>
