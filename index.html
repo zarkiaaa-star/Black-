@@ -1,365 +1,988 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BlackRock Investment</title>
-    <link rel="icon" href="/favicon-light.svg" type="image/svg+xml" media="(prefers-color-scheme: light)" />
-    <link rel="icon" href="/favicon-dark.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)" />
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://019dd4c9-9670-7a42-a2a0-5ba232f347fb.arena.site/" />
-    <meta property="og:title" content="BlackRock Investment" />
-    <meta
-      property="og:description"
-      content="Check out what I built in Arena's Code Arena - Content is user-generated and unverified"
-    />
-    <meta property="og:image" content="https://screenshot-taker-prod.weichiang.workers.dev/message/019dd4c9-9670-7a42-a2a0-5ba232f347fb/og-image.webp" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://019dd4c9-9670-7a42-a2a0-5ba232f347fb.arena.site/" />
-    <meta property="twitter:title" content="BlackRock Investment" />
-    <meta
-      property="twitter:description"
-      content="Check out what I built in Arena's Code Arena - Content is user-generated and unverified"
-    />
-    <meta property="twitter:image" content="https://screenshot-taker-prod.weichiang.workers.dev/message/019dd4c9-9670-7a42-a2a0-5ba232f347fb/og-image.webp" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="wght@400;500;700&display=swap">https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
-    <script>
-      const REPORT_SURVEY_ID = "019a46ef-f7dd-0000-58be-14fbb8b91d15";
-      const MESSAGE_ID = "019dd4c9-9670-7a42-a2a0-5ba232f347fb";
-      const EVALUATION_SESSION_ID = "019dbbce-39ed-78a1-83f9-67f0dae53ca6";
-      const getStorageKey = (prefix) => `${prefix}_${MESSAGE_ID}`;
-      const hasStorageKey = (prefix) => !!localStorage.getItem(getStorageKey(prefix));
-      // snippet below comes from posthog's documentation for running in html pages
-      // prettier-ignore
-      !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys onSessionId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-      const POSTHOG_API_KEY = "phc_LG7IJbVJqBsk584rbcKca0D5lV2vHguiijDrVji7yDM";
-      if (POSTHOG_API_KEY) {
-        posthog.init(POSTHOG_API_KEY, {
-          api_host: "/ph",
-          ui_host: "https://us.posthog.com",
-          person_profiles: "identified_only",
-          autocapture: false,
-          disable_session_recording: true,
-          before_send: (event) => {
-            if (event.event === "survey sent") {
-              // On the first survey answer sent, also send the report event
-              if (!hasStorageKey("code_reported")) {
-                localStorage.setItem(getStorageKey("code_reported"), "true");
-                posthog.capture?.("code_preview_banner_report");
-              }
-              // When the survey is completed, hide the report button
-              if (event.properties?.$survey_completed === true) {
-                localStorage.setItem(getStorageKey("survey_completed"), "true");
-                document.querySelector(".report-content-btn").style.display = "none";
-              }
-            }
-            return event;
-          },
-        });
-        posthog.register({ message_id: MESSAGE_ID, evaluation_session_id: EVALUATION_SESSION_ID });
-      }
-    </script>
-    <style>
-      * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-a {
-  text-decoration: none;
-}
-html,
-body {
-  height: 100%;
-  overflow: hidden;
-}
-body {
-  font-family:
-    "Inter",
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    "Helvetica Neue",
-    Arial,
-    sans-serif;
-  display: flex;
-  flex-direction: column;
-  background: #f5f5f5;
-}
-/* Banner styles */
-.floating-banner {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
-  animation: slideIn 0.3s ease-out;
-  display: flex;
-  align-items: center;
-  will-change: transform, opacity;
-}
-@keyframes slideIn {
-  from {
-    transform: translateY(100px) translateZ(0);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0) translateZ(0);
-    opacity: 1;
-  }
-}
-.floating-banner.dismissed {
-  animation: slideOut 0.3s ease-out forwards;
-}
-@keyframes slideOut {
-  to {
-    transform: translateY(100px) translateZ(0);
-    opacity: 0;
-  }
-}
-.banner-padding {
-  padding: 10px 16px;
-}
-.banner-link-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  cursor: pointer;
-}
-.banner-logo {
-  display: flex;
-  align-items: center;
-  color: #2d2d2d;
-  flex-shrink: 0;
-}
-.banner-logo svg {
-  height: 28px;
-  width: auto;
-}
-.banner-text-container {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.banner-text {
-  margin: 0;
-  white-space: nowrap;
-}
-.banner-upper-text {
-  color: #151617;
-  font-size: 14px;
-}
-.banner-lower-text {
-  color: #878c9f;
-  font-size: 10px;
-}
-.banner-action-container {
-  border-left: 1px solid rgba(45, 47, 53, 0.08);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  align-self: stretch;
-}
-.action-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: none;
-  border: none;
-  color: #999;
-  cursor: pointer;
-  transition: color 0.2s;
-  flex-shrink: 0;
-}
-.action-btn:hover {
-  color: #2d2d2d;
-}
-/* Iframe container styles */
-.iframe-container {
-  flex: 1;
-  position: relative;
-  background: white;
-  overflow: hidden;
-  min-height: 0;
-}
-iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-  display: block;
-}
-    </style>
-  </head>
-  <body data-ryu-obtrusive-scrollbars="false">
-    <svg style="display: none">
-      <symbol
-        id="icon-flag"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path
-          d="M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528"
-        />
-      </symbol>
-      <symbol
-        id="icon-close"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path d="M18 6 6 18" />
-        <path d="m6 6 12 12" />
-      </symbol>
-    </svg>
-    <div class="floating-banner" id="floating-banner">
-      <a
-        href="https://arena.ai/code"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="banner-link-wrapper banner-padding"
-        onclick="onCodePreviewBannerCTAClicked(event)"
-      >
-        <div class="banner-logo"><svg
-  width="167"
-  height="124"
-  viewBox="0 0 167 124"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
->
-  <path
-    d="M57.5364 53.3142C52.1508 53.3142 47.7887 57.6763 47.7887 63.0618V123.88H53.9963V63.0618C53.9963 61.0989 55.5902 59.505 57.5531 59.505C59.5161 59.505 61.11 61.0989 61.11 63.0618V123.88H67.3176V63.0618C67.3176 57.6763 62.9555 53.3142 57.5699 53.3142H57.5364Z"
-    fill="currentColor"
-  />
-  <path
-    d="M109.121 53.3142C103.735 53.3142 99.3734 57.6763 99.3734 63.0618V123.88H105.581V63.0618C105.581 61.0989 107.175 59.505 109.138 59.505C111.101 59.505 112.695 61.0989 112.695 63.0618V123.88H118.902V63.0618C118.902 57.6763 114.54 53.3142 109.155 53.3142H109.121Z"
-    fill="currentColor"
-  />
-  <path
-    d="M83.3286 53.3142C77.9431 53.3142 73.5809 57.6763 73.5809 63.0618V123.88H79.7886V63.0618C79.7886 61.0989 81.3824 59.505 83.3454 59.505C85.3083 59.505 86.9022 61.0989 86.9022 63.0618V123.88H93.1098V63.0618C93.1098 57.6763 88.7477 53.3142 83.3622 53.3142H83.3286Z"
-    fill="currentColor"
-  />
-  <path
-    d="M143.782 28.035L148.077 20.5691H158.06L166.667 0H0L8.60681 20.5691H18.5894L22.8676 28.035C14.5292 30.8872 7.66727 38.135 7.66727 49.0571C7.66727 59.9792 15.5526 69.2235 27.3639 69.2235C29.9477 69.2235 32.3468 68.6867 34.4776 67.7471V123.901H40.6684V62.7978C42.6146 60.1637 43.7555 56.8754 43.8393 53.1508C43.8393 53.1005 43.8561 53.0333 43.8561 52.9662C43.8561 52.9159 43.8393 52.8823 43.8393 52.832C43.8393 52.7985 43.8561 52.7649 43.8561 52.7314C43.8561 52.681 43.8393 52.6307 43.8393 52.5636C43.7722 50.047 43.1011 47.6981 41.9267 45.7016H124.74C123.566 47.6981 122.894 50.047 122.827 52.5636C122.827 52.6307 122.811 52.681 122.811 52.7314V52.9662C122.811 52.9662 122.827 53.1005 122.827 53.1508C122.911 56.8754 124.052 60.1637 125.998 62.7978V123.901H132.189V67.7471C134.32 68.6867 136.702 69.2235 139.303 69.2235C151.097 69.2235 158.999 59.5765 158.999 49.0571C158.999 38.5377 152.121 30.8872 143.782 28.035ZM12.734 14.3615L9.31146 6.20764H157.355L153.933 14.3615H12.734ZM140.93 20.5691L137.491 26.5586H29.1759L25.7365 20.5691H140.93ZM139.303 63.0159C133.246 63.0159 129.085 58.9222 129.018 52.8991C129.052 48.6377 131.803 45.7855 135.796 45.7352H135.914C138.414 45.7352 140.46 47.7988 140.46 49.9631V50.0637C140.41 51.3221 139.403 52.2951 138.145 52.2951C136.434 52.2951 135.041 53.6877 135.041 55.399C135.041 57.1103 136.434 58.5028 138.145 58.5028C142.843 58.5028 146.685 54.6943 146.685 49.9631C146.685 49.8121 146.651 49.6611 146.634 49.5269C146.383 43.9736 141.836 39.5443 135.83 39.5443H83.3166L82.9139 39.5275H82.4945L30.8369 39.5443C24.8305 39.5443 20.2839 43.9736 20.0322 49.5269C20.0154 49.6611 19.9819 49.8121 19.9819 49.9631C19.9819 54.6943 23.8239 58.5028 28.5216 58.5028C30.2329 58.5028 31.6254 57.1103 31.6254 55.399C31.6254 53.6877 30.2329 52.2951 28.5216 52.2951C27.2633 52.2951 26.2566 51.3221 26.1895 50.0637C26.1895 50.0302 26.2063 49.9966 26.2063 49.9631C26.2063 47.7988 28.2364 45.7352 30.753 45.7352H30.8536C34.8634 45.7855 37.6149 48.6377 37.6485 52.8991C37.5814 58.9222 33.4038 63.0159 27.3639 63.0159C19.4114 63.0159 13.8749 56.5902 13.8749 49.0571C13.8749 38.89 21.8442 32.7495 31.6925 32.7495H134.974C144.822 32.7495 152.792 38.89 152.792 49.0571C152.792 56.5902 147.255 63.0159 139.303 63.0159Z"
-    fill="currentColor"
-  />
-</svg>
-</div>
-        <div class="banner-text-container">
-          <p class="banner-text banner-upper-text">Built with Arena</p>
-          <p class="banner-text banner-lower-text">Content is user-generated and unverified</p>
-        </div>
-      </a>
-      <div class="banner-action-container banner-padding">
-        <button
-          class="action-btn report-content-btn"
-          style="display: none"
-          onclick="reportContent(event)"
-          aria-label="Report content"
-        >
-          <svg class="report-icon" width="20" height="20"><use href="#icon-flag" /></svg>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>تطبيقي</title>
+  <style>
+    /* ====== RESET & BASE ====== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --primary:   #6C63FF;
+      --secondary: #FF6584;
+      --accent:    #43E97B;
+      --dark:      #1A1A2E;
+      --card:      #16213E;
+      --card2:     #0F3460;
+      --text:      #E0E0E0;
+      --muted:     #8892B0;
+      --gold:      #FFD700;
+      --radius:    16px;
+      --nav-h:     70px;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      min-height: 100vh;
+      max-width: 430px;
+      margin: 0 auto;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* ====== PAGES ====== */
+    .page { display: none; padding: 0 0 calc(var(--nav-h) + 10px); min-height: 100vh; }
+    .page.active { display: block; }
+
+    /* ====== TOP BAR ====== */
+    .topbar {
+      background: linear-gradient(135deg, var(--primary), var(--card2));
+      padding: 20px 20px 30px;
+      position: relative;
+      overflow: hidden;
+    }
+    .topbar::before {
+      content: '';
+      position: absolute;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+      top: -80px; left: -60px;
+    }
+    .topbar::after {
+      content: '';
+      position: absolute;
+      width: 150px; height: 150px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+      bottom: -60px; right: -40px;
+    }
+    .topbar-row { display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; }
+    .topbar h2 { font-size: 20px; font-weight: 700; color: #fff; }
+    .topbar p  { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 2px; }
+    .avatar-sm {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; border: 2px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+    }
+    .notif-btn {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; cursor: pointer; position: relative;
+      border: none; color: #fff;
+    }
+    .notif-dot {
+      width: 10px; height: 10px;
+      background: var(--secondary);
+      border-radius: 50%;
+      position: absolute; top: 6px; right: 6px;
+      border: 2px solid var(--primary);
+    }
+
+    /* ====== CONTENT WRAPPER ====== */
+    .content { padding: 20px 16px; }
+
+    /* ====== CARDS ====== */
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-bottom: 14px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .card-title { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+    .card-value { font-size: 28px; font-weight: 700; color: #fff; }
+    .card-sub   { font-size: 12px; color: var(--accent); margin-top: 4px; }
+
+    /* ====== STATS ROW ====== */
+    .stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+    .stat-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,0.06);
+      text-align: center;
+    }
+    .stat-icon { font-size: 28px; margin-bottom: 8px; }
+    .stat-label { font-size: 12px; color: var(--muted); }
+    .stat-num   { font-size: 22px; font-weight: 700; color: #fff; margin: 4px 0; }
+
+    /* ====== PROGRESS BAR ====== */
+    .prog-wrap { margin: 10px 0 4px; }
+    .prog-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    .prog-bar {
+      width: 100%; height: 8px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 99px; overflow: hidden;
+    }
+    .prog-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transition: width .6s ease;
+    }
+
+    /* ====== SECTION HEADER ====== */
+    .sec-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 12px;
+    }
+    .sec-header h3 { font-size: 16px; font-weight: 700; }
+    .sec-header span { font-size: 13px; color: var(--primary); cursor: pointer; }
+
+    /* ====== ACTIVITY LIST ====== */
+    .activity-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .activity-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .act-icon {
+      width: 40px; height: 40px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .act-info { flex: 1; }
+    .act-info strong { font-size: 14px; color: #fff; display: block; }
+    .act-info small  { font-size: 12px; color: var(--muted); }
+    .act-pts { font-size: 13px; font-weight: 700; color: var(--accent); white-space: nowrap; }
+
+    /* ====== TASKS ====== */
+    .task-filters {
+      display: flex; gap: 8px; margin-bottom: 16px;
+      overflow-x: auto; padding-bottom: 4px;
+    }
+    .task-filters::-webkit-scrollbar { display: none; }
+    .filter-btn {
+      padding: 7px 16px; border-radius: 99px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: transparent; color: var(--muted);
+      font-size: 13px; cursor: pointer; white-space: nowrap;
+      transition: all .25s;
+    }
+    .filter-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+    .task-item {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 10px;
+      display: flex; align-items: flex-start; gap: 14px;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: transform .2s;
+    }
+    .task-item:active { transform: scale(0.98); }
+    .task-check {
+      width: 24px; height: 24px; border-radius: 8px;
+      border: 2px solid var(--primary);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; flex-shrink: 0; margin-top: 2px;
+      transition: all .25s;
+    }
+    .task-check.done { background: var(--accent); border-color: var(--accent); }
+    .task-check.done::after { content: '✓'; font-size: 14px; color: var(--dark); font-weight: 900; }
+    .task-body { flex: 1; }
+    .task-body h4 { font-size: 14px; color: #fff; margin-bottom: 4px; }
+    .task-body p  { font-size: 12px; color: var(--muted); }
+    .task-body.done-text h4 { text-decoration: line-through; opacity: .5; }
+    .task-meta { display: flex; gap: 8px; align-items: center; margin-top: 8px; }
+    .task-badge {
+      font-size: 11px; padding: 3px 10px; border-radius: 99px;
+      font-weight: 600;
+    }
+    .badge-high  { background: rgba(255,101,132,.15); color: var(--secondary); }
+    .badge-med   { background: rgba(255,215,0,.12);   color: var(--gold); }
+    .badge-low   { background: rgba(67,233,123,.12);  color: var(--accent); }
+    .task-pts-badge {
+      font-size: 11px; color: var(--primary);
+      background: rgba(108,99,255,.12); padding: 3px 10px; border-radius: 99px;
+    }
+    .task-deadline { font-size: 11px; color: var(--muted); margin-right: auto; }
+
+    /* ADD TASK BUTTON */
+    .fab {
+      position: fixed; bottom: calc(var(--nav-h) + 16px); left: 50%;
+      transform: translateX(-50%);
+      width: 56px; height: 56px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; color: #fff; cursor: pointer;
+      box-shadow: 0 6px 20px rgba(108,99,255,.5);
+      border: none; z-index: 99;
+      transition: transform .2s;
+    }
+    .fab:active { transform: translateX(-50%) scale(0.92); }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.7);
+      z-index: 200; display: none; align-items: flex-end;
+      backdrop-filter: blur(4px);
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--card);
+      border-radius: 24px 24px 0 0;
+      padding: 24px 20px 36px;
+      width: 100%; max-width: 430px; margin: 0 auto;
+      animation: slideUp .3s ease;
+    }
+    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    .modal h3 { font-size: 18px; font-weight: 700; margin-bottom: 20px; }
+    .input-group { margin-bottom: 14px; }
+    .input-group label { font-size: 13px; color: var(--muted); display: block; margin-bottom: 6px; }
+    .input-group input,
+    .input-group select,
+    .input-group textarea {
+      width: 100%; background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px; padding: 12px 14px;
+      color: #fff; font-size: 14px; outline: none;
+      font-family: inherit; resize: none;
+    }
+    .input-group select option { background: var(--dark); }
+    .modal-btns { display: flex; gap: 10px; margin-top: 20px; }
+    .btn-cancel {
+      flex: 1; padding: 14px; border-radius: 12px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--muted); font-size: 14px; cursor: pointer;
+    }
+    .btn-add {
+      flex: 2; padding: 14px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border: none; color: #fff; font-size: 14px;
+      font-weight: 700; cursor: pointer;
+    }
+
+    /* ====== UPGRADES ====== */
+    .level-card {
+      background: linear-gradient(135deg, var(--card2), var(--card));
+      border-radius: var(--radius);
+      padding: 22px 18px;
+      margin-bottom: 14px;
+      text-align: center;
+      border: 1px solid rgba(108,99,255,.3);
+    }
+    .level-badge {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), #FF8C00);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px; margin: 0 auto 12px;
+      box-shadow: 0 0 30px rgba(255,215,0,.4);
+    }
+    .level-name  { font-size: 22px; font-weight: 700; color: var(--gold); }
+    .level-desc  { font-size: 13px; color: var(--muted); margin: 6px 0 16px; }
+    .level-xp    { font-size: 14px; color: var(--text); margin-bottom: 8px; }
+
+    .upgrade-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .upgrade-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,0.06);
+      text-align: center;
+      cursor: pointer; transition: all .25s;
+      position: relative; overflow: hidden;
+    }
+    .upgrade-card:hover { border-color: var(--primary); transform: translateY(-2px); }
+    .upgrade-card.locked { opacity: .5; }
+    .upgrade-card .u-icon { font-size: 32px; margin-bottom: 8px; }
+    .upgrade-card h4 { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .upgrade-card p  { font-size: 11px; color: var(--muted); }
+    .upgrade-card .u-cost {
+      display: inline-flex; align-items: center; gap: 4px;
+      margin-top: 10px; font-size: 12px; font-weight: 700;
+      color: var(--gold); background: rgba(255,215,0,.1);
+      padding: 4px 10px; border-radius: 99px;
+    }
+    .upgrade-card .u-owned {
+      position: absolute; top: 8px; right: 8px;
+      background: var(--accent); color: var(--dark);
+      font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 99px;
+    }
+
+    /* ====== PROFILE ====== */
+    .profile-header {
+      background: linear-gradient(135deg, var(--primary), var(--card2));
+      padding: 30px 20px 50px; text-align: center; position: relative;
+    }
+    .profile-avatar {
+      width: 90px; height: 90px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 40px; margin: 0 auto 12px;
+      border: 4px solid rgba(255,255,255,.25);
+      position: relative;
+    }
+    .avatar-edit {
+      position: absolute; bottom: 0; right: 0;
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--primary); border: 2px solid var(--dark);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; cursor: pointer;
+    }
+    .profile-name  { font-size: 22px; font-weight: 700; color: #fff; }
+    .profile-email { font-size: 13px; color: rgba(255,255,255,.6); margin-top: 4px; }
+    .profile-stats {
+      display: flex; justify-content: center; gap: 30px; margin-top: 16px;
+    }
+    .p-stat { text-align: center; }
+    .p-stat strong { display: block; font-size: 20px; color: #fff; }
+    .p-stat span   { font-size: 11px; color: rgba(255,255,255,.6); }
+
+    .profile-body { padding: 0 16px; margin-top: -20px; }
+    .menu-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 14px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .menu-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      cursor: pointer; transition: background .2s;
+    }
+    .menu-item:last-child { border-bottom: none; }
+    .menu-item:active { background: rgba(255,255,255,.04); }
+    .menu-icon {
+      width: 38px; height: 38px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .menu-text { flex: 1; }
+    .menu-text strong { display: block; font-size: 14px; color: #fff; }
+    .menu-text small  { font-size: 12px; color: var(--muted); }
+    .menu-arrow { color: var(--muted); font-size: 18px; }
+    .menu-badge {
+      background: var(--secondary); color: #fff;
+      font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 99px;
+    }
+
+    .logout-btn {
+      width: 100%; padding: 16px;
+      background: rgba(255,101,132,.1);
+      border: 1px solid rgba(255,101,132,.3);
+      border-radius: var(--radius);
+      color: var(--secondary); font-size: 15px;
+      font-weight: 700; cursor: pointer; margin: 6px 0 20px;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+
+    /* ====== BOTTOM NAV ====== */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 100%; max-width: 430px;
+      height: var(--nav-h);
+      background: rgba(22,33,62,.95);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(255,255,255,0.07);
+      display: flex; z-index: 100;
+      border-radius: 0;
+    }
+    .nav-item {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 4px; cursor: pointer; transition: all .25s;
+      position: relative; border: none; background: none;
+    }
+    .nav-icon { font-size: 22px; transition: transform .25s; }
+    .nav-label { font-size: 11px; color: var(--muted); transition: color .25s; }
+    .nav-item.active .nav-icon { transform: translateY(-2px); }
+    .nav-item.active .nav-label { color: var(--primary); font-weight: 700; }
+    .nav-item.active::after {
+      content: '';
+      position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 30px; height: 3px; border-radius: 99px;
+      background: var(--primary);
+    }
+    .nav-indicator {
+      position: absolute; top: 8px; right: calc(50% - 18px);
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--secondary);
+    }
+
+    /* ====== TOAST ====== */
+    .toast {
+      position: fixed; bottom: calc(var(--nav-h) + 90px); left: 50%; transform: translateX(-50%);
+      background: var(--card2); color: #fff;
+      padding: 12px 22px; border-radius: 12px;
+      font-size: 13px; font-weight: 600;
+      box-shadow: 0 8px 24px rgba(0,0,0,.4);
+      z-index: 500; opacity: 0; pointer-events: none;
+      transition: opacity .3s; white-space: nowrap;
+      border-left: 4px solid var(--accent);
+    }
+    .toast.show { opacity: 1; }
+
+    /* ====== ANIMATIONS ====== */
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .page.active .content > * { animation: fadeIn .35s ease forwards; }
+
+    /* ====== SCROLLBAR ====== */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 99px; }
+  </style>
+</head>
+<body>
+
+<!-- ╔══════════════════════════════╗ -->
+<!-- ║        PAGE: الرئيسية        ║ -->
+<!-- ╚══════════════════════════════╝ -->
+<div id="page-home" class="page active">
+  <div class="topbar">
+    <div class="topbar-row">
+      <div>
+        <h2>مرحباً، أحمد 👋</h2>
+        <p>الأحد، 3 مايو 2026</p>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <button class="notif-btn" onclick="showToast('🔔 لديك 3 إشعارات جديدة')">
+          🔔 <span class="notif-dot"></span>
         </button>
-        <button class="action-btn" onclick="dismissBanner(event)" aria-label="Close banner">
-          <svg width="20" height="20"><use href="#icon-close" /></svg>
-        </button>
+        <div class="avatar-sm" onclick="goTo('profile')">🧑</div>
       </div>
     </div>
-    <div class="iframe-container">
-      <iframe
-        id="preview-iframe"
-        src="https://019dd4c9-9670-7a42-a2a0-5ba232f347fb.arena.site/?embed=true"
-        sandbox="allow-scripts allow-same-origin allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-presentation allow-popups allow-popups-to-escape-sandbox allow-downloads allow-top-navigation-by-user-activation"
-        allow="
-          accelerometer;
-          autoplay;
-          camera;
-          encrypted-media;
-          fullscreen;
-          geolocation;
-          gyroscope;
-          microphone;
-          midi;
-          clipboard-read;
-          clipboard-write;
-          usb;
-          vr;
-          xr-spatial-tracking;
-          screen-wake-lock;
-          magnetometer;
-          ambient-light-sensor;
-          battery;
-          gamepad;
-          picture-in-picture;
-          display-capture;
-          bluetooth;
-        "
-        referrerpolicy="origin-when-cross-origin"
-      ></iframe>
+  </div>
+
+  <div class="content">
+    <!-- Points Card -->
+    <div class="card" style="background:linear-gradient(135deg,#6C63FF,#0F3460);border:none">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div class="card-title" style="color:rgba(255,255,255,.7)">مجموع النقاط</div>
+          <div class="card-value" id="total-pts">1,250</div>
+          <div class="card-sub">🚀 +85 نقطة هذا الأسبوع</div>
+        </div>
+        <div style="font-size:56px;opacity:.8">🏆</div>
+      </div>
+      <div class="prog-wrap" style="margin-top:14px">
+        <div class="prog-label">
+          <span style="color:rgba(255,255,255,.7)">المستوى الحالي: ذهبي</span>
+          <span style="color:rgba(255,255,255,.7)">1250 / 2000</span>
+        </div>
+        <div class="prog-bar">
+          <div class="prog-fill" id="xp-bar" style="width:62.5%"></div>
+        </div>
+      </div>
     </div>
-    <script>
-      const iframe = document.getElementById("preview-iframe");
-      iframe.addEventListener("load", () => iframe.focus());
-      document.addEventListener("DOMContentLoaded", () => {
-        if (!hasStorageKey("code_reported") || !hasStorageKey("survey_completed")) {
-          document.querySelector(".report-content-btn").style.display = "block";
-        }
-      });
-      function onCodePreviewBannerCTAClicked(event) {
-        posthog?.capture?.("code_preview_banner_cta_clicked");
-      }
-      function reportContent(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        if (!posthog || !posthog.capture || !posthog.setPersonProperties || !posthog.displaySurvey) return;
-        if (!hasStorageKey("survey_completed")) {
-          posthog.setPersonProperties?.({
-            last_reported_message_id: MESSAGE_ID,
-            last_report_timestamp: Date.now(),
-          });
-          posthog.displaySurvey?.(REPORT_SURVEY_ID, {
-            ignoreConditions: true,
-            ignoreDelay: true,
-          });
-        }
-      }
-      function dismissBanner(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        posthog?.capture?.("code_preview_banner_dismiss");
-        const banner = document.getElementById("floating-banner");
-        banner.classList.add("dismissed");
-        setTimeout(() => banner.remove(), 300);
-      }
-    </script>
-  <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"cfb6543e268d4ceb92c8170675caa481","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-icon">✅</div>
+        <div class="stat-num" id="stat-done">12</div>
+        <div class="stat-label">مهام مكتملة</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⏳</div>
+        <div class="stat-num" id="stat-pending">5</div>
+        <div class="stat-label">مهام متبقية</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🎖️</div>
+        <div class="stat-num">3</div>
+        <div class="stat-label">ترقيات مكتسبة</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🔥</div>
+        <div class="stat-num">7</div>
+        <div class="stat-label">أيام متتالية</div>
+      </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="card">
+      <div class="sec-header">
+        <h3>📋 النشاط الأخير</h3>
+        <span onclick="goTo('tasks')">عرض الكل</span>
+      </div>
+      <div class="activity-item">
+        <div class="act-icon" style="background:rgba(67,233,123,.12)">✅</div>
+        <div class="act-info">
+          <strong>أكملت مهمة: تعلم JavaScript</strong>
+          <small>منذ ساعتين</small>
+        </div>
+        <span class="act-pts">+50 نقطة</span>
+      </div>
+      <div class="activity-item">
+        <div class="act-icon" style="background:rgba(255,215,0,.12)">🏅</div>
+        <div class="act-info">
+          <strong>حصلت على ترقية: متقدم</strong>
+          <small>أمس</small>
+        </div>
+        <span class="act-pts">+200 نقطة</span>
+      </div>
+      <div class="activity-item">
+        <div class="act-icon" style="background:rgba(108,99,255,.12)">📝</div>
+        <div class="act-info">
+          <strong>أضفت مهمة جديدة</strong>
+          <small>منذ يومين</small>
+        </div>
+        <span class="act-pts">+5 نقطة</span>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="sec-header"><h3>⚡ إجراءات سريعة</h3></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <button onclick="goTo('tasks');openModal()" style="background:linear-gradient(135deg,var(--primary),#5a52e0);border:none;border-radius:var(--radius);padding:16px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px">
+        ➕ مهمة جديدة
+      </button>
+      <button onclick="goTo('upgrades')" style="background:linear-gradient(135deg,#FF6584,#FF8C55);border:none;border-radius:var(--radius);padding:16px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px">
+        ⬆️ الترقيات
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════╗ -->
+<!-- ║        PAGE: المهام          ║ -->
+<!-- ╚══════════════════════════════╝ -->
+<div id="page-tasks" class="page">
+  <div class="topbar">
+    <div class="topbar-row">
+      <div>
+        <h2>📋 المهام</h2>
+        <p id="tasks-count-label">لديك 5 مهام متبقية</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- Filters -->
+    <div class="task-filters">
+      <button class="filter-btn active" onclick="filterTasks('all',this)">الكل</button>
+      <button class="filter-btn" onclick="filterTasks('pending',this)">قيد التنفيذ</button>
+      <button class="filter-btn" onclick="filterTasks('done',this)">مكتملة</button>
+      <button class="filter-btn" onclick="filterTasks('high',this)">عالية الأهمية</button>
+    </div>
+
+    <!-- Task List -->
+    <div id="task-list"></div>
+  </div>
+
+  <!-- FAB -->
+  <button class="fab" onclick="openModal()">＋</button>
+</div>
+
+
+<!-- ╔══════════════════════════════╗ -->
+<!-- ║        PAGE: الترقيات        ║ -->
+<!-- ╚══════════════════════════════╝ -->
+<div id="page-upgrades" class="page">
+  <div class="topbar">
+    <div class="topbar-row">
+      <div>
+        <h2>⬆️ الترقيات</h2>
+        <p>طوّر مستواك واكسب مكافآت</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- Current Level -->
+    <div class="level-card">
+      <div class="level-badge">🥇</div>
+      <div class="level-name">المستوى الذهبي</div>
+      <div class="level-desc">أنت من أفضل 15% من المستخدمين!</div>
+      <div class="level-xp">1,250 / 2,000 نقطة XP</div>
+      <div class="prog-bar" style="max-width:300px;margin:0 auto">
+        <div class="prog-fill" style="width:62.5%"></div>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin-top:10px">750 نقطة حتى المستوى الماسي 💎</p>
+    </div>
+
+    <!-- Levels Timeline -->
+    <div class="sec-header"><h3>🗺️ خريطة المستويات</h3></div>
+    <div id="levels-timeline"></div>
+
+    <!-- Upgrades Grid -->
+    <div class="sec-header" style="margin-top:20px"><h3>🛒 متجر الترقيات</h3></div>
+    <div class="upgrade-grid" id="upgrades-grid"></div>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════╗ -->
+<!-- ║        PAGE: حسابي           ║ -->
+<!-- ╚══════════════════════════════╝ -->
+<div id="page-profile" class="page">
+  <div class="profile-header">
+    <div class="profile-avatar">
+      🧑
+      <div class="avatar-edit" onclick="showToast('📷 تغيير الصورة')">✏️</div>
+    </div>
+    <div class="profile-name">أحمد محمد</div>
+    <div class="profile-email">ahmed@example.com</div>
+    <div class="profile-stats">
+      <div class="p-stat"><strong>1,250</strong><span>نقطة</span></div>
+      <div class="p-stat"><strong>17</strong><span>مهمة</span></div>
+      <div class="p-stat"><strong>3</strong><span>ترقية</span></div>
+    </div>
+  </div>
+
+  <div class="profile-body">
+    <!-- Account Info -->
+    <div class="menu-card" style="margin-top:14px">
+      <div class="menu-item" onclick="showToast('✏️ تعديل الملف الشخصي')">
+        <div class="menu-icon" style="background:rgba(108,99,255,.15)">👤</div>
+        <div class="menu-text"><strong>الملف الشخصي</strong><small>تعديل بياناتك الشخصية</small></div>
+        <span class="menu-arrow">›</span>
+      </div>
+      <div class="menu-item" onclick="showToast('🔐 تغيير كلمة المرور')">
+        <div class="menu-icon" style="background:rgba(67,233,123,.12)">🔐</div>
+        <div class="menu-text"><strong>الأمان</strong><small>كلمة المرور والحماية</small></div>
+        <span class="menu-arrow">›</span>
+      </div>
+      <div class="menu-item" onclick="showToast('📧 إعدادات الإشعارات')">
+        <div class="menu-icon" style="background:rgba(255,215,0,.12)">🔔</div>
+        <div class="menu-text"><strong>الإشعارات</strong><small>تحكم في التنبيهات</small></div>
+        <span class="menu-badge">3</span>
+        <span class="menu-arrow">›</span>
+      </div>
+    </div>
+
+    <!-- App Settings -->
+    <div class="menu-card">
+      <div class="menu-item" onclick="showToast('🌙 تغيير المظهر')">
+        <div class="menu-icon" style="background:rgba(108,99,255,.15)">🌙</div>
+        <div class="menu-text"><strong>المظهر</strong><small>الوضع الداكن / الفاتح</small></div>
+        <span class="menu-arrow">›</span>
+      </div>
+      <div class="menu-item" onclick="showToast('🌐 تغيير اللغة')">
+        <div class="menu-icon" style="background:rgba(67,233,123,.12)">🌐</div>
+        <div class="menu-text"><strong>اللغة</strong><small>العربية</small></div>
+        <span class="menu-arrow">›</span>
+      </div>
+      <div class="menu-item" onclick="showToast('📊 عرض إحصائياتك')">
+        <div class="menu-icon" style="background:rgba(255,101,132,.12)">📊</div>
+        <div class="menu-text"><strong>إحصائياتي</strong><small>تقارير الأداء</small></div>
+        <span class="menu-arrow">›</span>
+      </div>
+    </div>
+
+    <!-- Support -->
+    <div class="menu-card">
+      <div class="menu-item" onclick="showToast('❓ فتح المساعدة')">
+        <div class="menu-icon" style="background:rgba(255,215,0,.12)">❓</div>
+        <div class="menu-text"><strong>المساعدة والدعم</strong><small>الأسئلة الشائعة</small></div>
+        <span class="menu-arrow">›</span>
+      </div>
+      <div class="menu-item" onclick="showToast('⭐ شكراً لتقييمك!')">
+        <div class="menu-icon" style="background:rgba(67,233,123,.12)">⭐</div>
+        <div class="menu-text"><strong>تقييم التطبيق</strong><small>ساعدنا بتحسين التطبيق</small></div>
+        <span class="menu-arrow">›</span>
+      </div>
+    </div>
+
+    <!-- Logout -->
+    <button class="logout-btn" onclick="showToast('👋 تم تسجيل الخروج')">
+      🚪 تسجيل الخروج
+    </button>
+  </div>
+</div>
+
+
+<!-- ====== ADD TASK MODAL ====== -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <h3>➕ إضافة مهمة جديدة</h3>
+    <div class="input-group">
+      <label>عنوان المهمة</label>
+      <input type="text" id="task-title" placeholder="أدخل عنوان المهمة..."/>
+    </div>
+    <div class="input-group">
+      <label>الوصف</label>
+      <textarea id="task-desc" rows="2" placeholder="وصف المهمة (اختياري)..."></textarea>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div class="input-group">
+        <label>الأولوية</label>
+        <select id="task-priority">
+          <option value="high">🔴 عالية</option>
+          <option value="med" selected>🟡 متوسطة</option>
+          <option value="low">🟢 منخفضة</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>النقاط</label>
+        <input type="number" id="task-pts" value="30" min="5" max="200"/>
+      </div>
+    </div>
+    <div class="input-group">
+      <label>الموعد النهائي</label>
+      <input type="date" id="task-date"/>
+    </div>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal()">إلغاء</button>
+      <button class="btn-add" onclick="addTask()">إضافة المهمة ✨</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ====== BOTTOM NAV ====== -->
+<nav class="bottom-nav">
+  <button class="nav-item active" id="nav-home" onclick="goTo('home')">
+    <span class="nav-icon">🏠</span>
+    <span class="nav-label">الرئيسية</span>
+  </button>
+  <button class="nav-item" id="nav-tasks" onclick="goTo('tasks')">
+    <span class="nav-icon">📋</span>
+    <span class="nav-label">المهام</span>
+    <span class="nav-indicator" id="tasks-dot"></span>
+  </button>
+  <button class="nav-item" id="nav-upgrades" onclick="goTo('upgrades')">
+    <span class="nav-icon">⬆️</span>
+    <span class="nav-label">الترقيات</span>
+  </button>
+  <button class="nav-item" id="nav-profile" onclick="goTo('profile')">
+    <span class="nav-icon">👤</span>
+    <span class="nav-label">حسابي</span>
+  </button>
+</nav>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
 
 <script>
-const supabase = window.supabase.createClient(
-  "https://edwgcmzlrihhpzozlwnu.supabase.co",
-  "sb_publishable_OYB7qWtGgoBYV5UWQ3JDBw_yKeJX4Cn"
-);
+/* ============================================================
+   DATA
+   ============================================================ */
+let tasks = [
+  { id:1, title:'تعلم HTML وCSS', desc:'دراسة أساسيات الويب', priority:'high', pts:50, date:'2026-05-05', done:false },
+  { id:2, title:'إنهاء مشروع JavaScript', desc:'بناء تطبيق مهام', priority:'high', pts:80, date:'2026-05-08', done:false },
+  { id:3, title:'قراءة كتاب تقني', desc:'30 صفحة يومياً', priority:'med', pts:30, date:'2026-05-10', done:false },
+  { id:4, title:'ممارسة الرياضة', desc:'ساعة كاملة', priority:'low', pts:20, date:'2026-05-04', done:false },
+  { id:5, title:'تعلم Python', desc:'مقدمة البرمجة', priority:'med', pts:40, date:'2026-05-12', done:false },
+  { id:6, title:'مراجعة مشروع قديم', desc:'تحسين الكود', priority:'low', pts:25, date:'2026-05-06', done:true },
+  { id:7, title:'تصميم واجهة مستخدم', desc:'Figma prototype', priority:'high', pts:60, date:'2026-05-07', done:true },
+];
 
-console.log("Connected to Supabase ✅");
+let currentFilter = 'all';
+let nextId = 8;
+
+const levels = [
+  { name:'مبتدئ',   icon:'🥉', min:0,    max:300,  color:'#CD7F32' },
+  { name:'متوسط',   icon:'🥈', min:300,  max:700,  color:'#C0C0C0' },
+  { name:'متقدم',   icon:'🥇', min:700,  max:1200, color:'#FFD700' },
+  { name:'ذهبي',    icon:'🏆', min:1200, max:2000, color:'#FFD700' },
+  { name:'ماسي',    icon:'💎', min:2000, max:4000, color:'#B9F2FF' },
+  { name:'محترف',   icon:'🌟', min:4000, max:8000, color:'#FF6584' },
+  { name:'أسطوري',  icon:'👑', min:8000, max:Infinity, color:'#6C63FF' },
+];
+
+const upgrades = [
+  { id:1, icon:'⚡', name:'تعزيز سرعة XP', desc:'×2 نقاط لساعة', cost:200, owned:true  },
+  { id:2, icon:'🛡️', name:'درع المهلة',    desc:'تمديد الموعد ×3', cost:150, owned:true  },
+  { id:3, icon:'🎯', name:'مهام مميزة',   desc:'مهام حصرية +100%', cost:350, owned:false },
+  { id:4, icon:'🔥', name:'وضع التركيز',  desc:'تركيز بلا إشعارات', cost:100, owned:true  },
+  { id:5, icon:'💰', name:'مكافأة إضافية', desc:'+25% نقاط يومياً', cost:500, owned:false },
+  { id:6, icon:'🎨', name:'ثيمات حصرية',  desc:'ألوان وأيقونات فريدة', cost:300, owned:false },
+];
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+const pages = { home:'page-home', tasks:'page-tasks', upgrades:'page-upgrades', profile:'page-profile' };
+const navIds = { home:'nav-home', tasks:'nav-tasks', upgrades:'nav-upgrades', profile:'nav-profile' };
+
+function goTo(page) {
+  Object.values(pages).forEach(p => document.getElementById(p).classList.remove('active'));
+  Object.values(navIds).forEach(n => document.getElementById(n).classList.remove('active'));
+  document.getElementById(pages[page]).classList.add('active');
+  document.getElementById(navIds[page]).classList.add('active');
+  if (page === 'tasks') renderTasks();
+  if (page === 'upgrades') renderUpgrades();
+  if (page === 'home') updateHome();
+}
+
+/* ============================================================
+   HOME
+   ============================================================ */
+function updateHome() {
+  const done = tasks.filter(t => t.done).length;
+  const pending = tasks.filter(t => !t.done).length;
+  document.getElementById('stat-done').textContent = done;
+  document.getElementById('stat-pending').textContent = pending;
+}
+
+/* ============================================================
+   TASKS
+   ============================================================ */
+function renderTasks() {
+  const list = document.getElementById('task-list');
+  let filtered = [...tasks];
+  if (currentFilter === 'pending') filtered = filtered.filter(t => !t.done);
+  if (currentFilter === 'done')    filtered = filtered.filter(t =>  t.done);
+  if (currentFilter === 'high')    filtered = filtered.filter(t => t.priority === 'high');
+
+  const pending = tasks.filter(t => !t.done).length;
+  document.getElementById('tasks-count-label').textContent = `لديك ${pending} مهمة متبقية`;
+  document.getElementById('tasks-dot').style.display = pending > 0 ? 'block' : 'none';
+
+  if (!filtered.length) {
+    list.innerHTML = `<div style="text-align:center;padding:40px;color:var(--muted)">
+      <div style="font-size:48px">🎉</div>
+      <p style="margin-top:10px">لا توجد مهام في هذه الفئة</p>
+    </div>`;
+    return;
+  }
+
+  list.innerHTML = filtered.map(t => `
+    <div class="task-item" id="task-${t.id}">
+      <div class="task-check ${t.done ? 'done' : ''}" onclick="toggleTask(${t.id})"></div>
+      <div class="task-body ${t.done ? 'done-text' : ''}">
+        <h4>${t.title}</h4>
+        ${t.desc ? `<p>${t.desc}</p>` : ''}
+        <div class="task-meta">
+          <span class="task-badge badge-${t.priority}">${t.priority==='high'?'🔴 عالية':t.priority==='med'?'🟡 متوسطة':'🟢 منخفضة'}</span>
+          <span class="task-pts-badge">⭐ ${t.pts} نقطة</span>
+          ${t.date ? `<span class="task-deadline">📅 ${t.date}</span>` : ''}
+        </div>
+      </div>
+      <button onclick="deleteTask(${t.id})" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;padding:4px">🗑️</button>
+    </div>
+  `).join('');
+}
+
+function filterTasks(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTasks();
+}
+
+function toggleTask(id) {
+  const t = tasks.find(x => x.id === id);
+  t.done = !t.done;
+  if (t.done) showToast(`✅ أحسنت! +${t.pts} نقطة`);
+  renderTasks();
+  updateHome();
+}
+
+function deleteTask(id) {
+  tasks = tasks.filter(x => x.id !== id);
+  showToast('🗑️ تم حذف المهمة');
+  renderTasks();
+  updateHome();
+}
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+function openModal() {
+  document.getElementById('modal-overlay').classList.add('open');
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('task-date').value = today;
+}
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.getElementById('task-title').value = '';
+  document.getElementById('task-desc').value = '';
+  document.getElementById('task-pts').value = 30;
+}
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+}
+
+function addTask() {
+  const title = document.getElementById('task-title').value.trim();
+  if (!title) { showToast('⚠️ أدخل عنوان المهمة'); return; }
+  tasks.unshift({
+    id: nextId++,
+    title,
+    desc:     document.getElementById('task-desc').value.trim(),
+    priority: document.getElementById('task-priority').value,
+    pts:      parseInt(document.getElementById('task-pts').value) || 30,
+    date:     document.getElementById('task-date').value,
+    done: false
+  });
+  closeModal();
+  renderTasks();
+  updateHome();
+  showToast('🎉 تمت إضافة المهمة بنجاح!');
+}
+
+/* ============================================================
+   UPGRADES
+   ============================================================ */
+function renderUpgrades() {
+  // Levels
+  const tl = document.getElementById('levels-timeline');
+  tl.innerHTML = levels.map((lv,i) => {
+    const current = (i === 3);
+    return `
+    <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:12px">
+      <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0">
+        <div style="width:40px;height:40px;border-radius:50%;background:${current?'linear-gradient(135deg,'+lv.color+',#fff3)':'rgba(255,255,255,0.07)'};border:2px solid ${current?lv.color:'rgba(255,255,255,0.1)'};display:flex;align-items:center;justify-content:center;font-size:18px">${lv.icon}</div>
+        ${i<levels.length-1?`<div style="width:2px;height:30px;background:rgba(255,255,255,0.07);margin:2px 0"></div>`:''}
+      </div>
+      <div style="background:${current?'rgba(108,99,255,.15)':'var(--card)'};border-radius:12px;padding:12px 14px;flex:1;border:1px solid ${current?'rgba(108,99,255,.3)':'rgba(255,255,255,0.05)'}">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <strong style="font-size:14px;color:${current?lv.color:'#fff'}">${lv.name} ${current?'← أنت هنا':''}</strong>
+          <span style="font-size:11px;color:var(--muted)">${lv.min === 0 ? '0' : lv.min.toLocaleString()} - ${lv.max === Infinity ? '∞' : lv.max.toLocaleString()} XP</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Upgrades Shop
+  const grid = document.getElementById('upgrades-grid');
+  grid.innerHTML = upgrades.map(u => `
+    <div class="upgrade-card ${u.owned?'':'locked'}" onclick="${u.owned ? `showToast('✅ ${u.name} مفعّل بالفعل')` : `buyUpgrade(${u.id})`}">
+      ${u.owned ? '<span class="u-owned">مُفعَّل</span>' : ''}
+      <div class="u-icon">${u.icon}</div>
+      <h4>${u.name}</h4>
+      <p>${u.desc}</p>
+      ${u.owned ? '' : `<div class="u-cost">⭐ ${u.cost} نقطة</div>`}
+    </div>
+  `).join('');
+}
+
+function buyUpgrade(id) {
+  const u = upgrades.find(x => x.id === id);
+  if (u) {
+    u.owned = true;
+    showToast(`🎉 تم شراء: ${u.name}!`);
+    renderUpgrades();
+  }
+}
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+updateHome();
+renderTasks();
+document.getElementById('tasks-dot').style.display =
+  tasks.filter(t => !t.done).length > 0 ? 'block' : 'none';
 </script>
-  </body>
-  </html>
+</body>
+        </html>
