@@ -13,92 +13,114 @@
 body{font-family:'Inter','Cairo',sans-serif;background:#000;color:#fff;overflow-x:hidden}
 :root{
   --red:#E31837;--green:#00C851;--gold:#FFB800;--blue:#3B82F6;--purple:#8B5CF6;
+  --cyan:#06B6D4;--orange:#F97316;--pink:#EC4899;
   --card:#0d0d0d;--border:#1E1E1E;--border2:#2A2A2A;--muted:#666;
 }
 ::-webkit-scrollbar{width:3px}
 ::-webkit-scrollbar-thumb{background:var(--red);border-radius:10px}
-
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes slideUp{from{transform:translateY(60px);opacity:0}to{transform:translateY(0);opacity:1}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 @keyframes carousel{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-@keyframes greenDot{0%,100%{box-shadow:0 0 0 0 rgba(0,200,81,.5)}50%{box-shadow:0 0 0 5px rgba(0,200,81,0)}}
+@keyframes greenDot{0%,100%{box-shadow:0 0 0 0 rgba(0,200,81,.5)}50%{box-shadow:0 0 0 6px rgba(0,200,81,0)}}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-@keyframes spinWheel{0%{transform:rotate(0deg)}100%{transform:rotate(var(--spin-deg))}}
-@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
 @keyframes confetti{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(200px) rotate(720deg);opacity:0}}
 @keyframes shine{0%{left:-100%}100%{left:200%}}
-
+@keyframes bellShake{0%,100%{transform:rotate(0)}20%{transform:rotate(-18deg)}40%{transform:rotate(18deg)}60%{transform:rotate(-10deg)}80%{transform:rotate(10deg)}}
+@keyframes badgePop{0%{transform:scale(0)}80%{transform:scale(1.2)}100%{transform:scale(1)}}
+@keyframes glow{0%,100%{box-shadow:0 0 10px rgba(227,24,55,.3)}50%{box-shadow:0 0 28px rgba(227,24,55,.7)}}
+@keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
 .page{animation:fadeIn .3s ease forwards}
-.btn-red{background:var(--red);color:#fff;font-weight:700;border-radius:8px;padding:14px;border:none;cursor:pointer;font-family:'Inter','Cairo',sans-serif;font-size:14px;width:100%;transition:all .2s}
-.btn-red:active{transform:scale(.97)}
-.btn-green{background:var(--green);color:#000;font-weight:700;border-radius:8px;padding:14px;border:none;cursor:pointer;font-family:'Inter','Cairo',sans-serif;font-size:14px;width:100%;transition:all .2s}
-.btn-gray{background:#111;color:#ddd;border:1px solid var(--border2);border-radius:8px;padding:13px;cursor:pointer;font-family:'Inter','Cairo',sans-serif;font-size:14px;width:100%;transition:all .2s}
-.btn-outline{background:transparent;color:var(--red);border:1px solid var(--red);border-radius:8px;padding:13px;cursor:pointer;font-family:'Inter','Cairo',sans-serif;font-size:14px;width:100%}
-.btn-gold{background:var(--gold);color:#000;font-weight:700;border-radius:8px;padding:14px;border:none;cursor:pointer;font-family:'Inter','Cairo',sans-serif;font-size:14px;width:100%}
-
-input{background:#0d0d0d!important;border:1px solid var(--border2)!important;color:#fff!important;border-radius:8px!important;padding:12px 16px!important;width:100%;outline:none;font-family:'Inter','Cairo',sans-serif;font-size:14px;transition:border-color .2s}
+.btn-red{background:var(--red);color:#fff;font-weight:700;border-radius:10px;padding:14px;border:none;cursor:pointer;font-family:'Inter','Cairo',sans-serif;font-size:14px;width:100%;transition:all .2s}
+.btn-red:active{transform:scale(.97);opacity:.9}
+.btn-green{background:var(--green);color:#000;font-weight:700;border-radius:10px;padding:14px;border:none;cursor:pointer;font-family:'Inter','Cairo',sans-serif;font-size:14px;width:100%;transition:all .2s}
+.btn-gray{background:#111;color:#ddd;border:1px solid var(--border2);border-radius:10px;padding:13px;cursor:pointer;font-family:'Inter','Cairo',sans-serif;font-size:14px;width:100%;transition:all .2s}
+.btn-outline{background:transparent;color:var(--red);border:1px solid var(--red);border-radius:10px;padding:13px;cursor:pointer;font-family:'Inter','Cairo',sans-serif;font-size:14px;width:100%}
+.btn-gold{background:var(--gold);color:#000;font-weight:700;border-radius:10px;padding:14px;border:none;cursor:pointer;font-family:'Inter','Cairo',sans-serif;font-size:14px;width:100%}
+input{background:#0d0d0d!important;border:1px solid var(--border2)!important;color:#fff!important;border-radius:10px!important;padding:12px 16px!important;width:100%;outline:none;font-family:'Inter','Cairo',sans-serif;font-size:14px;transition:border-color .2s}
 input:focus{border-color:var(--red)!important;box-shadow:0 0 0 3px rgba(227,24,55,.1)!important}
 input::placeholder{color:#444!important}
-
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.9);backdrop-filter:blur(8px);z-index:1000;display:flex;align-items:flex-end;justify-content:center}
-.modal-box{background:#0a0a0a;border:1px solid var(--border2);border-radius:20px 20px 0 0;width:100%;max-width:480px;max-height:92vh;overflow-y:auto;animation:slideUp .38s cubic-bezier(.34,1.56,.64,1)}
-.modal-handle{width:36px;height:3px;background:#2a2a2a;border-radius:2px;margin:14px auto 0}
-
-.bottom-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.97);backdrop-filter:blur(20px);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:8px 0 24px;z-index:100;width:100%;max-width:480px}
-.nav-btn{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 16px;border-radius:10px;transition:all .2s}
-
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.92);backdrop-filter:blur(10px);z-index:1000;display:flex;align-items:flex-end;justify-content:center}
+.modal-box{background:#0a0a0a;border:1px solid var(--border2);border-radius:22px 22px 0 0;width:100%;max-width:480px;max-height:92vh;overflow-y:auto;animation:slideUp .38s cubic-bezier(.34,1.56,.64,1)}
+.modal-handle{width:38px;height:3px;background:#2a2a2a;border-radius:2px;margin:14px auto 0}
+.bottom-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.97);backdrop-filter:blur(20px);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:8px 0 28px;z-index:100;width:100%;max-width:480px}
+.nav-btn{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 14px;border-radius:10px;transition:all .2s}
 .ticker-bar{overflow:hidden;background:#0a0a0a;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:10px 0}
 .ticker-track{display:flex;gap:36px;width:max-content;animation:ticker 22s linear infinite}
 .news-wrap{overflow:hidden;border-radius:12px;margin-bottom:20px}
 .news-track{display:flex;gap:12px;width:max-content;animation:carousel 38s linear infinite}
 .news-track:hover{animation-play-state:paused}
-
-.tag{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:4px;font-size:11px;font-weight:700}
+.tag{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:5px;font-size:11px;font-weight:700}
 .t-red{background:rgba(227,24,55,.14);color:var(--red);border:1px solid rgba(227,24,55,.3)}
 .t-green{background:rgba(0,200,81,.12);color:var(--green);border:1px solid rgba(0,200,81,.3)}
 .t-gold{background:rgba(255,184,0,.12);color:var(--gold);border:1px solid rgba(255,184,0,.3)}
-
-.stat-box{background:#0d0d0d;border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center}
+.t-blue{background:rgba(59,130,246,.12);color:var(--blue);border:1px solid rgba(59,130,246,.3)}
+.t-purple{background:rgba(139,92,246,.12);color:var(--purple);border:1px solid rgba(139,92,246,.3)}
+.stat-box{background:#0d0d0d;border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center}
 .lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;font-family:'Inter',sans-serif}
 .divider-red{height:1px;background:linear-gradient(90deg,transparent,rgba(227,24,55,.25),transparent);margin:16px 0}
-.copy-btn{background:#1a1a1a;border:1px solid #2a2a2a;color:#888;border-radius:6px;padding:6px 12px;cursor:pointer;font-size:12px;font-family:'Inter','Cairo',sans-serif;transition:all .2s;white-space:nowrap;flex-shrink:0}
-
-.task-row{background:#0d0d0d;border:1px solid var(--border);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px;transition:all .3s;cursor:pointer}
+.copy-btn{background:#1a1a1a;border:1px solid #2a2a2a;color:#888;border-radius:7px;padding:7px 13px;cursor:pointer;font-size:12px;font-family:'Inter','Cairo',sans-serif;transition:all .2s;white-space:nowrap;flex-shrink:0}
+.copy-btn:hover{border-color:var(--red);color:var(--red)}
+.task-row{background:#0d0d0d;border:1px solid var(--border);border-radius:13px;padding:14px 16px;display:flex;align-items:center;gap:12px;transition:all .3s;cursor:pointer}
 .task-row:active{transform:scale(.98)}
 .task-done{border-color:rgba(0,200,81,.4)!important;background:#001208!important}
 .task-active{border-color:rgba(227,24,55,.5)!important;background:#110005!important;box-shadow:0 0 20px rgba(227,24,55,.08)!important}
 .task-cancelled{border-color:rgba(255,100,0,.3)!important;background:#110800!important;opacity:.6}
-
-.toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:9999;background:#111;border:1px solid #222;border-radius:10px;padding:12px 20px;display:flex;align-items:center;gap:10px;animation:slideUp .3s ease;box-shadow:0 8px 32px rgba(0,0,0,.8);min-width:260px;max-width:360px;pointer-events:none}
-
-/* SPIN WHEEL */
-.spin-wheel-container{position:relative;display:flex;align-items:center;justify-content:center;margin:0 auto}
-.spin-wheel{border-radius:50%;border:4px solid #222;position:relative;overflow:hidden;transition:transform 4s cubic-bezier(.17,.67,.12,.99)}
-.wheel-pointer{position:absolute;top:-18px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:22px solid var(--gold);z-index:10;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5))}
-.wheel-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;background:#111;border-radius:50%;border:3px solid #333;z-index:5;display:flex;align-items:center;justify-content:center;font-size:16px}
-.confetti-piece{position:absolute;width:8px;height:8px;border-radius:2px;animation:confetti 1.5s ease forwards}
-
-/* LANG TOGGLE */
-.lang-toggle{display:flex;background:#111;border:1px solid var(--border2);border-radius:10px;overflow:hidden}
-.lang-opt{flex:1;padding:10px;text-align:center;cursor:pointer;transition:all .2s;font-size:13px;font-weight:700;font-family:'Inter','Cairo',sans-serif;display:flex;align-items:center;justify-content:center;gap:6px}
-.lang-opt-active{background:var(--red);color:#fff}
-.lang-opt-inactive{color:#666}
-
+.toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:9999;background:#111;border:1px solid #222;border-radius:12px;padding:13px 20px;display:flex;align-items:center;gap:10px;animation:slideUp .3s ease;box-shadow:0 8px 32px rgba(0,0,0,.9);min-width:260px;max-width:360px;pointer-events:none}
+.notif-panel{position:absolute;top:56px;right:16px;width:300px;background:#0d0d0d;border:1px solid #2a2a2a;border-radius:16px;z-index:200;box-shadow:0 12px 40px rgba(0,0,0,.9);animation:slideIn .3s ease}
+.achievement-card{background:#0d0d0d;border-radius:14px;padding:16px;display:flex;align-items:center;gap:14px;margin-bottom:10px;transition:all .3s}
+.achievement-locked{opacity:.4;filter:grayscale(1)}
 .shine-btn{position:relative;overflow:hidden}
-.shine-btn::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);animation:shine 2s infinite}
-
+.shine-btn::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);animation:shine 2.5s infinite}
 .progress-ring-svg{transform:rotate(-90deg)}
+.bell-anim{animation:bellShake .6s ease}
+.badge-pop{animation:badgePop .4s cubic-bezier(.34,1.56,.64,1)}
 </style>
 </head>
 <body>
 <div id="root"></div>
 <script type="text/babel">
+const{useState,useEffect,useRef,useCallback,useMemo}=React;
 
-/* ═══════════════════ TRANSLATIONS ═══════════════════ */
-const T = {
-  ar: {
+/* ══════════════════════════════════════════════════
+   LOCAL STORAGE
+══════════════════════════════════════════════════ */
+const STORAGE_KEY="blk_user_v3";
+const NOTIF_KEY="blk_notifs_v3";
+
+function loadUser(){
+  try{
+    const s=localStorage.getItem(STORAGE_KEY);
+    if(s)return JSON.parse(s);
+  }catch(e){}
+  return null;
+}
+function saveUser(u){
+  try{localStorage.setItem(STORAGE_KEY,JSON.stringify(u));}catch(e){}
+}
+function loadNotifs(){
+  try{
+    const s=localStorage.getItem(NOTIF_KEY);
+    if(s)return JSON.parse(s);
+  }catch(e){}
+  return [];
+}
+function saveNotifs(n){
+  try{localStorage.setItem(NOTIF_KEY,JSON.stringify(n));}catch(e){}
+}
+function genRef(){return "BLK-"+Math.random().toString(36).substr(2,8).toUpperCase();}
+function todayStr(){return new Date().toISOString().split("T")[0];}
+function nowDate(){
+  const d=new Date();
+  return d.toLocaleDateString("ar-DZ",{year:"numeric",month:"long",day:"numeric"});
+}
+
+/* ══════════════════════════════════════════════════
+   TRANSLATIONS
+══════════════════════════════════════════════════ */
+const T={
+  ar:{
     appName:"BLACKROCK",appSub:"منصة الأرباح",
     home:"الرئيسية",tasks:"المهام",upgrades:"الترقيات",profile:"حسابي",
     balance:"الرصيد الإجمالي",dailyProfit:"الربح اليومي",package:"الباقة",
@@ -107,33 +129,34 @@ const T = {
     marketNews:"أخبار الأسواق",quickActions:"إجراءات سريعة",
     startTasks:"ابدأ المهام اليومية",upgradePackage:"ترقية الباقة",
     tasksAvail:"مهمة متاحة",yourPkg:"باقتك",
-    dailyTasksTitle:"المهام اليومية",taskCompleted:"اكتملت",taskRunning:"جارية...",
-    taskBlocked:"موقوفة غداً",cancelledToday:"ملغاة اليوم",
-    taskEarn:"الربح",cancelTask:"إلغاء المهمة",cancelWarning:"إلغاء المهمة يخسر ربحها فقط",
+    dailyTasksTitle:"المهام اليومية",taskCompleted:"اكتملت ✅",taskRunning:"جارية ⏳",
+    taskBlocked:"موقوفة",cancelledToday:"ملغاة",
+    taskEarn:"الربح",cancelTask:"إلغاء",cancelWarning:"إلغاء هذه المهمة يخسر ربحها فقط",
     todayProgress:"تقدم اليوم",goal:"الهدف",earned:"المكتسب",
     upgradesTitle:"الترقيات والباقات",currentPkg:"الباقة الحالية",
     monthlyReturn:"العائد السنوي",upgradeTo:"ترقية إلى",activePlan:"الباقة المفعّلة",
     topupFirst:"شحن الرصيد أولاً",confirmUpgrade:"تأكيد الترقية",
     security:"الأمان والعقد",company:"عن الشركة",referrals:"الإحالات",
-    contest:"المسابقة",editProfile:"تعديل الملف",support:"دعم Signal",
-    website:"الموقع الرسمي",settings:"الإعدادات",language:"اللغة",
+    contest:"المسابقة",achievements:"إنجازاتي 🏅",editProfile:"تعديل الملف",
+    support:"دعم Signal",website:"الموقع الرسمي",settings:"الإعدادات",language:"اللغة",
+    notifications:"الإشعارات",joinDate:"تاريخ الانضمام",
     save:"حفظ",cancel:"إلغاء",close:"إغلاق",confirm:"تأكيد",
     minWithdraw:"الحد الأدنى للسحب 5$",insufficientBalance:"رصيد غير كافٍ",
     enterAmount:"أدخل مبلغاً صحيحاً",withdrawSuccess:"تم طلب السحب بنجاح 🎉",
-    copiedCode:"تم نسخ الكود ✓",
+    copiedCode:"تم النسخ ✓",
     refProgram:"برنامج الإحالات",inviteFriends:"ادعُ أصدقاءك واكسب مكافآت",
-    yourCode:"كودك الخاص",refLink:"رابط الإحالة",
-    howItWorks:"كيف يعمل البرنامج",
-    luckySpinTitle:"عجلة الحظ",spinNow:"أدِر العجلة!",spinsLeft:"دورات متبقية",
-    freeUpgrade:"ترقية مجانية",freeUpgradeDesc:"ادعُ 10 أصدقاء يشحنون مستوى 1 — احصل على مستوى 2 مجاناً!",
-    referralProgress:"تقدم الإحالات",toFreeUpgrade:"للترقية المجانية",
-    validity:"مدة الصلاحية",days:"يوم",perTask:"ربح المهمة",
-    name:"الاسم",email:"البريد الإلكتروني",
-    taskCancelledMsg:"خسرت ربح هذه المهمة فقط. المهام الأخرى تكمل غداً",
-    taskDoneMsg:"مبروك! تمت المهمة",
-    upgradedMsg:"تم الترقية بنجاح 🚀",
+    yourCode:"كودك الخاص",refLink:"رابط الإحالة",howItWorks:"كيف يعمل البرنامج",
+    luckySpinTitle:"عجلة الحظ 🎰",spinNow:"أدِر العجلة!",spinsLeft:"دورات متبقية",
+    validity:"الصلاحية",days:"يوم",perTask:"ربح المهمة",
+    name:"الاسم الكامل",email:"البريد الإلكتروني",
+    taskCancelledMsg:"خسرت ربح هذه المهمة فقط — المهام الأخرى تكمل غداً",
+    taskDoneMsg:"مبروك! تمت المهمة",upgradedMsg:"تم الترقية بنجاح 🚀",
+    noNotifs:"لا توجد إشعارات جديدة",markRead:"تحديد كمقروء",
+    achievementsTitle:"إنجازاتي",achievementsDesc:"تابع تقدمك واجمع المكافآت",
+    unlocked:"مفتوح ✅",locked:"مقفل 🔒",progress:"التقدم",reward:"المكافأة",
+    phone:"رقم الهاتف",city:"المدينة",
   },
-  en: {
+  en:{
     appName:"BLACKROCK",appSub:"Earn Platform",
     home:"Home",tasks:"Tasks",upgrades:"Upgrade",profile:"Profile",
     balance:"Total Balance",dailyProfit:"Daily Profit",package:"Package",
@@ -142,48 +165,51 @@ const T = {
     marketNews:"Market News",quickActions:"Quick Actions",
     startTasks:"Start Daily Tasks",upgradePackage:"Upgrade Package",
     tasksAvail:"tasks available",yourPkg:"Your Plan",
-    dailyTasksTitle:"Daily Tasks",taskCompleted:"Completed",taskRunning:"Running...",
-    taskBlocked:"Locked Tomorrow",cancelledToday:"Cancelled",
-    taskEarn:"Earn",cancelTask:"Cancel Task",cancelWarning:"Cancelling loses this task's profit only",
+    dailyTasksTitle:"Daily Tasks",taskCompleted:"Completed ✅",taskRunning:"Running ⏳",
+    taskBlocked:"Locked",cancelledToday:"Cancelled",
+    taskEarn:"Earn",cancelTask:"Cancel",cancelWarning:"Cancelling loses this task's profit only",
     todayProgress:"Today's Progress",goal:"Goal",earned:"Earned",
     upgradesTitle:"Packages",currentPkg:"Current Package",
     monthlyReturn:"Yearly Return",upgradeTo:"Upgrade to",activePlan:"Active Plan",
     topupFirst:"Top Up First",confirmUpgrade:"Confirm Upgrade",
     security:"Security & Contract",company:"Company Profile",referrals:"Referrals",
-    contest:"Contest",editProfile:"Edit Profile",support:"Signal Support",
-    website:"Official Website",settings:"Settings",language:"Language",
+    contest:"Contest",achievements:"My Achievements 🏅",editProfile:"Edit Profile",
+    support:"Signal Support",website:"Official Website",settings:"Settings",language:"Language",
+    notifications:"Notifications",joinDate:"Join Date",
     save:"Save",cancel:"Cancel",close:"Close",confirm:"Confirm",
     minWithdraw:"Minimum withdrawal is $5",insufficientBalance:"Insufficient balance",
     enterAmount:"Enter a valid amount",withdrawSuccess:"Withdrawal requested 🎉",
-    copiedCode:"Code copied ✓",
+    copiedCode:"Copied ✓",
     refProgram:"Referral Program",inviteFriends:"Invite friends & earn rewards",
-    yourCode:"Your Code",refLink:"Referral Link",
-    howItWorks:"How It Works",
-    luckySpinTitle:"Lucky Spin",spinNow:"Spin the Wheel!",spinsLeft:"Spins left",
-    freeUpgrade:"Free Upgrade",freeUpgradeDesc:"Invite 10 friends who deposit Level 1 — get Level 2 for free!",
-    referralProgress:"Referral Progress",toFreeUpgrade:"for free upgrade",
+    yourCode:"Your Code",refLink:"Referral Link",howItWorks:"How It Works",
+    luckySpinTitle:"Lucky Spin 🎰",spinNow:"Spin the Wheel!",spinsLeft:"Spins left",
     validity:"Validity",days:"days",perTask:"Per Task",
     name:"Full Name",email:"Email Address",
-    taskCancelledMsg:"You lost this task's profit only. Other tasks reset tomorrow",
-    taskDoneMsg:"Task completed!",
-    upgradedMsg:"Upgraded successfully 🚀",
+    taskCancelledMsg:"Lost this task's profit only. Other tasks reset tomorrow",
+    taskDoneMsg:"Task completed!",upgradedMsg:"Upgraded successfully 🚀",
+    noNotifs:"No new notifications",markRead:"Mark all read",
+    achievementsTitle:"My Achievements",achievementsDesc:"Track your progress & collect rewards",
+    unlocked:"Unlocked ✅",locked:"Locked 🔒",progress:"Progress",reward:"Reward",
+    phone:"Phone Number",city:"City",
   }
 };
 
-/* ═══════════════════ DATA ═══════════════════ */
-const PKG = [
-  {id:0,name:"Starter",sym:"S",price:0,tasks:5,daily:.17,color:"#888",bg:"#111",border:"#333",dz:"مجاني",desc:{ar:"ابدأ رحلتك",en:"Start your journey"}},
-  {id:1,name:"NEXUS",sym:"N",price:28,tasks:5,daily:.86,color:"#00C851",bg:"#001208",border:"rgba(0,200,81,.3)",dz:"7,000 دج",desc:{ar:"للمبتدئين",en:"For beginners"}},
-  {id:2,name:"ORBIT",sym:"O",price:106.4,tasks:10,daily:3.44,color:"#3B82F6",bg:"#00081a",border:"rgba(59,130,246,.3)",dz:"26,600 دج",desc:{ar:"الأكثر مرونة",en:"Most flexible"}},
-  {id:3,name:"APEX",sym:"A",price:380,tasks:25,daily:13.1,color:"#FFB800",bg:"#110800",border:"rgba(255,184,0,.35)",dz:"95,000 دج",desc:{ar:"للمحترفين",en:"For professionals"},hot:true},
-  {id:4,name:"STELLAR",sym:"ST",price:1200,tasks:50,daily:44.4,color:"#8B5CF6",bg:"#080012",border:"rgba(139,92,246,.3)",dz:"300,000 دج",desc:{ar:"أرباح عالية",en:"High returns"}},
-  {id:5,name:"SUPERNOVA",sym:"SN",price:3120,tasks:80,daily:124.8,color:"#E31837",bg:"#110003",border:"rgba(227,24,55,.3)",dz:"780,000 دج",desc:{ar:"للمستثمرين",en:"For investors"}},
-  {id:6,name:"GALAXY",sym:"G",price:7800,tasks:130,daily:339,color:"#06B6D4",bg:"#000a12",border:"rgba(6,182,212,.3)",dz:"1,950,000 دج",desc:{ar:"القمة المطلقة",en:"The absolute peak"}},
+/* ══════════════════════════════════════════════════
+   PACKAGES
+══════════════════════════════════════════════════ */
+const PKG=[
+  {id:0,name:"Starter",sym:"S",price:0,tasks:5,daily:.17,color:"#9ca3af",bg:"#111",border:"#333",dz:"مجاني",desc:{ar:"ابدأ رحلتك 🌱",en:"Start your journey 🌱"}},
+  {id:1,name:"NEXUS",sym:"N",price:28,tasks:5,daily:.86,color:"#00C851",bg:"#001208",border:"rgba(0,200,81,.3)",dz:"7,000 دج",desc:{ar:"للمبتدئين ⚡",en:"For beginners ⚡"}},
+  {id:2,name:"ORBIT",sym:"O",price:106.4,tasks:10,daily:3.44,color:"#3B82F6",bg:"#00081a",border:"rgba(59,130,246,.3)",dz:"26,600 دج",desc:{ar:"الأكثر مرونة 🌍",en:"Most flexible 🌍"}},
+  {id:3,name:"APEX",sym:"A",price:380,tasks:25,daily:13.1,color:"#FFB800",bg:"#110800",border:"rgba(255,184,0,.35)",dz:"95,000 دج",desc:{ar:"للمحترفين 🏔️",en:"For professionals 🏔️"},hot:true},
+  {id:4,name:"STELLAR",sym:"ST",price:1200,tasks:50,daily:44.4,color:"#8B5CF6",bg:"#080012",border:"rgba(139,92,246,.3)",dz:"300,000 دج",desc:{ar:"أرباح عالية ⭐",en:"High returns ⭐"}},
+  {id:5,name:"SUPERNOVA",sym:"SN",price:3120,tasks:80,daily:124.8,color:"#E31837",bg:"#110003",border:"rgba(227,24,55,.3)",dz:"780,000 دج",desc:{ar:"للمستثمرين 💥",en:"For investors 💥"}},
+  {id:6,name:"GALAXY",sym:"G",price:7800,tasks:130,daily:339,color:"#06B6D4",bg:"#000a12",border:"rgba(6,182,212,.3)",dz:"1,950,000 دج",desc:{ar:"القمة المطلقة 🌌",en:"The absolute peak 🌌"}},
 ];
 
-const VALIDITY = 365;
+const VALIDITY=365;
 
-const NEWS = [
+const NEWS=[
   {t:"BlackRock Q3 2025: AUM Surpasses $10.2 Trillion",c:"Earnings",col:"#E31837"},
   {t:"iShares ETF Inflows Hit Record $85B This Quarter",c:"Markets",col:"#00C851"},
   {t:"BlackRock Expands MENA Operations in 2025",c:"Global",col:"#3B82F6"},
@@ -192,51 +218,158 @@ const NEWS = [
   {t:"BlackRock Partners with World Bank on Climate Fund",c:"ESG",col:"#06B6D4"},
 ];
 
-const TICKERS = [
+const TICKERS=[
   {s:"BLK",p:"$897.42",c:"+1.24%",up:true},{s:"SPY",p:"$543.18",c:"+0.87%",up:true},
   {s:"IVV",p:"$541.23",c:"+0.91%",up:true},{s:"AGG",p:"$98.54",c:"-0.12%",up:false},
   {s:"GLD",p:"$231.80",c:"+0.45%",up:true},{s:"TLT",p:"$94.21",c:"-0.38%",up:false},
 ];
 
-const SPIN_PRIZES = [
+const SPIN_PRIZES=[
   {label:"0.50$",val:.5,color:"#00C851",type:"money"},
-  {label:"خسرت",val:0,color:"#333",type:"none"},
+  {label:"حظاً",val:0,color:"#333",type:"none"},
   {label:"1.00$",val:1,color:"#3B82F6",type:"money"},
-  {label:"خسرت",val:0,color:"#444",type:"none"},
+  {label:"حظاً",val:0,color:"#444",type:"none"},
   {label:"2.00$",val:2,color:"#FFB800",type:"money"},
-  {label:"خسرت",val:0,color:"#333",type:"none"},
+  {label:"حظاً",val:0,color:"#2a2a2a",type:"none"},
   {label:"0.25$",val:.25,color:"#8B5CF6",type:"money"},
   {label:"5.00$",val:5,color:"#E31837",type:"money"},
 ];
 
-const f = (n, d=2) => Number(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
-const genRef = () => "BLK-" + Math.random().toString(36).substr(2,8).toUpperCase();
+/* ══════════════════════════════════════════════════
+   ACHIEVEMENTS DEFINITIONS
+══════════════════════════════════════════════════ */
+const ACHIEVEMENTS_DEF=[
+  {id:"first_task",icon:"⚡",title:{ar:"أول مهمة",en:"First Task"},desc:{ar:"أكمل أول مهمة لك",en:"Complete your first task"},reward:0.1,type:"completedTasks",target:1,color:"#FFB800"},
+  {id:"tasks_10",icon:"🔥",title:{ar:"عشرة مهام",en:"10 Tasks"},desc:{ar:"أكمل 10 مهام إجمالاً",en:"Complete 10 tasks total"},reward:0.5,type:"completedTasks",target:10,color:"#E31837"},
+  {id:"tasks_50",icon:"💪",title:{ar:"خمسون مهمة",en:"50 Tasks"},desc:{ar:"أكمل 50 مهمة إجمالاً",en:"Complete 50 tasks total"},reward:2,type:"completedTasks",target:50,color:"#8B5CF6"},
+  {id:"tasks_100",icon:"🏆",title:{ar:"مئة مهمة",en:"100 Tasks"},desc:{ar:"أكمل 100 مهمة — بطل!",en:"Complete 100 tasks — Champion!"},reward:5,type:"completedTasks",target:100,color:"#FFB800"},
+  {id:"earn_5",icon:"💰",title:{ar:"أول 5 دولار",en:"First $5"},desc:{ar:"اكسب 5$ إجمالاً",en:"Earn $5 total"},reward:0.5,type:"totalEarned",target:5,color:"#00C851"},
+  {id:"earn_50",icon:"💵",title:{ar:"خمسون دولار",en:"$50 Earned"},desc:{ar:"اكسب 50$ إجمالاً",en:"Earn $50 total"},reward:2,type:"totalEarned",target:50,color:"#06B6D4"},
+  {id:"earn_200",icon:"💎",title:{ar:"مئتا دولار",en:"$200 Earned"},desc:{ar:"اكسب 200$ إجمالاً",en:"Earn $200 total"},reward:10,type:"totalEarned",target:200,color:"#8B5CF6"},
+  {id:"ref_1",icon:"🤝",title:{ar:"أول إحالة",en:"First Referral"},desc:{ar:"ادعُ صديقاً واحداً",en:"Invite one friend"},reward:2.5,type:"referrals",target:1,color:"#F97316"},
+  {id:"ref_5",icon:"👥",title:{ar:"خمس إحالات",en:"5 Referrals"},desc:{ar:"ادعُ 5 أصدقاء",en:"Invite 5 friends"},reward:10,type:"referrals",target:5,color:"#EC4899"},
+  {id:"ref_10",icon:"🌟",title:{ar:"عشر إحالات",en:"10 Referrals"},desc:{ar:"ادعُ 10 أصدقاء — احصل على ترقية مجانية!",en:"Invite 10 friends — get free upgrade!"},reward:25,type:"referrals",target:10,color:"#FFB800"},
+  {id:"upgrade_1",icon:"🚀",title:{ar:"أول ترقية",en:"First Upgrade"},desc:{ar:"ارقِّ باقتك لأي مستوى مدفوع",en:"Upgrade to any paid package"},reward:1,type:"packageId",target:1,color:"#3B82F6"},
+  {id:"days_7",icon:"📅",title:{ar:"أسبوع نشاط",en:"7 Days Active"},desc:{ar:"كن نشطاً 7 أيام متتالية",en:"Be active for 7 days"},reward:2,type:"activeDays",target:7,color:"#00C851"},
+  {id:"days_30",icon:"🗓️",title:{ar:"شهر نشاط",en:"30 Days Active"},desc:{ar:"كن نشطاً 30 يوماً",en:"Be active for 30 days"},reward:10,type:"activeDays",target:30,color:"#FFB800"},
+  {id:"spin_win",icon:"🎰",title:{ar:"فوز بالعجلة",en:"Wheel Winner"},desc:{ar:"اكسب من عجلة الحظ",en:"Win from the lucky spin"},reward:0,type:"spinWins",target:1,color:"#8B5CF6"},
+];
 
-/* ═══════════════════ TOAST ═══════════════════ */
-function Toast({msg, type, onClose}) {
-  React.useEffect(() => { const t = setTimeout(onClose, 3500); return () => clearTimeout(t); }, []);
-  const cols = {success:"#00C851",error:"#E31837",warning:"#FFB800",info:"#3B82F6"};
-  const icons = {success:"✓",error:"✕",warning:"!",info:"i"};
-  return (
+const f=(n,d=2)=>Number(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+
+/* ══════════════════════════════════════════════════
+   DEFAULT USER
+══════════════════════════════════════════════════ */
+const DEFAULT_USER={
+  name:"المستخدم الكريم",email:"user@blackrock-earn.com",
+  phone:"",city:"الجزائر العاصمة",
+  balance:2.85,totalEarned:2.85,
+  activeDays:1,completedTasks:5,
+  packageId:0,tasksLeft:5,
+  referrals:0,refCode:genRef(),
+  spins:1,spinWins:0,
+  joinDate:nowDate(),joinTimestamp:Date.now(),
+  lastTaskDate:"",
+  unlockedAchievements:[],
+  pendingAchievements:[],
+  notifications:[],
+};
+
+/* ══════════════════════════════════════════════════
+   TOAST
+══════════════════════════════════════════════════ */
+function Toast({msg,type,onClose}){
+  useEffect(()=>{const t=setTimeout(onClose,3800);return()=>clearTimeout(t);},[]);
+  const cols={success:"#00C851",error:"#E31837",warning:"#FFB800",info:"#3B82F6"};
+  const icons={success:"✓",error:"✕",warning:"⚠",info:"ℹ"};
+  return(
     <div className="toast" style={{borderLeft:`3px solid ${cols[type]||"#E31837"}`}}>
-      <div style={{width:22,height:22,borderRadius:"50%",background:cols[type],display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,fontWeight:900,flexShrink:0,color:"#fff"}}>{icons[type]}</div>
-      <span style={{color:"#eee",fontSize:13,fontWeight:500}}>{msg}</span>
+      <div style={{width:24,height:24,borderRadius:"50%",background:cols[type],display:"flex",alignItems:"center",justifyContent:"center",fontSize:12,fontWeight:900,flexShrink:0,color:"#fff"}}>{icons[type]}</div>
+      <span style={{color:"#eee",fontSize:13,fontWeight:500,fontFamily:"'Cairo','Inter',sans-serif"}}>{msg}</span>
     </div>
   );
 }
 
-/* ═══════════════════ TICKER ═══════════════════ */
-function TickerBar() {
-  const all = [...TICKERS,...TICKERS];
-  return (
+/* ══════════════════════════════════════════════════
+   NOTIFICATION BELL
+══════════════════════════════════════════════════ */
+function NotifBell({user,setUser,lang}){
+  const tx=T[lang];
+  const [open,setOpen]=useState(false);
+  const [shake,setShake]=useState(false);
+  const unread=(user.notifications||[]).filter(n=>!n.read).length;
+  const ref=useRef(null);
+
+  useEffect(()=>{
+    if(unread>0){setShake(true);setTimeout(()=>setShake(false),600);}
+  },[unread]);
+
+  useEffect(()=>{
+    function h(e){if(ref.current&&!ref.current.contains(e.target))setOpen(false);}
+    document.addEventListener("mousedown",h);
+    return()=>document.removeEventListener("mousedown",h);
+  },[]);
+
+  function markAll(){
+    setUser(u=>{
+      const notifs=(u.notifications||[]).map(n=>({...n,read:true}));
+      const nu={...u,notifications:notifs};
+      saveUser(nu);return nu;
+    });
+  }
+
+  const notifs=user.notifications||[];
+
+  return(
+    <div ref={ref} style={{position:"relative"}}>
+      <button onClick={()=>setOpen(o=>!o)}
+        className={shake?"bell-anim":""}
+        style={{background:"#0d0d0d",border:"1px solid #2a2a2a",borderRadius:"50%",width:38,height:38,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",position:"relative",transition:"all .2s"}}>
+        <span style={{fontSize:18}}>🔔</span>
+        {unread>0&&(
+          <div className="badge-pop" style={{position:"absolute",top:-4,right:-4,background:"#E31837",borderRadius:"50%",width:18,height:18,display:"flex",alignItems:"center",justifyContent:"center",fontSize:9,fontWeight:900,color:"#fff",fontFamily:"'Inter',sans-serif",border:"2px solid #000"}}>{unread}</div>
+        )}
+      </button>
+      {open&&(
+        <div className="notif-panel">
+          <div style={{padding:"14px 16px",borderBottom:"1px solid #1a1a1a",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+            <span style={{color:"#fff",fontWeight:700,fontSize:14,fontFamily:"'Cairo','Inter',sans-serif"}}>🔔 {tx.notifications}</span>
+            {unread>0&&<button onClick={markAll} style={{background:"none",border:"none",color:"#E31837",fontSize:11,cursor:"pointer",fontFamily:"'Cairo','Inter',sans-serif"}}>{tx.markRead}</button>}
+          </div>
+          <div style={{maxHeight:280,overflowY:"auto"}}>
+            {notifs.length===0?(
+              <div style={{padding:20,textAlign:"center",color:"#333",fontSize:13,fontFamily:"'Cairo','Inter',sans-serif"}}>{tx.noNotifs}</div>
+            ):notifs.slice().reverse().map((n,i)=>(
+              <div key={i} style={{padding:"12px 16px",borderBottom:"1px solid #111",background:n.read?"transparent":"rgba(227,24,55,.04)",display:"flex",gap:10,alignItems:"flex-start"}}>
+                <span style={{fontSize:18,flexShrink:0}}>{n.icon}</span>
+                <div style={{flex:1}}>
+                  <div style={{color:n.read?"#666":"#fff",fontSize:12,fontWeight:n.read?400:700,fontFamily:"'Cairo','Inter',sans-serif",lineHeight:1.5}}>{n.msg}</div>
+                  <div style={{color:"#333",fontSize:10,fontFamily:"'Inter',sans-serif",marginTop:3}}>{n.time}</div>
+                </div>
+                {!n.read&&<div style={{width:7,height:7,background:"#E31837",borderRadius:"50%",flexShrink:0,marginTop:4}}/>}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════════════════
+   TICKER & NEWS
+══════════════════════════════════════════════════ */
+function TickerBar(){
+  const all=[...TICKERS,...TICKERS];
+  return(
     <div className="ticker-bar">
       <div className="ticker-track">
-        {all.map((t,i) => (
+        {all.map((t,i)=>(
           <div key={i} style={{display:"flex",alignItems:"center",gap:8,flexShrink:0}}>
             <span style={{color:"#fff",fontWeight:700,fontSize:12,fontFamily:"'Inter',sans-serif"}}>{t.s}</span>
             <span style={{color:"#aaa",fontSize:12,fontFamily:"'Inter',sans-serif"}}>{t.p}</span>
             <span style={{color:t.up?"#00C851":"#E31837",fontSize:11,fontFamily:"'Inter',sans-serif"}}>{t.c}</span>
-            <span style={{color:"#222",fontSize:14}}>|</span>
+            <span style={{color:"#1a1a1a",fontSize:14}}>|</span>
           </div>
         ))}
       </div>
@@ -244,15 +377,14 @@ function TickerBar() {
   );
 }
 
-/* ═══════════════════ NEWS ═══════════════════ */
-function NewsCarousel() {
-  const all = [...NEWS,...NEWS];
-  return (
+function NewsCarousel(){
+  const all=[...NEWS,...NEWS];
+  return(
     <div className="news-wrap">
       <div className="news-track">
-        {all.map((n,i) => (
-          <div key={i} style={{minWidth:240,background:"#0d0d0d",border:`1px solid ${n.col}22`,borderRadius:10,padding:14,borderTop:`2px solid ${n.col}`,flexShrink:0}}>
-            <div className="tag t-red" style={{marginBottom:8,background:`${n.col}18`,color:n.col,borderColor:`${n.col}44`,fontSize:10}}>{n.c}</div>
+        {all.map((n,i)=>(
+          <div key={i} style={{minWidth:240,background:"#0d0d0d",border:`1px solid ${n.col}22`,borderRadius:12,padding:14,borderTop:`2px solid ${n.col}`,flexShrink:0}}>
+            <div className="tag" style={{marginBottom:8,background:`${n.col}18`,color:n.col,borderColor:`${n.col}44`,fontSize:10}}>{n.c}</div>
             <p style={{color:"#ccc",fontSize:12,lineHeight:1.6,fontFamily:"'Inter',sans-serif"}}>{n.t}</p>
           </div>
         ))}
@@ -261,124 +393,93 @@ function NewsCarousel() {
   );
 }
 
-/* ═══════════════════ SPIN WHEEL ═══════════════════ */
-function LuckySpinModal({onClose, onWin, spins, lang}) {
-  const tx = T[lang];
-  const [spinning, setSpinning] = React.useState(false);
-  const [rotation, setRotation] = React.useState(0);
-  const [result, setResult] = React.useState(null);
-  const [confetti, setConfetti] = React.useState([]);
-  const segments = SPIN_PRIZES.length;
-  const segAngle = 360 / segments;
+/* ══════════════════════════════════════════════════
+   SPIN WHEEL
+══════════════════════════════════════════════════ */
+function LuckySpinModal({onClose,onWin,spins,lang}){
+  const tx=T[lang];
+  const[spinning,setSpinning]=useState(false);
+  const[rotation,setRotation]=useState(0);
+  const[result,setResult]=useState(null);
+  const[confetti,setConfetti]=useState([]);
+  const segments=SPIN_PRIZES.length;
+  const segAngle=360/segments;
 
-  function doSpin() {
-    if (spinning || spins <= 0) return;
+  function doSpin(){
+    if(spinning||spins<=0)return;
     setResult(null);
-    const extra = 1440 + Math.floor(Math.random() * 360);
-    const newRot = rotation + extra;
+    const extra=1440+Math.floor(Math.random()*360);
+    const newRot=rotation+extra;
     setRotation(newRot);
     setSpinning(true);
-    setTimeout(() => {
+    setTimeout(()=>{
       setSpinning(false);
-      const normalized = newRot % 360;
-      const idx = Math.floor(((360 - normalized) % 360) / segAngle) % segments;
-      const prize = SPIN_PRIZES[idx];
+      const normalized=newRot%360;
+      const idx=Math.floor(((360-normalized)%360)/segAngle)%segments;
+      const prize=SPIN_PRIZES[idx];
       setResult(prize);
-      if (prize.type === "money" && prize.val > 0) {
-        const pieces = Array.from({length:20}, (_,i) => ({
-          id:i,
-          x: Math.random()*280-140,
+      if(prize.type==="money"&&prize.val>0){
+        const pieces=Array.from({length:20},(_,i)=>({
+          id:i,x:Math.random()*280-140,
           color:["#E31837","#FFB800","#00C851","#3B82F6","#fff"][Math.floor(Math.random()*5)],
-          delay: Math.random()*0.5,
-          size: 6+Math.random()*6,
+          delay:Math.random()*.5,size:6+Math.random()*6,
         }));
         setConfetti(pieces);
-        setTimeout(() => setConfetti([]), 2000);
+        setTimeout(()=>setConfetti([]),2000);
         onWin(prize.val);
       }
-    }, 4100);
+    },4100);
   }
 
-  const getSegmentPath = (idx) => {
-    const start = (idx * segAngle - 90) * Math.PI / 180;
-    const end = ((idx + 1) * segAngle - 90) * Math.PI / 180;
-    const r = 130;
-    const x1 = 140 + r * Math.cos(start);
-    const y1 = 140 + r * Math.sin(start);
-    const x2 = 140 + r * Math.cos(end);
-    const y2 = 140 + r * Math.sin(end);
-    return `M 140 140 L ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2} Z`;
+  const getPath=(idx)=>{
+    const start=(idx*segAngle-90)*Math.PI/180;
+    const end=((idx+1)*segAngle-90)*Math.PI/180;
+    const r=130;
+    const x1=140+r*Math.cos(start),y1=140+r*Math.sin(start);
+    const x2=140+r*Math.cos(end),y2=140+r*Math.sin(end);
+    return`M 140 140 L ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2} Z`;
+  };
+  const getTP=(idx)=>{
+    const mid=(idx*segAngle+segAngle/2-90)*Math.PI/180;
+    return{x:140+90*Math.cos(mid),y:140+90*Math.sin(mid)};
   };
 
-  const getTextPos = (idx) => {
-    const mid = (idx * segAngle + segAngle / 2 - 90) * Math.PI / 180;
-    return { x: 140 + 90 * Math.cos(mid), y: 140 + 90 * Math.sin(mid) };
-  };
-
-  return (
+  return(
     <div className="modal-bg" onClick={onClose}>
-      <div className="modal-box" onClick={e => e.stopPropagation()}>
+      <div className="modal-box" onClick={e=>e.stopPropagation()}>
         <div className="modal-handle"/>
         <div style={{padding:"20px 20px 32px",position:"relative",overflow:"hidden"}}>
-          {confetti.map(c => (
-            <div key={c.id} style={{
-              position:"absolute",top:"30%",left:`calc(50% + ${c.x}px)`,
-              width:c.size,height:c.size,background:c.color,borderRadius:2,
-              animation:`confetti 1.5s ${c.delay}s ease forwards`,pointerEvents:"none"
-            }}/>
+          {confetti.map(c=>(
+            <div key={c.id} style={{position:"absolute",top:"30%",left:`calc(50% + ${c.x}px)`,width:c.size,height:c.size,background:c.color,borderRadius:2,animation:`confetti 1.5s ${c.delay}s ease forwards`,pointerEvents:"none"}}/>
           ))}
-
-          <div style={{textAlign:"center",marginBottom:20}}>
-            <div style={{fontSize:36,marginBottom:8,animation:"float 2s ease-in-out infinite"}}>🎰</div>
+          <div style={{textAlign:"center",marginBottom:18}}>
+            <div style={{fontSize:38,marginBottom:8,animation:"float 2s ease-in-out infinite"}}>🎰</div>
             <h3 style={{color:"#FFB800",fontSize:20,fontWeight:900,fontFamily:"'Inter',sans-serif",marginBottom:4}}>{tx.luckySpinTitle}</h3>
             <div className="tag t-gold" style={{fontSize:11}}>{tx.spinsLeft}: {spins}</div>
           </div>
-
-          {/* Wheel */}
           <div style={{position:"relative",width:280,margin:"0 auto 20px",height:300}}>
-            <div className="wheel-pointer"/>
-            <div style={{
-              width:280,height:280,borderRadius:"50%",border:"4px solid #1a1a1a",
-              position:"relative",overflow:"hidden",
-              transform:`rotate(${rotation}deg)`,
-              transition:spinning?"transform 4s cubic-bezier(.17,.67,.12,.99)":"none"
-            }}>
+            <div style={{position:"absolute",top:-18,left:"50%",transform:"translateX(-50%)",width:0,height:0,borderLeft:"12px solid transparent",borderRight:"12px solid transparent",borderTop:"22px solid #FFB800",zIndex:10,filter:"drop-shadow(0 2px 4px rgba(0,0,0,.5))"}}/>
+            <div style={{width:280,height:280,borderRadius:"50%",border:"4px solid #1a1a1a",position:"relative",overflow:"hidden",transform:`rotate(${rotation}deg)`,transition:spinning?"transform 4s cubic-bezier(.17,.67,.12,.99)":"none"}}>
               <svg width="280" height="280" viewBox="0 0 280 280">
-                {SPIN_PRIZES.map((p,i) => (
+                {SPIN_PRIZES.map((p,i)=>(
                   <g key={i}>
-                    <path d={getSegmentPath(i)} fill={p.color} stroke="#000" strokeWidth="1.5"/>
-                    <text
-                      x={getTextPos(i).x} y={getTextPos(i).y}
-                      textAnchor="middle" dominantBaseline="middle"
-                      fill="#fff" fontSize="11" fontWeight="800"
-                      fontFamily="'Inter',sans-serif"
-                      transform={`rotate(${i*segAngle+segAngle/2},${getTextPos(i).x},${getTextPos(i).y})`}
-                    >{p.label}</text>
+                    <path d={getPath(i)} fill={p.color} stroke="#000" strokeWidth="1.5"/>
+                    <text x={getTP(i).x} y={getTP(i).y} textAnchor="middle" dominantBaseline="middle" fill="#fff" fontSize="11" fontWeight="800" fontFamily="'Inter',sans-serif" transform={`rotate(${i*segAngle+segAngle/2},${getTP(i).x},${getTP(i).y})`}>{p.label}</text>
                   </g>
                 ))}
               </svg>
             </div>
-            <div style={{
-              position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",
-              width:44,height:44,background:"#111",borderRadius:"50%",border:"3px solid #2a2a2a",
-              display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,zIndex:5
-            }}>⭐</div>
+            <div style={{position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",width:44,height:44,background:"#111",borderRadius:"50%",border:"3px solid #2a2a2a",display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,zIndex:5}}>⭐</div>
           </div>
-
-          {/* Result */}
-          {result && (
-            <div style={{
-              background: result.val > 0 ? "linear-gradient(135deg,#001a08,#000d04)" : "#111",
-              border: `1px solid ${result.val > 0 ? "rgba(0,200,81,.4)" : "#2a2a2a"}`,
-              borderRadius:12,padding:"16px 20px",marginBottom:16,textAlign:"center"
-            }}>
-              {result.val > 0 ? (
+          {result&&(
+            <div style={{background:result.val>0?"linear-gradient(135deg,#001a08,#000d04)":"#111",border:`1px solid ${result.val>0?"rgba(0,200,81,.4)":"#2a2a2a"}`,borderRadius:12,padding:"16px 20px",marginBottom:16,textAlign:"center"}}>
+              {result.val>0?(
                 <>
                   <div style={{fontSize:32,marginBottom:6}}>🎉</div>
                   <div style={{color:"#00C851",fontSize:22,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>+{f(result.val)}$</div>
                   <div style={{color:"#888",fontSize:12,fontFamily:"'Cairo','Inter',sans-serif",marginTop:4}}>تمت إضافتها لرصيدك</div>
                 </>
-              ) : (
+              ):(
                 <>
                   <div style={{fontSize:32,marginBottom:6}}>😔</div>
                   <div style={{color:"#555",fontSize:16,fontWeight:700,fontFamily:"'Cairo','Inter',sans-serif"}}>حظاً أوفر في المرة القادمة!</div>
@@ -386,14 +487,9 @@ function LuckySpinModal({onClose, onWin, spins, lang}) {
               )}
             </div>
           )}
-
-          <button
-            onClick={doSpin}
-            disabled={spinning || spins <= 0}
-            className="btn-gold shine-btn"
-            style={{opacity: spinning || spins<=0 ? .5 : 1, fontSize:16, marginBottom:10}}
-          >
-            {spinning ? "⏳ جارٍ الدوران..." : spins>0 ? `🎰 ${tx.spinNow}` : "لا توجد دورات متبقية"}
+          <button onClick={doSpin} disabled={spinning||spins<=0} className="btn-gold shine-btn"
+            style={{opacity:spinning||spins<=0?.5:1,fontSize:15,marginBottom:10}}>
+            {spinning?"⏳ جارٍ الدوران...":spins>0?`🎰 ${tx.spinNow}`:"لا توجد دورات متبقية"}
           </button>
           <button className="btn-gray" onClick={onClose}>{tx.close}</button>
         </div>
@@ -402,9 +498,11 @@ function LuckySpinModal({onClose, onWin, spins, lang}) {
   );
 }
 
-/* ═══════════════════ SECURITY MODAL ═══════════════════ */
-function SecurityModal({onClose, lang}) {
-  const rows = [
+/* ══════════════════════════════════════════════════
+   SECURITY MODAL
+══════════════════════════════════════════════════ */
+function SecurityModal({onClose,lang}){
+  const rows=[
     {label:"Registration",sub:"التوثيق",val:"NYSE: BLK",icon:"📊",col:"#3B82F6"},
     {label:"Tax ID",sub:"الرقم الضريبي",val:"EIN: 32-0174431",icon:"🏛️",col:"#FFB800"},
     {label:"Encryption",sub:"التشفير",val:"AES-256 + SSL/TLS 3.0",icon:"🔐",col:"#00C851"},
@@ -412,16 +510,12 @@ function SecurityModal({onClose, lang}) {
     {label:"Contract End",sub:"نهاية العقد",val:"December 2027",icon:"📅",col:"#E31837"},
     {label:"Fund Security",sub:"حماية الأموال",val:"100% Protected ✅",icon:"💰",col:"#00C851"},
   ];
-  return (
+  return(
     <div className="modal-bg" onClick={onClose}>
-      <div className="modal-box" onClick={e => e.stopPropagation()}>
+      <div className="modal-box" onClick={e=>e.stopPropagation()}>
         <div className="modal-handle"/>
         <div style={{padding:"20px 20px 32px"}}>
-          <div style={{
-            background:"linear-gradient(180deg,#0d0900,#080600)",
-            border:"1px solid rgba(255,184,0,.3)",borderRadius:16,overflow:"hidden",position:"relative"
-          }}>
-            <div style={{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center",opacity:.03,fontSize:90,fontWeight:900,color:"#FFB800",pointerEvents:"none"}}>BLK</div>
+          <div style={{background:"linear-gradient(180deg,#0d0900,#080600)",border:"1px solid rgba(255,184,0,.3)",borderRadius:16,overflow:"hidden",position:"relative"}}>
             <div style={{background:"linear-gradient(90deg,#B22234 33%,#fff 33%,#fff 66%,#3C3B6E 66%)",height:5}}/>
             <div style={{padding:"22px 20px 18px",textAlign:"center",background:"linear-gradient(135deg,#1a1200,#0d0900)",borderBottom:"1px solid rgba(255,184,0,.15)"}}>
               <div style={{width:76,height:76,borderRadius:"50%",background:"linear-gradient(135deg,#FFB800,#FF8C00)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:34,margin:"0 auto 12px",boxShadow:"0 0 35px rgba(255,184,0,.5)",border:"3px solid rgba(255,184,0,.5)"}}>🏛️</div>
@@ -434,17 +528,8 @@ function SecurityModal({onClose, lang}) {
                 <span style={{fontSize:20}}>🇩🇿</span>
               </div>
             </div>
-            <div style={{padding:"0 20px",textAlign:"center",marginTop:16,marginBottom:8}}>
-              <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:10}}>
-                <span style={{fontSize:26}}>🛡️</span>
-                <div>
-                  <div style={{color:"#FFB800",fontSize:16,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>الأمان والعقد</div>
-                  <div style={{color:"#555",fontSize:11,fontFamily:"'Inter',sans-serif"}}>Security & Contract</div>
-                </div>
-              </div>
-            </div>
-            <div style={{padding:"0 20px 16px"}}>
-              {rows.map((r,i) => (
+            <div style={{padding:"0 20px"}}>
+              {rows.map((r,i)=>(
                 <div key={i} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"12px 0",borderBottom:i<rows.length-1?"1px solid rgba(255,184,0,.08)":"none"}}>
                   <div style={{display:"flex",alignItems:"center",gap:10}}>
                     <div style={{width:32,height:32,background:`${r.col}18`,border:`1px solid ${r.col}44`,borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center",fontSize:14,flexShrink:0}}>{r.icon}</div>
@@ -457,10 +542,8 @@ function SecurityModal({onClose, lang}) {
                 </div>
               ))}
             </div>
-            <div style={{margin:"0 20px 18px",background:"rgba(255,184,0,.05)",border:"1px solid rgba(255,184,0,.18)",borderRadius:12,padding:16}}>
-              <div style={{position:"relative"}}>
-                <div style={{fontSize:10,letterSpacing:2,color:"#FFB800",fontFamily:"'Inter',sans-serif",fontWeight:700,marginBottom:8,textTransform:"uppercase"}}>OFFICIAL STATEMENT</div>
-              </div>
+            <div style={{margin:"16px 20px 18px",background:"rgba(255,184,0,.05)",border:"1px solid rgba(255,184,0,.18)",borderRadius:12,padding:16}}>
+              <div style={{fontSize:10,letterSpacing:2,color:"#FFB800",fontFamily:"'Inter',sans-serif",fontWeight:700,marginBottom:8,textTransform:"uppercase"}}>OFFICIAL STATEMENT</div>
               <p style={{color:"#ccc",fontSize:13,lineHeight:2,fontFamily:"'Cairo',sans-serif",fontStyle:"italic",textAlign:"center"}}>
                 "تقر شركة BlackRock, Inc بأنها أبرمت عقداً رسمياً مع الجانب الجزائري في يناير 2025 مدته 3 سنوات ينتهي في ديسمبر 2027."
               </p>
@@ -491,12 +574,13 @@ function SecurityModal({onClose, lang}) {
   );
 }
 
-/* ═══════════════════ COMPANY MODAL ═══════════════════ */
-function CompanyModal({onClose, lang}) {
-  const tx = T[lang];
-  return (
+/* ══════════════════════════════════════════════════
+   COMPANY MODAL
+══════════════════════════════════════════════════ */
+function CompanyModal({onClose,lang}){
+  return(
     <div className="modal-bg" onClick={onClose}>
-      <div className="modal-box" onClick={e => e.stopPropagation()}>
+      <div className="modal-box" onClick={e=>e.stopPropagation()}>
         <div className="modal-handle"/>
         <div style={{padding:"20px 20px 32px"}}>
           <div style={{background:"linear-gradient(160deg,#0a0000,#000,#000a1a)",border:"1px solid rgba(227,24,55,.2)",borderRadius:16,overflow:"hidden",marginBottom:16,position:"relative"}}>
@@ -505,7 +589,7 @@ function CompanyModal({onClose, lang}) {
               <div style={{width:66,height:66,background:"#E31837",borderRadius:16,display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 14px",fontSize:28,fontWeight:900,color:"#fff",fontFamily:"'Inter',sans-serif",boxShadow:"0 0 28px rgba(227,24,55,.4)"}}>B</div>
               <div className="tag t-red" style={{marginBottom:10,fontSize:11}}>COMPANY PROFILE</div>
               <h2 style={{color:"#fff",fontSize:21,fontWeight:900,fontFamily:"'Inter',sans-serif",marginBottom:4}}>BLACKROCK</h2>
-              <p style={{color:"#888",fontSize:13,fontFamily:"'Inter','Cairo',sans-serif",marginBottom:12}}>BlackRock, Inc — New York, USA</p>
+              <p style={{color:"#888",fontSize:13,fontFamily:"'Inter','Cairo',sans-serif",marginBottom:12}}>BlackRock, Inc — New York, USA 🇺🇸</p>
               <div style={{display:"flex",justifyContent:"center",gap:8}}>
                 <div className="tag t-red">NYSE: BLK</div>
                 <div className="tag t-green">موثقة ✓</div>
@@ -524,7 +608,7 @@ function CompanyModal({onClose, lang}) {
               {val:"$10.2T",label:"الأصول المدارة",sub:"AUM",icon:"💼",col:"#00C851"},
               {val:"+19,000",label:"الموظفين",sub:"Employees",icon:"👥",col:"#3B82F6"},
               {val:"38",label:"دولة",sub:"Countries",icon:"🌍",col:"#8B5CF6"},
-            ].map((s,i) => (
+            ].map((s,i)=>(
               <div key={i} style={{background:"#0d0d0d",border:`1px solid ${s.col}22`,borderRadius:12,padding:"14px 10px",textAlign:"center",borderTop:`2px solid ${s.col}66`}}>
                 <div style={{fontSize:22,marginBottom:6}}>{s.icon}</div>
                 <div style={{color:s.col,fontSize:19,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{s.val}</div>
@@ -532,49 +616,6 @@ function CompanyModal({onClose, lang}) {
                 <div style={{color:"#333",fontSize:10,fontFamily:"'Inter',sans-serif"}}>{s.sub}</div>
               </div>
             ))}
-          </div>
-          <div style={{background:"#0d0d0d",border:"1px solid rgba(0,200,81,.2)",borderRadius:14,padding:16,marginBottom:14,borderTop:"2px solid rgba(0,200,81,.4)"}}>
-            <div className="lbl" style={{color:"#00C851",marginBottom:10}}>الأمان والعقد</div>
-            <p style={{color:"#888",fontSize:12,fontFamily:"'Cairo','Inter',sans-serif",lineHeight:1.9,marginBottom:14}}>نستخدم تشفير AES-256 العسكري مع SSL/TLS 3.0 لحماية جميع بيانات المستخدمين والمعاملات.</p>
-            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}}>
-              {[{val:"AES-256",label:"تشفير عسكري",col:"#00C851"},{val:"SSL/TLS 3.0",label:"بروتوكول آمن",col:"#3B82F6"},{val:"100%",label:"حماية الأموال",col:"#FFB800"},{val:"24/7",label:"مراقبة",col:"#E31837"}].map((s,i) => (
-                <div key={i} style={{background:"#111",border:`1px solid ${s.col}22`,borderRadius:8,padding:"11px",textAlign:"center"}}>
-                  <div style={{color:s.col,fontSize:14,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{s.val}</div>
-                  <div style={{color:"#444",fontSize:10,fontFamily:"'Cairo','Inter',sans-serif",marginTop:3}}>{s.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div style={{background:"linear-gradient(135deg,#000a00,#000500)",border:"1px solid rgba(0,200,81,.25)",borderRadius:14,padding:16,marginBottom:16,position:"relative",overflow:"hidden"}}>
-            <div style={{position:"absolute",top:0,left:0,right:0,height:2,background:"linear-gradient(90deg,transparent,#00C851,transparent)"}}/>
-            <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:12}}>
-              <span style={{fontSize:22}}>🇩🇿</span>
-              <div>
-                <div style={{color:"#00C851",fontSize:13,fontWeight:700,fontFamily:"'Cairo','Inter',sans-serif"}}>العقد الجزائري</div>
-                <div style={{color:"#333",fontSize:11,fontFamily:"'Inter',sans-serif"}}>Algerian Partnership Agreement</div>
-              </div>
-            </div>
-            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8,marginBottom:12}}>
-              {[{val:"Jan 2025",label:"البداية",icon:"🟢"},{val:"Dec 2027",label:"النهاية",icon:"🔴"},{val:"3 سنوات",label:"المدة",icon:"📅"}].map((t,i) => (
-                <div key={i} style={{background:"#111",borderRadius:8,padding:"11px 6px",textAlign:"center",border:"1px solid #1a1a1a"}}>
-                  <div style={{fontSize:14,marginBottom:4}}>{t.icon}</div>
-                  <div style={{color:"#00C851",fontSize:12,fontWeight:700,fontFamily:"'Inter',sans-serif"}}>{t.val}</div>
-                  <div style={{color:"#333",fontSize:10,fontFamily:"'Cairo','Inter',sans-serif"}}>{t.label}</div>
-                </div>
-              ))}
-            </div>
-            <div style={{background:"rgba(0,200,81,.05)",border:"1px solid rgba(0,200,81,.15)",borderRadius:10,padding:12,marginBottom:12}}>
-              <p style={{color:"#ccc",fontSize:12,lineHeight:1.9,fontFamily:"'Cairo',sans-serif",fontStyle:"italic"}}>تقر شركة BlackRock, Inc بأنها أبرمت عقداً رسمياً مع الجانب الجزائري في يناير 2025 مدته 3 سنوات ينتهي في ديسمبر 2027.</p>
-            </div>
-            <div style={{display:"grid",gridTemplateColumns:"1fr auto",gap:12,alignItems:"flex-end"}}>
-              <div>
-                <div style={{borderBottom:"1px solid rgba(0,200,81,.4)",paddingBottom:6,marginBottom:4}}>
-                  <span style={{color:"#00C851",fontStyle:"italic",fontSize:16,fontFamily:"Georgia,serif",fontWeight:700}}>Laurence D. Fink</span>
-                </div>
-                <div style={{color:"#333",fontSize:10,fontFamily:"'Inter',sans-serif"}}>Executive Chairman, BlackRock</div>
-              </div>
-              <div style={{width:48,height:48,borderRadius:"50%",border:"2px solid rgba(0,200,81,.4)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:20}}>🇩🇿</div>
-            </div>
           </div>
           <a href="https://www.blackrock.com" target="_blank" rel="noopener noreferrer" style={{display:"block",textDecoration:"none",marginBottom:10}}>
             <button className="btn-outline" style={{display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>🌐 blackrock.com</button>
@@ -586,38 +627,45 @@ function CompanyModal({onClose, lang}) {
   );
 }
 
-/* ═══════════════════ DEPOSIT MODAL ═══════════════════ */
-function DepositModal({onClose, lang}) {
-  const tx = T[lang];
-  return (
+/* ══════════════════════════════════════════════════
+   DEPOSIT MODAL
+══════════════════════════════════════════════════ */
+function DepositModal({onClose,lang}){
+  const tx=T[lang];
+  return(
     <div className="modal-bg" onClick={onClose}>
-      <div className="modal-box" onClick={e => e.stopPropagation()}>
+      <div className="modal-box" onClick={e=>e.stopPropagation()}>
         <div className="modal-handle"/>
         <div style={{padding:"20px 20px 32px"}}>
           <div style={{textAlign:"center",marginBottom:20}}>
-            <div style={{fontSize:44,marginBottom:10}}>💳</div>
+            <div style={{fontSize:48,marginBottom:10}}>💳</div>
             <h3 style={{color:"#fff",fontSize:20,fontWeight:900,fontFamily:"'Inter',sans-serif",marginBottom:4}}>{tx.deposit}</h3>
           </div>
-          <div style={{background:"#0d0d0d",border:"1px solid rgba(0,200,81,.2)",borderRadius:14,padding:18,marginBottom:14,borderTop:"2px solid rgba(0,200,81,.4)"}}>
+          <div style={{background:"linear-gradient(135deg,#001a08,#000d04)",border:"1px solid rgba(0,200,81,.3)",borderRadius:14,padding:18,marginBottom:14,borderTop:"2px solid rgba(0,200,81,.5)"}}>
             <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:14}}>
-              <div style={{width:50,height:50,background:"#001a08",borderRadius:12,display:"flex",alignItems:"center",justifyContent:"center",fontSize:24,border:"1px solid rgba(0,200,81,.3)"}}>📲</div>
+              <div style={{width:52,height:52,background:"#001a08",borderRadius:14,display:"flex",alignItems:"center",justifyContent:"center",fontSize:28,border:"1px solid rgba(0,200,81,.3)"}}>📲</div>
               <div>
-                <div style={{color:"#00C851",fontSize:15,fontWeight:700,fontFamily:"'Inter',sans-serif"}}>Signal Messenger</div>
-                <div style={{color:"#444",fontSize:12,fontFamily:"'Cairo','Inter',sans-serif"}}>تواصل آمن ومشفر</div>
+                <div style={{color:"#00C851",fontSize:16,fontWeight:700,fontFamily:"'Inter',sans-serif"}}>Signal Messenger</div>
+                <div style={{color:"#444",fontSize:12,fontFamily:"'Cairo','Inter',sans-serif"}}>تواصل آمن ومشفر 🔐</div>
               </div>
             </div>
             <p style={{color:"#888",fontSize:13,fontFamily:"'Cairo','Inter',sans-serif",lineHeight:1.9,marginBottom:14}}>
-              اتصلوا بوكلائنا عبر تطبيق Signal للإيداع وشحن الرصيد.
+              📞 اتصلوا بوكلائنا عبر تطبيق <strong style={{color:"#00C851"}}>Signal</strong> للإيداع وشحن الرصيد.
             </p>
             <a href="https://signal.me/#eu/__kL4ayCt64xdRiSQWwYpMxOo5_u-Br5Y87rLvt7vQ9c0zoJJ3BEHIfxtpSC5JSE" target="_blank" rel="noopener noreferrer" style={{display:"block",textDecoration:"none"}}>
-              <button className="btn-green" style={{display:"flex",alignItems:"center",justifyContent:"center",gap:10}}>
+              <button className="btn-green shine-btn" style={{display:"flex",alignItems:"center",justifyContent:"center",gap:10,fontSize:15}}>
                 <span>📲</span><span>اتصل بنا عبر Signal</span>
               </button>
             </a>
           </div>
           <div style={{background:"#0d0d0d",border:"1px solid var(--border)",borderRadius:12,padding:14,marginBottom:14}}>
-            {[{k:"سعر الصرف",v:"1$ = 250 دج",c:"#FFB800"},{k:"الحد الأدنى",v:"7,000 دج (28$)",c:"#fff"},{k:"وقت التأكيد",v:"خلال ساعة",c:"#00C851"},{k:"أمان الأموال",v:"محمية 100%",c:"#00C851"}].map((r,i) => (
-              <div key={i} style={{display:"flex",justifyContent:"space-between",padding:"8px 0",borderBottom:i<3?"1px solid #1a1a1a":"none"}}>
+            {[
+              {k:"💱 سعر الصرف",v:"1$ = 250 دج",c:"#FFB800"},
+              {k:"📉 الحد الأدنى",v:"7,000 دج (28$)",c:"#fff"},
+              {k:"⏱ وقت التأكيد",v:"خلال ساعة",c:"#00C851"},
+              {k:"🛡 أمان الأموال",v:"محمية 100%",c:"#00C851"},
+            ].map((r,i)=>(
+              <div key={i} style={{display:"flex",justifyContent:"space-between",padding:"9px 0",borderBottom:i<3?"1px solid #1a1a1a":"none"}}>
                 <span style={{color:"#555",fontSize:13,fontFamily:"'Cairo','Inter',sans-serif"}}>{r.k}</span>
                 <span style={{color:r.c,fontSize:13,fontWeight:600,fontFamily:"'Inter',sans-serif"}}>{r.v}</span>
               </div>
@@ -630,36 +678,43 @@ function DepositModal({onClose, lang}) {
   );
 }
 
-/* ═══════════════════ WITHDRAW MODAL ═══════════════════ */
-function WithdrawModal({user, setUser, onClose, showToast, lang}) {
-  const tx = T[lang];
-  const [amt, setAmt] = React.useState('');
-  function go() {
-    if (!amt || Number(amt) <= 0) return showToast(tx.enterAmount, "error");
-    if (Number(amt) > user.balance) return showToast(tx.insufficientBalance, "error");
-    if (Number(amt) < 5) return showToast(tx.minWithdraw, "warning");
-    setUser(u => ({...u, balance: u.balance - Number(amt)}));
-    showToast(tx.withdrawSuccess, "success");
+/* ══════════════════════════════════════════════════
+   WITHDRAW MODAL
+══════════════════════════════════════════════════ */
+function WithdrawModal({user,setUser,onClose,showToast,lang}){
+  const tx=T[lang];
+  const[amt,setAmt]=useState('');
+  function go(){
+    if(!amt||Number(amt)<=0)return showToast(tx.enterAmount,"error");
+    if(Number(amt)>user.balance)return showToast(tx.insufficientBalance,"error");
+    if(Number(amt)<5)return showToast(tx.minWithdraw,"warning");
+    const nu={...user,balance:+(user.balance-Number(amt)).toFixed(4)};
+    setUser(nu);saveUser(nu);
+    showToast(tx.withdrawSuccess,"success");
     onClose();
   }
-  return (
+  return(
     <div className="modal-bg" onClick={onClose}>
-      <div className="modal-box" onClick={e => e.stopPropagation()}>
+      <div className="modal-box" onClick={e=>e.stopPropagation()}>
         <div className="modal-handle"/>
         <div style={{padding:"20px 20px 32px"}}>
           <div style={{textAlign:"center",marginBottom:20}}>
-            <div style={{fontSize:44,marginBottom:10}}>💸</div>
+            <div style={{fontSize:48,marginBottom:10}}>💸</div>
             <h3 style={{color:"#fff",fontSize:20,fontWeight:900,fontFamily:"'Inter',sans-serif",marginBottom:4}}>{tx.withdraw}</h3>
             <p style={{color:"#555",fontSize:13}}>المتاح: <span style={{color:"#00C851",fontWeight:700}}>{f(user.balance)}$</span></p>
           </div>
           <div style={{marginBottom:14}}>
-            <label style={{color:"#555",fontSize:11,fontFamily:"'Inter',sans-serif",fontWeight:700,display:"block",marginBottom:8,letterSpacing:1,textTransform:"uppercase"}}>المبلغ ($)</label>
-            <input type="number" placeholder="0.00" value={amt} onChange={e => setAmt(e.target.value)}/>
-            {amt && <p style={{color:"#333",fontSize:12,marginTop:6,fontFamily:"'Inter',sans-serif"}}>≈ {f(Number(amt)*250,0)} DZD</p>}
+            <label style={{color:"#444",fontSize:11,fontFamily:"'Inter',sans-serif",fontWeight:700,display:"block",marginBottom:8,letterSpacing:1,textTransform:"uppercase"}}>{lang==="ar"?"المبلغ ($)":"Amount ($)"}</label>
+            <input type="number" placeholder="0.00" value={amt} onChange={e=>setAmt(e.target.value)}/>
+            {amt&&<p style={{color:"#333",fontSize:12,marginTop:6,fontFamily:"'Inter',sans-serif"}}>≈ {f(Number(amt)*250,0)} DZD</p>}
           </div>
           <div style={{background:"#0d0d0d",border:"1px solid var(--border)",borderRadius:10,padding:14,marginBottom:16}}>
-            {[{k:"الحد الأدنى",v:"5$"},{k:"رسوم المعالجة",v:"0%"},{k:"وقت المعالجة",v:"24-48 ساعة"}].map((r,i) => (
-              <div key={i} style={{display:"flex",justifyContent:"space-between",padding:"7px 0",borderBottom:i<2?"1px solid #1a1a1a":"none"}}>
+            {[
+              {k:"الحد الأدنى",v:"5$"},
+              {k:"رسوم المعالجة",v:"0% 🎉"},
+              {k:"وقت المعالجة",v:"24-48 ساعة"},
+            ].map((r,i)=>(
+              <div key={i} style={{display:"flex",justifyContent:"space-between",padding:"8px 0",borderBottom:i<2?"1px solid #1a1a1a":"none"}}>
                 <span style={{color:"#555",fontSize:12,fontFamily:"'Cairo','Inter',sans-serif"}}>{r.k}</span>
                 <span style={{color:"#ddd",fontSize:12,fontWeight:600,fontFamily:"'Inter',sans-serif"}}>{r.v}</span>
               </div>
@@ -675,130 +730,87 @@ function WithdrawModal({user, setUser, onClose, showToast, lang}) {
   );
 }
 
-/* ═══════════════════ REFERRAL MODAL ═══════════════════ */
-function ReferralModal({user, setUser, onClose, showToast, lang, setSpinModal}) {
-  const tx = T[lang];
-  const refLink = "https://blackrock-earn.app/ref/" + user.refCode;
-  const pct = Math.min((user.referrals/10)*100, 100);
-
-  function copy(txt) {
-    try { navigator.clipboard.writeText(txt); } catch(e) {}
-    showToast(tx.copiedCode, "success");
+/* ══════════════════════════════════════════════════
+   REFERRAL MODAL
+══════════════════════════════════════════════════ */
+function ReferralModal({user,setUser,onClose,showToast,lang,setSpinModal}){
+  const tx=T[lang];
+  const refLink="https://blackrock-earn.app/ref/"+user.refCode;
+  const pct=Math.min((user.referrals/10)*100,100);
+  function copy(txt){
+    try{navigator.clipboard.writeText(txt);}catch(e){}
+    showToast(tx.copiedCode,"success");
   }
-
-  return (
+  return(
     <div className="modal-bg" onClick={onClose}>
-      <div className="modal-box" onClick={e => e.stopPropagation()}>
+      <div className="modal-box" onClick={e=>e.stopPropagation()}>
         <div className="modal-handle"/>
         <div style={{padding:"20px 20px 32px"}}>
           <div style={{textAlign:"center",marginBottom:20}}>
-            <div style={{fontSize:44,marginBottom:8}}>🎁</div>
+            <div style={{fontSize:48,marginBottom:8}}>🎁</div>
             <h3 style={{color:"#fff",fontSize:20,fontWeight:900,fontFamily:"'Inter',sans-serif",marginBottom:4}}>{tx.refProgram}</h3>
             <p style={{color:"#555",fontSize:13,fontFamily:"'Cairo','Inter',sans-serif"}}>{tx.inviteFriends}</p>
           </div>
-
-          {/* Stats */}
           <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10,marginBottom:18}}>
             {[
-              {val:user.referrals||0,label:"إحالات",col:"#E31837"},
-              {val:f((user.referrals||0)*2.5)+"$",label:"المكتسب",col:"#00C851"},
-              {val:"2.5$",label:"لكل إحالة",col:"#FFB800"},
-            ].map((s,i) => (
+              {val:user.referrals||0,label:"إحالات 👥",col:"#E31837"},
+              {val:f((user.referrals||0)*2.5)+"$",label:"المكتسب 💰",col:"#00C851"},
+              {val:"2.5$",label:"لكل إحالة 🎯",col:"#FFB800"},
+            ].map((s,i)=>(
               <div key={i} className="stat-box">
                 <div style={{color:s.col,fontSize:17,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{s.val}</div>
                 <div style={{color:"#333",fontSize:10,fontFamily:"'Cairo','Inter',sans-serif",marginTop:3}}>{s.label}</div>
               </div>
             ))}
           </div>
-
-          {/* Free Upgrade Progress */}
           <div style={{background:"linear-gradient(135deg,#110800,#0d0500)",border:"1px solid rgba(255,184,0,.25)",borderRadius:14,padding:18,marginBottom:16,position:"relative",overflow:"hidden"}}>
             <div style={{position:"absolute",top:0,left:0,right:0,height:2,background:"linear-gradient(90deg,transparent,#FFB800,transparent)"}}/>
             <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:12}}>
               <span style={{fontSize:24}}>🚀</span>
               <div>
-                <div style={{color:"#FFB800",fontSize:13,fontWeight:700,fontFamily:"'Cairo','Inter',sans-serif"}}>{tx.freeUpgrade}</div>
-                <div style={{color:"#444",fontSize:11,fontFamily:"'Cairo','Inter',sans-serif"}}>{tx.freeUpgradeDesc}</div>
+                <div style={{color:"#FFB800",fontSize:13,fontWeight:700,fontFamily:"'Cairo','Inter',sans-serif"}}>{tx.freeUpgrade||"ترقية مجانية"}</div>
+                <div style={{color:"#444",fontSize:11,fontFamily:"'Cairo','Inter',sans-serif"}}>ادعُ 10 أصدقاء — احصل على NEXUS مجاناً!</div>
               </div>
             </div>
             <div style={{display:"flex",justifyContent:"space-between",marginBottom:8}}>
-              <span style={{color:"#888",fontSize:12,fontFamily:"'Cairo','Inter',sans-serif"}}>{tx.referralProgress}</span>
-              <span style={{color:"#FFB800",fontSize:12,fontWeight:700,fontFamily:"'Inter',sans-serif"}}>{user.referrals}/10 {tx.toFreeUpgrade}</span>
+              <span style={{color:"#888",fontSize:12}}>{user.referrals}/10</span>
+              <span style={{color:"#FFB800",fontSize:12,fontWeight:700}}>{pct.toFixed(0)}%</span>
             </div>
-            <div style={{background:"#1a1a1a",borderRadius:4,height:8,overflow:"hidden",marginBottom:10}}>
+            <div style={{background:"#1a1a1a",borderRadius:4,height:8,overflow:"hidden"}}>
               <div style={{height:"100%",width:`${pct}%`,background:"linear-gradient(90deg,#FFB800,#FF8C00)",borderRadius:4,transition:"width .5s ease"}}/>
             </div>
-            {pct >= 100 ? (
-              <div style={{background:"rgba(0,200,81,.1)",border:"1px solid rgba(0,200,81,.3)",borderRadius:8,padding:"10px 14px",textAlign:"center"}}>
-                <span style={{color:"#00C851",fontSize:13,fontWeight:700,fontFamily:"'Cairo','Inter',sans-serif"}}>🎉 مبروك! تستحق ترقية NEXUS مجاناً!</span>
-              </div>
-            ) : (
-              <div style={{textAlign:"center"}}>
-                <span style={{color:"#555",fontSize:12,fontFamily:"'Cairo','Inter',sans-serif"}}>{10-(user.referrals||0)} إحالات أخرى للترقية المجانية</span>
-              </div>
-            )}
           </div>
-
-          {/* Lucky Spin */}
-          <div style={{background:"linear-gradient(135deg,#0d0012,#080008)",border:"1px solid rgba(139,92,246,.3)",borderRadius:14,padding:18,marginBottom:16,position:"relative",overflow:"hidden"}}>
-            <div style={{position:"absolute",top:0,left:0,right:0,height:2,background:"linear-gradient(90deg,transparent,#8B5CF6,transparent)"}}/>
-            <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:12}}>
-              <span style={{fontSize:28}}>🎰</span>
-              <div>
-                <div style={{color:"#8B5CF6",fontSize:14,fontWeight:700,fontFamily:"'Cairo','Inter',sans-serif"}}>{tx.luckySpinTitle}</div>
-                <div style={{color:"#444",fontSize:11,fontFamily:"'Cairo','Inter',sans-serif"}}>احصل على دورة مجانية لكل إحالة!</div>
-              </div>
-            </div>
-            <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:12}}>
-              <span style={{color:"#888",fontSize:13,fontFamily:"'Cairo','Inter',sans-serif"}}>{tx.spinsLeft}</span>
-              <span style={{color:"#8B5CF6",fontSize:18,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{user.spins||0} 🎰</span>
-            </div>
-            <button
-              onClick={() => { onClose(); setTimeout(() => setSpinModal(true), 100); }}
-              className="shine-btn"
-              style={{
-                background:"linear-gradient(135deg,#8B5CF6,#6D28D9)",color:"#fff",fontWeight:700,
-                borderRadius:8,padding:"13px",border:"none",cursor:"pointer",fontFamily:"'Inter','Cairo',sans-serif",
-                fontSize:14,width:"100%",opacity:user.spins>0?1:.5
-              }}
-            >
-              🎰 {tx.spinNow} ({user.spins||0} {tx.spinsLeft})
-            </button>
-          </div>
-
-          {/* Code & Link */}
           <div style={{background:"#0d0d0d",border:"1px solid rgba(227,24,55,.2)",borderRadius:14,padding:16,marginBottom:14,borderRight:"3px solid #E31837"}}>
             <div className="lbl" style={{color:"#E31837",marginBottom:8}}>{tx.yourCode}</div>
             <div style={{background:"#111",border:"1px solid #2a2a2a",borderRadius:8,padding:"12px 14px",display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
               <span style={{color:"#FFB800",fontWeight:900,fontSize:17,fontFamily:"'Inter',sans-serif",letterSpacing:2}}>{user.refCode}</span>
-              <button className="copy-btn" onClick={() => copy(user.refCode)}>نسخ</button>
+              <button className="copy-btn" onClick={()=>copy(user.refCode)}>📋 نسخ</button>
             </div>
             <div className="lbl" style={{color:"#E31837",marginBottom:8}}>{tx.refLink}</div>
             <div style={{background:"#111",border:"1px solid #2a2a2a",borderRadius:8,padding:"11px 14px",display:"flex",justifyContent:"space-between",alignItems:"center",gap:8}}>
               <span style={{color:"#555",fontSize:11,fontFamily:"'Inter',sans-serif",flex:1,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",direction:"ltr"}}>{refLink}</span>
-              <button className="copy-btn" onClick={() => copy(refLink)}>نسخ</button>
+              <button className="copy-btn" onClick={()=>copy(refLink)}>📋 نسخ</button>
             </div>
           </div>
-
-          {/* Steps */}
           <div style={{background:"#0d0d0d",border:"1px solid var(--border)",borderRadius:12,padding:14,marginBottom:14}}>
             <div className="lbl" style={{marginBottom:10}}>{tx.howItWorks}</div>
             {[
-              {n:"01",t:"شارك كودك مع أصدقائك",col:"#E31837"},
-              {n:"02",t:"يسجّل صديقك بالرابط الخاص بك",col:"#FFB800"},
-              {n:"03",t:"يشحن صديقك أي باقة مدفوعة (مستوى 1 أو أعلى)",col:"#00C851"},
-              {n:"04",t:"تحصل فوراً على 2.5$ + دورة عجلة الحظ",col:"#8B5CF6"},
-              {n:"05",t:"10 إحالات بمستوى 1 = ترقية NEXUS مجانية!",col:"#FFB800"},
-            ].map((s,i) => (
+              {n:"01",t:"شارك كودك مع أصدقائك 📤",col:"#E31837"},
+              {n:"02",t:"يسجّل صديقك بالرابط الخاص بك 📝",col:"#FFB800"},
+              {n:"03",t:"يشحن صديقك أي باقة مدفوعة 💳",col:"#00C851"},
+              {n:"04",t:"تحصل فوراً على 2.5$ + دورة عجلة الحظ 🎰",col:"#8B5CF6"},
+              {n:"05",t:"10 إحالات = ترقية NEXUS مجانية! 🚀",col:"#FFB800"},
+            ].map((s,i)=>(
               <div key={i} style={{display:"flex",alignItems:"flex-start",gap:12,marginBottom:i<4?10:0}}>
                 <div style={{width:26,height:26,borderRadius:6,background:`${s.col}18`,border:`1px solid ${s.col}44`,display:"flex",alignItems:"center",justifyContent:"center",color:s.col,fontSize:11,fontWeight:900,fontFamily:"'Inter',sans-serif",flexShrink:0}}>{s.n}</div>
                 <p style={{color:"#ccc",fontSize:13,fontFamily:"'Cairo','Inter',sans-serif",lineHeight:1.7,paddingTop:4}}>{s.t}</p>
               </div>
             ))}
           </div>
-
           <a href="https://signal.me/#eu/__kL4ayCt64xdRiSQWwYpMxOo5_u-Br5Y87rLvt7vQ9c0zoJJ3BEHIfxtpSC5JSE" target="_blank" rel="noopener noreferrer" style={{display:"block",textDecoration:"none",marginBottom:10}}>
-            <button className="btn-green" style={{display:"flex",alignItems:"center",justifyContent:"center",gap:10}}><span>📲</span><span>دعوة عبر Signal</span></button>
+            <button className="btn-green" style={{display:"flex",alignItems:"center",justifyContent:"center",gap:10}}>
+              <span>📲</span><span>دعوة عبر Signal</span>
+            </button>
           </a>
           <button className="btn-gray" onClick={onClose}>{tx.close}</button>
         </div>
@@ -807,51 +819,176 @@ function ReferralModal({user, setUser, onClose, showToast, lang, setSpinModal}) 
   );
 }
 
-/* ═══════════════════ CONTEST MODAL ═══════════════════ */
-function ContestModal({user, onClose, lang}) {
-  const board = [
-    {rank:1,name:"Youcef B.",city:"الجزائر",score:1842,prize:"500$",col:"#FFB800"},
+/* ══════════════════════════════════════════════════
+   ACHIEVEMENTS MODAL
+══════════════════════════════════════════════════ */
+function AchievementsModal({user,setUser,onClose,showToast,lang}){
+  const tx=T[lang];
+
+  function getVal(type){
+    if(type==="completedTasks")return user.completedTasks||0;
+    if(type==="totalEarned")return user.totalEarned||0;
+    if(type==="referrals")return user.referrals||0;
+    if(type==="packageId")return user.packageId||0;
+    if(type==="activeDays")return user.activeDays||0;
+    if(type==="spinWins")return user.spinWins||0;
+    return 0;
+  }
+
+  function claimReward(a){
+    const already=(user.unlockedAchievements||[]).includes(a.id);
+    if(already)return;
+    const nu={
+      ...user,
+      balance:+(user.balance+a.reward).toFixed(4),
+      totalEarned:+(user.totalEarned+a.reward).toFixed(4),
+      unlockedAchievements:[...(user.unlockedAchievements||[]),a.id],
+      notifications:[...(user.notifications||[]),{
+        icon:"🏅",
+        msg:`🏅 ${lang==="ar"?a.title.ar:a.title.en} — حصلت على ${f(a.reward)}$!`,
+        time:new Date().toLocaleTimeString("ar-DZ"),read:false
+      }],
+    };
+    setUser(nu);saveUser(nu);
+    if(a.reward>0)showToast(`🏅 إنجاز! +${f(a.reward)}$ ربح`,"success");
+    else showToast(`🏅 إنجاز مفتوح: ${lang==="ar"?a.title.ar:a.title.en}`,"info");
+  }
+
+  const unlocked=user.unlockedAchievements||[];
+  const cats=[
+    {label:lang==="ar"?"📋 المهام":"📋 Tasks",items:ACHIEVEMENTS_DEF.filter(a=>a.type==="completedTasks")},
+    {label:lang==="ar"?"💰 الأرباح":"💰 Earnings",items:ACHIEVEMENTS_DEF.filter(a=>a.type==="totalEarned")},
+    {label:lang==="ar"?"👥 الإحالات":"👥 Referrals",items:ACHIEVEMENTS_DEF.filter(a=>a.type==="referrals")},
+    {label:lang==="ar"?"🚀 الترقيات":"🚀 Upgrades",items:ACHIEVEMENTS_DEF.filter(a=>a.type==="packageId")},
+    {label:lang==="ar"?"📅 النشاط":"📅 Activity",items:ACHIEVEMENTS_DEF.filter(a=>a.type==="activeDays")},
+    {label:lang==="ar"?"🎰 المتفرقات":"🎰 Misc",items:ACHIEVEMENTS_DEF.filter(a=>a.type==="spinWins")},
+  ];
+
+  return(
+    <div className="modal-bg" onClick={onClose}>
+      <div className="modal-box" onClick={e=>e.stopPropagation()}>
+        <div className="modal-handle"/>
+        <div style={{padding:"20px 20px 32px"}}>
+          <div style={{textAlign:"center",marginBottom:20}}>
+            <div style={{fontSize:42,marginBottom:8}}>🏅</div>
+            <h3 style={{color:"#fff",fontSize:20,fontWeight:900,fontFamily:"'Inter',sans-serif",marginBottom:4}}>{tx.achievementsTitle}</h3>
+            <p style={{color:"#555",fontSize:13,fontFamily:"'Cairo','Inter',sans-serif"}}>{tx.achievementsDesc}</p>
+            <div style={{display:"flex",justifyContent:"center",gap:12,marginTop:12}}>
+              <div className="tag t-gold">{unlocked.length}/{ACHIEVEMENTS_DEF.length} مفتوح</div>
+              <div className="tag t-green">+{f(ACHIEVEMENTS_DEF.filter(a=>unlocked.includes(a.id)).reduce((s,a)=>s+a.reward,0))}$ مكتسب</div>
+            </div>
+          </div>
+
+          {cats.map((cat,ci)=>(
+            <div key={ci} style={{marginBottom:18}}>
+              <div className="lbl" style={{marginBottom:10}}>{cat.label}</div>
+              {cat.items.map((a,ai)=>{
+                const val=getVal(a.type);
+                const pct=Math.min((val/a.target)*100,100);
+                const isUnlocked=unlocked.includes(a.id);
+                const canClaim=val>=a.target&&!isUnlocked;
+                return(
+                  <div key={ai} className={`achievement-card ${!isUnlocked&&!canClaim?"achievement-locked":""}`}
+                    style={{border:`1px solid ${isUnlocked?a.color+"44":canClaim?a.color+"66":"#1a1a1a"}`,
+                      background:isUnlocked?`${a.color}08`:canClaim?`${a.color}12`:"#0d0d0d"}}>
+                    <div style={{width:46,height:46,borderRadius:12,background:`${a.color}20`,border:`1px solid ${a.color}44`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:22,flexShrink:0}}>
+                      {isUnlocked?a.icon:canClaim?a.icon:"🔒"}
+                    </div>
+                    <div style={{flex:1}}>
+                      <div style={{color:isUnlocked?a.color:canClaim?"#fff":"#555",fontWeight:700,fontSize:13,fontFamily:"'Cairo','Inter',sans-serif"}}>
+                        {lang==="ar"?a.title.ar:a.title.en}
+                        {isUnlocked&&<span style={{color:"#00C851",fontSize:11,marginRight:6}}> ✅</span>}
+                      </div>
+                      <div style={{color:"#333",fontSize:11,fontFamily:"'Cairo','Inter',sans-serif",marginTop:2}}>
+                        {lang==="ar"?a.desc.ar:a.desc.en}
+                      </div>
+                      {!isUnlocked&&(
+                        <div style={{marginTop:6}}>
+                          <div style={{background:"#1a1a1a",borderRadius:3,height:4,overflow:"hidden"}}>
+                            <div style={{height:"100%",width:`${pct}%`,background:a.color,borderRadius:3,transition:"width .5s ease"}}/>
+                          </div>
+                          <div style={{color:"#333",fontSize:10,marginTop:3,fontFamily:"'Inter',sans-serif"}}>{val}/{a.target}</div>
+                        </div>
+                      )}
+                      {a.reward>0&&(
+                        <div style={{color:isUnlocked?"#333":a.color,fontSize:11,fontWeight:700,marginTop:4,fontFamily:"'Inter',sans-serif"}}>
+                          🏆 {tx.reward}: +{f(a.reward)}$
+                        </div>
+                      )}
+                    </div>
+                    {canClaim&&(
+                      <button onClick={()=>claimReward(a)}
+                        style={{background:a.color,color:"#000",border:"none",borderRadius:8,padding:"8px 14px",cursor:"pointer",fontWeight:700,fontSize:11,fontFamily:"'Inter','Cairo',sans-serif",flexShrink:0}}>
+                        استلم 🎁
+                      </button>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          ))}
+          <button className="btn-gray" onClick={onClose}>{tx.close}</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════════════════
+   CONTEST MODAL
+══════════════════════════════════════════════════ */
+function ContestModal({user,onClose,lang}){
+  const board=[
+    {rank:1,name:"Youcef B.",city:"الجزائر العاصمة",score:1842,prize:"500$",col:"#FFB800"},
     {rank:2,name:"Amina K.",city:"وهران",score:1621,prize:"200$",col:"#aaa"},
     {rank:3,name:"Karim M.",city:"قسنطينة",score:1503,prize:"100$",col:"#CD7F32"},
     {rank:4,name:"Nour H.",city:"عنابة",score:1287,prize:"50$",col:"#3B82F6"},
     {rank:5,name:"Sofiane R.",city:"سطيف",score:1154,prize:"50$",col:"#3B82F6"},
     {rank:6,name:"أنت",city:"الجزائر",score:(user.completedTasks||0)*10,prize:"—",col:"#E31837",me:true},
   ];
-  return (
+  const[time,setTime]=useState({d:14,h:8,m:32,s:51});
+  useEffect(()=>{
+    const t=setInterval(()=>setTime(v=>{
+      let{d,h,m,s}=v;
+      s--;if(s<0){s=59;m--;}if(m<0){m=59;h--;}if(h<0){h=23;d--;}if(d<0){d=0;h=0;m=0;s=0;}
+      return{d,h,m,s};
+    }),1000);
+    return()=>clearInterval(t);
+  },[]);
+  const pad=n=>String(n).padStart(2,"0");
+  return(
     <div className="modal-bg" onClick={onClose}>
-      <div className="modal-box" onClick={e => e.stopPropagation()}>
+      <div className="modal-box" onClick={e=>e.stopPropagation()}>
         <div className="modal-handle"/>
         <div style={{padding:"20px 20px 32px"}}>
           <div style={{background:"linear-gradient(135deg,#0d0800,#080008)",border:"1px solid rgba(255,184,0,.25)",borderRadius:16,padding:"22px 20px",textAlign:"center",marginBottom:16,position:"relative",overflow:"hidden"}}>
             <div style={{position:"absolute",inset:0,background:"radial-gradient(circle at 50% 0%,rgba(255,184,0,.06) 0%,transparent 70%)",pointerEvents:"none"}}/>
-            <div style={{fontSize:42,marginBottom:8,animation:"float 3s ease-in-out infinite"}}>🏆</div>
+            <div style={{fontSize:44,marginBottom:8,animation:"float 3s ease-in-out infinite"}}>🏆</div>
             <div className="tag t-gold" style={{marginBottom:10,fontSize:11}}>LIVE CONTEST</div>
             <h3 style={{color:"#FFB800",fontSize:19,fontWeight:900,fontFamily:"'Inter',sans-serif",marginBottom:6}}>مسابقة شهر يونيو</h3>
-            <p style={{color:"#888",fontSize:13,fontFamily:"'Cairo','Inter',sans-serif",marginBottom:14}}>أكمل أكثر المهام وفُز بجوائز حقيقية!</p>
-            <div style={{display:"flex",justifyContent:"center",gap:8}}>
-              {[{v:"14",l:"يوم"},{v:"08",l:"ساعة"},{v:"32",l:"دقيقة"},{v:"51",l:"ثانية"}].map((t,i) => (
+            <div style={{display:"flex",justifyContent:"center",gap:8,marginTop:12}}>
+              {[{v:pad(time.d),l:"يوم"},{v:pad(time.h),l:"ساعة"},{v:pad(time.m),l:"دقيقة"},{v:pad(time.s),l:"ثانية"}].map((t,i)=>(
                 <div key={i} style={{textAlign:"center"}}>
-                  <div style={{background:"#1a1200",border:"1px solid rgba(255,184,0,.3)",borderRadius:8,padding:"9px 10px",minWidth:40}}>
-                    <div style={{color:"#FFB800",fontSize:17,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{t.v}</div>
+                  <div style={{background:"#1a1200",border:"1px solid rgba(255,184,0,.3)",borderRadius:8,padding:"9px 10px",minWidth:44}}>
+                    <div style={{color:"#FFB800",fontSize:18,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{t.v}</div>
                   </div>
                   <div style={{color:"#333",fontSize:9,fontFamily:"'Cairo','Inter',sans-serif",marginTop:4}}>{t.l}</div>
                 </div>
               ))}
             </div>
           </div>
-          <div style={{marginBottom:16}}>
+          <div style={{marginBottom:14}}>
             <div className="lbl">🎁 الجوائز</div>
-            {[{rank:"1st",prize:"500$",icon:"🥇",col:"#FFB800"},{rank:"2nd",prize:"200$",icon:"🥈",col:"#aaa"},{rank:"3rd",prize:"100$",icon:"🥉",col:"#CD7F32"},{rank:"4-10",prize:"50$",icon:"🏅",col:"#3B82F6"},{rank:"11-20",prize:"25$",icon:"🎖️",col:"#8B5CF6"}].map((p,i) => (
+            {[{rank:"1st 🥇",prize:"500$",col:"#FFB800"},{rank:"2nd 🥈",prize:"200$",col:"#aaa"},{rank:"3rd 🥉",prize:"100$",col:"#CD7F32"},{rank:"4-10 🏅",prize:"50$",col:"#3B82F6"},{rank:"11-20 🎖️",prize:"25$",col:"#8B5CF6"}].map((p,i)=>(
               <div key={i} style={{background:"#0d0d0d",border:`1px solid ${p.col}22`,borderRadius:8,padding:"11px 16px",display:"flex",alignItems:"center",gap:12,marginBottom:8}}>
-                <span style={{fontSize:20}}>{p.icon}</span>
                 <span style={{color:"#ccc",fontSize:13,fontFamily:"'Cairo','Inter',sans-serif",flex:1}}>{p.rank}</span>
                 <span style={{color:p.col,fontSize:14,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{p.prize}</span>
               </div>
             ))}
           </div>
-          <div style={{marginBottom:16}}>
+          <div style={{marginBottom:14}}>
             <div className="lbl">📊 لوحة المتصدرين</div>
-            {board.map((p,i) => (
+            {board.map((p,i)=>(
               <div key={i} style={{background:p.me?"#110000":"#0d0d0d",border:`1px solid ${p.me?"rgba(227,24,55,.4)":"var(--border)"}`,borderRadius:10,padding:"12px 16px",display:"flex",alignItems:"center",gap:12,marginBottom:8}}>
                 <div style={{width:27,height:27,borderRadius:6,background:`${p.col}18`,border:`1px solid ${p.col}44`,display:"flex",alignItems:"center",justifyContent:"center",color:p.col,fontSize:12,fontWeight:900,fontFamily:"'Inter',sans-serif",flexShrink:0}}>{p.rank}</div>
                 <div style={{flex:1}}>
@@ -865,11 +1002,6 @@ function ContestModal({user, onClose, lang}) {
               </div>
             ))}
           </div>
-          <div style={{background:"#0d0d0d",border:"1px solid rgba(255,184,0,.2)",borderRadius:10,padding:14,marginBottom:14,textAlign:"center"}}>
-            <p style={{color:"#888",fontSize:12,fontFamily:"'Cairo','Inter',sans-serif",lineHeight:1.8}}>
-              كل مهمة = <span style={{color:"#FFB800",fontWeight:700}}>10 نقاط</span>
-            </p>
-          </div>
           <button className="btn-gray" onClick={onClose}>{T[lang].close}</button>
         </div>
       </div>
@@ -877,107 +1009,134 @@ function ContestModal({user, onClose, lang}) {
   );
 }
 
-/* ═══════════════════ SETTINGS MODAL ═══════════════════ */
-function SettingsModal({onClose, lang, setLang}) {
-  return (
+/* ══════════════════════════════════════════════════
+   SETTINGS MODAL
+══════════════════════════════════════════════════ */
+function SettingsModal({onClose,lang,setLang,user}){
+  const tx=T[lang];
+  return(
     <div className="modal-bg" onClick={onClose}>
-      <div className="modal-box" onClick={e => e.stopPropagation()}>
+      <div className="modal-box" onClick={e=>e.stopPropagation()}>
         <div className="modal-handle"/>
         <div style={{padding:"20px 20px 32px"}}>
           <div style={{textAlign:"center",marginBottom:22}}>
             <div style={{fontSize:44,marginBottom:10}}>⚙️</div>
-            <h3 style={{color:"#fff",fontSize:20,fontWeight:900,fontFamily:"'Inter',sans-serif",marginBottom:4}}>{T[lang].settings}</h3>
+            <h3 style={{color:"#fff",fontSize:20,fontWeight:900,fontFamily:"'Inter',sans-serif",marginBottom:4}}>{tx.settings}</h3>
           </div>
-
-          {/* Language */}
           <div style={{background:"#0d0d0d",border:"1px solid var(--border2)",borderRadius:14,padding:18,marginBottom:14}}>
-            <div className="lbl" style={{marginBottom:14}}>{T[lang].language}</div>
-            <div className="lang-toggle">
-              <div
-                className={"lang-opt " + (lang==="ar" ? "lang-opt-active" : "lang-opt-inactive")}
-                onClick={() => {
-                  setLang("ar");
-                  document.getElementById("html-root").setAttribute("dir","rtl");
-                  document.getElementById("html-root").setAttribute("lang","ar");
-                }}
-              >
-                <span style={{fontSize:20}}>🇩🇿</span>
-                <span>العربية</span>
-              </div>
-              <div
-                className={"lang-opt " + (lang==="en" ? "lang-opt-active" : "lang-opt-inactive")}
-                onClick={() => {
-                  setLang("en");
-                  document.getElementById("html-root").setAttribute("dir","ltr");
-                  document.getElementById("html-root").setAttribute("lang","en");
-                }}
-              >
-                <span style={{fontSize:20}}>🇺🇸</span>
-                <span>English</span>
-              </div>
+            <div className="lbl" style={{marginBottom:14}}>{tx.language}</div>
+            <div style={{display:"flex",background:"#111",border:"1px solid var(--border2)",borderRadius:10,overflow:"hidden"}}>
+              {[{code:"ar",flag:"🇩🇿",label:"العربية"},{code:"en",flag:"🇺🇸",label:"English"}].map(l=>(
+                <div key={l.code}
+                  onClick={()=>{
+                    setLang(l.code);
+                    document.getElementById("html-root").setAttribute("dir",l.code==="ar"?"rtl":"ltr");
+                    document.getElementById("html-root").setAttribute("lang",l.code);
+                  }}
+                  style={{flex:1,padding:"10px",textAlign:"center",cursor:"pointer",background:lang===l.code?"#E31837":"transparent",color:lang===l.code?"#fff":"#666",fontWeight:700,fontSize:13,fontFamily:"'Inter','Cairo',sans-serif",display:"flex",alignItems:"center",justifyContent:"center",gap:6,transition:"all .2s"}}>
+                  <span style={{fontSize:20}}>{l.flag}</span><span>{l.label}</span>
+                </div>
+              ))}
             </div>
           </div>
-
-          {/* App Info */}
-          <div style={{background:"#0d0d0d",border:"1px solid var(--border)",borderRadius:12,padding:16,marginBottom:16}}>
+          <div style={{background:"#0d0d0d",border:"1px solid var(--border)",borderRadius:12,padding:16,marginBottom:14}}>
+            <div className="lbl" style={{marginBottom:10}}>📋 معلومات الحساب</div>
             {[
-              {k:"Version",v:"2.1.0"},
-              {k:"NYSE",v:"BLK"},
-              {k:"EIN",v:"32-0174431"},
-              {k:"Platform",v:"BlackRock Earn"},
-            ].map((r,i) => (
-              <div key={i} style={{display:"flex",justifyContent:"space-between",padding:"8px 0",borderBottom:i<3?"1px solid #1a1a1a":"none"}}>
-                <span style={{color:"#444",fontSize:12,fontFamily:"'Inter',sans-serif"}}>{r.k}</span>
+              {k:"📅 "+tx.joinDate,v:user.joinDate||nowDate()},
+              {k:"🔑 كود الإحالة",v:user.refCode},
+              {k:"📦 الباقة الحالية",v:PKG[user.packageId].name},
+              {k:"🏆 الإنجازات",v:`${(user.unlockedAchievements||[]).length}/${ACHIEVEMENTS_DEF.length}`},
+              {k:"⚙️ Version",v:"3.0.0"},
+            ].map((r,i)=>(
+              <div key={i} style={{display:"flex",justifyContent:"space-between",padding:"9px 0",borderBottom:i<4?"1px solid #1a1a1a":"none"}}>
+                <span style={{color:"#444",fontSize:12,fontFamily:"'Cairo','Inter',sans-serif"}}>{r.k}</span>
                 <span style={{color:"#ddd",fontSize:12,fontWeight:600,fontFamily:"'Inter',sans-serif"}}>{r.v}</span>
               </div>
             ))}
           </div>
-          <button className="btn-gray" onClick={onClose}>{T[lang].close}</button>
+          <button className="btn-gray" onClick={onClose}>{tx.close}</button>
         </div>
       </div>
     </div>
   );
 }
 
-/* ═══════════════════ HOME PAGE ═══════════════════ */
-function HomePage({user, setUser, setPage, showToast, lang}) {
-  const [modal, setModal] = React.useState(null);
-  const tx = T[lang];
-  const pkg = PKG.find(p => p.id === user.packageId) || PKG[0];
-  return (
-    <div className="page" style={{paddingBottom:90}}>
-      <div style={{background:"linear-gradient(180deg,#0a0000,#000)",padding:"52px 20px 22px",borderBottom:"1px solid var(--border)"}}>
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:20}}>
+/* ══════════════════════════════════════════════════
+   CHECK ACHIEVEMENTS (auto)
+══════════════════════════════════════════════════ */
+function checkAndUnlockAchievements(user,setUser,showToast,lang){
+  const unlocked=user.unlockedAchievements||[];
+  let changed=false;
+  let nu={...user};
+  ACHIEVEMENTS_DEF.forEach(a=>{
+    if(unlocked.includes(a.id))return;
+    let val=0;
+    if(a.type==="completedTasks")val=nu.completedTasks||0;
+    else if(a.type==="totalEarned")val=nu.totalEarned||0;
+    else if(a.type==="referrals")val=nu.referrals||0;
+    else if(a.type==="packageId")val=nu.packageId||0;
+    else if(a.type==="activeDays")val=nu.activeDays||0;
+    else if(a.type==="spinWins")val=nu.spinWins||0;
+    if(val>=a.target){
+      nu={
+        ...nu,
+        balance:+(nu.balance+a.reward).toFixed(4),
+        totalEarned:+(nu.totalEarned+a.reward).toFixed(4),
+        unlockedAchievements:[...(nu.unlockedAchievements||[]),a.id],
+        notifications:[...(nu.notifications||[]),{
+          icon:"🏅",
+          msg:`إنجاز جديد: ${lang==="ar"?a.title.ar:a.title.en}${a.reward>0?" (+"+f(a.reward)+"$)":""}`,
+          time:new Date().toLocaleTimeString("ar-DZ"),read:false
+        }],
+      };
+      changed=true;
+      if(a.reward>0)showToast(`🏅 إنجاز! ${lang==="ar"?a.title.ar:a.title.en} +${f(a.reward)}$`,"success");
+    }
+  });
+  if(changed){setUser(nu);saveUser(nu);}
+}
+
+/* ══════════════════════════════════════════════════
+   HOME PAGE
+══════════════════════════════════════════════════ */
+function HomePage({user,setUser,setPage,showToast,lang}){
+  const[modal,setModal]=useState(null);
+  const tx=T[lang];
+  const pkg=PKG[user.packageId]||PKG[0];
+  return(
+    <div className="page" style={{paddingBottom:95}}>
+      <div style={{background:"linear-gradient(180deg,#080000,#000)",padding:"52px 20px 22px",borderBottom:"1px solid var(--border)"}}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:18}}>
           <div>
-            <div style={{color:"#E31837",fontSize:16,fontWeight:900,fontFamily:"'Inter',sans-serif",letterSpacing:1}}>{tx.appName}</div>
-            <div style={{color:"#222",fontSize:10,fontFamily:"'Inter',sans-serif",letterSpacing:1}}>{tx.appSub}</div>
+            <div style={{color:"#E31837",fontSize:17,fontWeight:900,fontFamily:"'Inter',sans-serif",letterSpacing:1}}>
+              {tx.appName}
+            </div>
+            <div style={{color:"#1a1a1a",fontSize:10,fontFamily:"'Inter',sans-serif",letterSpacing:1}}>{tx.appSub}</div>
           </div>
           <div style={{display:"flex",alignItems:"center",gap:10}}>
             <div style={{background:"rgba(0,200,81,.1)",border:"1px solid rgba(0,200,81,.3)",borderRadius:20,padding:"4px 10px",display:"flex",alignItems:"center",gap:5}}>
               <div style={{width:6,height:6,background:"#00C851",borderRadius:"50%",animation:"greenDot 2s infinite"}}/>
               <span style={{color:"#00C851",fontSize:10,fontWeight:700,fontFamily:"'Inter',sans-serif"}}>LIVE</span>
             </div>
-            <div style={{width:34,height:34,borderRadius:"50%",background:"#E31837",display:"flex",alignItems:"center",justifyContent:"center",fontWeight:900,fontSize:14,color:"#fff",fontFamily:"'Inter',sans-serif"}}>
-              {user.name.charAt(0).toUpperCase()}
-            </div>
+            <NotifBell user={user} setUser={setUser} lang={lang}/>
           </div>
         </div>
-        <div style={{color:"#333",fontSize:12,fontFamily:"'Inter',sans-serif",marginBottom:3}}>Welcome back</div>
-        <div style={{color:"#fff",fontSize:16,fontWeight:700,fontFamily:"'Inter','Cairo',sans-serif",marginBottom:20}}>{user.name}</div>
-        <div style={{background:"linear-gradient(160deg,#110000,#0d0000)",border:"1px solid rgba(227,24,55,.2)",borderRadius:16,padding:20,position:"relative",overflow:"hidden"}}>
+        <div style={{color:"#333",fontSize:12,fontFamily:"'Cairo','Inter',sans-serif",marginBottom:3}}>مرحباً 👋</div>
+        <div style={{color:"#fff",fontSize:17,fontWeight:700,fontFamily:"'Inter','Cairo',sans-serif",marginBottom:20}}>{user.name}</div>
+        <div style={{background:"linear-gradient(160deg,#110000,#0d0000)",border:"1px solid rgba(227,24,55,.25)",borderRadius:18,padding:22,position:"relative",overflow:"hidden"}}>
           <div style={{position:"absolute",top:0,left:0,right:0,height:2,background:"linear-gradient(90deg,transparent,#E31837,transparent)"}}/>
           <div style={{color:"#333",fontSize:10,fontFamily:"'Inter',sans-serif",letterSpacing:2,textTransform:"uppercase",marginBottom:8}}>{tx.balance}</div>
           <div style={{display:"flex",alignItems:"baseline",gap:6,marginBottom:4}}>
-            <span style={{color:"#fff",fontSize:38,fontWeight:900,fontFamily:"'Inter',sans-serif",lineHeight:1}}>{f(user.balance)}</span>
-            <span style={{color:"#E31837",fontSize:17,fontWeight:700}}>USD</span>
+            <span style={{color:"#fff",fontSize:40,fontWeight:900,fontFamily:"'Inter',sans-serif",lineHeight:1}}>{f(user.balance)}</span>
+            <span style={{color:"#E31837",fontSize:18,fontWeight:700}}>USD</span>
           </div>
-          <div style={{color:"#222",fontSize:12,fontFamily:"'Inter',sans-serif",marginBottom:16}}>≈ {f(user.balance*250,0)} DZD</div>
-          <div style={{display:"flex",gap:18,flexWrap:"wrap"}}>
+          <div style={{color:"#222",fontSize:12,fontFamily:"'Inter',sans-serif",marginBottom:18}}>≈ {f(user.balance*250,0)} DZD</div>
+          <div style={{display:"flex",gap:20,flexWrap:"wrap"}}>
             {[
               {l:tx.dailyProfit,v:"+"+f(pkg.daily)+"$",c:"#00C851"},
               {l:tx.package,v:pkg.name,c:pkg.color},
               {l:"Tasks",v:user.tasksLeft+"/"+pkg.tasks,c:"#FFB800"},
-            ].map((s,i) => (
+            ].map((s,i)=>(
               <div key={i}>
                 <div style={{color:"#333",fontSize:10,fontFamily:"'Inter',sans-serif",letterSpacing:1,textTransform:"uppercase",marginBottom:2}}>{s.l}</div>
                 <div style={{color:s.c,fontSize:13,fontWeight:700,fontFamily:"'Inter',sans-serif"}}>{s.v}</div>
@@ -990,11 +1149,12 @@ function HomePage({user, setUser, setPage, showToast, lang}) {
       <div style={{padding:"18px 20px 0"}}>
         <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12,marginBottom:20}}>
           {[
-            {icon:"💳",title:tx.deposit,sub:"Deposit",action:()=>setModal("dep")},
-            {icon:"💸",title:tx.withdraw,sub:"Withdraw",action:()=>setModal("wit")},
-          ].map((a,i) => (
-            <button key={i} onClick={a.action} style={{background:"#0d0d0d",border:"1px solid var(--border2)",borderRadius:12,padding:"15px 10px",cursor:"pointer",textAlign:"center",fontFamily:"'Inter','Cairo',sans-serif",color:"#fff",transition:"all .2s"}}>
-              <div style={{fontSize:22,marginBottom:5}}>{a.icon}</div>
+            {icon:"💳",title:tx.deposit,sub:"Deposit 💰",col:"#00C851",action:()=>setModal("dep")},
+            {icon:"💸",title:tx.withdraw,sub:"Withdraw 🏦",col:"#E31837",action:()=>setModal("wit")},
+          ].map((a,i)=>(
+            <button key={i} onClick={a.action}
+              style={{background:"#0d0d0d",border:`1px solid ${a.col}22`,borderRadius:14,padding:"16px 10px",cursor:"pointer",textAlign:"center",fontFamily:"'Inter','Cairo',sans-serif",color:"#fff",transition:"all .2s",borderTop:`2px solid ${a.col}55`}}>
+              <div style={{fontSize:26,marginBottom:6}}>{a.icon}</div>
               <div style={{fontSize:13,fontWeight:700}}>{a.title}</div>
               <div style={{fontSize:10,color:"#333",marginTop:2}}>{a.sub}</div>
             </button>
@@ -1005,23 +1165,24 @@ function HomePage({user, setUser, setPage, showToast, lang}) {
             {icon:"📊",val:f(user.totalEarned)+"$",label:tx.totalEarned,col:"#E31837"},
             {icon:"📅",val:user.activeDays,label:tx.activeDays,col:"#FFB800"},
             {icon:"✅",val:user.completedTasks,label:tx.completedTasks,col:"#00C851"},
-          ].map((s,i) => (
+          ].map((s,i)=>(
             <div key={i} className="stat-box">
-              <div style={{fontSize:18,marginBottom:5}}>{s.icon}</div>
+              <div style={{fontSize:20,marginBottom:5}}>{s.icon}</div>
               <div style={{color:s.col,fontSize:15,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{s.val}</div>
               <div style={{color:"#333",fontSize:10,fontFamily:"'Cairo','Inter',sans-serif",marginTop:2}}>{s.label}</div>
             </div>
           ))}
         </div>
-        <div className="lbl">{tx.marketNews}</div>
+        <div className="lbl">{tx.marketNews} 📰</div>
         <NewsCarousel/>
-        <div className="lbl">{tx.quickActions}</div>
+        <div className="lbl">{tx.quickActions} ⚡</div>
         {[
           {icon:"⚡",title:tx.startTasks,sub:user.tasksLeft+" "+tx.tasksAvail,col:"#E31837",go:()=>setPage("tasks")},
           {icon:"🚀",title:tx.upgradePackage,sub:tx.yourPkg+": "+pkg.name,col:"#FFB800",go:()=>setPage("upgrades")},
-        ].map((a,i) => (
-          <div key={i} onClick={a.go} style={{background:"#0d0d0d",border:"1px solid var(--border)",borderRadius:12,padding:"15px 16px",display:"flex",alignItems:"center",gap:12,cursor:"pointer",marginBottom:10,borderRight:`3px solid ${a.col}55`,transition:"all .2s"}}>
-            <div style={{width:40,height:40,background:a.col+"18",borderRadius:10,display:"flex",alignItems:"center",justifyContent:"center",fontSize:20,flexShrink:0}}>{a.icon}</div>
+        ].map((a,i)=>(
+          <div key={i} onClick={a.go}
+            style={{background:"#0d0d0d",border:"1px solid var(--border)",borderRadius:14,padding:"16px 16px",display:"flex",alignItems:"center",gap:12,cursor:"pointer",marginBottom:10,borderRight:`3px solid ${a.col}`,transition:"all .2s"}}>
+            <div style={{width:42,height:42,background:a.col+"18",borderRadius:12,display:"flex",alignItems:"center",justifyContent:"center",fontSize:20,flexShrink:0}}>{a.icon}</div>
             <div style={{flex:1}}>
               <div style={{color:"#fff",fontSize:14,fontWeight:700,fontFamily:"'Cairo','Inter',sans-serif"}}>{a.title}</div>
               <div style={{color:"#333",fontSize:12,fontFamily:"'Cairo','Inter',sans-serif",marginTop:2}}>{a.sub}</div>
@@ -1030,171 +1191,141 @@ function HomePage({user, setUser, setPage, showToast, lang}) {
           </div>
         ))}
         <div style={{background:"#0a0000",border:"1px solid rgba(227,24,55,.15)",borderRadius:12,padding:"13px 16px",display:"flex",alignItems:"center",gap:12,marginTop:4}}>
-          <div style={{fontSize:20}}>🏛️</div>
+          <div style={{fontSize:20}}>📈</div>
           <div style={{flex:1}}>
             <div style={{color:"#E31837",fontSize:10,fontWeight:700,fontFamily:"'Inter',sans-serif",letterSpacing:1,textTransform:"uppercase"}}>NYSE: BLK</div>
             <div style={{color:"#222",fontSize:11,fontFamily:"'Inter',sans-serif"}}>New York Stock Exchange</div>
           </div>
           <div style={{textAlign:"left"}}>
             <div style={{color:"#fff",fontSize:12,fontWeight:700,fontFamily:"'Inter',sans-serif"}}>$897.42</div>
-            <div style={{color:"#00C851",fontSize:11,fontFamily:"'Inter',sans-serif"}}>+1.24%</div>
+            <div style={{color:"#00C851",fontSize:11,fontFamily:"'Inter',sans-serif"}}>+1.24% 📈</div>
           </div>
         </div>
       </div>
-      {modal==="dep" && <DepositModal onClose={()=>setModal(null)} lang={lang}/>}
-      {modal==="wit" && <WithdrawModal user={user} setUser={setUser} onClose={()=>setModal(null)} showToast={showToast} lang={lang}/>}
+      {modal==="dep"&&<DepositModal onClose={()=>setModal(null)} lang={lang}/>}
+      {modal==="wit"&&<WithdrawModal user={user} setUser={setUser} onClose={()=>setModal(null)} showToast={showToast} lang={lang}/>}
     </div>
   );
 }
 
-/* ═══════════════════ TASKS PAGE ═══════════════════ */
-function TasksPage({user, setUser, showToast, lang}) {
-  const tx = T[lang];
-  const pkg = PKG.find(p => p.id === user.packageId) || PKG[0];
-  const perTask = pkg.daily / pkg.tasks;
+/* ══════════════════════════════════════════════════
+   TASKS PAGE
+══════════════════════════════════════════════════ */
+function TasksPage({user,setUser,showToast,lang}){
+  const tx=T[lang];
+  const pkg=PKG[user.packageId]||PKG[0];
+  const perTask=+(pkg.daily/pkg.tasks).toFixed(4);
+  const[taskStates,setTaskStates]=useState(()=>Array(pkg.tasks).fill("idle"));
+  const[current,setCurrent]=useState(null);
+  const[timer,setTimer]=useState(40);
+  const[earned,setEarned]=useState(0);
+  const timerRef=useRef(null);
+  const R=52,C=2*Math.PI*R;
+  const pct=((40-timer)/40)*100;
+  const doneCount=taskStates.filter(s=>s==="done").length;
+  const cancelledCount=taskStates.filter(s=>s==="cancelled").length;
 
-  // taskStates: array of length pkg.tasks
-  // each: "idle" | "done" | "running" | "cancelled" | "locked_tomorrow"
-  const [taskStates, setTaskStates] = React.useState(() => Array(pkg.tasks).fill("idle"));
-  const [current, setCurrent] = React.useState(null);
-  const [timer, setTimer] = React.useState(40);
-  const [earned, setEarned] = React.useState(0);
-  const timerRef = React.useRef(null);
-
-  const R = 52, C = 2 * Math.PI * R;
-  const progress = ((40 - timer) / 40) * 100;
-  const doneCount = taskStates.filter(s => s === "done").length;
-  const cancelledCount = taskStates.filter(s => s === "cancelled").length;
-
-  function startTask(i) {
-    if (taskStates[i] !== "idle") return;
-    if (current !== null) return showToast("انتظر انتهاء المهمة الجارية", "warning");
-    const newStates = [...taskStates];
-    newStates[i] = "running";
-    setTaskStates(newStates);
-    setCurrent(i);
-    setTimer(40);
+  function addNotif(msg,icon="⚡"){
+    setUser(u=>{
+      const nu={...u,notifications:[...(u.notifications||[]),{icon,msg,time:new Date().toLocaleTimeString("ar-DZ"),read:false}]};
+      saveUser(nu);return nu;
+    });
   }
 
-  React.useEffect(() => {
-    if (current === null) return;
-    if (taskStates[current] !== "running") return;
-    if (timer > 0) {
-      timerRef.current = setTimeout(() => setTimer(t => t - 1), 1000);
-    } else {
-      // Task complete
-      const newStates = [...taskStates];
-      newStates[current] = "done";
-      setTaskStates(newStates);
-      setEarned(e => e + perTask);
-      setUser(u => ({
-        ...u,
-        balance: u.balance + perTask,
-        totalEarned: u.totalEarned + perTask,
-        completedTasks: u.completedTasks + 1,
-        tasksLeft: Math.max(0, u.tasksLeft - 1),
-      }));
-      showToast("✅ " + tx.taskDoneMsg + " +" + f(perTask) + "$", "success");
+  function startTask(i){
+    if(taskStates[i]!=="idle")return;
+    if(current!==null)return showToast("انتظر انتهاء المهمة الجارية ⏳","warning");
+    const ns=[...taskStates];ns[i]="running";
+    setTaskStates(ns);setCurrent(i);setTimer(40);
+  }
+
+  useEffect(()=>{
+    if(current===null)return;
+    if(taskStates[current]!=="running")return;
+    if(timer>0){timerRef.current=setTimeout(()=>setTimer(t=>t-1),1000);}
+    else{
+      const ns=[...taskStates];ns[current]="done";
+      setTaskStates(ns);
+      setEarned(e=>+(e+perTask).toFixed(4));
+      setUser(u=>{
+        const nu={
+          ...u,
+          balance:+(u.balance+perTask).toFixed(4),
+          totalEarned:+(u.totalEarned+perTask).toFixed(4),
+          completedTasks:u.completedTasks+1,
+          tasksLeft:Math.max(0,u.tasksLeft-1),
+        };
+        saveUser(nu);return nu;
+      });
+      addNotif(`✅ مهمة مكتملة +${f(perTask)}$`,"⚡");
+      showToast(`✅ ${tx.taskDoneMsg} +${f(perTask)}$`,"success");
       setCurrent(null);
     }
-    return () => clearTimeout(timerRef.current);
-  }, [current, timer, taskStates]);
+    return()=>clearTimeout(timerRef.current);
+  },[current,timer,taskStates]);
 
-  function cancelTask() {
+  useEffect(()=>{
+    if(user.completedTasks>0){
+      checkAndUnlockAchievements(user,setUser,showToast,lang);
+    }
+  },[user.completedTasks]);
+
+  function cancelTask(){
     clearTimeout(timerRef.current);
-    const newStates = [...taskStates];
-    // Only cancel this task, lock it for tomorrow
-    newStates[current] = "cancelled";
-    setTaskStates(newStates);
-    setCurrent(null);
-    setTimer(40);
-    showToast(tx.taskCancelledMsg, "warning");
+    const ns=[...taskStates];ns[current]="cancelled";
+    setTaskStates(ns);setCurrent(null);setTimer(40);
+    showToast(tx.taskCancelledMsg,"warning");
   }
 
-  const getTaskStyle = (state) => {
-    if (state === "done") return "task-row task-done";
-    if (state === "running") return "task-row task-active";
-    if (state === "cancelled") return "task-row task-cancelled";
-    return "task-row";
-  };
+  const getClass=(s)=>s==="done"?"task-row task-done":s==="running"?"task-row task-active":s==="cancelled"?"task-row task-cancelled":"task-row";
+  const getIcon=(s,i)=>s==="done"?"✅":s==="running"?"⏳":s==="cancelled"?"❌":i+1;
+  const getCol=(s)=>s==="done"?"#00C851":s==="running"?"#E31837":s==="cancelled"?"#FF6400":"#444";
+  const getLabel=(s,i)=>s==="done"?tx.taskCompleted:s==="running"?tx.taskRunning:s==="cancelled"?tx.cancelledToday+(lang==="ar"?" (غداً)":"(Tomorrow)"):(lang==="ar"?"مهمة ":"Task ")+(i+1);
 
-  const getTaskIcon = (state, i) => {
-    if (state === "done") return "✓";
-    if (state === "running") return "⏳";
-    if (state === "cancelled") return "✕";
-    return i + 1;
-  };
-
-  const getTaskColor = (state) => {
-    if (state === "done") return "#00C851";
-    if (state === "running") return "#E31837";
-    if (state === "cancelled") return "#FF6400";
-    return "#444";
-  };
-
-  const getTaskLabel = (state, i) => {
-    if (state === "done") return tx.taskCompleted;
-    if (state === "running") return tx.taskRunning;
-    if (state === "cancelled") return tx.cancelledToday + " (غداً)";
-    return (lang === "ar" ? "مهمة " : "Task ") + (i + 1);
-  };
-
-  return (
-    <div className="page" style={{paddingBottom:90,minHeight:"100vh"}}>
-      <div style={{background:"linear-gradient(180deg,#0a0000,#000)",padding:"52px 20px 20px",borderBottom:"1px solid var(--border)"}}>
-        <div style={{fontSize:10,letterSpacing:2,color:"#E31837",fontFamily:"'Inter',sans-serif",fontWeight:700,textTransform:"uppercase",marginBottom:6}}>Daily Tasks</div>
-        <h1 style={{color:"#fff",fontSize:21,fontWeight:900,fontFamily:"'Inter',sans-serif",marginBottom:4}}>⚡ {tx.dailyTasksTitle}</h1>
+  return(
+    <div className="page" style={{paddingBottom:95,minHeight:"100vh"}}>
+      <div style={{background:"linear-gradient(180deg,#080000,#000)",padding:"52px 20px 20px",borderBottom:"1px solid var(--border)"}}>
+        <div style={{fontSize:10,letterSpacing:2,color:"#E31837",fontFamily:"'Inter',sans-serif",fontWeight:700,textTransform:"uppercase",marginBottom:6}}>Daily Tasks ⚡</div>
+        <h1 style={{color:"#fff",fontSize:22,fontWeight:900,fontFamily:"'Inter',sans-serif",marginBottom:4}}>⚡ {tx.dailyTasksTitle}</h1>
         <p style={{color:"#444",fontSize:12,fontFamily:"'Cairo','Inter',sans-serif"}}>
-          {lang==="ar" ? `أكمل ${pkg.tasks} مهمة — ربح كل مهمة: ` : `Complete ${pkg.tasks} tasks — per task: `}
-          <span style={{color:"#00C851",fontWeight:700}}>${f(perTask)}</span>
-          {lang==="ar" ? " — يومي: " : " — daily: "}
-          <span style={{color:"#FFB800",fontWeight:700}}>${f(pkg.daily)}</span>
+          {lang==="ar"?`أكمل ${pkg.tasks} مهمة — ربح كل مهمة:`:`Complete ${pkg.tasks} tasks — per task:`}
+          <span style={{color:"#00C851",fontWeight:700}}> ${f(perTask)}</span>
+          {lang==="ar"?" — يومي:":" — daily:"}
+          <span style={{color:"#FFB800",fontWeight:700}}> ${f(pkg.daily)}</span>
         </p>
       </div>
-
       <div style={{padding:"18px 20px 0"}}>
-        {/* Stats */}
         <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr 1fr",gap:8,marginBottom:18}}>
           {[
-            {val:doneCount,label:"منجزة",col:"#00C851"},
-            {val:taskStates.filter(s=>s==="idle").length,label:"متاحة",col:"#FFB800"},
-            {val:cancelledCount,label:"ملغاة",col:"#FF6400"},
-            {val:f(earned)+"$",label:"اليوم",col:"#E31837"},
-          ].map((s,i) => (
+            {val:doneCount,label:"منجزة ✅",col:"#00C851"},
+            {val:taskStates.filter(s=>s==="idle").length,label:"متاحة ⚡",col:"#FFB800"},
+            {val:cancelledCount,label:"ملغاة ❌",col:"#FF6400"},
+            {val:f(earned)+"$",label:"اليوم 💰",col:"#E31837"},
+          ].map((s,i)=>(
             <div key={i} className="stat-box" style={{padding:"10px 6px"}}>
-              <div style={{color:s.col,fontSize:16,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{s.val}</div>
+              <div style={{color:s.col,fontSize:15,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{s.val}</div>
               <div style={{color:"#333",fontSize:9,fontFamily:"'Cairo','Inter',sans-serif",marginTop:3}}>{s.label}</div>
             </div>
           ))}
         </div>
-
-        {/* Cancellation Info */}
-        {cancelledCount > 0 && (
-          <div style={{background:"#110500",border:"1px solid rgba(255,100,0,.3)",borderRadius:10,padding:"12px 14px",marginBottom:16,display:"flex",alignItems:"center",gap:10}}>
-            <span style={{fontSize:18}}>⚠️</span>
+        {cancelledCount>0&&(
+          <div style={{background:"#110500",border:"1px solid rgba(255,100,0,.3)",borderRadius:12,padding:"12px 14px",marginBottom:16,display:"flex",alignItems:"center",gap:10}}>
+            <span style={{fontSize:20}}>⚠️</span>
             <div>
               <div style={{color:"#FF6400",fontSize:12,fontWeight:700,fontFamily:"'Cairo','Inter',sans-serif"}}>مهام ملغاة: {cancelledCount}</div>
               <div style={{color:"#555",fontSize:11,fontFamily:"'Cairo','Inter',sans-serif"}}>ستُفتح هذه المهام في اليوم التالي. المهام الأخرى متاحة الآن.</div>
             </div>
           </div>
         )}
-
-        {/* Active Timer */}
-        {current !== null && taskStates[current] === "running" && (
-          <div style={{background:"#110000",border:"1px solid rgba(227,24,55,.5)",borderRadius:16,padding:22,marginBottom:18,textAlign:"center",boxShadow:"0 0 25px rgba(227,24,55,.06)"}}>
+        {current!==null&&taskStates[current]==="running"&&(
+          <div style={{background:"#110000",border:"1px solid rgba(227,24,55,.5)",borderRadius:18,padding:22,marginBottom:18,textAlign:"center",boxShadow:"0 0 30px rgba(227,24,55,.07)"}}>
             <div style={{color:"#333",fontSize:10,fontFamily:"'Inter',sans-serif",letterSpacing:2,textTransform:"uppercase",marginBottom:12}}>
-              {lang==="ar" ? "مهمة " : "Task "}{current+1} {lang==="ar" ? "جارية" : "Running"} • +${f(perTask)}
+              {lang==="ar"?"مهمة ":"Task "}{current+1} {lang==="ar"?"جارية":"Running"} • +${f(perTask)}
             </div>
             <div style={{position:"relative",display:"inline-block",marginBottom:16}}>
               <svg width="120" height="120" className="progress-ring-svg">
-                <circle cx="60" cy="60" r={R} fill="none" stroke="#1a1a1a" strokeWidth="6"/>
-                <circle cx="60" cy="60" r={R} fill="none"
-                  stroke={timer>20?"#E31837":timer>10?"#FFB800":"#00C851"}
-                  strokeWidth="6" strokeLinecap="round"
-                  strokeDasharray={C}
-                  strokeDashoffset={C-(progress/100)*C}
-                  style={{transition:"stroke-dashoffset 1s ease,stroke .3s ease"}}
-                />
+                <circle cx="60" cy="60" r={R} fill="none" stroke="#1a1a1a" strokeWidth="7"/>
+                <circle cx="60" cy="60" r={R} fill="none" stroke={timer>20?"#E31837":timer>10?"#FFB800":"#00C851"} strokeWidth="7" strokeLinecap="round" strokeDasharray={C} strokeDashoffset={C-(pct/100)*C} style={{transition:"stroke-dashoffset 1s ease,stroke .3s ease"}}/>
               </svg>
               <div style={{position:"absolute",inset:0,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}>
                 <span style={{color:"#fff",fontSize:32,fontWeight:900,fontFamily:"'Inter',sans-serif",lineHeight:1}}>{timer}</span>
@@ -1204,64 +1335,44 @@ function TasksPage({user, setUser, showToast, lang}) {
             <div style={{background:"rgba(227,24,55,.08)",border:"1px solid rgba(227,24,55,.2)",borderRadius:8,padding:"9px 18px",marginBottom:12,display:"inline-block"}}>
               <span style={{color:"#E31837",fontSize:16,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>+{f(perTask)} $</span>
             </div>
-            <div style={{background:"#0d0500",border:"1px solid rgba(255,100,0,.2)",borderRadius:8,padding:"9px 12px",marginBottom:12}}>
-              <p style={{color:"#FF6400",fontSize:11,fontFamily:"'Cairo','Inter',sans-serif"}}>{tx.cancelWarning}</p>
+            <div style={{background:"#0d0500",border:"1px solid rgba(255,100,0,.2)",borderRadius:10,padding:"10px 14px",marginBottom:12}}>
+              <p style={{color:"#FF6400",fontSize:11,fontFamily:"'Cairo','Inter',sans-serif"}}>⚠️ {tx.cancelWarning}</p>
             </div>
             <button onClick={cancelTask} style={{background:"transparent",border:"1px solid rgba(227,24,55,.25)",color:"rgba(227,24,55,.7)",borderRadius:8,padding:"9px 22px",cursor:"pointer",fontFamily:"'Cairo','Inter',sans-serif",fontSize:13}}>
               ✕ {tx.cancelTask}
             </button>
           </div>
         )}
-
-        {/* Task List */}
         <div className="lbl">TASKS — {pkg.name} • {f(perTask)}$/task</div>
         <div style={{display:"flex",flexDirection:"column",gap:8,marginBottom:18}}>
-          {taskStates.map((state, i) => {
-            const clickable = state === "idle" && current === null;
-            return (
-              <div key={i}
-                onClick={() => clickable && startTask(i)}
-                className={getTaskStyle(state)}
-                style={{
-                  opacity: state === "cancelled" ? 0.55 : 1,
-                  cursor: clickable ? "pointer" : "not-allowed"
-                }}
-              >
-                <div style={{
-                  width:36,height:36,borderRadius:8,flexShrink:0,
-                  background: state==="done"?"rgba(0,200,81,.1)":state==="running"?"rgba(227,24,55,.1)":state==="cancelled"?"rgba(255,100,0,.1)":"#1a1a1a",
-                  border:`1px solid ${state==="done"?"rgba(0,200,81,.4)":state==="running"?"rgba(227,24,55,.5)":state==="cancelled"?"rgba(255,100,0,.4)":"#2a2a2a"}`,
-                  display:"flex",alignItems:"center",justifyContent:"center",
-                  fontSize:state==="done"||state==="cancelled"?16:13,
-                  fontWeight:900,color:getTaskColor(state),fontFamily:"'Inter',sans-serif"
-                }}>
-                  {getTaskIcon(state, i)}
+          {taskStates.map((state,i)=>{
+            const clickable=state==="idle"&&current===null;
+            return(
+              <div key={i} onClick={()=>clickable&&startTask(i)}
+                className={getClass(state)}
+                style={{cursor:clickable?"pointer":"not-allowed"}}>
+                <div style={{width:38,height:38,borderRadius:10,flexShrink:0,background:state==="done"?"rgba(0,200,81,.1)":state==="running"?"rgba(227,24,55,.1)":state==="cancelled"?"rgba(255,100,0,.1)":"#1a1a1a",border:`1px solid ${state==="done"?"rgba(0,200,81,.4)":state==="running"?"rgba(227,24,55,.5)":state==="cancelled"?"rgba(255,100,0,.4)":"#2a2a2a"}`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:state==="done"||state==="cancelled"||state==="running"?16:13,fontWeight:900,color:getCol(state),fontFamily:"'Inter',sans-serif"}}>
+                  {getIcon(state,i)}
                 </div>
                 <div style={{flex:1}}>
-                  <div style={{color:getTaskColor(state),fontWeight:700,fontSize:13,fontFamily:"'Cairo','Inter',sans-serif"}}>{getTaskLabel(state,i)}</div>
+                  <div style={{color:getCol(state),fontWeight:700,fontSize:13,fontFamily:"'Cairo','Inter',sans-serif"}}>{getLabel(state,i)}</div>
                   <div style={{color:"#333",fontSize:11,fontFamily:"'Inter',sans-serif",marginTop:2}}>
-                    {state==="idle" ? `+${f(perTask)} USD • 40s` : state==="running" ? `${timer}s remaining` : state==="done" ? `+${f(perTask)} USD ✓` : "مؤجلة لغد"}
+                    {state==="idle"?`+${f(perTask)} USD • 40s ⏱`:state==="running"?`${timer}s remaining ⏳`:state==="done"?`+${f(perTask)} USD ✅`:"مؤجلة لغد 🌙"}
                   </div>
                 </div>
                 <div>
-                  {state==="done"
-                    ? <span style={{color:"#00C851",fontSize:12,fontWeight:700,fontFamily:"'Inter',sans-serif"}}>+{f(perTask)}$</span>
-                    : state==="running"
-                      ? <span style={{color:"#E31837",fontSize:17,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{timer}</span>
-                      : state==="cancelled"
-                        ? <span style={{fontSize:16}}>⏰</span>
-                        : <span style={{color:"#1a1a1a",fontSize:18}}>›</span>
-                  }
+                  {state==="done"?<span style={{color:"#00C851",fontSize:12,fontWeight:700,fontFamily:"'Inter',sans-serif"}}>+{f(perTask)}$</span>
+                  :state==="running"?<span style={{color:"#E31837",fontSize:18,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{timer}</span>
+                  :state==="cancelled"?<span style={{fontSize:16}}>⏰</span>
+                  :<span style={{color:"#1a1a1a",fontSize:18}}>›</span>}
                 </div>
               </div>
             );
           })}
         </div>
-
-        {/* Progress */}
-        <div style={{background:"#0d0d0d",border:"1px solid var(--border)",borderRadius:12,padding:14}}>
+        <div style={{background:"#0d0d0d",border:"1px solid var(--border)",borderRadius:14,padding:16}}>
           <div style={{display:"flex",justifyContent:"space-between",marginBottom:8}}>
-            <span style={{color:"#555",fontSize:12,fontFamily:"'Cairo','Inter',sans-serif"}}>{tx.todayProgress}</span>
+            <span style={{color:"#555",fontSize:12,fontFamily:"'Cairo','Inter',sans-serif"}}>📊 {tx.todayProgress}</span>
             <span style={{color:pkg.color,fontSize:12,fontWeight:700,fontFamily:"'Inter',sans-serif"}}>{doneCount}/{pkg.tasks}</span>
           </div>
           <div style={{background:"#1a1a1a",borderRadius:4,height:6,overflow:"hidden"}}>
@@ -1269,10 +1380,10 @@ function TasksPage({user, setUser, showToast, lang}) {
           </div>
           <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8,marginTop:12}}>
             {[
-              {k:tx.earned,v:f(earned)+"$",c:"#00C851"},
-              {k:tx.goal,v:f(pkg.daily)+"$",c:"#FFB800"},
-              {k:"Per Task",v:f(perTask)+"$",c:"#E31837"},
-            ].map((s,i) => (
+              {k:"💰 "+tx.earned,v:f(earned)+"$",c:"#00C851"},
+              {k:"🎯 "+tx.goal,v:f(pkg.daily)+"$",c:"#FFB800"},
+              {k:"⚡ Per Task",v:f(perTask)+"$",c:"#E31837"},
+            ].map((s,i)=>(
               <div key={i} style={{textAlign:"center"}}>
                 <div style={{color:s.c,fontSize:13,fontWeight:700,fontFamily:"'Inter',sans-serif"}}>{s.v}</div>
                 <div style={{color:"#333",fontSize:10,fontFamily:"'Cairo','Inter',sans-serif",marginTop:2}}>{s.k}</div>
@@ -1285,69 +1396,80 @@ function TasksPage({user, setUser, showToast, lang}) {
   );
 }
 
-/* ═══════════════════ UPGRADES PAGE ═══════════════════ */
-function UpgradesPage({user, setUser, showToast, lang}) {
-  const tx = T[lang];
-  const [sel, setSel] = React.useState(null);
-  const [confirm, setConfirm] = React.useState(false);
+/* ══════════════════════════════════════════════════
+   UPGRADES PAGE
+══════════════════════════════════════════════════ */
+function UpgradesPage({user,setUser,showToast,lang}){
+  const tx=T[lang];
+  const[sel,setSel]=useState(null);
+  const[confirm,setConfirm]=useState(false);
 
-  function doUpgrade(pkg) {
-    if (user.balance < pkg.price && pkg.price > 0) return showToast(tx.insufficientBalance, "error");
-    setUser(u => ({...u, packageId:pkg.id, balance:pkg.price>0?u.balance-pkg.price:u.balance, tasksLeft:pkg.tasks}));
-    showToast(tx.upgradedMsg + " " + pkg.name, "success");
-    setConfirm(false); setSel(null);
+  function doUpgrade(pkg){
+    if(user.balance<pkg.price&&pkg.price>0)return showToast(tx.insufficientBalance,"error");
+    const nu={
+      ...user,
+      packageId:pkg.id,
+      balance:pkg.price>0?+(user.balance-pkg.price).toFixed(4):user.balance,
+      tasksLeft:pkg.tasks,
+      notifications:[...(user.notifications||[]),{
+        icon:"🚀",msg:`تم الترقية إلى باقة ${pkg.name}!`,
+        time:new Date().toLocaleTimeString("ar-DZ"),read:false
+      }],
+    };
+    setUser(nu);saveUser(nu);
+    showToast(tx.upgradedMsg+" "+pkg.name,"success");
+    setConfirm(false);setSel(null);
+    setTimeout(()=>checkAndUnlockAchievements(nu,setUser,showToast,lang),500);
   }
 
-  return (
-    <div className="page" style={{paddingBottom:90,minHeight:"100vh"}}>
-      <div style={{background:"linear-gradient(180deg,#0a0000,#000)",padding:"52px 20px 20px",borderBottom:"1px solid var(--border)"}}>
-        <div style={{fontSize:10,letterSpacing:2,color:"#E31837",fontFamily:"'Inter',sans-serif",fontWeight:700,textTransform:"uppercase",marginBottom:6}}>Investment Packages</div>
-        <h1 style={{color:"#fff",fontSize:21,fontWeight:900,fontFamily:"'Inter',sans-serif",marginBottom:4}}>🚀 {tx.upgradesTitle}</h1>
-        <div style={{background:"#0d0d0d",border:"1px solid var(--border2)",borderRadius:10,padding:"11px 14px",display:"flex",justifyContent:"space-between",marginTop:14}}>
+  return(
+    <div className="page" style={{paddingBottom:95,minHeight:"100vh"}}>
+      <div style={{background:"linear-gradient(180deg,#080000,#000)",padding:"52px 20px 20px",borderBottom:"1px solid var(--border)"}}>
+        <div style={{fontSize:10,letterSpacing:2,color:"#E31837",fontFamily:"'Inter',sans-serif",fontWeight:700,textTransform:"uppercase",marginBottom:6}}>Investment Packages 💼</div>
+        <h1 style={{color:"#fff",fontSize:22,fontWeight:900,fontFamily:"'Inter',sans-serif",marginBottom:4}}>🚀 {tx.upgradesTitle}</h1>
+        <div style={{background:"#0d0d0d",border:"1px solid var(--border2)",borderRadius:12,padding:"12px 16px",display:"flex",justifyContent:"space-between",marginTop:14}}>
           <div>
             <div style={{color:"#333",fontSize:10,fontFamily:"'Inter',sans-serif",letterSpacing:1,textTransform:"uppercase"}}>{tx.currentPkg}</div>
-            <div style={{color:PKG[user.packageId].color,fontSize:13,fontWeight:700,fontFamily:"'Inter',sans-serif",marginTop:2}}>{PKG[user.packageId].name}</div>
+            <div style={{color:PKG[user.packageId].color,fontSize:13,fontWeight:700,fontFamily:"'Inter',sans-serif",marginTop:2}}>📦 {PKG[user.packageId].name}</div>
           </div>
           <div style={{textAlign:"left"}}>
-            <div style={{color:"#333",fontSize:10,fontFamily:"'Inter',sans-serif",letterSpacing:1,textTransform:"uppercase"}}>Balance</div>
+            <div style={{color:"#333",fontSize:10,fontFamily:"'Inter',sans-serif",letterSpacing:1,textTransform:"uppercase"}}>Balance 💰</div>
             <div style={{color:"#00C851",fontSize:13,fontWeight:700,fontFamily:"'Inter',sans-serif",marginTop:2}}>{f(user.balance)}$</div>
           </div>
         </div>
       </div>
       <div style={{padding:"18px 20px 0"}}>
-        {PKG.map((pkg) => {
-          const owned = user.packageId === pkg.id;
-          const canAfford = user.balance >= pkg.price || pkg.price === 0;
-          const perTask = pkg.daily / pkg.tasks;
-          const yearlyReturn = pkg.daily * VALIDITY;
-          return (
-            <div key={pkg.id} style={{background:pkg.bg,border:`1px solid ${pkg.border}`,borderRadius:14,overflow:"hidden",marginBottom:14,boxShadow:pkg.hot?`0 0 20px ${pkg.color}10`:"none"}}>
-              {pkg.hot && <div style={{background:pkg.color,color:"#000",fontSize:10,fontWeight:800,padding:"4px 14px",fontFamily:"'Inter',sans-serif",textAlign:"center"}}>⭐ MOST POPULAR</div>}
-              {owned && <div style={{background:"#00C851",color:"#000",fontSize:10,fontWeight:800,padding:"4px 14px",fontFamily:"'Inter',sans-serif",textAlign:"center"}}>✓ YOUR ACTIVE PLAN</div>}
+        {PKG.map((pkg)=>{
+          const owned=user.packageId===pkg.id;
+          const canAfford=user.balance>=pkg.price||pkg.price===0;
+          const perTask=+(pkg.daily/pkg.tasks).toFixed(4);
+          const yearlyReturn=+(pkg.daily*VALIDITY).toFixed(2);
+          return(
+            <div key={pkg.id} style={{background:pkg.bg,border:`1px solid ${pkg.border}`,borderRadius:16,overflow:"hidden",marginBottom:14,boxShadow:pkg.hot?`0 0 25px ${pkg.color}12`:"none"}}>
+              {pkg.hot&&<div style={{background:pkg.color,color:"#000",fontSize:10,fontWeight:800,padding:"5px 14px",fontFamily:"'Inter',sans-serif",textAlign:"center"}}>⭐ MOST POPULAR</div>}
+              {owned&&<div style={{background:"#00C851",color:"#000",fontSize:10,fontWeight:800,padding:"5px 14px",fontFamily:"'Inter',sans-serif",textAlign:"center"}}>✅ YOUR ACTIVE PLAN</div>}
               <div style={{padding:18}}>
                 <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:14}}>
                   <div style={{display:"flex",alignItems:"center",gap:10}}>
-                    <div style={{width:44,height:44,borderRadius:10,background:pkg.color+"22",border:`1px solid ${pkg.color}44`,display:"flex",alignItems:"center",justifyContent:"center",color:pkg.color,fontSize:13,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{pkg.sym}</div>
+                    <div style={{width:46,height:46,borderRadius:12,background:pkg.color+"22",border:`1px solid ${pkg.color}44`,display:"flex",alignItems:"center",justifyContent:"center",color:pkg.color,fontSize:14,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{pkg.sym}</div>
                     <div>
                       <div style={{color:"#fff",fontSize:17,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{pkg.name}</div>
                       <div style={{color:"#444",fontSize:11,fontFamily:"'Cairo','Inter',sans-serif"}}>{pkg.desc[lang]}</div>
                     </div>
                   </div>
                   <div style={{textAlign:"left"}}>
-                    <div style={{color:"#fff",fontSize:19,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{pkg.price===0?"Free":"$"+f(pkg.price,0)}</div>
-                    {pkg.price>0 && <div style={{color:"#444",fontSize:11,fontFamily:"'Inter',sans-serif"}}>{pkg.dz}</div>}
+                    <div style={{color:"#fff",fontSize:20,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{pkg.price===0?"Free 🆓":"$"+f(pkg.price,0)}</div>
+                    {pkg.price>0&&<div style={{color:"#444",fontSize:11,fontFamily:"'Inter',sans-serif"}}>{pkg.dz}</div>}
                   </div>
                 </div>
-
-                {/* Key Stats */}
                 <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:12}}>
                   {[
-                    {icon:"⚡",k:tx.validity,v:`${VALIDITY} ${tx.days}`},
+                    {icon:"📅",k:tx.validity,v:`${VALIDITY} ${tx.days}`},
                     {icon:"💰",k:tx.dailyProfit,v:"$"+f(pkg.daily)},
                     {icon:"🎯",k:tx.perTask,v:"$"+f(perTask,4)},
                     {icon:"📋",k:"Daily Tasks",v:pkg.tasks+""},
-                  ].map((s,i) => (
-                    <div key={i} style={{background:"rgba(0,0,0,.4)",borderRadius:8,padding:"10px 12px",display:"flex",alignItems:"center",gap:8,border:"1px solid rgba(255,255,255,.04)"}}>
+                  ].map((s,i)=>(
+                    <div key={i} style={{background:"rgba(0,0,0,.4)",borderRadius:10,padding:"10px 12px",display:"flex",alignItems:"center",gap:8,border:"1px solid rgba(255,255,255,.04)"}}>
                       <span style={{fontSize:14}}>{s.icon}</span>
                       <div>
                         <div style={{color:"#333",fontSize:9,fontFamily:"'Inter',sans-serif",letterSpacing:1,textTransform:"uppercase"}}>{s.k}</div>
@@ -1356,23 +1478,18 @@ function UpgradesPage({user, setUser, showToast, lang}) {
                     </div>
                   ))}
                 </div>
-
-                {/* Yearly Return */}
-                <div style={{background:pkg.color+"0d",border:`1px solid ${pkg.color}22`,borderRadius:8,padding:"10px 14px",marginBottom:14,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-                  <span style={{color:"#666",fontSize:12,fontFamily:"'Cairo','Inter',sans-serif"}}>{tx.monthlyReturn} (365 {tx.days})</span>
+                <div style={{background:pkg.color+"0d",border:`1px solid ${pkg.color}22`,borderRadius:10,padding:"10px 14px",marginBottom:14,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                  <span style={{color:"#666",fontSize:12,fontFamily:"'Cairo','Inter',sans-serif"}}>📈 {tx.monthlyReturn}</span>
                   <span style={{color:pkg.color,fontSize:17,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>${f(yearlyReturn,0)}</span>
                 </div>
-
-                {owned ? (
-                  <button disabled style={{background:"rgba(0,200,81,.08)",border:"1px solid rgba(0,200,81,.2)",color:"#00C851",borderRadius:8,padding:"13px",width:"100%",fontFamily:"'Inter','Cairo',sans-serif",fontWeight:700,fontSize:13}}>
-                    ✓ {tx.activePlan}
+                {owned?(
+                  <button disabled style={{background:"rgba(0,200,81,.08)",border:"1px solid rgba(0,200,81,.2)",color:"#00C851",borderRadius:10,padding:"13px",width:"100%",fontFamily:"'Inter','Cairo',sans-serif",fontWeight:700,fontSize:13}}>
+                    ✅ {tx.activePlan}
                   </button>
-                ) : (
-                  <button
-                    onClick={() => { setSel(pkg); setConfirm(true); }}
-                    style={{background:canAfford?pkg.color:"#1a1a1a",color:canAfford?(pkg.id===0||pkg.id===3?"#000":"#fff"):"#555",borderRadius:8,padding:"13px",width:"100%",border:"none",fontFamily:"'Inter','Cairo',sans-serif",fontWeight:700,fontSize:13,cursor:"pointer"}}
-                  >
-                    {canAfford ? tx.upgradeTo+" "+pkg.name+" →" : tx.topupFirst}
+                ):(
+                  <button onClick={()=>{setSel(pkg);setConfirm(true);}}
+                    style={{background:canAfford?pkg.color:"#1a1a1a",color:canAfford?(pkg.id===0||pkg.id===3?"#000":"#fff"):"#555",borderRadius:10,padding:"13px",width:"100%",border:"none",fontFamily:"'Inter','Cairo',sans-serif",fontWeight:700,fontSize:13,cursor:"pointer"}}>
+                    {canAfford?tx.upgradeTo+" "+pkg.name+" →":tx.topupFirst}
                   </button>
                 )}
               </div>
@@ -1380,34 +1497,33 @@ function UpgradesPage({user, setUser, showToast, lang}) {
           );
         })}
       </div>
-
-      {confirm && sel && (
-        <div className="modal-bg" onClick={() => setConfirm(false)}>
-          <div className="modal-box" onClick={e => e.stopPropagation()}>
+      {confirm&&sel&&(
+        <div className="modal-bg" onClick={()=>setConfirm(false)}>
+          <div className="modal-box" onClick={e=>e.stopPropagation()}>
             <div className="modal-handle"/>
             <div style={{padding:"20px 20px 32px"}}>
               <div style={{textAlign:"center",marginBottom:20}}>
-                <div style={{width:56,height:56,borderRadius:14,background:sel.color+"22",border:`1px solid ${sel.color}44`,display:"flex",alignItems:"center",justifyContent:"center",color:sel.color,fontSize:20,fontWeight:900,fontFamily:"'Inter',sans-serif",margin:"0 auto 12px"}}>{sel.sym}</div>
+                <div style={{width:58,height:58,borderRadius:14,background:sel.color+"22",border:`1px solid ${sel.color}44`,display:"flex",alignItems:"center",justifyContent:"center",color:sel.color,fontSize:20,fontWeight:900,fontFamily:"'Inter',sans-serif",margin:"0 auto 12px"}}>{sel.sym}</div>
                 <h3 style={{color:"#fff",fontSize:18,fontWeight:900,fontFamily:"'Inter',sans-serif",marginBottom:4}}>{tx.confirmUpgrade}</h3>
                 <p style={{color:"#444",fontSize:13,fontFamily:"'Cairo','Inter',sans-serif"}}>{sel.name}</p>
               </div>
               <div style={{background:"#0d0d0d",borderRadius:12,padding:14,marginBottom:18}}>
                 {[
-                  ["السعر", sel.price===0?"Free":"$"+f(sel.price,0), "#fff"],
-                  [tx.validity, VALIDITY+" "+tx.days, "#FFB800"],
-                  [tx.dailyProfit, "$"+f(sel.daily), "#00C851"],
-                  [tx.perTask, "$"+f(sel.daily/sel.tasks,4), "#3B82F6"],
-                  ["رصيدك بعد الشراء", "$"+f(user.balance-sel.price), "#E31837"],
-                ].map((r,i) => (
-                  <div key={i} style={{display:"flex",justifyContent:"space-between",padding:"8px 0",borderBottom:i<4?"1px solid #1a1a1a":"none"}}>
+                  ["💳 السعر",sel.price===0?"Free 🆓":"$"+f(sel.price,0),"#fff"],
+                  ["📅 "+tx.validity,VALIDITY+" "+tx.days,"#FFB800"],
+                  ["💰 "+tx.dailyProfit,"$"+f(sel.daily),"#00C851"],
+                  ["🎯 "+tx.perTask,"$"+f(sel.daily/sel.tasks,4),"#3B82F6"],
+                  ["💵 رصيدك بعد الشراء","$"+f(user.balance-sel.price),"#E31837"],
+                ].map((r,i)=>(
+                  <div key={i} style={{display:"flex",justifyContent:"space-between",padding:"9px 0",borderBottom:i<4?"1px solid #1a1a1a":"none"}}>
                     <span style={{color:"#444",fontSize:12,fontFamily:"'Cairo','Inter',sans-serif"}}>{r[0]}</span>
                     <span style={{color:r[2],fontSize:12,fontWeight:700,fontFamily:"'Inter',sans-serif"}}>{r[1]}</span>
                   </div>
                 ))}
               </div>
               <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>
-                <button className="btn-gray" onClick={() => setConfirm(false)}>{tx.cancel}</button>
-                <button className="btn-red" onClick={() => doUpgrade(sel)}>{tx.confirm}</button>
+                <button className="btn-gray" onClick={()=>setConfirm(false)}>{tx.cancel}</button>
+                <button className="btn-red" onClick={()=>doUpgrade(sel)}>{tx.confirm}</button>
               </div>
             </div>
           </div>
@@ -1417,117 +1533,168 @@ function UpgradesPage({user, setUser, showToast, lang}) {
   );
 }
 
-/* ═══════════════════ PROFILE PAGE ═══════════════════ */
-function ProfilePage({user, setUser, showToast, lang, setLang}) {
-  const tx = T[lang];
-  const [modal, setModal] = React.useState(null);
-  const [spinModal, setSpinModal] = React.useState(false);
-  const [editName, setEditName] = React.useState(user.name);
-  const [editEmail, setEditEmail] = React.useState(user.email);
-  const pkg = PKG.find(p => p.id === user.packageId) || PKG[0];
+/* ══════════════════════════════════════════════════
+   PROFILE PAGE
+══════════════════════════════════════════════════ */
+function ProfilePage({user,setUser,showToast,lang,setLang}){
+  const tx=T[lang];
+  const[modal,setModal]=useState(null);
+  const[spinModal,setSpinModal]=useState(false);
+  const[editName,setEditName]=useState(user.name);
+  const[editEmail,setEditEmail]=useState(user.email);
+  const[editPhone,setEditPhone]=useState(user.phone||"");
+  const[editCity,setEditCity]=useState(user.city||"");
+  const pkg=PKG[user.packageId]||PKG[0];
 
-  function saveProfile() {
-    if (!editName.trim()) return showToast("أدخل الاسم", "error");
-    setUser(u => ({...u, name:editName, email:editEmail}));
-    showToast(tx.save + " ✓", "success");
+  function saveProfile(){
+    if(!editName.trim())return showToast(lang==="ar"?"أدخل الاسم":"Enter your name","error");
+    const nu={...user,name:editName,email:editEmail,phone:editPhone,city:editCity};
+    setUser(nu);saveUser(nu);
+    showToast("✅ "+(lang==="ar"?"تم حفظ الملف الشخصي":"Profile saved"),"success");
     setModal(null);
   }
 
-  function onSpinWin(val) {
-    setUser(u => ({...u, balance: u.balance + val, spins: Math.max(0,(u.spins||0)-1)}));
-    showToast("🎉 ربحت " + f(val) + "$ من عجلة الحظ!", "success");
+  function onSpinWin(val){
+    const nu={
+      ...user,
+      balance:+(user.balance+val).toFixed(4),
+      totalEarned:+(user.totalEarned+val).toFixed(4),
+      spins:Math.max(0,(user.spins||0)-1),
+      spinWins:(user.spinWins||0)+1,
+      notifications:[...(user.notifications||[]),{
+        icon:"🎰",msg:`🎉 ربحت ${f(val)}$ من عجلة الحظ!`,
+        time:new Date().toLocaleTimeString("ar-DZ"),read:false
+      }],
+    };
+    setUser(nu);saveUser(nu);
+    showToast("🎉 ربحت "+f(val)+"$ من عجلة الحظ!","success");
+    setTimeout(()=>checkAndUnlockAchievements(nu,setUser,showToast,lang),500);
   }
 
-  const menuItems = [
-    {icon:"🛡️", title:tx.security, sub:"Security & Contract", col:"#FFB800", key:"sec"},
-    {icon:"🏢", title:tx.company, sub:"Company Profile", col:"#E31837", key:"com"},
-    {icon:"🎁", title:tx.referrals, sub:"Referral Program · +2.5$/invite", col:"#00C851", key:"ref"},
-    {icon:"🏆", title:tx.contest, sub:"Monthly Contest · Prize $500", col:"#FFB800", key:"con"},
-    {icon:"⚙️", title:tx.settings, sub:tx.language, col:"#8B5CF6", key:"set"},
-    {icon:"✏️", title:tx.editProfile, sub:"Edit Profile", col:"#3B82F6", key:"edit"},
-    {icon:"📲", title:tx.support, sub:"Signal Messenger", col:"#00C851", key:"signal"},
-    {icon:"🌐", title:tx.website, sub:"blackrock.com", col:"#06B6D4", key:"web"},
+  const menuItems=[
+    {icon:"🛡️",title:tx.security,sub:"Security & Contract",col:"#FFB800",key:"sec"},
+    {icon:"🏢",title:tx.company,sub:"Company Profile",col:"#E31837",key:"com"},
+    {icon:"🏅",title:tx.achievements,sub:lang==="ar"?`${(user.unlockedAchievements||[]).length}/${ACHIEVEMENTS_DEF.length} مفتوح`:`${(user.unlockedAchievements||[]).length}/${ACHIEVEMENTS_DEF.length} unlocked`,col:"#FFB800",key:"ach"},
+    {icon:"🎁",title:tx.referrals,sub:"Referral Program · +2.5$/invite",col:"#00C851",key:"ref"},
+    {icon:"🏆",title:tx.contest,sub:"Monthly Contest · Prize $500 🏆",col:"#FFB800",key:"con"},
+    {icon:"⚙️",title:tx.settings,sub:tx.language+" · "+tx.joinDate,col:"#8B5CF6",key:"set"},
+    {icon:"✏️",title:tx.editProfile,sub:lang==="ar"?"تعديل البيانات الشخصية":"Edit personal info",col:"#3B82F6",key:"edit"},
+    {icon:"📲",title:tx.support,sub:"Signal Messenger 🔒",col:"#00C851",key:"signal"},
+    {icon:"🌐",title:tx.website,sub:"blackrock.com",col:"#06B6D4",key:"web"},
   ];
 
-  function menuAction(key) {
-    if (key === "signal") { window.open("https://signal.me/#eu/__kL4ayCt64xdRiSQWwYpMxOo5_u-Br5Y87rLvt7vQ9c0zoJJ3BEHIfxtpSC5JSE","_blank"); return; }
-    if (key === "web") { window.open("https://www.blackrock.com","_blank"); return; }
+  function menuAction(key){
+    if(key==="signal"){window.open("https://signal.me/#eu/__kL4ayCt64xdRiSQWwYpMxOo5_u-Br5Y87rLvt7vQ9c0zoJJ3BEHIfxtpSC5JSE","_blank");return;}
+    if(key==="web"){window.open("https://www.blackrock.com","_blank");return;}
     setModal(key);
   }
 
-  return (
-    <div className="page" style={{paddingBottom:90,minHeight:"100vh"}}>
-      <div style={{background:"linear-gradient(180deg,#0a0000,#000)",padding:"52px 20px 22px",borderBottom:"1px solid var(--border)",textAlign:"center"}}>
-        <div style={{position:"relative",display:"inline-block",marginBottom:14}}>
-          <div style={{width:74,height:74,borderRadius:"50%",background:"#E31837",display:"flex",alignItems:"center",justifyContent:"center",fontSize:28,fontWeight:900,color:"#fff",fontFamily:"'Inter',sans-serif",boxShadow:"0 0 25px rgba(227,24,55,.35)"}}>
-            {user.name.charAt(0).toUpperCase()}
+  const unlockedCount=(user.unlockedAchievements||[]).length;
+  const achPct=Math.round(unlockedCount/ACHIEVEMENTS_DEF.length*100);
+
+  return(
+    <div className="page" style={{paddingBottom:95,minHeight:"100vh"}}>
+      <div style={{background:"linear-gradient(180deg,#080000,#000)",padding:"52px 20px 22px",borderBottom:"1px solid var(--border)"}}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:16}}>
+          <div style={{flex:1}}>
+            <div style={{position:"relative",display:"inline-block",marginBottom:12}}>
+              <div style={{width:72,height:72,borderRadius:"50%",background:"linear-gradient(135deg,#E31837,#8B0000)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:28,fontWeight:900,color:"#fff",fontFamily:"'Inter',sans-serif",boxShadow:"0 0 25px rgba(227,24,55,.4)"}}>
+                {user.name.charAt(0).toUpperCase()}
+              </div>
+              <div style={{position:"absolute",bottom:2,right:2,width:16,height:16,background:"#00C851",borderRadius:"50%",border:"2px solid #000",animation:"greenDot 2s infinite"}}/>
+            </div>
+            <h2 style={{color:"#fff",fontSize:18,fontWeight:900,fontFamily:"'Inter','Cairo',sans-serif",marginBottom:3}}>{user.name}</h2>
+            <p style={{color:"#333",fontSize:12,fontFamily:"'Inter',sans-serif",marginBottom:4}}>{user.email}</p>
+            {user.city&&<p style={{color:"#333",fontSize:11,fontFamily:"'Cairo','Inter',sans-serif"}}>📍 {user.city}</p>}
           </div>
-          <div style={{position:"absolute",bottom:2,right:2,width:16,height:16,background:"#00C851",borderRadius:"50%",border:"2px solid #000",animation:"greenDot 2s infinite"}}/>
+          <NotifBell user={user} setUser={setUser} lang={lang}/>
         </div>
-        <h2 style={{color:"#fff",fontSize:18,fontWeight:900,fontFamily:"'Inter','Cairo',sans-serif",marginBottom:4}}>{user.name}</h2>
-        <p style={{color:"#333",fontSize:12,fontFamily:"'Inter',sans-serif",marginBottom:12}}>{user.email}</p>
-        <div style={{display:"flex",justifyContent:"center",gap:8,flexWrap:"wrap",marginBottom:14}}>
-          <div className="tag t-red" style={{fontSize:11}}>NYSE: BLK</div>
-          <div style={{background:pkg.color+"18",border:`1px solid ${pkg.color}44`,color:pkg.color,fontSize:11,fontWeight:700,padding:"3px 9px",borderRadius:4}}>{pkg.name}</div>
-          <div className="tag t-green" style={{fontSize:11}}>● Active</div>
+        <div style={{display:"flex",gap:8,flexWrap:"wrap",marginBottom:14}}>
+          <div className="tag t-red" style={{fontSize:10}}>NYSE: BLK</div>
+          <div style={{background:pkg.color+"18",border:`1px solid ${pkg.color}44`,color:pkg.color,fontSize:10,fontWeight:700,padding:"3px 9px",borderRadius:5}}>📦 {pkg.name}</div>
+          <div className="tag t-green" style={{fontSize:10}}>● Active</div>
+          {user.phone&&<div className="tag t-blue" style={{fontSize:10}}>📱 {user.phone}</div>}
         </div>
-        <div style={{background:"#0d0d0d",border:"1px solid var(--border)",borderRadius:12,padding:"13px 20px",display:"inline-block"}}>
-          <div style={{color:"#222",fontSize:10,fontFamily:"'Inter',sans-serif",letterSpacing:1,textTransform:"uppercase",marginBottom:4}}>{tx.balance}</div>
-          <div style={{color:"#fff",fontSize:24,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{f(user.balance)}<span style={{color:"#E31837",fontSize:13,marginRight:4}}> $</span></div>
-          <div style={{color:"#1a1a1a",fontSize:11,fontFamily:"'Inter',sans-serif",marginTop:2}}>≈ {f(user.balance*250,0)} DZD</div>
+        <div style={{background:"#0d0d0d",border:"1px solid rgba(255,184,0,.2)",borderRadius:14,padding:"14px 18px"}}>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:6}}>
+            <div>
+              <div style={{color:"#333",fontSize:10,fontFamily:"'Inter',sans-serif",letterSpacing:1,textTransform:"uppercase",marginBottom:4}}>{tx.balance} 💰</div>
+              <div style={{color:"#fff",fontSize:28,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{f(user.balance)}<span style={{color:"#E31837",fontSize:13,marginRight:4}}> $</span></div>
+              <div style={{color:"#1a1a1a",fontSize:11,fontFamily:"'Inter',sans-serif",marginTop:2}}>≈ {f(user.balance*250,0)} DZD</div>
+            </div>
+            <div style={{textAlign:"left"}}>
+              <div style={{color:"#333",fontSize:10,fontFamily:"'Cairo','Inter',sans-serif",letterSpacing:1,marginBottom:4}}>📅 {tx.joinDate}</div>
+              <div style={{color:"#FFB800",fontSize:11,fontWeight:700,fontFamily:"'Cairo','Inter',sans-serif"}}>{user.joinDate}</div>
+            </div>
+          </div>
         </div>
       </div>
 
       <div style={{padding:"18px 20px 0"}}>
-        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10,marginBottom:20}}>
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10,marginBottom:18}}>
           {[
-            {val:f(user.totalEarned)+"$",label:tx.totalEarned,col:"#E31837"},
-            {val:user.activeDays,label:tx.activeDays,col:"#FFB800"},
-            {val:user.completedTasks,label:tx.completedTasks,col:"#00C851"},
-          ].map((s,i) => (
+            {val:f(user.totalEarned)+"$",label:tx.totalEarned+" 📊",col:"#E31837"},
+            {val:user.activeDays,label:tx.activeDays+" 📅",col:"#FFB800"},
+            {val:user.completedTasks,label:tx.completedTasks+" ✅",col:"#00C851"},
+          ].map((s,i)=>(
             <div key={i} className="stat-box">
               <div style={{color:s.col,fontSize:14,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{s.val}</div>
-              <div style={{color:"#333",fontSize:10,fontFamily:"'Cairo','Inter',sans-serif",marginTop:3}}>{s.label}</div>
+              <div style={{color:"#333",fontSize:9,fontFamily:"'Cairo','Inter',sans-serif",marginTop:3}}>{s.label}</div>
             </div>
           ))}
         </div>
 
-        {/* Ref Banner */}
-        <div style={{background:"#0d0000",border:"1px solid rgba(227,24,55,.2)",borderRadius:12,padding:"13px 16px",marginBottom:18,display:"flex",alignItems:"center",gap:12,borderRight:"3px solid #E31837"}}>
+        {/* Achievements Progress Bar */}
+        <div style={{background:"linear-gradient(135deg,#0d0800,#080006)",border:"1px solid rgba(255,184,0,.2)",borderRadius:14,padding:16,marginBottom:16,position:"relative",overflow:"hidden"}}>
+          <div style={{position:"absolute",top:0,left:0,right:0,height:2,background:"linear-gradient(90deg,transparent,#FFB800,transparent)"}}/>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10}}>
+            <div style={{display:"flex",alignItems:"center",gap:8}}>
+              <span style={{fontSize:20}}>🏅</span>
+              <div>
+                <div style={{color:"#FFB800",fontSize:13,fontWeight:700,fontFamily:"'Cairo','Inter',sans-serif"}}>{tx.achievementsTitle}</div>
+                <div style={{color:"#444",fontSize:11,fontFamily:"'Cairo','Inter',sans-serif"}}>{unlockedCount}/{ACHIEVEMENTS_DEF.length} مفتوح</div>
+              </div>
+            </div>
+            <div className="tag t-gold" style={{fontSize:11}}>{achPct}%</div>
+          </div>
+          <div style={{background:"#1a1a1a",borderRadius:4,height:6,overflow:"hidden"}}>
+            <div style={{height:"100%",width:`${achPct}%`,background:"linear-gradient(90deg,#FFB800,#FF8C00)",borderRadius:4,transition:"width .5s ease"}}/>
+          </div>
+        </div>
+
+        {/* Ref Code */}
+        <div style={{background:"#0d0000",border:"1px solid rgba(227,24,55,.2)",borderRadius:12,padding:"13px 16px",marginBottom:16,display:"flex",alignItems:"center",gap:12,borderRight:"3px solid #E31837"}}>
           <div style={{fontSize:20}}>🎁</div>
           <div style={{flex:1}}>
             <div style={{color:"#ccc",fontSize:12,fontWeight:700,fontFamily:"'Cairo','Inter',sans-serif"}}>{tx.referrals}</div>
             <div style={{color:"#E31837",fontSize:15,fontWeight:900,fontFamily:"'Inter',sans-serif",letterSpacing:2,marginTop:2}}>{user.refCode}</div>
           </div>
-          <button className="copy-btn" onClick={() => {
-            try { navigator.clipboard.writeText(user.refCode); } catch(e){}
-            showToast(tx.copiedCode, "success");
-          }}>نسخ</button>
+          <button className="copy-btn" onClick={()=>{
+            try{navigator.clipboard.writeText(user.refCode);}catch(e){}
+            showToast(tx.copiedCode,"success");
+          }}>📋</button>
         </div>
 
         {/* Spin Banner */}
-        {(user.spins||0) > 0 && (
-          <div onClick={() => setSpinModal(true)} style={{
-            background:"linear-gradient(135deg,#0d0012,#08000a)",border:"1px solid rgba(139,92,246,.3)",borderRadius:12,
-            padding:"13px 16px",marginBottom:18,display:"flex",alignItems:"center",gap:12,cursor:"pointer",
-            borderRight:"3px solid #8B5CF6",animation:"pulse 2s infinite"
-          }}>
-            <div style={{fontSize:22,animation:"float 2s ease-in-out infinite"}}>🎰</div>
+        {(user.spins||0)>0&&(
+          <div onClick={()=>setSpinModal(true)} style={{background:"linear-gradient(135deg,#0d0012,#08000a)",border:"1px solid rgba(139,92,246,.3)",borderRadius:14,padding:"13px 16px",marginBottom:16,display:"flex",alignItems:"center",gap:12,cursor:"pointer",borderRight:"3px solid #8B5CF6",animation:"pulse 2.5s infinite"}}>
+            <div style={{fontSize:24,animation:"float 2s ease-in-out infinite"}}>🎰</div>
             <div style={{flex:1}}>
               <div style={{color:"#8B5CF6",fontSize:13,fontWeight:700,fontFamily:"'Cairo','Inter',sans-serif"}}>{tx.luckySpinTitle}</div>
-              <div style={{color:"#444",fontSize:11,fontFamily:"'Cairo','Inter',sans-serif"}}>{user.spins} {tx.spinsLeft}</div>
+              <div style={{color:"#444",fontSize:11,fontFamily:"'Cairo','Inter',sans-serif"}}>{user.spins} {tx.spinsLeft} 🎁</div>
             </div>
-            <div style={{background:"#8B5CF622",border:"1px solid #8B5CF644",borderRadius:20,padding:"4px 12px"}}>
+            <div style={{background:"#8B5CF622",border:"1px solid #8B5CF644",borderRadius:20,padding:"5px 13px"}}>
               <span style={{color:"#8B5CF6",fontSize:11,fontWeight:700,fontFamily:"'Inter',sans-serif"}}>{tx.spinNow}</span>
             </div>
           </div>
         )}
 
         {/* Menu */}
-        <div className="lbl">SETTINGS & INFO</div>
-        {menuItems.map((m,i) => (
-          <div key={i} onClick={() => menuAction(m.key)} style={{background:"#0d0d0d",border:"1px solid var(--border)",borderRadius:12,padding:"14px 16px",display:"flex",alignItems:"center",gap:12,cursor:"pointer",marginBottom:8,borderRight:`2px solid ${m.col}55`,transition:"all .2s"}}>
-            <div style={{width:38,height:38,background:m.col+"18",border:`1px solid ${m.col}22`,borderRadius:10,display:"flex",alignItems:"center",justifyContent:"center",fontSize:17,flexShrink:0}}>{m.icon}</div>
+        <div className="lbl">⚙️ SETTINGS & INFO</div>
+        {menuItems.map((m,i)=>(
+          <div key={i} onClick={()=>menuAction(m.key)}
+            style={{background:"#0d0d0d",border:"1px solid var(--border)",borderRadius:14,padding:"14px 16px",display:"flex",alignItems:"center",gap:12,cursor:"pointer",marginBottom:8,borderRight:`2px solid ${m.col}`,transition:"all .2s"}}>
+            <div style={{width:40,height:40,background:m.col+"18",border:`1px solid ${m.col}22`,borderRadius:12,display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,flexShrink:0}}>{m.icon}</div>
             <div style={{flex:1}}>
               <div style={{color:"#fff",fontSize:13,fontWeight:700,fontFamily:"'Cairo','Inter',sans-serif"}}>{m.title}</div>
               <div style={{color:"#333",fontSize:11,fontFamily:"'Cairo','Inter',sans-serif",marginTop:2}}>{m.sub}</div>
@@ -1538,59 +1705,71 @@ function ProfilePage({user, setUser, showToast, lang, setLang}) {
 
         <div style={{textAlign:"center",padding:"18px 0 8px"}}>
           <div style={{color:"#E31837",fontSize:11,fontWeight:700,fontFamily:"'Inter',sans-serif",marginBottom:2}}>BLACKROCK EARN</div>
-          <div style={{color:"#1a1a1a",fontSize:10,fontFamily:"'Inter',sans-serif"}}>v2.1.0 · NYSE: BLK · EIN: 32-0174431</div>
+          <div style={{color:"#1a1a1a",fontSize:10,fontFamily:"'Inter',sans-serif"}}>v3.0.0 · NYSE: BLK · EIN: 32-0174431</div>
         </div>
       </div>
 
-      {modal==="sec" && <SecurityModal onClose={() => setModal(null)} lang={lang}/>}
-      {modal==="com" && <CompanyModal onClose={() => setModal(null)} lang={lang}/>}
-      {modal==="ref" && <ReferralModal user={user} setUser={setUser} onClose={() => setModal(null)} showToast={showToast} lang={lang} setSpinModal={setSpinModal}/>}
-      {modal==="con" && <ContestModal user={user} onClose={() => setModal(null)} lang={lang}/>}
-      {modal==="set" && <SettingsModal onClose={() => setModal(null)} lang={lang} setLang={setLang}/>}
-      {modal==="edit" && (
-        <div className="modal-bg" onClick={() => setModal(null)}>
-          <div className="modal-box" onClick={e => e.stopPropagation()}>
+      {modal==="sec"&&<SecurityModal onClose={()=>setModal(null)} lang={lang}/>}
+      {modal==="com"&&<CompanyModal onClose={()=>setModal(null)} lang={lang}/>}
+      {modal==="ach"&&<AchievementsModal user={user} setUser={setUser} onClose={()=>setModal(null)} showToast={showToast} lang={lang}/>}
+      {modal==="ref"&&<ReferralModal user={user} setUser={setUser} onClose={()=>setModal(null)} showToast={showToast} lang={lang} setSpinModal={setSpinModal}/>}
+      {modal==="con"&&<ContestModal user={user} onClose={()=>setModal(null)} lang={lang}/>}
+      {modal==="set"&&<SettingsModal onClose={()=>setModal(null)} lang={lang} setLang={setLang} user={user}/>}
+      {modal==="edit"&&(
+        <div className="modal-bg" onClick={()=>setModal(null)}>
+          <div className="modal-box" onClick={e=>e.stopPropagation()}>
             <div className="modal-handle"/>
             <div style={{padding:"20px 20px 32px"}}>
-              <h3 style={{color:"#fff",fontSize:18,fontWeight:900,fontFamily:"'Inter',sans-serif",marginBottom:20}}>✏️ {tx.editProfile}</h3>
-              <div style={{marginBottom:14}}>
-                <label style={{color:"#444",fontSize:11,fontFamily:"'Inter',sans-serif",fontWeight:700,display:"block",marginBottom:8,letterSpacing:1,textTransform:"uppercase"}}>{tx.name}</label>
-                <input value={editName} onChange={e => setEditName(e.target.value)} placeholder="Your name"/>
+              <div style={{textAlign:"center",marginBottom:20}}>
+                <div style={{fontSize:44,marginBottom:8}}>✏️</div>
+                <h3 style={{color:"#fff",fontSize:18,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{tx.editProfile}</h3>
               </div>
-              <div style={{marginBottom:20}}>
-                <label style={{color:"#444",fontSize:11,fontFamily:"'Inter',sans-serif",fontWeight:700,display:"block",marginBottom:8,letterSpacing:1,textTransform:"uppercase"}}>{tx.email}</label>
-                <input value={editEmail} onChange={e => setEditEmail(e.target.value)} placeholder="email@example.com"/>
-              </div>
-              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>
-                <button className="btn-gray" onClick={() => setModal(null)}>{tx.cancel}</button>
+              {[
+                {label:"👤 "+tx.name,val:editName,set:setEditName,ph:lang==="ar"?"اسمك الكامل":"Your full name",type:"text"},
+                {label:"📧 "+tx.email,val:editEmail,set:setEditEmail,ph:"email@example.com",type:"email"},
+                {label:"📱 "+tx.phone,val:editPhone,set:setEditPhone,ph:lang==="ar"?"0555 123 456":"0555 123 456",type:"tel"},
+                {label:"📍 "+tx.city,val:editCity,set:setEditCity,ph:lang==="ar"?"مدينتك":"Your city",type:"text"},
+              ].map((f,i)=>(
+                <div key={i} style={{marginBottom:14}}>
+                  <label style={{color:"#444",fontSize:11,fontFamily:"'Inter',sans-serif",fontWeight:700,display:"block",marginBottom:8,letterSpacing:1,textTransform:"uppercase"}}>{f.label}</label>
+                  <input type={f.type} placeholder={f.ph} value={f.val} onChange={e=>f.set(e.target.value)}/>
+                </div>
+              ))}
+              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12,marginTop:6}}>
+                <button className="btn-gray" onClick={()=>setModal(null)}>{tx.cancel}</button>
                 <button className="btn-red" onClick={saveProfile}>{tx.save}</button>
               </div>
             </div>
           </div>
         </div>
       )}
-      {spinModal && <LuckySpinModal onClose={() => setSpinModal(false)} onWin={onSpinWin} spins={user.spins||0} lang={lang}/>}
+      {spinModal&&<LuckySpinModal onClose={()=>setSpinModal(false)} onWin={onSpinWin} spins={user.spins||0} lang={lang}/>}
     </div>
   );
 }
 
-/* ═══════════════════ BOTTOM NAV ═══════════════════ */
-function BottomNav({page, setPage, lang}) {
-  const tx = T[lang];
-  const tabs = [
+/* ══════════════════════════════════════════════════
+   BOTTOM NAV
+══════════════════════════════════════════════════ */
+function BottomNav({page,setPage,lang,unreadNotifs}){
+  const tx=T[lang];
+  const tabs=[
     {id:"home",icon:"🏠",label:tx.home},
     {id:"tasks",icon:"⚡",label:tx.tasks},
     {id:"upgrades",icon:"🚀",label:tx.upgrades},
-    {id:"profile",icon:"👤",label:tx.profile},
+    {id:"profile",icon:"👤",label:tx.profile,badge:unreadNotifs},
   ];
-  return (
+  return(
     <div className="bottom-bar">
-      {tabs.map(t => (
-        <button key={t.id} className="nav-btn" onClick={() => setPage(t.id)}
-          style={{background:page===t.id?"rgba(227,24,55,.1)":"transparent"}}>
-          <div style={{position:"relative",width:26,height:26,display:"flex",alignItems:"center",justifyContent:"center"}}>
-            {page===t.id && <div style={{position:"absolute",top:-8,left:"50%",transform:"translateX(-50%)",width:20,height:2,background:"#E31837",borderRadius:1}}/>}
-            <span style={{fontSize:20,transition:"transform .2s",transform:page===t.id?"scale(1.15)":"scale(1)"}}>{t.icon}</span>
+      {tabs.map(t=>(
+        <button key={t.id} className="nav-btn" onClick={()=>setPage(t.id)}
+          style={{background:page===t.id?"rgba(227,24,55,.1)":"transparent",position:"relative"}}>
+          {t.badge>0&&(
+            <div style={{position:"absolute",top:2,right:8,background:"#E31837",borderRadius:"50%",width:16,height:16,display:"flex",alignItems:"center",justifyContent:"center",fontSize:8,fontWeight:900,color:"#fff",fontFamily:"'Inter',sans-serif",border:"1px solid #000"}}>{t.badge>9?"9+":t.badge}</div>
+          )}
+          <div style={{position:"relative"}}>
+            {page===t.id&&<div style={{position:"absolute",top:-10,left:"50%",transform:"translateX(-50%)",width:22,height:2,background:"#E31837",borderRadius:1}}/>}
+            <span style={{fontSize:22,transition:"transform .2s",transform:page===t.id?"scale(1.15)":"scale(1)",display:"block"}}>{t.icon}</span>
           </div>
           <span style={{fontSize:9,fontFamily:"'Inter','Cairo',sans-serif",fontWeight:700,color:page===t.id?"#E31837":"#333",letterSpacing:.4,textTransform:"uppercase"}}>{t.label}</span>
         </button>
@@ -1599,75 +1778,87 @@ function BottomNav({page, setPage, lang}) {
   );
 }
 
-/* ═══════════════════ SPLASH ═══════════════════ */
-function Splash({onDone}) {
-  const [prog, setProg] = React.useState(0);
-  React.useEffect(() => {
-    let v = 0;
-    const t = setInterval(() => {
-      v += 1.5; setProg(v);
-      if (v >= 100) { clearInterval(t); setTimeout(onDone, 300); }
-    }, 28);
-    return () => clearInterval(t);
-  }, []);
-  return (
+/* ══════════════════════════════════════════════════
+   SPLASH
+══════════════════════════════════════════════════ */
+function Splash({onDone}){
+  const[prog,setProg]=useState(0);
+  useEffect(()=>{
+    let v=0;
+    const t=setInterval(()=>{v+=1.4;setProg(v);if(v>=100){clearInterval(t);setTimeout(onDone,400);}},28);
+    return()=>clearInterval(t);
+  },[]);
+  return(
     <div style={{position:"fixed",inset:0,background:"#000",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",zIndex:9999}}>
-      <div style={{width:84,height:84,background:"#E31837",borderRadius:20,display:"flex",alignItems:"center",justifyContent:"center",fontSize:36,fontWeight:900,color:"#fff",fontFamily:"'Inter',sans-serif",boxShadow:"0 0 60px rgba(227,24,55,.5),0 0 100px rgba(227,24,55,.2)",marginBottom:32}}>B</div>
-      <div style={{color:"#E31837",fontSize:24,fontWeight:900,fontFamily:"'Inter',sans-serif",letterSpacing:3,marginBottom:6}}>BLACKROCK</div>
-      <div style={{color:"#1a1a1a",fontSize:11,fontFamily:"'Inter',sans-serif",letterSpacing:4,textTransform:"uppercase",marginBottom:44}}>EARN PLATFORM</div>
-      <div style={{width:170,height:2,background:"#0d0d0d",borderRadius:1,overflow:"hidden"}}>
-        <div style={{height:"100%",width:prog+"%",background:"#E31837",borderRadius:1,transition:"width .05s linear"}}/>
+      <div style={{width:88,height:88,background:"linear-gradient(135deg,#E31837,#8B0000)",borderRadius:22,display:"flex",alignItems:"center",justifyContent:"center",fontSize:38,fontWeight:900,color:"#fff",fontFamily:"'Inter',sans-serif",boxShadow:"0 0 60px rgba(227,24,55,.6),0 0 100px rgba(227,24,55,.2)",marginBottom:32,animation:"glow 2s ease-in-out infinite"}}>B</div>
+      <div style={{color:"#E31837",fontSize:26,fontWeight:900,fontFamily:"'Inter',sans-serif",letterSpacing:3,marginBottom:6}}>BLACKROCK</div>
+      <div style={{color:"#1a1a1a",fontSize:11,fontFamily:"'Inter',sans-serif",letterSpacing:4,textTransform:"uppercase",marginBottom:48}}>EARN PLATFORM</div>
+      <div style={{width:180,height:2,background:"#0d0d0d",borderRadius:1,overflow:"hidden"}}>
+        <div style={{height:"100%",width:prog+"%",background:"linear-gradient(90deg,#E31837,#FFB800)",borderRadius:1,transition:"width .05s linear"}}/>
       </div>
       <div style={{color:"#1a1a1a",fontSize:11,fontFamily:"'Inter',sans-serif",marginTop:10}}>{Math.floor(prog)}%</div>
+      <div style={{color:"#0d0d0d",fontSize:10,fontFamily:"'Inter',sans-serif",marginTop:6,letterSpacing:1}}>NYSE: BLK</div>
     </div>
   );
 }
 
-/* ═══════════════════ APP ═══════════════════ */
-function App() {
-  const [splash, setSplash] = React.useState(true);
-  const [page, setPage] = React.useState("home");
-  const [toast, setToast] = React.useState(null);
-  const [lang, setLang] = React.useState("ar");
+/* ══════════════════════════════════════════════════
+   APP ROOT
+══════════════════════════════════════════════════ */
+function App(){
+  const[splash,setSplash]=useState(true);
+  const[page,setPage]=useState("home");
+  const[toast,setToast]=useState(null);
+  const[lang,setLang]=useState("ar");
 
-  const [user, setUser] = React.useState({
-    name:"المستخدم الكريم",
-    email:"user@blackrock-earn.com",
-    balance:2.85,
-    totalEarned:2.85,
-    activeDays:1,
-    completedTasks:5,
-    packageId:0,
-    tasksLeft:5,
-    referrals:0,
-    refCode:genRef(),
-    city:"الجزائر",
-    spins:1,
+  const saved=useMemo(()=>loadUser(),[]);
+  const[user,setUser]=useState(()=>{
+    if(saved)return saved;
+    const u={...DEFAULT_USER,joinDate:nowDate(),joinTimestamp:Date.now()};
+    saveUser(u);return u;
   });
 
-  const showToast = React.useCallback((msg, type) => {
-    setToast({msg, type:type||"info", id:Date.now()});
-  }, []);
+  // Auto-save on every user change
+  useEffect(()=>{
+    if(!splash)saveUser(user);
+  },[user]);
 
-  function renderPage() {
-    if (page==="home") return <HomePage user={user} setUser={setUser} setPage={setPage} showToast={showToast} lang={lang}/>;
-    if (page==="tasks") return <TasksPage user={user} setUser={setUser} showToast={showToast} lang={lang}/>;
-    if (page==="upgrades") return <UpgradesPage user={user} setUser={setUser} showToast={showToast} lang={lang}/>;
-    if (page==="profile") return <ProfilePage user={user} setUser={setUser} showToast={showToast} lang={lang} setLang={setLang}/>;
+  // Update active days
+  useEffect(()=>{
+    if(!splash){
+      const lastDay=user.lastActiveDay||"";
+      const today=todayStr();
+      if(lastDay!==today){
+        setUser(u=>{
+          const nu={...u,activeDays:u.activeDays+1,lastActiveDay:today};
+          saveUser(nu);return nu;
+        });
+      }
+    }
+  },[splash]);
+
+  const showToast=useCallback((msg,type)=>{setToast({msg,type:type||"info",id:Date.now()});},[]);
+  const unreadNotifs=(user.notifications||[]).filter(n=>!n.read).length;
+
+  function renderPage(){
+    if(page==="home")return<HomePage user={user} setUser={setUser} setPage={setPage} showToast={showToast} lang={lang}/>;
+    if(page==="tasks")return<TasksPage user={user} setUser={setUser} showToast={showToast} lang={lang}/>;
+    if(page==="upgrades")return<UpgradesPage user={user} setUser={setUser} showToast={showToast} lang={lang}/>;
+    if(page==="profile")return<ProfilePage user={user} setUser={setUser} showToast={showToast} lang={lang} setLang={setLang}/>;
     return null;
   }
 
-  return (
+  return(
     <div style={{maxWidth:480,margin:"0 auto",minHeight:"100vh",background:"#000",position:"relative",overflow:"hidden"}}>
-      {splash && <Splash onDone={() => setSplash(false)}/>}
-      {toast && <Toast key={toast.id} msg={toast.msg} type={toast.type} onClose={() => setToast(null)}/>}
-      {renderPage()}
-      {!splash && <BottomNav page={page} setPage={setPage} lang={lang}/>}
+      {splash&&<Splash onDone={()=>setSplash(false)}/>}
+      {toast&&<Toast key={toast.id} msg={toast.msg} type={toast.type} onClose={()=>setToast(null)}/>}
+      {!splash&&renderPage()}
+      {!splash&&<BottomNav page={page} setPage={setPage} lang={lang} unreadNotifs={unreadNotifs}/>}
     </div>
   );
 }
 
-ReactDOM.render(<App/>, document.getElementById('root'));
+ReactDOM.render(<App/>,document.getElementById('root'));
 </script>
 </body>
   </html>
