@@ -1,1046 +1,1009 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-<title>BlackRock</title>
-<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{
-  --bg:#09090B;
-  --bg2:#111113;
-  --bg3:#18181B;
-  --border:#27272A;
-  --border2:rgba(255,255,255,0.06);
-  --text:#FAFAFA;
-  --text2:#A1A1AA;
-  --text3:#71717A;
-  --gold:#C9A84C;
-  --gold2:#E8C97A;
-  --gold-dim:rgba(201,168,76,0.12);
-  --green:#22C55E;
-  --green-dim:rgba(34,197,94,0.1);
-  --red:#EF4444;
-  --red-dim:rgba(239,68,68,0.1);
-}
-html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Cairo','Inter',sans-serif;overflow:hidden}
-#root{height:100%;display:flex;flex-direction:column}
-::-webkit-scrollbar{width:0px}
-
-/* BLK Logo Font */
-.logo-font{font-family:'Inter',sans-serif;font-weight:800;letter-spacing:-0.5px}
-
-/* Typography */
-.t-hero{font-size:2rem;font-weight:800;line-height:1.1;letter-spacing:-0.5px}
-.t-xl{font-size:1.25rem;font-weight:700;letter-spacing:-0.3px}
-.t-lg{font-size:1rem;font-weight:600}
-.t-md{font-size:0.875rem;font-weight:500}
-.t-sm{font-size:0.75rem;font-weight:400;color:var(--text2)}
-.t-xs{font-size:0.7rem;font-weight:400;color:var(--text3)}
-
-/* Cards */
-.card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;overflow:hidden}
-.card-inner{background:var(--bg3);border:1px solid var(--border2);border-radius:12px;overflow:hidden}
-
-/* Divider */
-.divider{height:1px;background:var(--border);width:100%}
-
-/* Badge */
-.badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:999px;font-size:0.65rem;font-weight:700;letter-spacing:0.5px;text-transform:uppercase}
-
-/* Gold accent */
-.gold{color:var(--gold2)}
-.gold-bg{background:linear-gradient(135deg,#C9A84C,#F0D080)}
-
-/* Animated elements */
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
-@keyframes carouselMove{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-
-.anim-up{animation:fadeUp .35s ease both}
-.anim-fade{animation:fadeIn .25s ease both}
-.anim-pulse{animation:pulse 2s ease infinite}
-.anim-spin{animation:spin .8s linear infinite}
-
-/* Bottom Nav */
-.bottom-nav{
-  background:rgba(9,9,11,0.95);
-  backdrop-filter:blur(24px);
-  -webkit-backdrop-filter:blur(24px);
-  border-top:1px solid var(--border);
-  padding-bottom:env(safe-area-inset-bottom,0px);
-  flex-shrink:0;
-}
-
-/* Page scroll area */
-.page-scroll{flex:1;overflow-y:auto;overflow-x:hidden}
-
-/* Input */
-.blk-input{
-  width:100%;background:var(--bg3);border:1px solid var(--border);
-  border-radius:12px;padding:14px 16px;color:var(--text);font-size:0.9rem;
-  font-family:'Cairo',sans-serif;outline:none;transition:border-color .2s;
-}
-.blk-input:focus{border-color:var(--gold)}
-.blk-input::placeholder{color:var(--text3)}
-
-/* Button */
-.btn-gold{
-  background:linear-gradient(135deg,#B8923A,#D4AF37,#C9A84C);
-  color:#000;font-weight:800;border-radius:12px;border:none;
-  transition:opacity .2s,transform .1s;cursor:pointer;
-}
-.btn-gold:active{opacity:.85;transform:scale(0.98)}
-
-.btn-outline{
-  background:transparent;border:1px solid var(--border);color:var(--text2);
-  border-radius:12px;cursor:pointer;transition:all .2s;font-family:'Cairo',sans-serif;
-}
-.btn-outline:hover{border-color:var(--gold);color:var(--text)}
-
-/* Modal */
-.modal-bg{
-  position:fixed;inset:0;background:rgba(0,0,0,0.85);
-  backdrop-filter:blur(12px);z-index:999;
-  display:flex;align-items:flex-end;justify-content:center;
-}
-.modal-sheet{
-  background:var(--bg2);border:1px solid var(--border);
-  border-radius:24px 24px 0 0;width:100%;max-width:430px;
-  max-height:88vh;overflow-y:auto;
-  padding-bottom:env(safe-area-inset-bottom,24px);
-  animation:fadeUp .3s ease;
-}
-.modal-handle{width:36px;height:4px;background:var(--border);border-radius:9px;margin:14px auto 20px}
-
-/* Top bar */
-.topbar{
-  background:var(--bg);border-bottom:1px solid var(--border);
-  flex-shrink:0;padding-top:env(safe-area-inset-top,0px);
-}
-
-/* Carousel */
-.carousel-wrapper{overflow:hidden;border-radius:14px}
-.carousel-track{display:flex;animation:carouselMove 30s linear infinite;width:max-content}
-.carousel-track:hover{animation-play-state:paused}
-
-/* Progress ring */
-.ring-bg{fill:none;stroke:var(--bg3);stroke-width:5}
-.ring-fill{fill:none;stroke-width:5;stroke-linecap:round;stroke-dasharray:220;transition:stroke-dashoffset 1s linear}
-
-/* Tag line */
-.tag-live{
-  display:inline-flex;align-items:center;gap:5px;
-  padding:3px 10px;border-radius:999px;
-  background:var(--green-dim);border:1px solid rgba(34,197,94,.2);
-  color:var(--green);font-size:.65rem;font-weight:700;letter-spacing:.5px;
-}
-
-/* Stat box */
-.stat-box{background:var(--bg3);border:1px solid var(--border2);border-radius:14px;padding:14px}
-
-/* List row */
-.list-row{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--border2)}
-.list-row:last-child{border-bottom:none}
-
-/* Package gradient map */
-.pkg-starter{background:linear-gradient(135deg,#1c1c1e,#28282C)}
-.pkg-nexus{background:linear-gradient(135deg,#0D1B3E,#132455)}
-.pkg-orbit{background:linear-gradient(135deg,#1A0D3E,#2A1555)}
-.pkg-apex{background:linear-gradient(135deg,#2D1A00,#3D2500)}
-.pkg-stellar{background:linear-gradient(135deg,#0D2E1A,#0A3D22)}
-.pkg-supernova{background:linear-gradient(135deg,#2D0D0D,#3D1010)}
-.pkg-galaxy{background:linear-gradient(135deg,#1F0A2D,#2D0F3F)}
-
-/* Number counter animation */
-@keyframes countUp{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
-.count-anim{animation:countUp .4s ease}
-
-/* Toast */
-.toast-wrap{
-  position:fixed;top:calc(env(safe-area-inset-top,0px) + 60px);
-  left:50%;transform:translateX(-50%);z-index:9999;
-  min-width:260px;max-width:340px;
-  animation:slideDown .3s ease;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
+  <meta name="theme-color" content="#0a0a0a"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <title>BlackRock | Task Earn</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet"/>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Cairo', 'sans-serif'] },
+          colors: {
+            gold: { DEFAULT: '#d4af37', light: '#f0cc60', dark: '#a88c25' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:#0a0a0a;font-family:'Cairo',sans-serif;-webkit-tap-highlight-color:transparent;overflow-x:hidden}
+    ::-webkit-scrollbar{display:none}
+    .scroll-hide{-ms-overflow-style:none;scrollbar-width:none}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes slideUp{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes pulse2{0%,100%{opacity:1}50%{opacity:.5}}
+    @keyframes spin2{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+    @keyframes glow{0%,100%{box-shadow:0 0 10px rgba(212,175,55,0.3)}50%{box-shadow:0 0 25px rgba(212,175,55,0.6)}}
+    .fade-in{animation:fadeIn 0.4s ease forwards}
+    .slide-up{animation:slideUp 0.4s ease forwards}
+    .pulse-anim{animation:pulse2 2s ease-in-out infinite}
+    .glow-anim{animation:glow 2s ease-in-out infinite}
+    .shimmer{background:linear-gradient(90deg,#1a1a1a 25%,#2a2a2a 50%,#1a1a1a 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
+    .page-transition{animation:fadeIn 0.3s ease forwards}
+  </style>
 </head>
 <body>
 <div id="root"></div>
+
 <script type="text/babel">
-const {useState,useEffect,useRef,useCallback} = React;
+const { useState, useEffect, useRef, useCallback, useMemo } = React;
 
-/* ── DATA ── */
+/* ═══════════════════════════════════════════
+   DATA
+═══════════════════════════════════════════ */
 const PACKAGES = [
-  {id:'starter',  name:'Starter',   price:0,     tasks:5,  daily:0.17,  days:3,  colorA:'#9CA3AF',colorB:'#6B7280',accent:'#D1D5DB'},
-  {id:'nexus',    name:'NEXUS',     price:28,    tasks:5,  daily:0.86,  days:30, colorA:'#3B82F6',colorB:'#1D4ED8',accent:'#93C5FD'},
-  {id:'orbit',    name:'ORBIT',     price:106.4, tasks:10, daily:3.44,  days:30, colorA:'#8B5CF6',colorB:'#6D28D9',accent:'#C4B5FD'},
-  {id:'apex',     name:'APEX',      price:380,   tasks:25, daily:13.1,  days:30, colorA:'#C9A84C',colorB:'#92640A',accent:'#F0D080'},
-  {id:'stellar',  name:'STELLAR',   price:1200,  tasks:50, daily:44.4,  days:30, colorA:'#10B981',colorB:'#065F46',accent:'#6EE7B7'},
-  {id:'supernova',name:'SUPERNOVA', price:3120,  tasks:80, daily:124.8, days:30, colorA:'#EF4444',colorB:'#991B1B',accent:'#FCA5A5'},
-  {id:'galaxy',   name:'GALAXY',    price:7800,  tasks:130,daily:339,   days:30, colorA:'#A855F7',colorB:'#7E22CE',accent:'#D8B4FE'},
+  { id:"starter",   name:"Starter",   price:0,    priceLabel:"مجاني",   tasks:5,   daily:0.17,  days:3,  color:"from-gray-700 to-gray-900",          accent:"#9ca3af", icon:"🌱", badge:"مجاني"       },
+  { id:"nexus",     name:"NEXUS",     price:28,   priceLabel:"$28",     tasks:5,   daily:0.86,  days:30, color:"from-blue-900 to-blue-700",           accent:"#3b82f6", icon:"⚡", badge:"الأكثر شيوعاً"},
+  { id:"orbit",     name:"ORBIT",     price:106.4,priceLabel:"$106.4",  tasks:10,  daily:3.44,  days:30, color:"from-purple-900 to-purple-700",       accent:"#a855f7", icon:"🌍", badge:"مميز"         },
+  { id:"apex",      name:"APEX",      price:380,  priceLabel:"$380",    tasks:25,  daily:13.1,  days:30, color:"from-emerald-900 to-emerald-700",     accent:"#10b981", icon:"🏔️", badge:"احترافي"      },
+  { id:"stellar",   name:"STELLAR",   price:1200, priceLabel:"$1,200",  tasks:50,  daily:44.4,  days:30, color:"from-yellow-900 to-yellow-700",       accent:"#f59e0b", icon:"⭐", badge:"متميز"        },
+  { id:"supernova", name:"SUPERNOVA", price:3120, priceLabel:"$3,120",  tasks:80,  daily:124.8, days:30, color:"from-orange-900 to-red-800",          accent:"#f97316", icon:"💥", badge:"نخبة"         },
+  { id:"galaxy",    name:"GALAXY",    price:7800, priceLabel:"$7,800",  tasks:130, daily:339,   days:30, color:"from-indigo-950 to-purple-900",       accent:"#c084fc", icon:"🌌", badge:"أسطوري"       },
 ];
 
-const NEWS = [
-  {img:'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&q=80',title:'أسواق المال العالمية',sub:'BlackRock Report'},
-  {img:'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=600&q=80',title:'إدارة الأصول 2025',sub:'Investment Update'},
-  {img:'https://images.unsplash.com/photo-1642790106117-e829e14a795f?w=600&q=80',title:'محافظ الاستثمار',sub:'Portfolio Strategy'},
-  {img:'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80',title:'نمو رأس المال',sub:'Capital Growth'},
-  {img:'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=600&q=80',title:'أسواق السندات',sub:'Fixed Income'},
-  {img:'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&q=80',title:'موارد الطاقة',sub:'Energy Markets'},
+const SLIDES = [
+  { img:"https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80", title:"أسواق مالية عالمية",        sub:"BlackRock تدير أصولاً بقيمة 10.2 تريليون دولار"  },
+  { img:"https://images.unsplash.com/photo-1642790106117-e829e14a795f?w=800&q=80", title:"استثمارات ذكية",           sub:"ابدأ رحلتك نحو الحرية المالية اليوم"             },
+  { img:"https://images.unsplash.com/photo-1559526324-593bc073d938?w=800&q=80",    title:"عوائد يومية مضمونة",       sub:"أكمل مهامك واكسب أرباحاً حقيقية كل يوم"         },
+  { img:"https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&q=80", title:"بورصة نيويورك NYSE: BLK", sub:"موثقون وآمنون بتشفير عسكري AES-256"             },
 ];
 
-/* ── STORAGE ── */
-const S = {
-  get:(k,d)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch{return d}},
-  set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}}
-};
-const today=()=>new Date().toISOString().split('T')[0];
+const TASK_TITLES = [
+  "مراجعة تقرير السوق المالي","تحليل أداء محفظة الاستثمار","فحص بيانات مؤشر S&P 500",
+  "مراجعة تقرير BlackRock الفصلي","تقييم فرص الاستثمار الجديدة","تحليل عوائد صناديق iShares",
+  "مراجعة الأخبار الاقتصادية العالمية","تقييم أداء الأسهم التقنية","فحص مؤشرات السوق الآسيوية",
+  "مراجعة تقارير الذكاء الاصطناعي المالي","تحليل بيانات ETF الجديدة","فحص أداء السندات الحكومية",
+  "مراجعة الاستثمارات العقارية","تحليل تقلبات سوق العملات","فحص أداء مؤشر داو جونز",
+  "تقييم أداء الأسواق الناشئة","تحليل بيانات الذهب والمعادن","مراجعة صناديق الاستثمار المشترك",
+  "تقييم أداء قطاع التكنولوجيا","تحليل بيانات النفط والطاقة",
+];
 
-/* ── ICONS ── */
-const Icon=({name,size=20,color='currentColor'})=>{
-  const s={width:size,height:size,display:'inline-block',flexShrink:0};
-  const icons={
-    home:<svg style={s} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>,
-    task:<svg style={s} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>,
-    upgrade:<svg style={s} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>,
-    profile:<svg style={s} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>,
-    shield:<svg style={s} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
-    building:<svg style={s} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><line x1="9" y1="22" x2="9" y2="12"/><line x1="15" y1="22" x2="15" y2="12"/><line x1="9" y1="12" x2="15" y2="12"/></svg>,
-    arrow:<svg style={s} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round"><polyline points="9 18 15 12 9 6"/></svg>,
-    check:<svg style={s} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round"><polyline points="20 6 9 17 4 12"/></svg>,
-    plus:<svg style={s} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>,
-    minus:<svg style={s} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>,
-    lock:<svg style={s} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>,
-    star:<svg style={s} viewBox="0 0 24 24" fill={color} stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>,
-    globe:<svg style={s} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>,
-    close:<svg style={s} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>,
-    info:<svg style={s} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>,
-    wallet:<svg style={s} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round"><path d="M21 12V7H5a2 2 0 010-4h14v4"/><path d="M3 5v14a2 2 0 002 2h16v-5"/><path d="M18 12a2 2 0 000 4h4v-4z"/></svg>,
-    chart:<svg style={s} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>,
-    users:<svg style={s} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>,
-  };
-  return icons[name]||null;
+const fmt = (n, d=2) => Number(n).toLocaleString("en-US",{minimumFractionDigits:d,maximumFractionDigits:d});
+
+const INIT_USER = {
+  id:"user_001", name:"أحمد بن علي", email:"ahmed@blackrock-dz.com",
+  avatar:"https://api.dicebear.com/7.x/avataaars/svg?seed=BlackRock2025",
+  balance:142.75, package:PACKAGES[2], joinDate:"يناير 2025",
 };
 
-/* ── TOAST ── */
-function Toast({msg,type,onDone}){
-  useEffect(()=>{const t=setTimeout(onDone,2800);return()=>clearTimeout(t)},[]);
-  const cfg={
-    success:{bg:'rgba(34,197,94,0.12)',border:'rgba(34,197,94,0.3)',color:'#4ADE80',icon:'✓'},
-    error:  {bg:'rgba(239,68,68,0.12)', border:'rgba(239,68,68,0.3)', color:'#F87171',icon:'✕'},
-    info:   {bg:'rgba(201,168,76,0.12)',border:'rgba(201,168,76,0.3)',color:'#F0D080',icon:'i'},
-  }[type]||{bg:'rgba(255,255,255,0.08)',border:'rgba(255,255,255,0.15)',color:'#fff',icon:'i'};
-  return(
-    <div className="toast-wrap">
-      <div style={{background:cfg.bg,border:`1px solid ${cfg.border}`,borderRadius:14,padding:'12px 16px',display:'flex',alignItems:'center',gap:10,backdropFilter:'blur(20px)'}}>
-        <div style={{width:22,height:22,borderRadius:'50%',background:cfg.bg,border:`1px solid ${cfg.border}`,display:'flex',alignItems:'center',justifyContent:'center',color:cfg.color,fontSize:11,fontWeight:800,flexShrink:0}}>{cfg.icon}</div>
-        <span style={{fontSize:'0.83rem',color:'#F4F4F5',fontWeight:500}}>{msg}</span>
+/* ═══════════════════════════════════════════
+   SHARED UI COMPONENTS
+═══════════════════════════════════════════ */
+const GoldDivider = () => (
+  <div className="flex items-center gap-2 my-4">
+    <div className="h-px flex-1" style={{background:"linear-gradient(to right, transparent, #d4af37)"}}/>
+    <div className="w-2 h-2 rounded-full bg-yellow-500"/>
+    <div className="h-px flex-1" style={{background:"linear-gradient(to left, transparent, #d4af37)"}}/>
+  </div>
+);
+
+const Toast = ({ msg, type, onDone }) => {
+  useEffect(()=>{ const t=setTimeout(onDone,3000); return ()=>clearTimeout(t); },[]);
+  return (
+    <div className="fixed top-4 left-3 right-3 z-[100] slide-up">
+      <div className={`rounded-2xl p-4 text-center font-bold text-sm shadow-2xl border ${
+        type==="success"
+          ?"bg-emerald-950 border-emerald-500 text-emerald-300"
+          :"bg-red-950 border-red-500 text-red-300"}`}>
+        {msg}
       </div>
     </div>
   );
-}
+};
 
-/* ── SHEET MODAL ── */
-function Sheet({title,onClose,children}){
-  return(
-    <div className="modal-bg anim-fade" onClick={e=>{if(e.target===e.currentTarget)onClose()}}>
-      <div className="modal-sheet">
-        <div className="modal-handle"/>
-        <div style={{padding:'0 20px 8px',display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:4}}>
-          <span style={{fontSize:'1rem',fontWeight:700,color:'#FAFAFA'}}>{title}</span>
-          <button onClick={onClose} style={{width:32,height:32,borderRadius:'50%',border:'1px solid var(--border)',background:'var(--bg3)',display:'flex',alignItems:'center',justifyContent:'center',cursor:'pointer'}}>
-            <Icon name="close" size={14} color="var(--text2)"/>
-          </button>
-        </div>
-        <div style={{padding:'12px 20px 20px'}}>{children}</div>
+const ModalWrapper = ({ children, onClose, title }) => (
+  <div className="fixed inset-0 z-50 flex items-end justify-center p-3"
+       style={{background:"rgba(0,0,0,0.8)",backdropFilter:"blur(8px)"}}
+       onClick={e=>e.target===e.currentTarget&&onClose()}>
+    <div className="w-full max-w-md rounded-3xl p-5 shadow-2xl slide-up"
+         style={{background:"#111",border:"1px solid #2a2a2a"}}>
+      <div className="flex justify-between items-center mb-5">
+        <h3 className="font-bold text-lg" style={{color:"#d4af37"}}>{title}</h3>
+        <button onClick={onClose}
+          className="w-9 h-9 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-colors"
+          style={{background:"#1a1a1a"}}>✕</button>
       </div>
+      {children}
     </div>
-  );
-}
+  </div>
+);
 
-/* ── CAROUSEL ── */
-function NewsCarousel(){
-  const items=[...NEWS,...NEWS];
-  return(
-    <div className="carousel-wrapper" style={{height:160}}>
-      <div className="carousel-track" style={{gap:10}}>
-        {items.map((n,i)=>(
-          <div key={i} style={{width:240,height:160,borderRadius:14,overflow:'hidden',position:'relative',flexShrink:0}}>
-            <img src={n.img} alt={n.title} style={{width:'100%',height:'100%',objectFit:'cover'}} onError={e=>{e.target.src='https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400'}}/>
-            <div style={{position:'absolute',inset:0,background:'linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 55%)'}}/>
-            <div style={{position:'absolute',bottom:12,right:12,left:12}}>
-              <div style={{fontSize:'0.65rem',color:'var(--gold2)',fontWeight:700,marginBottom:3,letterSpacing:.5,textTransform:'uppercase'}}>{n.sub}</div>
-              <div style={{fontSize:'0.8rem',color:'#fff',fontWeight:600,lineHeight:1.3}}>{n.title}</div>
-            </div>
+/* ═══════════════════════════════════════════
+   CAROUSEL
+═══════════════════════════════════════════ */
+const Carousel = () => {
+  const [cur, setCur] = useState(0);
+  useEffect(()=>{ const t=setInterval(()=>setCur(p=>(p+1)%SLIDES.length),4200); return ()=>clearInterval(t); },[]);
+  return (
+    <div className="relative rounded-2xl overflow-hidden" style={{height:176,border:"1px solid #2a2a2a"}}>
+      {SLIDES.map((s,i)=>(
+        <div key={i} className="absolute inset-0 transition-opacity duration-700" style={{opacity:i===cur?1:0}}>
+          <img src={s.img} alt={s.title} className="w-full h-full object-cover" loading="lazy"/>
+          <div className="absolute inset-0" style={{background:"linear-gradient(to top,rgba(0,0,0,0.85) 0%,rgba(0,0,0,0.2) 60%,transparent 100%)"}}/>
+          <div className="absolute bottom-4 left-4 right-12">
+            <p className="font-bold text-sm" style={{color:"#d4af37"}}>{s.title}</p>
+            <p className="text-xs mt-0.5" style={{color:"rgba(255,255,255,0.75)"}}>{s.sub}</p>
           </div>
+          <div className="absolute top-3 right-3 rounded-lg px-2 py-1" style={{background:"rgba(0,0,0,0.6)",border:"1px solid rgba(212,175,55,0.4)"}}>
+            <span className="font-bold tracking-widest text-xs" style={{color:"#d4af37",fontSize:10}}>BlackRock™</span>
+          </div>
+        </div>
+      ))}
+      <div className="absolute bottom-3 right-4 flex gap-1.5">
+        {SLIDES.map((_,i)=>(
+          <button key={i} onClick={()=>setCur(i)}
+            className="rounded-full transition-all duration-300"
+            style={{width:i===cur?16:6,height:6,background:i===cur?"#d4af37":"rgba(255,255,255,0.3)"}}/>
         ))}
       </div>
     </div>
   );
-}
+};
 
-/* ══════════════════════════════════════
+/* ═══════════════════════════════════════════
+   MODALS
+═══════════════════════════════════════════ */
+const DepositModal = ({ onClose, onSuccess }) => {
+  const [amount,setAmount]=useState("");
+  const [method,setMethod]=useState("baridimob");
+  const [loading,setLoading]=useState(false);
+  const methods=[{id:"baridimob",label:"📱 بريدي موب"},{id:"ccp",label:"🏦 CCP"},{id:"usdt",label:"💎 USDT"}];
+  const handle=async()=>{
+    if(!amount||isNaN(amount)||Number(amount)<=0)return;
+    setLoading(true);
+    await new Promise(r=>setTimeout(r,1600));
+    onSuccess(Number(amount));
+    setLoading(false);
+    onClose();
+  };
+  return (
+    <ModalWrapper onClose={onClose} title="💳 شحن الرصيد">
+      <div className="rounded-xl p-3 mb-4 text-center" style={{background:"rgba(212,175,55,0.08)",border:"1px solid rgba(212,175,55,0.25)"}}>
+        <span className="text-xs text-gray-400">سعر الصرف: </span>
+        <span className="font-bold" style={{color:"#d4af37"}}>1$ = 250 دج</span>
+      </div>
+      <div className="flex gap-2 mb-4">
+        {methods.map(m=>(
+          <button key={m.id} onClick={()=>setMethod(m.id)}
+            className="flex-1 py-2 rounded-xl text-xs font-bold transition-all border"
+            style={method===m.id?{borderColor:"#d4af37",background:"rgba(212,175,55,0.1)",color:"#d4af37"}:{borderColor:"#2a2a2a",color:"#666"}}>
+            {m.label}
+          </button>
+        ))}
+      </div>
+      <input type="number" placeholder="المبلغ بالدولار ($)" value={amount} onChange={e=>setAmount(e.target.value)}
+        className="w-full rounded-xl px-4 py-3 text-white text-sm mb-2 outline-none transition-colors"
+        style={{background:"#1a1a1a",border:"1px solid #2a2a2a"}}
+        onFocus={e=>e.target.style.borderColor="#d4af37"}
+        onBlur={e=>e.target.style.borderColor="#2a2a2a"}/>
+      {amount&&!isNaN(amount)&&Number(amount)>0&&(
+        <p className="text-xs text-center mb-4" style={{color:"#10b981"}}>≈ {fmt(Number(amount)*250,0)} دج</p>
+      )}
+      <button onClick={handle} disabled={loading||!amount}
+        className="w-full py-3 rounded-xl font-bold text-sm transition-all disabled:opacity-40"
+        style={{background:loading?"#2a2a2a":"linear-gradient(135deg,#d4af37,#f0cc60)",color:"#000"}}>
+        {loading?"⏳ جارٍ المعالجة...":"تأكيد الإيداع ✅"}
+      </button>
+    </ModalWrapper>
+  );
+};
+
+const WithdrawModal = ({ balance, onClose, onSuccess }) => {
+  const [amount,setAmount]=useState("");
+  const [wallet,setWallet]=useState("");
+  const [loading,setLoading]=useState(false);
+  const handle=async()=>{
+    const v=Number(amount);
+    if(!v||v<=0||v>balance||!wallet)return;
+    setLoading(true);
+    await new Promise(r=>setTimeout(r,1600));
+    onSuccess(v);
+    setLoading(false);
+    onClose();
+  };
+  return (
+    <ModalWrapper onClose={onClose} title="🏦 سحب الأرباح">
+      <div className="rounded-xl p-3 mb-4 text-center" style={{background:"rgba(16,185,129,0.08)",border:"1px solid rgba(16,185,129,0.25)"}}>
+        <p className="text-xs text-gray-400">الرصيد المتاح</p>
+        <p className="font-black text-xl mt-0.5" style={{color:"#10b981"}}>${fmt(balance)}</p>
+        <p className="text-xs text-gray-500">≈ {fmt(balance*250,0)} دج</p>
+      </div>
+      <input type="number" placeholder="المبلغ المراد سحبه ($)" value={amount} onChange={e=>setAmount(e.target.value)}
+        className="w-full rounded-xl px-4 py-3 text-white text-sm mb-3 outline-none"
+        style={{background:"#1a1a1a",border:"1px solid #2a2a2a"}}
+        onFocus={e=>e.target.style.borderColor="#10b981"}
+        onBlur={e=>e.target.style.borderColor="#2a2a2a"}/>
+      <input type="text" placeholder="رقم الحساب / المحفظة" value={wallet} onChange={e=>setWallet(e.target.value)}
+        className="w-full rounded-xl px-4 py-3 text-white text-sm mb-4 outline-none"
+        style={{background:"#1a1a1a",border:"1px solid #2a2a2a"}}
+        onFocus={e=>e.target.style.borderColor="#10b981"}
+        onBlur={e=>e.target.style.borderColor="#2a2a2a"}/>
+      <button onClick={handle} disabled={loading||!amount||!wallet||Number(amount)>balance}
+        className="w-full py-3 rounded-xl font-bold text-sm disabled:opacity-40"
+        style={{background:"linear-gradient(135deg,#059669,#10b981)",color:"#000"}}>
+        {loading?"⏳ جارٍ السحب...":"سحب الأرباح 💰"}
+      </button>
+    </ModalWrapper>
+  );
+};
+
+const SecurityModal = ({ onClose }) => {
+  const rows=[
+    {icon:"📊",label:"التوثيق البورصي",value:"NYSE: BLK"},
+    {icon:"🏛️",label:"الرقم الضريبي الأمريكي",value:"EIN: 32-0174431"},
+    {icon:"🛡️",label:"بروتوكول التشفير",value:"AES-256 + SSL/TLS 3.0"},
+    {icon:"📅",label:"العقد الجزائري",value:"يناير 2025 ← ديسمبر 2027 ✅"},
+    {icon:"💰",label:"حماية رأس المال",value:"محمية بنسبة 100% ✅"},
+    {icon:"🌐",label:"المراقبة",value:"24/7 Real-time Monitoring"},
+  ];
+  return (
+    <ModalWrapper onClose={onClose} title="🔐 الأمان والعقد الرسمي">
+      <div className="space-y-2.5 mb-4">
+        {rows.map((r,i)=>(
+          <div key={i} className="flex items-center gap-3 rounded-xl p-3" style={{background:"#1a1a1a",border:"1px solid #2a2a2a"}}>
+            <span className="text-xl w-8 text-center">{r.icon}</span>
+            <div>
+              <p className="text-xs text-gray-500">{r.label}</p>
+              <p className="font-bold text-sm" style={{color:"#d4af37"}}>{r.value}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <GoldDivider/>
+      <div className="rounded-xl p-4" style={{background:"rgba(212,175,55,0.06)",border:"1px solid rgba(212,175,55,0.2)"}}>
+        <p className="text-center leading-7 text-sm" style={{color:"rgba(255,255,255,0.8)"}}>
+          "تُقرّ شركة <span style={{color:"#d4af37",fontWeight:900}}>BlackRock, Inc</span> بأنها أبرمت عقداً رسمياً مع الجانب الجزائري في <span style={{color:"#10b981",fontWeight:700}}>يناير 2025</span> مدته 3 سنوات ينتهي في <span style={{color:"#10b981",fontWeight:700}}>ديسمبر 2027</span>"
+        </p>
+      </div>
+      <div className="flex items-center justify-center gap-2 mt-3">
+        <div className="w-2 h-2 rounded-full bg-emerald-500 pulse-anim"/>
+        <span className="text-xs text-emerald-400 font-bold">العقد ساري ونشط</span>
+      </div>
+    </ModalWrapper>
+  );
+};
+
+const CompanyModal = ({ onClose }) => {
+  const info=[
+    {icon:"📈",label:"التوثيق البورصي",value:"NYSE: BLK"},
+    {icon:"🗓️",label:"سنة التأسيس",value:"1988 — نيويورك، الولايات المتحدة"},
+    {icon:"💎",label:"إجمالي الأصول المُدارة",value:"+10.2 تريليون دولار"},
+    {icon:"🌍",label:"التواجد العالمي",value:"38 دولة — أكثر من 19,000 موظف"},
+    {icon:"🛡️",label:"حماية الأموال",value:"AES-256 Military Encryption 24/7"},
+    {icon:"🏆",label:"التصنيف العالمي",value:"أكبر شركة إدارة أصول في العالم"},
+  ];
+  return (
+    <ModalWrapper onClose={onClose} title="🏢 عن BlackRock, Inc">
+      <div className="text-center mb-5">
+        <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-3"
+             style={{background:"linear-gradient(135deg,#1a1a1a,#2a2a2a)",border:"2px solid #d4af37"}}>⬛</div>
+        <h4 className="text-white font-black text-lg">BlackRock, Inc.</h4>
+        <p className="text-gray-500 text-xs mt-0.5">New York, United States of America 🇺🇸</p>
+        <div className="inline-flex items-center gap-1.5 mt-2 px-3 py-1 rounded-full text-xs font-bold"
+             style={{background:"rgba(212,175,55,0.1)",border:"1px solid rgba(212,175,55,0.3)",color:"#d4af37"}}>
+          ★ World's Largest Asset Manager
+        </div>
+      </div>
+      <div className="space-y-2 mb-4">
+        {info.map((r,i)=>(
+          <div key={i} className="flex items-center gap-3 rounded-xl p-3" style={{background:"#1a1a1a",border:"1px solid #222"}}>
+            <span className="text-lg w-7 text-center">{r.icon}</span>
+            <div>
+              <p className="text-xs text-gray-500">{r.label}</p>
+              <p className="font-bold text-sm" style={{color:"#d4af37"}}>{r.value}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <a href="https://www.blackrock.com" target="_blank" rel="noreferrer"
+         className="flex items-center justify-center gap-2 w-full py-3 rounded-xl font-bold text-sm transition-all"
+         style={{border:"1px solid rgba(212,175,55,0.4)",color:"#d4af37",background:"rgba(212,175,55,0.05)"}}>
+        🌐 www.blackrock.com — الموقع الرسمي
+      </a>
+    </ModalWrapper>
+  );
+};
+
+/* ═══════════════════════════════════════════
    HOME PAGE
-══════════════════════════════════════ */
-function HomePage({user,setUser,showToast}){
-  const [sheet,setSheet]=useState(null);
-  const [amount,setAmount]=useState('');
-  const pkg=PACKAGES.find(p=>p.id===user.packageId)||PACKAGES[0];
+═══════════════════════════════════════════ */
+const HomePage = ({ user, setUser }) => {
+  const [showDeposit,setShowDeposit]=useState(false);
+  const [showWithdraw,setShowWithdraw]=useState(false);
+  const [toast,setToast]=useState(null);
+  const pkg=user.package;
+  const showT=(msg,type="success")=>setToast({msg,type});
 
-  const doDeposit=()=>{
-    const v=parseFloat(amount);
-    if(!v||v<=0){showToast('أدخل مبلغاً صحيحاً','error');return}
-    const u={...user,balance:+(user.balance+v).toFixed(2),
-      activity:[...(user.activity||[]),{label:`إيداع`,amount:v,date:today()}]};
-    setUser(u);S.set('blk_u',u);
-    showToast(`تم إيداع $${v.toFixed(2)}‎ بنجاح`,'success');
-    setSheet(null);setAmount('');
-  };
-  const doWithdraw=()=>{
-    const v=parseFloat(amount);
-    if(!v||v<=0){showToast('أدخل مبلغاً صحيحاً','error');return}
-    if(v>user.balance){showToast('الرصيد غير كافٍ','error');return}
-    const u={...user,balance:+(user.balance-v).toFixed(2),
-      activity:[...(user.activity||[]),{label:`سحب`,amount:-v,date:today()}]};
-    setUser(u);S.set('blk_u',u);
-    showToast(`طلب سحب $${v.toFixed(2)}‎ قيد المعالجة`,'success');
-    setSheet(null);setAmount('');
-  };
+  const txns=[
+    {type:"in",  desc:"مهام ORBIT اليومية",  amount:3.44,  time:"منذ ساعتين"},
+    {type:"in",  desc:"مهام ORBIT اليومية",  amount:3.44,  time:"أمس"},
+    {type:"out", desc:"سحب الأرباح",          amount:20.00, time:"قبل 3 أيام"},
+    {type:"in",  desc:"مهام ORBIT اليومية",  amount:3.44,  time:"قبل 4 أيام"},
+  ];
 
-  return(
-    <div className="page-scroll anim-up" style={{padding:'0 0 24px'}}>
+  return (
+    <div className="p-4 space-y-4 pb-28 page-transition scroll-hide overflow-y-auto">
+      {toast&&<Toast msg={toast.msg} type={toast.type} onDone={()=>setToast(null)}/>}
 
-      {/* Balance Hero */}
-      <div style={{padding:'24px 20px 20px',borderBottom:'1px solid var(--border)'}}>
-        <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:20}}>
+      {/* Header */}
+      <div className="flex justify-between items-center pt-1">
+        <div>
+          <p className="text-xs text-gray-500">مرحباً بك 👋</p>
+          <p className="text-white font-black text-xl leading-tight">{user.name}</p>
+        </div>
+        <div className="relative">
+          <img src={user.avatar} alt="av" className="w-12 h-12 rounded-full" style={{border:"2px solid #d4af37"}}/>
+          <span className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full border-2 border-black"
+                style={{background:"#10b981"}}/>
+        </div>
+      </div>
+
+      {/* Carousel */}
+      <Carousel/>
+
+      {/* Balance Card */}
+      <div className="relative rounded-3xl p-5 overflow-hidden"
+           style={{background:"linear-gradient(135deg,#1a1200 0%,#0a0a0a 100%)",border:"1px solid rgba(212,175,55,0.35)"}}>
+        <div className="absolute -top-6 -right-6 w-32 h-32 rounded-full opacity-10"
+             style={{background:"radial-gradient(circle,#d4af37,transparent)"}}/>
+        <div className="absolute -bottom-8 -left-8 w-28 h-28 rounded-full opacity-5"
+             style={{background:"radial-gradient(circle,#10b981,transparent)"}}/>
+        <p className="text-xs text-gray-500 mb-1">💼 الرصيد الإجمالي</p>
+        <div className="flex items-baseline gap-1 mb-1">
+          <span className="font-black" style={{color:"#d4af37",fontSize:40,lineHeight:1}}>${fmt(user.balance)}</span>
+        </div>
+        <p className="text-xs" style={{color:"#10b981"}}>≈ {fmt(user.balance*250,0)} دج</p>
+        <GoldDivider/>
+        <div className="flex justify-between text-xs">
           <div>
-            <div className="t-xs" style={{marginBottom:4,letterSpacing:1,textTransform:'uppercase'}}>إجمالي الرصيد</div>
-            <div style={{fontSize:'2.6rem',fontWeight:800,color:'#FAFAFA',lineHeight:1,letterSpacing:'-1px',fontFamily:'Inter,sans-serif'}} className="count-anim">
-              <span style={{fontSize:'1.4rem',fontWeight:600,color:'var(--text2)',marginLeft:4}}>$</span>
-              {user.balance.toFixed(2)}
-            </div>
-            <div style={{fontSize:'0.78rem',color:'var(--text3)',marginTop:6}}>
-              ≈ {(user.balance*250).toLocaleString('ar-DZ')} دج
-            </div>
+            <p className="text-gray-500">الباقة</p>
+            <p className="font-bold" style={{color:"#d4af37"}}>{pkg.icon} {pkg.name}</p>
           </div>
-          <div style={{textAlign:'left'}}>
-            <div className="tag-live"><span className="anim-pulse" style={{width:6,height:6,borderRadius:'50%',background:'var(--green)',display:'inline-block'}}></span>LIVE</div>
-            <div style={{fontSize:'0.72rem',color:'var(--text3)',marginTop:6,textAlign:'center'}}>NYSE: BLK</div>
+          <div className="text-center">
+            <p className="text-gray-500">ربح يومي</p>
+            <p className="font-bold" style={{color:"#10b981"}}>${pkg.daily}</p>
+          </div>
+          <div className="text-right">
+            <p className="text-gray-500">المهام</p>
+            <p className="text-white font-bold">{pkg.tasks}/يوم</p>
           </div>
         </div>
+      </div>
 
-        {/* Action Buttons */}
-        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}}>
-          <button className="btn-gold" style={{padding:'14px',display:'flex',alignItems:'center',justifyContent:'center',gap:8,fontSize:'0.88rem'}}
-            onClick={()=>{setSheet('deposit');setAmount('')}}>
-            <Icon name="plus" size={16} color="#000"/>
-            شحن الرصيد
-          </button>
-          <button className="btn-outline" style={{padding:'14px',display:'flex',alignItems:'center',justifyContent:'center',gap:8,fontSize:'0.88rem',fontFamily:'Cairo,sans-serif'}}
-            onClick={()=>{setSheet('withdraw');setAmount('')}}>
-            <Icon name="minus" size={16}/>
-            سحب الأرباح
-          </button>
-        </div>
+      {/* Action Buttons */}
+      <div className="grid grid-cols-2 gap-3">
+        <button onClick={()=>setShowDeposit(true)}
+          className="flex flex-col items-center gap-2 rounded-2xl p-4 transition-all active:scale-95"
+          style={{background:"linear-gradient(135deg,rgba(212,175,55,0.15),rgba(212,175,55,0.05))",border:"1px solid rgba(212,175,55,0.35)"}}>
+          <span className="text-3xl">💳</span>
+          <span className="font-bold text-sm" style={{color:"#d4af37"}}>شحن الرصيد</span>
+          <span className="text-xs text-gray-500">إيداع / شحن</span>
+        </button>
+        <button onClick={()=>setShowWithdraw(true)}
+          className="flex flex-col items-center gap-2 rounded-2xl p-4 transition-all active:scale-95"
+          style={{background:"linear-gradient(135deg,rgba(16,185,129,0.15),rgba(16,185,129,0.05))",border:"1px solid rgba(16,185,129,0.3)"}}>
+          <span className="text-3xl">🏦</span>
+          <span className="font-bold text-sm" style={{color:"#10b981"}}>سحب الأرباح</span>
+          <span className="text-xs text-gray-500">تحويل فوري</span>
+        </button>
       </div>
 
       {/* Stats Row */}
-      <div style={{padding:'16px 20px 0',display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10}}>
+      <div className="grid grid-cols-3 gap-2.5">
         {[
-          {label:'مهام اليوم', value:pkg.tasks,       icon:'task',  color:'var(--gold2)'},
-          {label:'ربح يومي',  value:`$${pkg.daily}`, icon:'chart', color:'var(--green)'},
-          {label:'الباقة',    value:pkg.name,         icon:'star',  color:pkg.colorA},
+          {icon:"📈",label:"أرباح اليوم",   value:`$${pkg.daily}`,                    color:"#10b981"},
+          {icon:"💰",label:"أرباح الشهر",   value:`$${fmt(pkg.daily*30,0)}`,           color:"#d4af37"},
+          {icon:"⚡",label:"مهام / يوم",    value:`${pkg.tasks}`,                      color:"#3b82f6"},
         ].map((s,i)=>(
-          <div key={i} className="stat-box" style={{textAlign:'center'}}>
-            <div style={{display:'flex',justifyContent:'center',marginBottom:6}}>
-              <Icon name={s.icon} size={16} color={s.color}/>
-            </div>
-            <div style={{fontSize:'0.88rem',fontWeight:700,color:s.color,marginBottom:2}}>{s.value}</div>
-            <div style={{fontSize:'0.65rem',color:'var(--text3)',letterSpacing:.3}}>{s.label}</div>
+          <div key={i} className="rounded-2xl p-3 text-center" style={{background:"#111",border:"1px solid #1e1e1e"}}>
+            <span className="text-xl">{s.icon}</span>
+            <p className="font-black text-sm mt-1" style={{color:s.color}}>{s.value}</p>
+            <p className="text-gray-600 mt-0.5" style={{fontSize:10}}>{s.label}</p>
           </div>
         ))}
       </div>
 
-      {/* News */}
-      <div style={{padding:'20px 20px 0'}}>
-        <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:12}}>
-          <span style={{fontSize:'0.78rem',fontWeight:700,color:'var(--text2)',letterSpacing:.5,textTransform:'uppercase'}}>أخبار الاستثمار</span>
-          <span style={{fontSize:'0.65rem',color:'var(--gold2)',fontWeight:600}}>BlackRock Research</span>
-        </div>
-        <NewsCarousel/>
-      </div>
-
-      {/* Portfolio Summary */}
-      <div style={{padding:'20px 20px 0'}}>
-        <div className="card" style={{padding:'16px'}}>
-          <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:14}}>
-            <span style={{fontSize:'0.78rem',fontWeight:700,color:'var(--text2)',letterSpacing:.5,textTransform:'uppercase'}}>ملخص الحساب</span>
-            <Icon name="chart" size={15} color="var(--gold)"/>
-          </div>
-          {[
-            {label:'إجمالي الأرباح المحققة', value:`$${(user.totalEarned||0).toFixed(3)}`, pos:true},
-            {label:'باقتك الحالية',          value:pkg.name,                               pos:null},
-            {label:'صلاحية الباقة',          value:`${pkg.days} يوم`,                      pos:null},
-            {label:'تاريخ الانضمام',         value:new Date(user.joinDate).toLocaleDateString('ar-DZ'), pos:null},
-          ].map((r,i)=>(
-            <div key={i} className="list-row">
-              <span style={{flex:1,fontSize:'0.8rem',color:'var(--text2)'}}>{r.label}</span>
-              <span style={{fontSize:'0.83rem',fontWeight:700,color:r.pos===true?'var(--green)':r.pos===false?'var(--red)':'var(--text)'}}>{r.value}</span>
+      {/* Transaction History */}
+      <div>
+        <p className="font-bold text-sm text-gray-400 mb-3">📋 آخر المعاملات</p>
+        <div className="space-y-2">
+          {txns.map((t,i)=>(
+            <div key={i} className="flex items-center gap-3 rounded-2xl p-3" style={{background:"#111",border:"1px solid #1e1e1e"}}>
+              <div className="w-9 h-9 rounded-full flex items-center justify-center text-base flex-shrink-0"
+                   style={{background:t.type==="in"?"rgba(16,185,129,0.15)":"rgba(239,68,68,0.15)"}}>
+                {t.type==="in"?"📥":"📤"}
+              </div>
+              <div className="flex-1">
+                <p className="text-white text-xs font-bold">{t.desc}</p>
+                <p className="text-gray-600 text-xs">{t.time}</p>
+              </div>
+              <p className="font-black text-sm" style={{color:t.type==="in"?"#10b981":"#ef4444"}}>
+                {t.type==="in"?"+":"-"}${fmt(t.amount)}
+              </p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Recent Activity */}
-      {(user.activity||[]).length>0&&(
-        <div style={{padding:'16px 20px 0'}}>
-          <div style={{fontSize:'0.78rem',fontWeight:700,color:'var(--text2)',letterSpacing:.5,textTransform:'uppercase',marginBottom:12}}>آخر النشاطات</div>
-          <div className="card" style={{padding:'4px 16px'}}>
-            {(user.activity||[]).slice(-5).reverse().map((a,i)=>(
-              <div key={i} className="list-row">
-                <div style={{width:32,height:32,borderRadius:10,background:a.amount>0?'var(--green-dim)':'var(--red-dim)',border:`1px solid ${a.amount>0?'rgba(34,197,94,.2)':'rgba(239,68,68,.2)'}`,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>
-                  <Icon name={a.amount>0?'plus':'minus'} size={13} color={a.amount>0?'var(--green)':'var(--red)'}/>
-                </div>
-                <div style={{flex:1}}>
-                  <div style={{fontSize:'0.8rem',color:'var(--text)'}}>{a.label}</div>
-                  <div style={{fontSize:'0.65rem',color:'var(--text3)'}}>{a.date}</div>
-                </div>
-                <span style={{fontSize:'0.83rem',fontWeight:700,color:a.amount>0?'var(--green)':'var(--red)'}}>
-                  {a.amount>0?'+':''}{a.amount.toFixed(3)}$
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Deposit Sheet */}
-      {sheet==='deposit'&&(
-        <Sheet title="شحن الرصيد" onClose={()=>setSheet(null)}>
-          <div style={{marginBottom:16}}>
-            <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:8,marginBottom:14}}>
-              {[10,50,100,500].map(v=>(
-                <button key={v} onClick={()=>setAmount(String(v))}
-                  style={{padding:'10px 4px',borderRadius:10,border:`1px solid ${amount==v?'var(--gold)':'var(--border)'}`,background:amount==v?'var(--gold-dim)':'var(--bg3)',color:amount==v?'var(--gold2)':'var(--text2)',fontSize:'0.8rem',fontWeight:700,cursor:'pointer',fontFamily:'Cairo,sans-serif'}}>
-                  ${v}
-                </button>
-              ))}
-            </div>
-            <input className="blk-input" type="number" value={amount} onChange={e=>setAmount(e.target.value)} placeholder="مبلغ مخصص بالدولار ($)"/>
-            {amount&&<div style={{fontSize:'0.72rem',color:'var(--text3)',marginTop:8,textAlign:'center'}}>= {(parseFloat(amount||0)*250).toLocaleString('ar-DZ')} دج</div>}
-          </div>
-          <button className="btn-gold" onClick={doDeposit} style={{width:'100%',padding:15,fontSize:'0.9rem',borderRadius:12}}>تأكيد الإيداع</button>
-        </Sheet>
-      )}
-
-      {/* Withdraw Sheet */}
-      {sheet==='withdraw'&&(
-        <Sheet title="سحب الأرباح" onClose={()=>setSheet(null)}>
-          <div className="stat-box" style={{textAlign:'center',marginBottom:16}}>
-            <div style={{fontSize:'0.72rem',color:'var(--text3)',marginBottom:4}}>الرصيد المتاح للسحب</div>
-            <div style={{fontSize:'1.8rem',fontWeight:800,color:'var(--gold2)',fontFamily:'Inter,sans-serif'}}>${user.balance.toFixed(2)}</div>
-          </div>
-          <input className="blk-input" type="number" value={amount} onChange={e=>setAmount(e.target.value)} placeholder="المبلغ المراد سحبه ($)" style={{marginBottom:12}}/>
-          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:8,marginBottom:16}}>
-            {['بريدي موب','CCP','ويسترن يونيون'].map(m=>(
-              <button key={m} style={{padding:'10px 6px',borderRadius:10,border:'1px solid var(--border)',background:'var(--bg3)',color:'var(--text2)',fontSize:'0.7rem',cursor:'pointer',fontFamily:'Cairo,sans-serif'}}>{m}</button>
-            ))}
-          </div>
-          <button className="btn-gold" onClick={doWithdraw} style={{width:'100%',padding:15,fontSize:'0.9rem',borderRadius:12}}>تأكيد السحب</button>
-        </Sheet>
-      )}
+      {showDeposit&&<DepositModal onClose={()=>setShowDeposit(false)} onSuccess={a=>{setUser(u=>({...u,balance:u.balance+a}));showT(`✅ تم إيداع $${fmt(a)} بنجاح!`);}}/>}
+      {showWithdraw&&<WithdrawModal balance={user.balance} onClose={()=>setShowWithdraw(false)} onSuccess={a=>{setUser(u=>({...u,balance:u.balance-a}));showT(`✅ تم سحب $${fmt(a)} بنجاح!`);}}/>}
     </div>
   );
-}
+};
 
-/* ══════════════════════════════════════
-   TASKS PAGE
-══════════════════════════════════════ */
-function TasksPage({user,setUser,showToast}){
-  const pkg=PACKAGES.find(p=>p.id===user.packageId)||PACKAGES[0];
-  const perTask=+(pkg.daily/pkg.tasks).toFixed(5);
+/* ═══════════════════════════════════════════
+   TASK CARD
+═══════════════════════════════════════════ */
+const TASK_DUR=40;
 
-  const initTS=()=>{
-    const s=S.get('blk_ts',{});
-    return s.date===today()?s:{date:today(),done:0,blocked:false};
-  };
-  const [ts,setTS_]=useState(initTS);
-  const [running,setRunning]=useState(false);
-  const [sec,setSec]=useState(40);
-  const [activeIdx,setActiveIdx]=useState(null);
-  const cancelled=useRef(false);
-  const timer=useRef(null);
+const TaskCard = ({ task, index, locked, onComplete, onFail }) => {
+  const [status,setStatus]=useState("idle");
+  const [secs,setSecs]=useState(TASK_DUR);
+  const iv=useRef(null);
 
-  const saveTS=v=>{setTS_(v);S.set('blk_ts',v)};
+  useEffect(()=>{
+    const onVis=()=>{ if(document.hidden&&status==="running"){ clearInterval(iv.current); setStatus("failed"); onFail(index); }};
+    document.addEventListener("visibilitychange",onVis);
+    return ()=>document.removeEventListener("visibilitychange",onVis);
+  },[status]);
 
-  const startTask=()=>{
-    if(ts.blocked){showToast('مهامك محجوبة حتى الغد ⛔','error');return}
-    if(ts.done>=pkg.tasks){showToast('أكملت جميع مهامك اليوم 🎉','info');return}
-    cancelled.current=false;
-    setSec(40);setRunning(true);setActiveIdx(ts.done);
-    let t=40;
-    timer.current=setInterval(()=>{
-      t--;setSec(t);
-      if(t<=0){clearInterval(timer.current);if(!cancelled.current)finishTask()}
-    },1000);
+  useEffect(()=>()=>clearInterval(iv.current),[]);
+
+  const start=()=>{
+    if(locked||status!=="idle")return;
+    setStatus("running"); setSecs(TASK_DUR);
+    iv.current=setInterval(()=>setSecs(s=>{
+      if(s<=1){ clearInterval(iv.current); setStatus("done"); onComplete(index,task.reward); return 0; }
+      return s-1;
+    }),1000);
   };
 
-  const finishTask=()=>{
-    setRunning(false);setActiveIdx(null);
-    const nts={...ts,done:ts.done+1};saveTS(nts);
-    const nu={...user,
-      balance:+(user.balance+perTask).toFixed(5),
-      totalEarned:+((user.totalEarned||0)+perTask).toFixed(5),
-      activity:[...(user.activity||[]),{label:`مهمة #${nts.done} — ${pkg.name}`,amount:perTask,date:today()}]
-    };
-    setUser(nu);S.set('blk_u',nu);
-    showToast(`✓ اكتملت المهمة +$${perTask}`,'success');
+  const cancel=()=>{
+    if(status!=="running")return;
+    clearInterval(iv.current); setStatus("failed"); onFail(index);
   };
 
-  const cancelTask=()=>{
-    if(!running)return;
-    cancelled.current=true;
-    clearInterval(timer.current);
-    setRunning(false);setActiveIdx(null);setSec(40);
-    saveTS({...ts,blocked:true});
-    showToast('ألغيت المهمة — حُجبت مهامك حتى الغد','error');
-  };
+  const pct=((TASK_DUR-secs)/TASK_DUR)*100;
 
-  useEffect(()=>()=>clearInterval(timer.current),[]);
+  const cfg={
+    idle:   {bc:"#2a2a2a",bg:"#111"},
+    running:{bc:"#d4af37",bg:"#1a1200"},
+    done:   {bc:"#10b981",bg:"#001a0a"},
+    failed: {bc:"#ef4444",bg:"#1a0000"},
+  }[status];
 
-  const circumference=220;
-  const dashOffset=circumference-(circumference*((40-sec)/40));
-  const pct=Math.round((ts.done/pkg.tasks)*100);
-
-  return(
-    <div className="page-scroll anim-up">
-
-      {/* Header */}
-      <div style={{padding:'20px 20px 16px',borderBottom:'1px solid var(--border)'}}>
-        <div style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-          <div>
-            <div className="t-xs" style={{marginBottom:4,letterSpacing:1,textTransform:'uppercase'}}>المهام اليومية</div>
-            <div style={{fontSize:'1.5rem',fontWeight:800,color:'#FAFAFA',letterSpacing:'-0.5px'}}>
-              {ts.done}<span style={{color:'var(--text3)',fontSize:'1rem',fontWeight:500}}>/{pkg.tasks}</span>
-            </div>
-          </div>
-          {/* Circular progress */}
-          <div style={{position:'relative',width:72,height:72}}>
-            <svg width="72" height="72" style={{transform:'rotate(-90deg)'}}>
-              <circle cx="36" cy="36" r="30" className="ring-bg"/>
-              <circle cx="36" cy="36" r="30" className="ring-fill"
-                style={{stroke:ts.blocked?'var(--red)':pkg.colorA,strokeDashoffset:circumference-(circumference*(ts.done/pkg.tasks))*1.38}}/>
-            </svg>
-            <div style={{position:'absolute',inset:0,display:'flex',alignItems:'center',justifyContent:'center'}}>
-              <span style={{fontSize:'0.9rem',fontWeight:800,color:ts.blocked?'var(--red)':pkg.colorA}}>{pct}%</span>
-            </div>
-          </div>
+  return (
+    <div className="rounded-2xl p-4 transition-all duration-300 fade-in"
+         style={{background:cfg.bg,border:`1px solid ${cfg.bc}`,opacity:locked&&status==="idle"?0.35:1}}>
+      <div className="flex justify-between items-start mb-3">
+        <div className="flex-1 ml-3">
+          <p className="text-white font-bold text-sm">{task.title}</p>
+          <p className="text-gray-500 text-xs mt-0.5">توثيق وتحليل البيانات الاستثمارية</p>
         </div>
-
-        {/* Mini stats */}
-        <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8,marginTop:16}}>
-          {[
-            {l:'المكتملة',  v:ts.done,                c:'var(--green)'},
-            {l:'المتبقية',  v:Math.max(0,pkg.tasks-ts.done), c:'var(--gold2)'},
-            {l:'ربح/مهمة', v:`$${perTask}`,          c:'var(--text)'},
-          ].map((s,i)=>(
-            <div key={i} className="card-inner" style={{padding:'10px',textAlign:'center'}}>
-              <div style={{fontSize:'0.9rem',fontWeight:800,color:s.c}}>{s.v}</div>
-              <div className="t-xs" style={{marginTop:2}}>{s.l}</div>
-            </div>
-          ))}
+        <div className="text-right flex-shrink-0">
+          {status==="idle"&&!locked&&<span className="text-xs text-gray-500 block mb-1">⏱ 40ث</span>}
+          {status==="running"&&<span className="text-xs font-bold block mb-1 pulse-anim" style={{color:"#d4af37"}}>جارٍ...</span>}
+          {status==="done"&&<span className="text-xs font-bold block mb-1" style={{color:"#10b981"}}>✅ تم</span>}
+          {status==="failed"&&<span className="text-xs font-bold block mb-1" style={{color:"#ef4444"}}>❌ ملغي</span>}
+          <p className="font-black text-base" style={{color:"#10b981"}}>+${task.reward}</p>
         </div>
       </div>
 
-      {/* Blocked */}
-      {ts.blocked&&(
-        <div style={{margin:'16px 20px'}}>
-          <div style={{background:'var(--red-dim)',border:'1px solid rgba(239,68,68,.25)',borderRadius:16,padding:'20px',textAlign:'center'}}>
-            <div style={{width:48,height:48,borderRadius:'50%',background:'rgba(239,68,68,.15)',border:'1px solid rgba(239,68,68,.3)',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 12px'}}>
-              <Icon name="lock" size={20} color="var(--red)"/>
-            </div>
-            <div style={{fontSize:'0.95rem',fontWeight:700,color:'var(--red)',marginBottom:6}}>المهام محجوبة</div>
-            <div style={{fontSize:'0.78rem',color:'var(--text3)'}}>ألغيت مهمة قبل اكتمالها. ستُفتح مهامك في اليوم التالي.</div>
+      {status==="running"&&(
+        <div className="mb-3">
+          <div className="rounded-full overflow-hidden mb-1.5" style={{height:8,background:"#2a2a2a"}}>
+            <div className="h-full rounded-full transition-all duration-1000"
+                 style={{width:`${pct}%`,background:"linear-gradient(to right,#d4af37,#f0cc60)"}}/>
           </div>
+          <p className="text-center text-xs font-black tabular-nums" style={{color:"#d4af37"}}>
+            {secs} ثانية متبقية
+          </p>
         </div>
       )}
 
-      {/* All done */}
-      {!ts.blocked&&ts.done>=pkg.tasks&&(
-        <div style={{margin:'16px 20px'}}>
-          <div style={{background:'var(--green-dim)',border:'1px solid rgba(34,197,94,.25)',borderRadius:16,padding:'20px',textAlign:'center'}}>
-            <div style={{fontSize:'2rem',marginBottom:8}}>🎉</div>
-            <div style={{fontSize:'0.95rem',fontWeight:700,color:'var(--green)',marginBottom:4}}>أنجزت جميع مهام اليوم</div>
-            <div style={{fontSize:'1.1rem',fontWeight:800,color:'var(--gold2)'}}>+${pkg.daily.toFixed(2)}</div>
-            <div style={{fontSize:'0.72rem',color:'var(--text3)',marginTop:2}}>تحققت في رصيدك</div>
-          </div>
-        </div>
-      )}
-
-      {/* Timer */}
-      {running&&(
-        <div style={{margin:'16px 20px',padding:'24px',background:'var(--bg2)',border:'1px solid var(--border)',borderRadius:20,textAlign:'center'}}>
-          <div style={{position:'relative',width:120,height:120,margin:'0 auto 16px'}}>
-            <svg width="120" height="120" style={{transform:'rotate(-90deg)'}}>
-              <circle cx="60" cy="60" r="52" fill="none" stroke="var(--bg3)" strokeWidth="6"/>
-              <circle cx="60" cy="60" r="52" fill="none"
-                stroke="var(--green)" strokeWidth="6" strokeLinecap="round"
-                strokeDasharray="327" strokeDashoffset={327-(327*((40-sec)/40))}
-                style={{transition:'stroke-dashoffset 1s linear'}}/>
-            </svg>
-            <div style={{position:'absolute',inset:0,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
-              <span style={{fontSize:'2.2rem',fontWeight:900,color:'#fff',fontFamily:'Inter,sans-serif',lineHeight:1}}>{sec}</span>
-              <span style={{fontSize:'0.65rem',color:'var(--text3)',letterSpacing:.5}}>ثانية</span>
-            </div>
-          </div>
-          <div style={{fontSize:'0.85rem',color:'var(--text2)',marginBottom:4}}>جارٍ تنفيذ المهمة <span style={{color:'var(--gold2)',fontWeight:700}}>#{(activeIdx||0)+1}</span></div>
-          <div style={{fontSize:'0.72rem',color:'var(--text3)',marginBottom:20}}>لا تغادر الصفحة قبل اكتمال المهمة</div>
-          <button onClick={cancelTask}
-            style={{padding:'11px 24px',borderRadius:10,background:'var(--red-dim)',border:'1px solid rgba(239,68,68,.3)',color:'var(--red)',fontSize:'0.82rem',fontWeight:700,cursor:'pointer',fontFamily:'Cairo,sans-serif',display:'inline-flex',alignItems:'center',gap:6}}>
-            <Icon name="close" size={13} color="var(--red)"/>
-            إلغاء المهمة
+      <div className="flex gap-2">
+        {status==="idle"&&!locked&&(
+          <button onClick={start} className="flex-1 py-2.5 rounded-xl font-black text-xs transition-all active:scale-95"
+            style={{background:"linear-gradient(135deg,#d4af37,#f0cc60)",color:"#000"}}>
+            ▶ ابدأ المهمة
           </button>
+        )}
+        {status==="idle"&&locked&&(
+          <div className="flex-1 py-2.5 rounded-xl font-bold text-xs text-center text-gray-600"
+               style={{background:"#1a1a1a",border:"1px solid #222"}}>🔒 محجوبة حتى الغد</div>
+        )}
+        {status==="running"&&(
+          <>
+            <div className="flex-1 py-2.5 rounded-xl text-xs text-center text-gray-500 font-bold"
+                 style={{background:"#1a1a1a"}}>⏳ لا تغادر الصفحة...</div>
+            <button onClick={cancel}
+              className="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm"
+              style={{background:"rgba(239,68,68,0.15)",border:"1px solid rgba(239,68,68,0.4)",color:"#ef4444"}}>✕</button>
+          </>
+        )}
+        {status==="done"&&(
+          <div className="flex-1 py-2.5 rounded-xl text-xs text-center font-bold"
+               style={{background:"rgba(16,185,129,0.1)",color:"#10b981",border:"1px solid rgba(16,185,129,0.2)"}}>
+            ✅ الربح أُضيف لرصيدك
+          </div>
+        )}
+        {status==="failed"&&(
+          <div className="flex-1 py-2.5 rounded-xl text-xs text-center font-bold"
+               style={{background:"rgba(239,68,68,0.08)",color:"#ef4444",border:"1px solid rgba(239,68,68,0.2)"}}>
+            ❌ خُسر الربح — مهام موقوفة
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+/* ═══════════════════════════════════════════
+   TASKS PAGE
+═══════════════════════════════════════════ */
+const TasksPage = ({ user, setUser }) => {
+  const pkg=user.package;
+  const reward=useMemo(()=>(pkg.daily/pkg.tasks).toFixed(4),[pkg]);
+  const tasks=useMemo(()=>Array.from({length:pkg.tasks},(_,i)=>({id:i,title:TASK_TITLES[i%TASK_TITLES.length],reward})),[pkg]);
+  const [lockedFrom,setLockedFrom]=useState(null);
+  const [earned,setEarned]=useState(0);
+  const [completedCount,setCompletedCount]=useState(0);
+  const [warn,setWarn]=useState(false);
+
+  const onComplete=useCallback((idx,r)=>{
+    setUser(u=>({...u,balance:+(u.balance+Number(r)).toFixed(4)}));
+    setEarned(e=>+(e+Number(r)).toFixed(4));
+    setCompletedCount(c=>c+1);
+  },[]);
+
+  const onFail=useCallback((idx)=>{
+    setLockedFrom(idx+1);
+    setWarn(true);
+    setTimeout(()=>setWarn(false),6000);
+  },[]);
+
+  const pct=completedCount/tasks.length*100;
+
+  return (
+    <div className="p-4 pb-28 space-y-4 page-transition scroll-hide overflow-y-auto">
+      {warn&&(
+        <div className="rounded-2xl p-4 text-center slide-up" style={{background:"rgba(239,68,68,0.15)",border:"1px solid rgba(239,68,68,0.4)"}}>
+          <p className="text-sm font-black" style={{color:"#f87171"}}>⚠️ تم إلغاء المهمة!</p>
+          <p className="text-xs text-gray-400 mt-1">خسرت أرباحها وتوقفت باقي المهام حتى اليوم التالي.</p>
         </div>
       )}
 
-      {/* Task List */}
-      {!running&&(
-        <div style={{padding:'8px 20px 24px'}}>
-          <div style={{display:'flex',flexDirection:'column',gap:8}}>
-            {Array.from({length:pkg.tasks},(_,i)=>{
-              const done=i<ts.done;
-              const cur=i===ts.done&&!ts.blocked;
-              return(
-                <div key={i} style={{
-                  display:'flex',alignItems:'center',gap:12,padding:'14px 16px',
-                  background:done?'rgba(34,197,94,0.04)':cur?'rgba(201,168,76,0.06)':'var(--bg2)',
-                  border:`1px solid ${done?'rgba(34,197,94,0.15)':cur?'rgba(201,168,76,0.25)':'var(--border)'}`,
-                  borderRadius:14,transition:'all .2s',
-                }}>
-                  <div style={{width:36,height:36,borderRadius:10,
-                    background:done?'var(--green-dim)':cur?'var(--gold-dim)':'var(--bg3)',
-                    border:`1px solid ${done?'rgba(34,197,94,.25)':cur?'rgba(201,168,76,.35)':'var(--border2)'}`,
-                    display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>
-                    {done
-                      ?<Icon name="check" size={15} color="var(--green)"/>
-                      :cur
-                      ?<Icon name="task" size={14} color="var(--gold)"/>
-                      :<span style={{fontSize:'0.72rem',color:'var(--text3)',fontWeight:700}}>{i+1}</span>
-                    }
-                  </div>
-                  <div style={{flex:1}}>
-                    <div style={{fontSize:'0.83rem',fontWeight:600,color:done?'var(--green)':cur?'var(--gold2)':'var(--text3)'}}>
-                      {done?'مكتملة':cur?'جاهزة للبدء':`مهمة ${i+1}`}
-                    </div>
-                    <div style={{fontSize:'0.68rem',color:'var(--text3)',marginTop:1}}>+${perTask}</div>
-                  </div>
-                  {cur&&(
-                    <button onClick={startTask} className="btn-gold"
-                      style={{padding:'9px 18px',fontSize:'0.8rem',borderRadius:10,display:'flex',alignItems:'center',gap:6}}>
-                      ابدأ
-                    </button>
-                  )}
-                  {done&&<div style={{fontSize:'0.72rem',color:'var(--green)',fontWeight:700}}>+${perTask}</div>}
-                </div>
-              );
-            })}
+      {/* Stats Header */}
+      <div className="rounded-2xl p-4" style={{background:"#111",border:"1px solid #2a2a2a"}}>
+        <div className="flex justify-between items-center mb-3">
+          <div>
+            <p className="text-white font-black text-base">⚡ مهام اليوم</p>
+            <p className="text-gray-500 text-xs">{pkg.icon} باقة {pkg.name} — {tasks.length} مهمة</p>
           </div>
-
-          {/* Warning */}
-          <div style={{marginTop:16,padding:'14px',borderRadius:14,background:'rgba(239,68,68,0.05)',border:'1px solid rgba(239,68,68,0.15)',display:'flex',gap:10}}>
-            <Icon name="info" size={16} color="var(--red)"/>
-            <p style={{fontSize:'0.75rem',color:'var(--text3)',lineHeight:1.6}}>إلغاء أي مهمة أثناء تشغيلها يؤدي إلى خسارة ربحها وحجب جميع مهامك حتى اليوم التالي.</p>
+          <div className="text-right">
+            <p className="font-black text-xl" style={{color:"#10b981"}}>+${fmt(earned,4)}</p>
+            <p className="text-gray-500 text-xs">مكتسب اليوم</p>
           </div>
         </div>
+        <div className="rounded-full overflow-hidden mb-2" style={{height:8,background:"#1a1a1a"}}>
+          <div className="h-full rounded-full transition-all duration-500"
+               style={{width:`${pct}%`,background:"linear-gradient(to right,#059669,#10b981)"}}/>
+        </div>
+        <div className="flex justify-between text-xs text-gray-500">
+          <span>{completedCount}/{tasks.length} مكتملة</span>
+          <span style={{color:"#d4af37"}}>الهدف اليومي: ${pkg.daily}</span>
+        </div>
+      </div>
+
+      {/* Rule Banner */}
+      <div className="rounded-2xl p-3.5" style={{background:"rgba(239,68,68,0.06)",border:"1px solid rgba(239,68,68,0.25)"}}>
+        <p className="font-black text-xs mb-1" style={{color:"#fca5a5"}}>⚠️ القاعدة الصارمة — اقرأ بعناية</p>
+        <p className="text-xs leading-5 text-gray-400">
+          يجب إتمام كل مهمة خلال <span className="text-white font-bold">40 ثانية كاملة</span> دون مغادرة الصفحة.
+          الضغط على ✕ أو الخروج يُفقدك الربح ويوقف <span style={{color:"#f87171",fontWeight:700}}>جميع المهام المتبقية</span> حتى اليوم التالي.
+        </p>
+      </div>
+
+      {/* Tasks */}
+      <div className="space-y-3">
+        {tasks.map((t,i)=>(
+          <TaskCard key={t.id} task={t} index={i}
+            locked={lockedFrom!==null&&i>=lockedFrom}
+            onComplete={onComplete} onFail={onFail}/>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+/* ═══════════════════════════════════════════
+   UPGRADES PAGE
+═══════════════════════════════════════════ */
+const UpgradesPage = ({ user, setUser }) => {
+  const [sel,setSel]=useState(null);
+  const [toast,setToast]=useState(null);
+
+  const upgrade=(pkg)=>{
+    if(user.package.id===pkg.id)return;
+    if(pkg.price>0&&user.balance<pkg.price){ setToast({msg:"❌ رصيد غير كافٍ — يرجى شحن الرصيد أولاً",type:"error"}); return; }
+    setSel(pkg);
+  };
+
+  const confirm=()=>{
+    setUser(u=>({...u,package:sel,balance:sel.price===0?u.balance:+(u.balance-sel.price).toFixed(2)}));
+    setToast({msg:`✅ تم الترقية إلى ${sel.name} بنجاح!`,type:"success"});
+    setSel(null);
+  };
+
+  return (
+    <div className="p-4 pb-28 space-y-4 page-transition scroll-hide overflow-y-auto">
+      {toast&&<Toast msg={toast.msg} type={toast.type} onDone={()=>setToast(null)}/>}
+      <div className="text-center py-2">
+        <h2 className="font-black text-2xl" style={{color:"#d4af37"}}>🚀 خطط الترقية</h2>
+        <p className="text-gray-500 text-xs mt-1">اختر باقتك وضاعف أرباحك اليومية</p>
+        <p className="text-xs mt-1" style={{color:"#10b981"}}>
+          رصيدك: <span className="font-black">${fmt(user.balance)}</span>
+        </p>
+      </div>
+
+      {PACKAGES.map((pkg)=>{
+        const isActive=user.package.id===pkg.id;
+        const canAfford=pkg.price===0||user.balance>=pkg.price;
+        const roi=pkg.price>0?((pkg.daily*pkg.days-pkg.price)/pkg.price*100).toFixed(0):null;
+        return (
+          <div key={pkg.id} className="relative rounded-3xl overflow-hidden transition-all duration-300"
+               style={{border:`1px solid ${isActive?"#d4af37":"#2a2a2a"}`,transform:isActive?"scale(1.01)":"scale(1)"}}>
+            {/* BG */}
+            <div className={`absolute inset-0 bg-gradient-to-br ${pkg.color} opacity-25`}/>
+            {/* Active Badge */}
+            {isActive&&(
+              <div className="absolute top-3 right-3 z-10 rounded-full px-3 py-1 text-xs font-black"
+                   style={{background:"#d4af37",color:"#000"}}>✓ باقتك الحالية</div>
+            )}
+            {!isActive&&(
+              <div className="absolute top-3 right-3 z-10 rounded-full px-2.5 py-1 text-xs font-bold border"
+                   style={{color:pkg.accent,borderColor:pkg.accent+"60",background:pkg.accent+"18"}}>
+                {pkg.badge}
+              </div>
+            )}
+            <div className="relative p-5 z-10">
+              {/* Header */}
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl border"
+                     style={{borderColor:pkg.accent+"60",background:pkg.accent+"20"}}>
+                  {pkg.icon}
+                </div>
+                <div>
+                  <h3 className="text-white font-black text-xl">{pkg.name}</h3>
+                  <p className="font-black text-2xl" style={{color:pkg.accent}}>{pkg.priceLabel}</p>
+                </div>
+                {roi&&<div className="mr-auto text-right">
+                  <p className="text-xs text-gray-500">عائد الاستثمار</p>
+                  <p className="font-black text-lg" style={{color:"#10b981"}}>%{roi}</p>
+                </div>}
+              </div>
+
+              {/* Stats */}
+              <div className="grid grid-cols-3 gap-2 mb-4">
+                {[
+                  {label:"المهام/يوم",   value:pkg.tasks},
+                  {label:"ربح يومي",     value:`$${pkg.daily}`},
+                  {label:"الصلاحية",     value:`${pkg.days}ي`},
+                ].map((s,i)=>(
+                  <div key={i} className="rounded-xl p-2.5 text-center" style={{background:"rgba(0,0,0,0.4)",border:"1px solid rgba(255,255,255,0.05)"}}>
+                    <p className="text-white font-black text-sm">{s.value}</p>
+                    <p className="text-gray-500 mt-0.5" style={{fontSize:10}}>{s.label}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Monthly */}
+              <div className="rounded-xl p-2.5 text-center mb-4 border"
+                   style={{borderColor:pkg.accent+"35",background:pkg.accent+"0d"}}>
+                <p className="text-xs" style={{color:pkg.accent}}>
+                  العائد الشهري المتوقع: <span className="font-black">${fmt(pkg.daily*pkg.days,2)}</span>
+                </p>
+              </div>
+
+              {/* CTA */}
+              <button onClick={()=>upgrade(pkg)} disabled={isActive}
+                className="w-full py-3 rounded-2xl font-black text-sm transition-all active:scale-95 disabled:opacity-60"
+                style={isActive
+                  ?{background:"#2a2a2a",color:"#555"}
+                  :canAfford
+                    ?{background:`linear-gradient(135deg,${pkg.accent},${pkg.accent}cc)`,color:"#000"}
+                    :{background:"rgba(255,255,255,0.05)",color:"#ef4444",border:`1px solid rgba(239,68,68,0.3)`}}>
+                {isActive?"✓ باقتك المفعّلة"
+                  :pkg.price===0?"تفعيل مجاني ✅"
+                  :canAfford?`ترقية مقابل ${pkg.priceLabel} 🚀`
+                  :`رصيد غير كافٍ (-$${fmt(pkg.price-user.balance,2)})`}
+              </button>
+            </div>
+          </div>
+        );
+      })}
+
+      {/* Confirm Modal */}
+      {sel&&(
+        <ModalWrapper onClose={()=>setSel(null)} title="🚀 تأكيد الترقية">
+          <div className="text-center space-y-4">
+            <div className="w-20 h-20 rounded-3xl flex items-center justify-center text-4xl mx-auto border"
+                 style={{borderColor:sel.accent,background:sel.accent+"20"}}>
+              {sel.icon}
+            </div>
+            <div>
+              <h4 className="text-white font-black text-2xl">{sel.name}</h4>
+              <p className="text-gray-500 text-xs mt-1">{sel.tasks} مهمة/يوم — ربح ${sel.daily}/يوم</p>
+            </div>
+            <div className="rounded-xl p-4 text-sm space-y-2" style={{background:"#1a1a1a",border:"1px solid #2a2a2a"}}>
+              <div className="flex justify-between text-gray-500"><span>رصيدك الحالي</span><span className="text-white">${fmt(user.balance)}</span></div>
+              <div className="flex justify-between text-gray-500"><span>سعر الباقة</span><span style={{color:"#ef4444"}}>-${sel.price}</span></div>
+              <div className="h-px" style={{background:"#2a2a2a"}}/>
+              <div className="flex justify-between font-black"><span className="text-white">الرصيد بعد الترقية</span><span style={{color:"#10b981"}}>${fmt(user.balance-sel.price)}</span></div>
+            </div>
+            <button onClick={confirm} className="w-full py-3.5 rounded-2xl font-black text-sm text-black"
+              style={{background:`linear-gradient(135deg,${sel.accent},${sel.accent}cc)`}}>
+              تأكيد الترقية ✅
+            </button>
+          </div>
+        </ModalWrapper>
       )}
     </div>
   );
-}
+};
 
-/* ══════════════════════════════════════
-   UPGRADES PAGE
-══════════════════════════════════════ */
-function UpgradesPage({user,setUser,showToast}){
-  const [confirm,setConfirm]=useState(null);
+/* ═══════════════════════════════════════════
+   PROFILE PAGE
+═══════════════════════════════════════════ */
+const ProfilePage = ({ user }) => {
+  const [showSec,setShowSec]=useState(false);
+  const [showCo,setShowCo]=useState(false);
+  const pkg=user.package;
 
-  const buy=pkg=>{
-    if(pkg.id==='starter'){showToast('هذه الباقة فعّالة بالفعل','info');return}
-    if(user.balance<pkg.price){showToast('رصيدك غير كافٍ','error');return}
-    const u={...user,balance:+(user.balance-pkg.price).toFixed(2),packageId:pkg.id,
-      activity:[...(user.activity||[]),{label:`ترقية → ${pkg.name}`,amount:-pkg.price,date:today()}]};
-    setUser(u);S.set('blk_u',u);
-    showToast(`تمت الترقية إلى ${pkg.name} 🚀`,'success');
-    setConfirm(null);
-  };
+  const items=[
+    {icon:"🔐",label:"الأمان والعقد",     sub:"Security & Contract",            color:"#d4af37",  fn:()=>setShowSec(true)},
+    {icon:"🏢",label:"عن الشركة",         sub:"Company Profile — BlackRock",    color:"#3b82f6",  fn:()=>setShowCo(true)},
+    {icon:"📊",label:"تقارير الأداء",     sub:"Performance Reports",            color:"#10b981",  fn:()=>{}},
+    {icon:"🔔",label:"الإشعارات",         sub:"إدارة الإشعارات والتنبيهات",     color:"#a855f7",  fn:()=>{}},
+    {icon:"🌐",label:"اللغة",             sub:"العربية / English / Français",   color:"#f59e0b",  fn:()=>{}},
+    {icon:"❓",label:"الدعم الفني",        sub:"support@blackrock-dz.com",       color:"#ec4899",  fn:()=>{}},
+  ];
 
-  return(
-    <div className="page-scroll anim-up">
-      <div style={{padding:'20px 20px 8px',borderBottom:'1px solid var(--border)'}}>
-        <div className="t-xs" style={{letterSpacing:1,textTransform:'uppercase',marginBottom:4}}>خطط الاستثمار</div>
-        <div style={{fontSize:'1.3rem',fontWeight:800,color:'#FAFAFA',letterSpacing:'-0.3px'}}>ترقية الباقة</div>
+  return (
+    <div className="p-4 pb-28 space-y-4 page-transition scroll-hide overflow-y-auto">
+      {/* Profile Card */}
+      <div className="rounded-3xl p-5 text-center relative overflow-hidden"
+           style={{background:"#111",border:"1px solid #2a2a2a"}}>
+        <div className="absolute inset-0 opacity-5"
+             style={{background:"radial-gradient(circle at center,#d4af37,transparent)"}}/>
+        <div className="relative">
+          <div className="relative inline-block mb-3">
+            <img src={user.avatar} alt="av" className="w-24 h-24 rounded-full mx-auto" style={{border:"3px solid #d4af37"}}/>
+            <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full border-2 border-gray-900 flex items-center justify-center"
+                 style={{background:"#10b981"}}>
+              <span style={{fontSize:9}}>✓</span>
+            </div>
+          </div>
+          <h3 className="text-white font-black text-2xl">{user.name}</h3>
+          <p className="text-gray-500 text-xs mt-0.5">{user.email}</p>
+          <div className="inline-flex items-center gap-2 mt-2 px-4 py-1.5 rounded-full border text-xs font-bold"
+               style={{borderColor:pkg.accent+"50",color:pkg.accent,background:pkg.accent+"12"}}>
+            {pkg.icon} {pkg.name} Member
+          </div>
+          <GoldDivider/>
+          <div className="grid grid-cols-3 gap-2 text-sm">
+            {[
+              {label:"الرصيد",    value:`$${fmt(user.balance)}`,   color:"#d4af37"},
+              {label:"الباقة",    value:pkg.name,                  color:pkg.accent},
+              {label:"الانضمام",  value:user.joinDate,             color:"#10b981"},
+            ].map((s,i)=>(
+              <div key={i} className="rounded-xl p-3" style={{background:"#1a1a1a"}}>
+                <p className="text-xs text-gray-500">{s.label}</p>
+                <p className="font-black text-sm mt-0.5" style={{color:s.color}}>{s.value}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
-      <div style={{padding:'16px 20px 32px',display:'flex',flexDirection:'column',gap:12}}>
-        {PACKAGES.map(pkg=>{
-          const isCur=pkg.id===user.packageId;
-          return(
-            <div key={pkg.id} style={{
-              background:'var(--bg2)',border:`1px solid ${isCur?pkg.colorA+'60':'var(--border)'}`,
-              borderRadius:18,overflow:'hidden',
-              boxShadow:isCur?`0 0 24px ${pkg.colorA}18`:undefined,
-              transition:'border-color .2s',
-            }}>
-              {/* Header stripe */}
-              <div style={{height:3,background:`linear-gradient(90deg,${pkg.colorA},${pkg.colorB})`}}/>
+      {/* Verification Badge */}
+      <div className="flex items-center gap-3 rounded-2xl p-4"
+           style={{background:"rgba(16,185,129,0.08)",border:"1px solid rgba(16,185,129,0.25)"}}>
+        <div className="w-10 h-10 rounded-full flex items-center justify-center text-lg"
+             style={{background:"rgba(16,185,129,0.15)"}}>✅</div>
+        <div>
+          <p className="text-white font-bold text-sm">حساب موثق رسمياً</p>
+          <p className="text-xs text-gray-500">NYSE: BLK — EIN: 32-0174431 — AES-256</p>
+        </div>
+        <div className="mr-auto">
+          <div className="w-2 h-2 rounded-full pulse-anim" style={{background:"#10b981"}}/>
+        </div>
+      </div>
 
-              <div style={{padding:'16px 16px 14px'}}>
-                <div style={{display:'flex',alignItems:'flex-start',justifyContent:'space-between',marginBottom:14}}>
-                  <div>
-                    <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:4}}>
-                      <span style={{fontSize:'1.1rem',fontWeight:800,color:pkg.accent,fontFamily:'Inter,sans-serif',letterSpacing:'-0.3px'}}>{pkg.name}</span>
-                      {isCur&&<span className="badge" style={{background:`${pkg.colorA}20`,color:pkg.accent,border:`1px solid ${pkg.colorA}40`}}>ACTIVE</span>}
-                    </div>
-                    <div style={{fontSize:'1.6rem',fontWeight:900,color:'#FAFAFA',fontFamily:'Inter,sans-serif',letterSpacing:'-0.5px'}}>
-                      {pkg.price===0?'Free':`$${pkg.price.toLocaleString()}`}
-                    </div>
-                    {pkg.price>0&&<div style={{fontSize:'0.7rem',color:'var(--text3)',marginTop:1}}>{(pkg.price*250).toLocaleString('ar-DZ')} دج</div>}
-                  </div>
-                  <div style={{textAlign:'left'}}>
-                    <div style={{fontSize:'0.65rem',color:'var(--text3)',letterSpacing:.5,textTransform:'uppercase',marginBottom:4}}>{pkg.days} يوم</div>
-                    <div style={{width:42,height:42,borderRadius:12,background:`${pkg.colorA}15`,border:`1px solid ${pkg.colorA}30`,display:'flex',alignItems:'center',justifyContent:'center'}}>
-                      <Icon name="chart" size={18} color={pkg.colorA}/>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Features */}
-                <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8,marginBottom:14}}>
-                  {[
-                    {l:'المهام اليومية', v:pkg.tasks},
-                    {l:'الربح اليومي',  v:`$${pkg.daily}`},
-                  ].map((f,i)=>(
-                    <div key={i} style={{background:'var(--bg3)',borderRadius:10,padding:'10px 12px',border:'1px solid var(--border2)'}}>
-                      <div style={{fontSize:'0.65rem',color:'var(--text3)',marginBottom:3,letterSpacing:.3}}>{f.l}</div>
-                      <div style={{fontSize:'0.95rem',fontWeight:800,color:pkg.accent,fontFamily:'Inter,sans-serif'}}>{f.v}</div>
-                    </div>
-                  ))}
-                </div>
-
-                {!isCur&&(
-                  <button onClick={()=>setConfirm(pkg)}
-                    style={{width:'100%',padding:'13px',borderRadius:12,
-                      background:user.balance>=pkg.price?`linear-gradient(135deg,${pkg.colorB},${pkg.colorA})`:'var(--bg3)',
-                      border:user.balance>=pkg.price?'none':`1px solid var(--border)`,
-                      color:user.balance>=pkg.price?'#000':'var(--text3)',
-                      fontSize:'0.85rem',fontWeight:700,cursor:'pointer',fontFamily:'Cairo,sans-serif',
-                      display:'flex',alignItems:'center',justifyContent:'center',gap:6}}>
-                    {user.balance>=pkg.price
-                      ?<><Icon name="upgrade" size={14} color="#000"/>ترقية الآن</>
-                      :<><Icon name="lock" size={13}/>يحتاج ${(pkg.price-user.balance).toFixed(2)} إضافي</>
-                    }
-                  </button>
-                )}
-                {isCur&&(
-                  <div style={{padding:'12px',borderRadius:12,background:'var(--green-dim)',border:'1px solid rgba(34,197,94,.2)',display:'flex',alignItems:'center',gap:8,justifyContent:'center'}}>
-                    <Icon name="check" size={14} color="var(--green)"/>
-                    <span style={{fontSize:'0.83rem',fontWeight:700,color:'var(--green)'}}>باقتك الحالية</span>
-                  </div>
-                )}
-              </div>
+      {/* Menu Items */}
+      <div className="space-y-2.5">
+        {items.map((it,i)=>(
+          <button key={i} onClick={it.fn}
+            className="w-full flex items-center gap-4 rounded-2xl p-4 transition-all active:scale-[0.98]"
+            style={{background:"#111",border:"1px solid #1e1e1e"}}>
+            <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0 border"
+                 style={{color:it.color,borderColor:it.color+"40",background:it.color+"12"}}>
+              {it.icon}
             </div>
+            <div className="text-right flex-1">
+              <p className="text-white font-bold text-sm">{it.label}</p>
+              <p className="text-gray-600 text-xs mt-0.5">{it.sub}</p>
+            </div>
+            <span className="text-gray-600 text-xl">›</span>
+          </button>
+        ))}
+      </div>
+
+      {/* Version */}
+      <div className="text-center py-2">
+        <p className="text-gray-700 text-xs">BlackRock Task Earn v2.0.0</p>
+        <p className="text-gray-800 text-xs">© 2025 BlackRock, Inc. All rights reserved.</p>
+      </div>
+
+      {/* Logout */}
+      <button className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl font-bold text-sm"
+        style={{border:"1px solid rgba(239,68,68,0.3)",background:"rgba(239,68,68,0.06)",color:"#f87171"}}>
+        🚪 تسجيل الخروج
+      </button>
+
+      {showSec&&<SecurityModal onClose={()=>setShowSec(false)}/>}
+      {showCo&&<CompanyModal onClose={()=>setShowCo(false)}/>}
+    </div>
+  );
+};
+
+/* ═══════════════════════════════════════════
+   BOTTOM NAV
+═══════════════════════════════════════════ */
+const NAV=[
+  {id:"home",     icon:"🏠", label:"الرئيسية"},
+  {id:"tasks",    icon:"⚡", label:"المهام"},
+  {id:"upgrades", icon:"🚀", label:"الترقيات"},
+  {id:"profile",  icon:"👤", label:"حسابي"},
+];
+
+const BottomNav = ({ active, setActive }) => (
+  <div className="fixed bottom-0 left-0 right-0 z-40 px-3 pb-3">
+    <div className="max-w-md mx-auto rounded-3xl shadow-2xl"
+         style={{background:"rgba(10,10,10,0.97)",backdropFilter:"blur(20px)",border:"1px solid #2a2a2a"}}>
+      <div className="flex justify-around items-center py-2">
+        {NAV.map(item=>{
+          const on=active===item.id;
+          return (
+            <button key={item.id} onClick={()=>setActive(item.id)}
+              className="flex flex-col items-center gap-0.5 px-5 py-2 rounded-2xl transition-all duration-200 active:scale-90"
+              style={on?{background:"rgba(212,175,55,0.1)"}:{}}>
+              <span className="text-2xl transition-all duration-200" style={{opacity:on?1:0.4,transform:on?"scale(1.15)":"scale(1)"}}>
+                {item.icon}
+              </span>
+              <span className="text-xs font-bold transition-all duration-200"
+                    style={{color:on?"#d4af37":"#444"}}>
+                {item.label}
+              </span>
+              {on&&<div className="w-1 h-1 rounded-full" style={{background:"#d4af37"}}/>}
+            </button>
           );
         })}
       </div>
-
-      {/* Confirm Sheet */}
-      {confirm&&(
-        <Sheet title={`ترقية إلى ${confirm.name}`} onClose={()=>setConfirm(null)}>
-          <div style={{textAlign:'center',marginBottom:20}}>
-            <div style={{width:64,height:64,borderRadius:18,background:`${confirm.colorA}20`,border:`1px solid ${confirm.colorA}40`,display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 16px'}}>
-              <Icon name="upgrade" size={26} color={confirm.colorA}/>
-            </div>
-            <div style={{fontSize:'1.5rem',fontWeight:800,color:confirm.accent,marginBottom:4,fontFamily:'Inter,sans-serif'}}>${confirm.price}</div>
-            <div style={{fontSize:'0.78rem',color:'var(--text3)'}}>سيُخصم من رصيدك الحالي</div>
-            <div style={{fontSize:'0.9rem',fontWeight:700,color:'var(--text)',marginTop:4}}>${user.balance.toFixed(2)} ← ${(user.balance-confirm.price).toFixed(2)}</div>
-          </div>
-          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}}>
-            <button className="btn-outline" onClick={()=>setConfirm(null)} style={{padding:14,fontFamily:'Cairo,sans-serif',fontSize:'0.88rem'}}>إلغاء</button>
-            <button onClick={()=>buy(confirm)}
-              style={{padding:14,borderRadius:12,background:`linear-gradient(135deg,${confirm.colorB},${confirm.colorA})`,border:'none',color:'#000',fontWeight:800,cursor:'pointer',fontFamily:'Cairo,sans-serif',fontSize:'0.88rem'}}>
-              تأكيد
-            </button>
-          </div>
-        </Sheet>
-      )}
     </div>
-  );
-}
+  </div>
+);
 
-/* ══════════════════════════════════════
-   PROFILE PAGE
-══════════════════════════════════════ */
-function ProfilePage({user,setUser,showToast}){
-  const [sheet,setSheet]=useState(null);
-  const pkg=PACKAGES.find(p=>p.id===user.packageId)||PACKAGES[0];
-
-  const Section=({title,children})=>(
-    <div style={{marginBottom:16}}>
-      <div style={{fontSize:'0.68rem',fontWeight:700,color:'var(--text3)',letterSpacing:.8,textTransform:'uppercase',marginBottom:8,paddingRight:4}}>{title}</div>
-      <div className="card" style={{padding:'4px 16px'}}>{children}</div>
-    </div>
-  );
-
-  const Row=({icon,label,value,onClick,gold,arrow=true})=>(
-    <div onClick={onClick} className="list-row" style={{cursor:onClick?'pointer':undefined}}>
-      <div style={{width:36,height:36,borderRadius:10,background:'var(--bg3)',border:'1px solid var(--border2)',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>
-        <Icon name={icon} size={16} color={gold?'var(--gold)':'var(--text2)'}/>
-      </div>
-      <div style={{flex:1}}>
-        <div style={{fontSize:'0.85rem',fontWeight:600,color:gold?'var(--gold2)':'var(--text)'}}>{label}</div>
-        {value&&<div style={{fontSize:'0.7rem',color:'var(--text3)',marginTop:1}}>{value}</div>}
-      </div>
-      {arrow&&onClick&&<Icon name="arrow" size={15} color="var(--text3)"/>}
-    </div>
-  );
-
-  /* Security data */
-  const secData=[
-    {k:'توثيق البورصة',     v:'NYSE: BLK',             icon:'chart',   c:'#3B82F6'},
-    {k:'الرقم الضريبي',    v:'EIN: 32-0174431',       icon:'building', c:'var(--gold2)'},
-    {k:'بروتوكول التشفير', v:'AES-256 + SSL/TLS 3.0', icon:'shield',   c:'var(--green)'},
-    {k:'حماية الأموال',    v:'100% مضمونة ✓',          icon:'lock',    c:'var(--green)'},
-  ];
-
-  return(
-    <div className="page-scroll anim-up">
-
-      {/* Profile Card */}
-      <div style={{padding:'20px 20px 16px',borderBottom:'1px solid var(--border)',display:'flex',gap:14,alignItems:'center'}}>
-        <div style={{position:'relative',flexShrink:0}}>
-          <img src={user.avatar} alt="avatar" style={{width:64,height:64,borderRadius:20,border:'2px solid var(--border)',objectFit:'cover'}} onError={e=>{e.target.src='https://api.dicebear.com/7.x/avataaars/svg?seed=blk'}}/>
-          <div style={{position:'absolute',bottom:-2,right:-2,width:18,height:18,borderRadius:'50%',background:'var(--green)',border:'2px solid var(--bg)',display:'flex',alignItems:'center',justifyContent:'center'}}>
-            <div style={{width:6,height:6,borderRadius:'50%',background:'#fff'}}/>
-          </div>
-        </div>
-        <div style={{flex:1}}>
-          <div style={{fontSize:'1.05rem',fontWeight:800,color:'#FAFAFA',marginBottom:3}}>{user.name}</div>
-          <div style={{fontSize:'0.72rem',color:'var(--text3)',marginBottom:6}}>{user.email}</div>
-          <span className="badge" style={{background:`${pkg.colorA}20`,color:pkg.accent,border:`1px solid ${pkg.colorA}40`}}>{pkg.name}</span>
-        </div>
-        <div style={{textAlign:'left'}}>
-          <div style={{fontSize:'0.65rem',color:'var(--text3)',marginBottom:2}}>رصيدي</div>
-          <div style={{fontSize:'1.1rem',fontWeight:800,color:'var(--gold2)',fontFamily:'Inter,sans-serif'}}>${user.balance.toFixed(2)}</div>
-        </div>
-      </div>
-
-      <div style={{padding:'16px 20px 32px'}}>
-
-        <Section title="الحساب">
-          <Row icon="wallet"  label="محفظتي"       value={`$${user.balance.toFixed(2)} متاح`}/>
-          <Row icon="chart"   label="إحصائياتي"    value={`$${(user.totalEarned||0).toFixed(3)} إجمالي الأرباح`}/>
-          <Row icon="users"   label="دعوة الأصدقاء" value="اكسب مكافأت مع كل دعوة"/>
-        </Section>
-
-        <Section title="الأمان والشركة">
-          <Row icon="shield"   label="الأمان والعقد"   value="NYC: BLK • EIN: 32-0174431" onClick={()=>setSheet('sec')} gold/>
-          <Row icon="building" label="عن BlackRock"     value="أكبر شركة إدارة أصول في العالم" onClick={()=>setSheet('co')}/>
-          <Row icon="globe"    label="الموقع الرسمي"   value="blackrock.com" onClick={()=>window.open('https://www.blackrock.com','_blank')}/>
-        </Section>
-
-        <Section title="الإعدادات">
-          <Row icon="lock"    label="تغيير كلمة المرور" value="آخر تغيير: ٣٠ يوم"/>
-          <Row icon="info"    label="الدعم الفني"        value="24/7 متوفر"/>
-        </Section>
-
-        {/* Sign out */}
-        <button style={{width:'100%',padding:'14px',borderRadius:14,background:'var(--red-dim)',border:'1px solid rgba(239,68,68,.2)',color:'var(--red)',fontSize:'0.88rem',fontWeight:700,cursor:'pointer',fontFamily:'Cairo,sans-serif'}}>
-          تسجيل الخروج
-        </button>
-
-        <div style={{textAlign:'center',marginTop:20}}>
-          <div style={{fontSize:'0.65rem',color:'var(--text3)',letterSpacing:.5}}>BlackRock, Inc © 2025</div>
-          <div style={{fontSize:'0.6rem',color:'var(--border)',marginTop:2}}>NYSE: BLK • AES-256 Encrypted</div>
-        </div>
-      </div>
-
-      {/* Security Sheet */}
-      {sheet==='sec'&&(
-        <Sheet title="الأمان والعقد الرسمي" onClose={()=>setSheet(null)}>
-          <div style={{display:'flex',flexDirection:'column',gap:10}}>
-            {secData.map((r,i)=>(
-              <div key={i} style={{display:'flex',alignItems:'center',gap:12,padding:'13px',background:'var(--bg3)',borderRadius:12,border:'1px solid var(--border2)'}}>
-                <div style={{width:38,height:38,borderRadius:10,background:`rgba(${r.c==='#3B82F6'?'59,130,246':r.c==='var(--gold2)'?'201,168,76':'34,197,94'},.12)`,border:`1px solid ${r.c}30`,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>
-                  <Icon name={r.icon} size={16} color={r.c}/>
-                </div>
-                <div>
-                  <div style={{fontSize:'0.7rem',color:'var(--text3)',marginBottom:2}}>{r.k}</div>
-                  <div style={{fontSize:'0.85rem',fontWeight:700,color:r.c}}>{r.v}</div>
-                </div>
-              </div>
-            ))}
-
-            {/* Contract box */}
-            <div style={{padding:'16px',borderRadius:14,background:'var(--gold-dim)',border:'1px solid rgba(201,168,76,.25)',marginTop:4}}>
-              <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:10}}>
-                <div style={{width:32,height:32,borderRadius:8,background:'rgba(201,168,76,.2)',display:'flex',alignItems:'center',justifyContent:'center'}}>
-                  <Icon name="check" size={14} color="var(--gold2)"/>
-                </div>
-                <span style={{fontSize:'0.82rem',fontWeight:700,color:'var(--gold2)'}}>العقد الجزائري الرسمي</span>
-              </div>
-              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8,marginBottom:12}}>
-                <div style={{background:'rgba(0,0,0,.3)',borderRadius:10,padding:'10px',textAlign:'center'}}>
-                  <div style={{fontSize:'0.6rem',color:'var(--text3)',marginBottom:3}}>يبدأ</div>
-                  <div style={{fontSize:'0.82rem',fontWeight:700,color:'var(--gold2)'}}>يناير 2025</div>
-                </div>
-                <div style={{background:'rgba(0,0,0,.3)',borderRadius:10,padding:'10px',textAlign:'center'}}>
-                  <div style={{fontSize:'0.6rem',color:'var(--text3)',marginBottom:3}}>ينتهي</div>
-                  <div style={{fontSize:'0.82rem',fontWeight:700,color:'var(--gold2)'}}>ديسمبر 2027</div>
-                </div>
-              </div>
-              <p style={{fontSize:'0.75rem',color:'var(--text2)',lineHeight:1.7,textAlign:'center',borderTop:'1px solid rgba(201,168,76,.15)',paddingTop:10}}>
-                "تقر شركة <strong style={{color:'var(--gold2)'}}>BlackRock, Inc</strong> بأنها أبرمت عقداً رسمياً مع الجانب الجزائري في يناير 2025 مدته 3 سنوات ينتهي في ديسمبر 2027"
-              </p>
-            </div>
-          </div>
-        </Sheet>
-      )}
-
-      {/* Company Sheet */}
-      {sheet==='co'&&(
-        <Sheet title="عن الشركة" onClose={()=>setSheet(null)}>
-          {/* Logo area */}
-          <div style={{display:'flex',alignItems:'center',gap:14,padding:'16px',background:'var(--bg3)',borderRadius:14,border:'1px solid var(--border2)',marginBottom:16}}>
-            <div style={{width:52,height:52,borderRadius:14,background:'linear-gradient(135deg,#1a1a1a,#2a2a2a)',border:'1px solid var(--border)',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>
-              <span style={{fontFamily:'Inter,sans-serif',fontWeight:900,fontSize:'1.3rem',background:'linear-gradient(135deg,#C9A84C,#F0D080)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>BLK</span>
-            </div>
-            <div>
-              <div style={{fontSize:'1rem',fontWeight:800,color:'#FAFAFA',fontFamily:'Inter,sans-serif'}}>BlackRock, Inc.</div>
-              <div style={{fontSize:'0.72rem',color:'var(--text3)'}}>New York, United States 🇺🇸</div>
-              <div style={{marginTop:4}}><span className="badge" style={{background:'rgba(59,130,246,.15)',color:'#93C5FD',border:'1px solid rgba(59,130,246,.3)'}}>NYSE: BLK</span></div>
-            </div>
-          </div>
-
-          <div style={{display:'flex',flexDirection:'column',gap:8}}>
-            {[
-              {icon:'chart',   l:'تأسست عام',           v:'1988 — نيويورك',              c:'var(--gold2)'},
-              {icon:'wallet',  l:'الأصول المُدارة',       v:'+10.2 تريليون دولار',         c:'var(--green)'},
-              {icon:'globe',   l:'التواجد العالمي',       v:'38 دولة',                     c:'#93C5FD'},
-              {icon:'users',   l:'عدد الموظفين',          v:'+19,000 موظف',               c:'var(--text)'},
-              {icon:'shield',  l:'معيار الأمان',          v:'AES-256 العسكري • 24/7',     c:'var(--green)'},
-              {icon:'star',    l:'التصنيف العالمي',        v:'أكبر شركة إدارة أصول بالعالم',c:'var(--gold2)'},
-            ].map((r,i)=>(
-              <div key={i} style={{display:'flex',alignItems:'center',gap:12,padding:'12px',background:'var(--bg3)',borderRadius:12,border:'1px solid var(--border2)'}}>
-                <Icon name={r.icon} size={15} color={r.c}/>
-                <div style={{flex:1}}>
-                  <div style={{fontSize:'0.68rem',color:'var(--text3)'}}>{r.l}</div>
-                  <div style={{fontSize:'0.82rem',fontWeight:600,color:r.c}}>{r.v}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <button onClick={()=>window.open('https://www.blackrock.com','_blank')}
-            style={{marginTop:16,width:'100%',padding:'14px',borderRadius:12,background:'rgba(59,130,246,.1)',border:'1px solid rgba(59,130,246,.25)',color:'#93C5FD',fontSize:'0.88rem',fontWeight:700,cursor:'pointer',fontFamily:'Cairo,sans-serif',display:'flex',alignItems:'center',justifyContent:'center',gap:8}}>
-            <Icon name="globe" size={15} color="#93C5FD"/>
-            زيارة blackrock.com
-          </button>
-        </Sheet>
-      )}
-    </div>
-  );
-}
-
-/* ══════════════════════════════════════
-   ROOT APP
-══════════════════════════════════════ */
-const DEFAULT_USER={
-  name:'أحمد الجزائري',
-  email:'user@blackrock-dz.com',
-  avatar:'https://api.dicebear.com/7.x/avataaars/svg?seed=blk2025&backgroundColor=1a1a1a',
-  balance:0, totalEarned:0, packageId:'starter',
-  joinDate:new Date().toISOString(), activity:[],
+/* ═══════════════════════════════════════════
+   TOP BAR
+═══════════════════════════════════════════ */
+const TITLES={
+  home:     {main:"BlackRock",         sub:"NYSE: BLK — Task Earn Platform"},
+  tasks:    {main:"المهام اليومية",    sub:"⚡ Daily Task Engine"},
+  upgrades: {main:"خطط الترقية",       sub:"🚀 Upgrade & Maximize Earnings"},
+  profile:  {main:"حسابي",            sub:"👤 My Account & Settings"},
 };
 
-function App(){
-  const [tab,setTab]=useState('home');
-  const [toast,setToast]=useState(null);
-  const [user,setUser]=useState(()=>S.get('blk_u',DEFAULT_USER));
-
-  const showToast=(msg,type='info')=>setToast({msg,type,k:Date.now()});
-
-  const TABS=[
-    {id:'home',    icon:'home',    label:'الرئيسية'},
-    {id:'tasks',   icon:'task',    label:'المهام'},
-    {id:'upgrades',icon:'upgrade', label:'الترقيات'},
-    {id:'profile', icon:'profile', label:'حسابي'},
-  ];
-
-  const P={user,setUser,showToast};
-
-  return(
-    <div style={{display:'flex',flexDirection:'column',height:'100%',maxWidth:430,margin:'0 auto',position:'relative',background:'var(--bg)'}}>
-
-      {toast&&<Toast key={toast.k} msg={toast.msg} type={toast.type} onDone={()=>setToast(null)}/>}
-
-      {/* Top Bar */}
-      <div className="topbar" style={{padding:'12px 20px',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-        <div style={{display:'flex',alignItems:'center',gap:10}}>
-          <div style={{width:34,height:34,borderRadius:10,background:'linear-gradient(135deg,#1a1a1a,#2a2a2a)',border:'1px solid var(--border)',display:'flex',alignItems:'center',justifyContent:'center'}}>
-            <span style={{fontFamily:'Inter,sans-serif',fontWeight:900,fontSize:'0.85rem',background:'linear-gradient(135deg,#C9A84C,#F0D080)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>BLK</span>
-          </div>
-          <div>
-            <div style={{fontSize:'0.88rem',fontWeight:800,color:'#FAFAFA',fontFamily:'Inter,sans-serif',lineHeight:1}}>BlackRock</div>
-            <div style={{fontSize:'0.58rem',color:'var(--text3)',letterSpacing:.5}}>Investment Platform</div>
-          </div>
-        </div>
-        <div style={{display:'flex',alignItems:'center',gap:8}}>
-          <div style={{display:'flex',alignItems:'center',gap:6,padding:'6px 12px',borderRadius:999,background:'var(--bg3)',border:'1px solid var(--border)'}}>
-            <span className="anim-pulse" style={{width:6,height:6,borderRadius:'50%',background:'var(--green)',flexShrink:0,display:'block'}}/>
-            <span style={{fontSize:'0.78rem',fontWeight:800,color:'#FAFAFA',fontFamily:'Inter,sans-serif'}}>${user.balance.toFixed(2)}</span>
-          </div>
-        </div>
+const TopBar = ({ page }) => {
+  const t=TITLES[page]||TITLES.home;
+  return (
+    <div className="sticky top-0 z-30 px-4 py-3 flex items-center justify-between"
+         style={{background:"rgba(10,10,10,0.97)",backdropFilter:"blur(20px)",borderBottom:"1px solid #1a1a1a"}}>
+      <div>
+        <h1 className="font-black text-lg leading-none" style={{color:"#d4af37"}}>{t.main}</h1>
+        <p className="text-gray-600" style={{fontSize:10}}>{t.sub}</p>
       </div>
-
-      {/* Page */}
-      <div style={{flex:1,overflow:'hidden',display:'flex',flexDirection:'column'}}>
-        {tab==='home'     &&<HomePage     {...P}/>}
-        {tab==='tasks'    &&<TasksPage    {...P}/>}
-        {tab==='upgrades' &&<UpgradesPage {...P}/>}
-        {tab==='profile'  &&<ProfilePage  {...P}/>}
+      <div className="flex items-center gap-2 rounded-xl px-3 py-1.5" style={{background:"rgba(16,185,129,0.1)",border:"1px solid rgba(16,185,129,0.2)"}}>
+        <div className="w-2 h-2 rounded-full pulse-anim" style={{background:"#10b981"}}/>
+        <span className="text-xs font-bold" style={{color:"#10b981"}}>LIVE</span>
       </div>
-
-      {/* Bottom Nav */}
-      <div className="bottom-nav">
-        <div style={{display:'flex',alignItems:'center',padding:'6px 0'}}>
-          {TABS.map(t=>{
-            const a=tab===t.id;
-            return(
-              <button key={t.id} onClick={()=>setTab(t.id)} style={{flex:1,display:'flex',flexDirection:'column',alignItems:'center',gap:4,padding:'8px 4px',background:'transparent',border:'none',cursor:'pointer',position:'relative'}}>
-                {a&&<div style={{position:'absolute',top:-6,left:'50%',transform:'translateX(-50%)',width:24,height:2,borderRadius:999,background:'var(--gold)'}}/>}
-                <div style={{width:40,height:40,borderRadius:12,display:'flex',alignItems:'center',justifyContent:'center',background:a?'var(--gold-dim)':'transparent',transition:'background .2s'}}>
-                  <Icon name={t.icon} size={20} color={a?'var(--gold2)':'var(--text3)'}/>
-                </div>
-                <span style={{fontSize:'0.62rem',fontWeight:a?700:400,color:a?'var(--gold2)':'var(--text3)',letterSpacing:.2,transition:'color .2s'}}>{t.label}</span>
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
     </div>
   );
-}
+};
 
-ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+/* ═══════════════════════════════════════════
+   SPLASH SCREEN
+═══════════════════════════════════════════ */
+const Splash = ({ onDone }) => {
+  const [p,setP]=useState(0);
+  useEffect(()=>{
+    const t=setInterval(()=>setP(v=>{ if(v>=100){ clearInterval(t); setTimeout(onDone,300); return 100; } return v+2; }),40);
+    return ()=>clearInterval(t);
+  },[]);
+  return (
+    <div className="fixed inset-0 flex flex-col items-center justify-center z-[999]"
+         style={{background:"#0a0a0a"}}>
+      <div className="text-center fade-in">
+        <div className="w-24 h-24 rounded-3xl flex items-center justify-center text-5xl mx-auto mb-5 glow-anim"
+             style={{background:"linear-gradient(135deg,#1a1200,#2a2000)",border:"2px solid #d4af37"}}>
+          ⬛
+        </div>
+        <h1 className="font-black text-3xl mb-1" style={{color:"#d4af37"}}>BlackRock</h1>
+        <p className="text-gray-500 text-sm mb-2">Task Earn Platform</p>
+        <p className="text-gray-700 text-xs mb-10">NYSE: BLK — EIN: 32-0174431</p>
+        <div className="w-48 h-1.5 rounded-full overflow-hidden mx-auto" style={{background:"#1a1a1a"}}>
+          <div className="h-full rounded-full transition-all duration-100"
+               style={{width:`${p}%`,background:"linear-gradient(to right,#d4af37,#f0cc60)"}}/>
+        </div>
+        <p className="text-gray-600 text-xs mt-3">{p}%</p>
+        <p className="text-gray-700 text-xs mt-2">جارٍ التحميل...</p>
+      </div>
+    </div>
+  );
+};
+
+/* ═══════════════════════════════════════════
+   ROOT APP
+═══════════════════════════════════════════ */
+const App = () => {
+  const [ready,setReady]=useState(false);
+  const [page,setPage]=useState("home");
+  const [user,setUser]=useState(INIT_USER);
+
+  if(!ready) return <Splash onDone={()=>setReady(true)}/>;
+
+  const renderPage=()=>{
+    switch(page){
+      case "home":     return <HomePage     user={user} setUser={setUser}/>;
+      case "tasks":    return <TasksPage    user={user} setUser={setUser}/>;
+      case "upgrades": return <UpgradesPage user={user} setUser={setUser}/>;
+      case "profile":  return <ProfilePage  user={user}/>;
+      default:         return null;
+    }
+  };
+
+  return (
+    <div className="min-h-screen max-w-md mx-auto relative" style={{background:"#0a0a0a",color:"#fff",fontFamily:"Cairo,sans-serif"}} dir="rtl">
+      <TopBar page={page}/>
+      <main style={{minHeight:"calc(100vh - 60px)"}}>{renderPage()}</main>
+      <BottomNav active={page} setActive={setPage}/>
+    </div>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
 </script>
 </body>
 </html>
