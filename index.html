@@ -1,321 +1,345 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <title>BlackRock Earn</title>
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Cairo', sans-serif; background: #000; color: #fff; overflow-x: hidden; }
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: #111; }
-    ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 10px; }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<title>BlackRock Earn</title>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Inter','Cairo',sans-serif;background:#000;color:#fff;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:#0a0a0a}
+::-webkit-scrollbar-thumb{background:#E31837;border-radius:10px}
 
-    @keyframes shimmer {
-      0% { background-position: -1000px 0; }
-      100% { background-position: 1000px 0; }
-    }
-    @keyframes pulse-gold {
-      0%, 100% { box-shadow: 0 0 10px #D4AF3755; }
-      50% { box-shadow: 0 0 30px #D4AF37cc, 0 0 60px #D4AF3744; }
-    }
-    @keyframes slide-in {
-      from { transform: translateY(30px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-    @keyframes carousel-move {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-    @keyframes count-up {
-      from { opacity: 0; transform: scale(0.8); }
-      to { opacity: 1; transform: scale(1); }
-    }
-    @keyframes spin-ring {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    @keyframes slideUp {
-      from { transform: translateY(100%); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-    @keyframes glow-green {
-      0%, 100% { box-shadow: 0 0 5px #10B98155; }
-      50% { box-shadow: 0 0 20px #10B981aa; }
-    }
-    @keyframes ticker-scroll {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-50%); }
-    }
+/* ── BLACKROCK BRAND COLORS ── */
+:root{
+  --br-red:#E31837;
+  --br-red-dark:#B01229;
+  --br-red-light:#FF2D4A;
+  --br-black:#000000;
+  --br-dark:#0A0A0A;
+  --br-card:#111111;
+  --br-card2:#161616;
+  --br-border:#1E1E1E;
+  --br-border2:#2A2A2A;
+  --br-text:#FFFFFF;
+  --br-muted:#999999;
+  --br-faint:#444444;
+  --br-green:#00C851;
+  --br-gold:#FFB800;
+}
 
-    .shimmer {
-      background: linear-gradient(90deg, #1a1a1a 25%, #2a2a1a 50%, #1a1a1a 75%);
-      background-size: 1000px 100%;
-      animation: shimmer 2s infinite;
-    }
-    .gold-pulse { animation: pulse-gold 2s infinite; }
-    .slide-in { animation: slide-in 0.5s ease forwards; }
-    .gold-text { background: linear-gradient(135deg, #D4AF37, #FFD700, #B8960C); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .gold-border { border: 1px solid #D4AF3766; }
-    .emerald-glow { animation: glow-green 2s infinite; }
-    .card-hover { transition: all 0.3s ease; }
-    .card-hover:active { transform: scale(0.97); }
-    .glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(10px); border: 1px solid rgba(212,175,55,0.15); }
-    .bottom-safe { padding-bottom: env(safe-area-inset-bottom, 20px); }
-    .page-enter { animation: fadeIn 0.4s ease forwards; }
-    .modal-enter { animation: slideUp 0.4s ease forwards; }
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{transform:translateY(100%);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes slideRight{from{transform:translateX(-30px);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes pulseRed{0%,100%{box-shadow:0 0 0 0 rgba(227,24,55,0.4)}50%{box-shadow:0 0 20px 4px rgba(227,24,55,0.2)}}
+@keyframes shimmer{0%{background-position:-1000px 0}100%{background-position:1000px 0}}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes countUp{from{opacity:0;transform:scale(0.5)}to{opacity:1;transform:scale(1)}}
+@keyframes borderFlow{0%,100%{border-color:#E31837}50%{border-color:#FF2D4A}}
+@keyframes writeIn{from{width:0}to{width:100%}}
+@keyframes blinkCursor{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes glow{0%,100%{text-shadow:0 0 10px rgba(227,24,55,0.5)}50%{text-shadow:0 0 20px rgba(227,24,55,0.8),0 0 40px rgba(227,24,55,0.3)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes progressBar{from{width:0}to{width:var(--w)}}
+@keyframes ripple{0%{transform:scale(0);opacity:1}100%{transform:scale(4);opacity:0}}
+@keyframes carouselScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes greenPulse{0%,100%{box-shadow:0 0 0 0 rgba(0,200,81,0.4)}50%{box-shadow:0 0 15px 3px rgba(0,200,81,0.2)}}
 
-    .carousel-track {
-      display: flex;
-      animation: carousel-move 30s linear infinite;
-    }
-    .carousel-track:hover { animation-play-state: paused; }
+.fadeUp{animation:fadeUp 0.5s ease forwards}
+.fadeIn{animation:fadeIn 0.4s ease forwards}
+.slideUp{animation:slideUp 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards}
+.pulse-red{animation:pulseRed 2s infinite}
+.glow-text{animation:glow 3s infinite}
+.float-anim{animation:float 3s ease-in-out infinite}
 
-    .task-ring {
-      width: 120px; height: 120px;
-      border-radius: 50%;
-      position: relative;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .ring-bg {
-      position: absolute; inset: 0;
-      border-radius: 50%;
-      border: 4px solid #1a1a1a;
-    }
-    .ring-progress {
-      position: absolute; inset: 0;
-      border-radius: 50%;
-      border: 4px solid transparent;
-      border-top-color: #D4AF37;
-      border-right-color: #D4AF37;
-      transition: all 0.5s ease;
-    }
-    .upgrade-card {
-      background: linear-gradient(135deg, #0d0d0d 0%, #1a1a0d 100%);
-      border-radius: 20px;
-      overflow: hidden;
-      position: relative;
-    }
-    .upgrade-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #D4AF37, transparent);
-    }
+.br-card{background:var(--br-card);border:1px solid var(--br-border);border-radius:12px}
+.br-card2{background:var(--br-card2);border:1px solid var(--br-border2);border-radius:12px}
+.br-glass{background:rgba(255,255,255,0.03);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.06);border-radius:16px}
 
-    input[type="text"], input[type="number"], input[type="email"] {
-      background: #111 !important;
-      border: 1px solid #D4AF3744 !important;
-      color: #fff !important;
-      border-radius: 12px !important;
-      padding: 12px 16px !important;
-      width: 100%;
-      outline: none;
-      font-family: 'Cairo', sans-serif;
-    }
-    input[type="text"]:focus, input[type="number"]:focus {
-      border-color: #D4AF37 !important;
-      box-shadow: 0 0 15px #D4AF3733;
-    }
+.btn-primary{
+  background:var(--br-red);color:#fff;font-weight:700;border-radius:8px;
+  padding:14px 24px;border:none;cursor:pointer;font-family:'Inter','Cairo',sans-serif;
+  font-size:14px;transition:all 0.2s ease;position:relative;overflow:hidden;width:100%;
+}
+.btn-primary:hover{background:var(--br-red-light);transform:translateY(-1px)}
+.btn-primary:active{transform:scale(0.98)}
+.btn-secondary{
+  background:transparent;color:#fff;font-weight:600;border-radius:8px;
+  padding:13px 24px;border:1px solid var(--br-border2);cursor:pointer;
+  font-family:'Inter','Cairo',sans-serif;font-size:14px;transition:all 0.2s ease;width:100%;
+}
+.btn-secondary:hover{border-color:#555;background:#111}
+.btn-red-outline{
+  background:transparent;color:var(--br-red);font-weight:600;border-radius:8px;
+  padding:13px 24px;border:1px solid var(--br-red);cursor:pointer;
+  font-family:'Inter','Cairo',sans-serif;font-size:14px;transition:all 0.2s ease;width:100%;
+}
+.btn-red-outline:hover{background:rgba(227,24,55,0.08)}
 
-    .btn-gold {
-      background: linear-gradient(135deg, #D4AF37, #FFD700, #B8960C);
-      color: #000;
-      font-weight: 800;
-      border-radius: 14px;
-      padding: 14px 24px;
-      width: 100%;
-      border: none;
-      cursor: pointer;
-      font-family: 'Cairo', sans-serif;
-      font-size: 16px;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    .btn-gold:active { transform: scale(0.97); }
-    .btn-gold::after {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: left 0.5s ease;
-    }
-    .btn-gold:hover::after { left: 100%; }
+.tag{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:0.5px}
+.tag-red{background:rgba(227,24,55,0.15);color:var(--br-red);border:1px solid rgba(227,24,55,0.3)}
+.tag-green{background:rgba(0,200,81,0.12);color:var(--br-green);border:1px solid rgba(0,200,81,0.3)}
+.tag-gold{background:rgba(255,184,0,0.12);color:var(--br-gold);border:1px solid rgba(255,184,0,0.3)}
+.tag-blue{background:rgba(59,130,246,0.12);color:#60A5FA;border:1px solid rgba(59,130,246,0.3)}
+.tag-purple{background:rgba(139,92,246,0.12);color:#A78BFA;border:1px solid rgba(139,92,246,0.3)}
 
-    .btn-emerald {
-      background: linear-gradient(135deg, #059669, #10B981);
-      color: #fff;
-      font-weight: 700;
-      border-radius: 14px;
-      padding: 14px 24px;
-      width: 100%;
-      border: none;
-      cursor: pointer;
-      font-family: 'Cairo', sans-serif;
-      font-size: 16px;
-      transition: all 0.3s ease;
-    }
-    .btn-emerald:active { transform: scale(0.97); }
+input,textarea{
+  background:#0d0d0d!important;border:1px solid var(--br-border2)!important;
+  color:#fff!important;border-radius:8px!important;padding:12px 16px!important;
+  width:100%;outline:none;font-family:'Inter','Cairo',sans-serif;font-size:14px;
+  transition:border-color 0.2s ease;
+}
+input:focus,textarea:focus{border-color:var(--br-red)!important;box-shadow:0 0 0 3px rgba(227,24,55,0.1)!important}
+input::placeholder{color:#444!important}
 
-    .btn-outline {
-      background: transparent;
-      color: #D4AF37;
-      font-weight: 700;
-      border-radius: 14px;
-      padding: 12px 24px;
-      width: 100%;
-      border: 1px solid #D4AF37;
-      cursor: pointer;
-      font-family: 'Cairo', sans-serif;
-      font-size: 15px;
-      transition: all 0.3s ease;
-    }
-    .btn-outline:active { background: #D4AF3711; }
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(8px);
+  z-index:1000;display:flex;align-items:flex-end;justify-content:center;
+}
+.modal-sheet{
+  background:#0A0A0A;border:1px solid var(--br-border2);
+  border-radius:20px 20px 0 0;padding:0;width:100%;max-width:480px;
+  max-height:92vh;overflow-y:auto;animation:slideUp 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+.modal-handle{width:36px;height:3px;background:#2a2a2a;border-radius:2px;margin:16px auto 0}
 
-    .stat-card {
-      background: linear-gradient(135deg, #0d0d0d, #111108);
-      border: 1px solid #D4AF3733;
-      border-radius: 16px;
-      padding: 16px;
-      text-align: center;
-    }
+.nav-item{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:8px 18px;border-radius:10px;cursor:pointer;transition:all 0.2s ease;border:none;background:none;
+}
+.nav-item-active{background:rgba(227,24,55,0.1)}
 
-    .package-badge {
-      font-size: 10px;
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-weight: 700;
-    }
+.stat-box{background:#0d0d0d;border:1px solid var(--br-border);border-radius:10px;padding:16px;text-align:center}
 
-    .notification-toast {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 9999;
-      background: linear-gradient(135deg, #1a1a0d, #0d0d0d);
-      border: 1px solid #D4AF37;
-      border-radius: 14px;
-      padding: 12px 24px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      animation: slideUp 0.3s ease;
-      box-shadow: 0 10px 40px #D4AF3733;
-      min-width: 280px;
-      text-align: center;
-    }
+.carousel-wrap{overflow:hidden;border-radius:12px}
+.carousel-inner{display:flex;gap:12px;width:max-content;animation:carouselScroll 40s linear infinite}
+.carousel-inner:hover{animation-play-state:paused}
 
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(6px);
-      z-index: 1000;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-    }
-    .modal-sheet {
-      background: #0d0d0d;
-      border: 1px solid #D4AF3744;
-      border-radius: 24px 24px 0 0;
-      padding: 24px;
-      width: 100%;
-      max-width: 480px;
-      max-height: 90vh;
-      overflow-y: auto;
-      animation: slideUp 0.4s ease;
-    }
-    .modal-handle {
-      width: 40px; height: 4px;
-      background: #333;
-      border-radius: 2px;
-      margin: 0 auto 20px;
-    }
+.package-card{border-radius:14px;overflow:hidden;position:relative;transition:all 0.3s ease}
+.package-card:active{transform:scale(0.98)}
 
-    .tier-0 { background: linear-gradient(135deg, #1a1a1a, #0d0d0d); border: 1px solid #444; }
-    .tier-1 { background: linear-gradient(135deg, #0d1a0d, #071407); border: 1px solid #10B98155; }
-    .tier-2 { background: linear-gradient(135deg, #1a0d0d, #140707); border: 1px solid #3B82F655; }
-    .tier-3 { background: linear-gradient(135deg, #1a1a0d, #14140d); border: 1px solid #D4AF3755; }
-    .tier-4 { background: linear-gradient(135deg, #1a0d1a, #14071a); border: 1px solid #8B5CF655; }
-    .tier-5 { background: linear-gradient(135deg, #1a0808, #140404); border: 1px solid #EF444455; }
-    .tier-6 { background: linear-gradient(135deg, #080d1a, #040a14); border: 1px solid #06B6D455; }
-  </style>
+.progress-ring{transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:#1a1a1a;stroke-width:6}
+.ring-fg{fill:none;stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset 1s ease}
+
+.task-item{
+  background:#0d0d0d;border:1px solid var(--br-border);border-radius:12px;
+  padding:16px;display:flex;align-items:center;gap:14px;transition:all 0.3s ease;cursor:pointer;
+}
+.task-item:active{transform:scale(0.98)}
+.task-item-active{border-color:var(--br-red)!important;background:#110000!important;box-shadow:0 0 20px rgba(227,24,55,0.1)!important}
+.task-item-done{border-color:rgba(0,200,81,0.3)!important;background:#001108!important}
+
+.security-doc{
+  background:linear-gradient(180deg,#0d0900 0%,#080600 100%);
+  border:1px solid rgba(255,184,0,0.3);border-radius:16px;overflow:hidden;
+}
+.doc-header{
+  background:linear-gradient(135deg,#1a1200,#0d0900);
+  border-bottom:1px solid rgba(255,184,0,0.2);padding:24px;text-align:center;
+}
+.watermark{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  opacity:0.03;font-size:80px;font-weight:900;color:#FFB800;pointer-events:none;
+  letter-spacing:-4px;
+}
+.official-seal{
+  width:80px;height:80px;border-radius:50%;
+  background:linear-gradient(135deg,#FFB800,#FF8C00);
+  display:flex;align-items:center;justify-content:center;
+  font-size:36px;margin:0 auto 12px;
+  box-shadow:0 0 30px rgba(255,184,0,0.4);
+}
+.signature-line{
+  border-bottom:2px solid rgba(255,184,0,0.6);
+  padding-bottom:8px;margin-top:20px;position:relative;
+}
+.signature-text{
+  font-family:'Inter',cursive;font-style:italic;
+  color:#FFB800;font-size:22px;font-weight:700;
+  text-shadow:0 0 10px rgba(255,184,0,0.5);
+}
+.contract-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:12px 0;border-bottom:1px solid rgba(255,184,0,0.1);
+}
+.contract-row:last-child{border-bottom:none}
+
+.company-hero{
+  background:linear-gradient(160deg,#0a0000 0%,#000 50%,#000a1a 100%);
+  border:1px solid rgba(227,24,55,0.2);border-radius:16px;overflow:hidden;position:relative;
+}
+
+.ref-card{
+  background:linear-gradient(135deg,#110000,#0d0d0d);
+  border:1px solid rgba(227,24,55,0.2);border-radius:14px;padding:20px;position:relative;overflow:hidden;
+}
+.ref-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--br-red),transparent);
+}
+
+.leaderboard-row{
+  background:#0d0d0d;border:1px solid var(--br-border);border-radius:10px;
+  padding:14px 16px;display:flex;align-items:center;gap:12px;
+  transition:all 0.2s;
+}
+.leaderboard-row:hover{border-color:#2a2a2a;background:#111}
+
+.contest-card{
+  background:linear-gradient(135deg,#0d0800,#080008);
+  border:1px solid rgba(255,184,0,0.25);border-radius:16px;overflow:hidden;position:relative;
+}
+.contest-card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 0%,rgba(255,184,0,0.05) 0%,transparent 70%);
+  pointer-events:none;
+}
+
+.ticker-wrap{overflow:hidden;background:#0a0a0a;border-top:1px solid var(--br-border);border-bottom:1px solid var(--br-border);padding:10px 0}
+.ticker-inner{display:flex;gap:40px;width:max-content;animation:ticker 20s linear infinite}
+
+.br-divider{height:1px;background:linear-gradient(90deg,transparent,var(--br-border2),transparent);margin:20px 0}
+.br-divider-red{height:1px;background:linear-gradient(90deg,transparent,rgba(227,24,55,0.3),transparent);margin:20px 0}
+
+.notification-toast{
+  position:fixed;top:16px;left:50%;transform:translateX(-50%);
+  z-index:9999;background:#111;border:1px solid #2a2a2a;
+  border-radius:10px;padding:12px 20px;display:flex;align-items:center;gap:10px;
+  animation:slideUp 0.3s ease;box-shadow:0 10px 40px rgba(0,0,0,0.8);
+  min-width:260px;max-width:360px;
+}
+.copy-btn{
+  background:#1a1a1a;border:1px solid #2a2a2a;color:#999;border-radius:6px;
+  padding:6px 12px;cursor:pointer;font-size:12px;font-family:'Inter','Cairo',sans-serif;
+  transition:all 0.2s;white-space:nowrap;
+}
+.copy-btn:hover{background:#222;color:#fff;border-color:#444}
+
+.section-title{
+  font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--br-muted);margin-bottom:16px;
+}
+
+.bottom-nav{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  background:rgba(0,0,0,0.95);backdrop-filter:blur(20px);
+  border-top:1px solid var(--br-border);
+  display:flex;justify-content:space-around;
+  padding:8px 0 22px;z-index:100;width:100%;max-width:480px;
+}
+</style>
 </head>
 <body>
 <div id="root"></div>
-
 <script type="text/babel">
-const { useState, useEffect, useRef, useCallback } = React;
+const {useState,useEffect,useRef,useCallback,useMemo}=React;
 
-// ==================== DATA ====================
-const PACKAGES = [
-  { id: 0, name: "Starter", icon: "⭐", price: 0, tasks: 5, dailyEarning: 0.17, validity: 3, tier: "tier-0", color: "#aaa", priceAlg: "مجاني", desc: "ابدأ رحلتك", popular: false },
-  { id: 1, name: "NEXUS", icon: "🔷", price: 28, tasks: 5, dailyEarning: 0.86, validity: 30, tier: "tier-1", color: "#10B981", priceAlg: "7,000 دج", desc: "للمبتدئين", popular: false },
-  { id: 2, name: "ORBIT", icon: "🌀", price: 106.4, tasks: 10, dailyEarning: 3.44, validity: 30, tier: "tier-2", color: "#3B82F6", priceAlg: "26,600 دج", desc: "الأكثر مرونة", popular: false },
-  { id: 3, name: "APEX", icon: "🏆", price: 380, tasks: 25, dailyEarning: 13.1, validity: 30, tier: "tier-3", color: "#D4AF37", priceAlg: "95,000 دج", desc: "للمحترفين", popular: true },
-  { id: 4, name: "STELLAR", icon: "🌟", price: 1200, tasks: 50, dailyEarning: 44.4, validity: 30, tier: "tier-4", color: "#8B5CF6", priceAlg: "300,000 دج", desc: "أرباح عالية", popular: false },
-  { id: 5, name: "SUPERNOVA", icon: "💥", price: 3120, tasks: 80, dailyEarning: 124.8, validity: 30, tier: "tier-5", color: "#EF4444", priceAlg: "780,000 دج", desc: "للمستثمرين", popular: false },
-  { id: 6, name: "GALAXY", icon: "🌌", price: 7800, tasks: 130, dailyEarning: 339, validity: 30, tier: "tier-6", color: "#06B6D4", priceAlg: "1,950,000 دج", desc: "القمة المطلقة", popular: false },
+/* ═══════════════════════════════════════
+   DATA
+═══════════════════════════════════════ */
+const PACKAGES=[
+  {id:0,name:"Starter",symbol:"S",price:0,tasks:5,daily:0.17,validity:3,color:"#888",bg:"linear-gradient(135deg,#111,#0d0d0d)",border:"#333",priceAlg:"مجاني",roi:0,rank:"Starter"},
+  {id:1,name:"NEXUS",symbol:"N",price:28,tasks:5,daily:0.86,validity:30,color:"#00C851",bg:"linear-gradient(135deg,#001108,#000d0a)",border:"rgba(0,200,81,0.3)",priceAlg:"7,000 دج",roi:92,rank:"Bronze"},
+  {id:2,name:"ORBIT",symbol:"O",price:106.4,tasks:10,daily:3.44,validity:30,color:"#3B82F6",bg:"linear-gradient(135deg,#000818,#000d14)",border:"rgba(59,130,246,0.3)",priceAlg:"26,600 دج",roi:97,rank:"Silver"},
+  {id:3,name:"APEX",symbol:"A",price:380,tasks:25,daily:13.1,validity:30,color:"#FFB800",bg:"linear-gradient(135deg,#110800,#0d0600)",border:"rgba(255,184,0,0.35)",priceAlg:"95,000 دج",roi:103,rank:"Gold",popular:true},
+  {id:4,name:"STELLAR",symbol:"ST",price:1200,tasks:50,daily:44.4,validity:30,color:"#8B5CF6",bg:"linear-gradient(135deg,#080012,#06000e)",border:"rgba(139,92,246,0.3)",priceAlg:"300,000 دج",roi:111,rank:"Platinum"},
+  {id:5,name:"SUPERNOVA",symbol:"SN",price:3120,tasks:80,daily:124.8,validity:30,color:"#E31837",bg:"linear-gradient(135deg,#110005,#0d0003)",border:"rgba(227,24,55,0.3)",priceAlg:"780,000 دج",roi:120,rank:"Diamond"},
+  {id:6,name:"GALAXY",symbol:"G",price:7800,tasks:130,daily:339,validity:30,color:"#06B6D4",bg:"linear-gradient(135deg,#000a12,#00080e)",border:"rgba(6,182,212,0.3)",priceAlg:"1,950,000 دج",roi:130,rank:"Elite"},
 ];
 
-const NEWS_CARDS = [
-  { title: "BlackRock تعلن نمو أصولها فوق 10.2 تريليون دولار", category: "أخبار الأسواق", icon: "📈", color: "#D4AF37" },
-  { title: "توقعات إيجابية للأسواق الناشئة في 2025", category: "تحليلات", icon: "🌍", color: "#10B981" },
-  { title: "صناديق iShares تسجل تدفقات قياسية جديدة", category: "استثمارات", icon: "💼", color: "#3B82F6" },
-  { title: "BlackRock تتوسع في أسواق الشرق الأوسط وإفريقيا", category: "توسع عالمي", icon: "🚀", color: "#8B5CF6" },
-  { title: "منصة Aladdin تعزز إدارة المخاطر المؤسسية", category: "تقنية", icon: "🔐", color: "#EF4444" },
-  { title: "شراكة استراتيجية مع البنك الدولي للتنمية", category: "شراكات", icon: "🤝", color: "#06B6D4" },
+const NEWS=[
+  {title:"BlackRock Q3 2025: AUM Surpasses $10.2 Trillion",cat:"Earnings",color:"#E31837",icon:"📊"},
+  {title:"iShares ETF Inflows Hit Record $85B This Quarter",cat:"Markets",color:"#00C851",icon:"📈"},
+  {title:"BlackRock Expands MENA Operations",cat:"Global",color:"#3B82F6",icon:"🌍"},
+  {title:"Aladdin Platform Onboards 50 New Institutional Clients",cat:"Technology",color:"#8B5CF6",icon:"⚡"},
+  {title:"BLK Stock Reaches All-Time High on NYSE",cat:"NYSE: BLK",color:"#FFB800",icon:"🏛️"},
+  {title:"BlackRock Partners with World Bank on Climate Fund",cat:"ESG",color:"#06B6D4",icon:"🌱"},
 ];
 
-const formatNum = (n, dec = 2) => Number(n).toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+const TICKERS=[
+  {s:"BLK",p:"$897.42",c:"+1.24%",up:true},
+  {s:"SPY",p:"$543.18",c:"+0.87%",up:true},
+  {s:"IVV",p:"$541.23",c:"+0.91%",up:true},
+  {s:"AGG",p:"$98.54",c:"-0.12%",up:false},
+  {s:"GLD",p:"$231.80",c:"+0.45%",up:true},
+  {s:"TLT",p:"$94.21",c:"-0.38%",up:false},
+];
 
-// ==================== TOAST ====================
-const Toast = ({ msg, type, onClose }) => {
-  useEffect(() => {
-    const t = setTimeout(onClose, 3000);
-    return () => clearTimeout(t);
-  }, []);
-  const colors = { success: "#10B981", error: "#EF4444", warning: "#D4AF37", info: "#3B82F6" };
-  const icons = { success: "✅", error: "❌", warning: "⚠️", info: "ℹ️" };
-  return (
-    <div className="notification-toast" style={{ borderColor: colors[type] || "#D4AF37" }}>
-      <span style={{ fontSize: 20 }}>{icons[type] || "💬"}</span>
-      <span style={{ color: "#fff", fontSize: 14, fontWeight: 600 }}>{msg}</span>
+const ALGERIAN_NAMES=[
+  {name:"Youcef B.",city:"الجزائر العاصمة",amount:"$28.00"},
+  {name:"Amina K.",city:"وهران",amount:"$106.40"},
+  {name:"Karim M.",city:"قسنطينة",amount:"$380.00"},
+  {name:"Nour H.",city:"عنابة",amount:"$28.00"},
+  {name:"Sofiane R.",city:"سطيف",amount:"$106.40"},
+  {name:"Meriem L.",city:"تلمسان",amount:"$1,200.00"},
+  {name:"Walid T.",city:"بجاية",amount:"$380.00"},
+  {name:"Dalila F.",city:"باتنة",amount:"$28.00"},
+  {name:"Riad N.",city:"بسكرة",amount:"$106.40"},
+  {name:"Hassiba O.",city:"تيزي وزو",amount:"$3,120.00"},
+];
+
+const fmt=(n,d=2)=>Number(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+const genRef=()=>"BLK-"+(Math.random().toString(36).substr(2,8)).toUpperCase();
+
+/* ═══════════════════════════════════════
+   TOAST
+═══════════════════════════════════════ */
+const Toast=({msg,type,onClose})=>{
+  useEffect(()=>{const t=setTimeout(onClose,3500);return()=>clearTimeout(t)},[]);
+  const c={success:"#00C851",error:"#E31837",warning:"#FFB800",info:"#3B82F6"};
+  const ic={success:"✓",error:"✕",warning:"!",info:"i"};
+  return(
+    <div className="notification-toast" style={{borderLeft:`3px solid ${c[type]||"#E31837"}`}}>
+      <div style={{width:22,height:22,borderRadius:"50%",background:c[type],display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,fontWeight:900,flexShrink:0}}>
+        {ic[type]}
+      </div>
+      <span style={{color:"#eee",fontSize:13,fontWeight:500,fontFamily:"'Inter','Cairo',sans-serif"}}>{msg}</span>
     </div>
   );
 };
 
-// ==================== CAROUSEL ====================
-const NewsCarousel = () => {
-  const doubled = [...NEWS_CARDS, ...NEWS_CARDS];
-  return (
-    <div style={{ overflow: 'hidden', borderRadius: 16, marginBottom: 20 }}>
-      <div className="carousel-track" style={{ gap: 12, width: 'max-content' }}>
-        {doubled.map((item, i) => (
+/* ═══════════════════════════════════════
+   TICKER BAR
+═══════════════════════════════════════ */
+const TickerBar=()=>(
+  <div className="ticker-wrap">
+    <div className="ticker-inner">
+      {[...TICKERS,...TICKERS].map((t,i)=>(
+        <div key={i} style={{display:"flex",alignItems:"center",gap:8,flexShrink:0}}>
+          <span style={{color:"#fff",fontWeight:700,fontSize:12,fontFamily:"'Inter',sans-serif"}}>{t.s}</span>
+          <span style={{color:"#ccc",fontSize:12,fontFamily:"'Inter',sans-serif"}}>{t.p}</span>
+          <span style={{color:t.up?"#00C851":"#E31837",fontSize:11,fontWeight:600,fontFamily:"'Inter',sans-serif"}}>{t.c}</span>
+          <span style={{color:"#222",fontSize:14,marginLeft:8}}>|</span>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+/* ═══════════════════════════════════════
+   NEWS CAROUSEL
+═══════════════════════════════════════ */
+const NewsCarousel=()=>{
+  const items=[...NEWS,...NEWS];
+  return(
+    <div className="carousel-wrap" style={{marginBottom:20}}>
+      <div className="carousel-inner">
+        {items.map((n,i)=>(
           <div key={i} style={{
-            minWidth: 260, background: `linear-gradient(135deg, #0d0d0d, #111108)`,
-            border: `1px solid ${item.color}44`, borderRadius: 16, padding: '14px 16px',
-            borderTop: `2px solid ${item.color}`
+            minWidth:240,background:"#0d0d0d",border:`1px solid ${n.color}22`,
+            borderRadius:10,padding:14,borderTop:`2px solid ${n.color}`,flexShrink:0
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-              <span style={{ fontSize: 22 }}>{item.icon}</span>
-              <span style={{ fontSize: 10, color: item.color, fontWeight: 700, background: `${item.color}22`, padding: '2px 8px', borderRadius: 20 }}>{item.category}</span>
-            </div>
-            <p style={{ color: '#ddd', fontSize: 13, lineHeight: 1.6, fontWeight: 600 }}>{item.title}</p>
+            <div className="tag tag-red" style={{marginBottom:8,fontSize:10,background:`${n.color}18`,color:n.color,borderColor:`${n.color}44`}}>{n.icon} {n.cat}</div>
+            <p style={{color:"#ddd",fontSize:12,lineHeight:1.6,fontFamily:"'Inter',sans-serif",fontWeight:500}}>{n.title}</p>
           </div>
         ))}
       </div>
@@ -323,796 +347,1182 @@ const NewsCarousel = () => {
   );
 };
 
-// ==================== HOME PAGE ====================
-const HomePage = ({ user, setUser, setPage, showToast }) => {
-  const [showDeposit, setShowDeposit] = useState(false);
-  const [showWithdraw, setShowWithdraw] = useState(false);
-  const [amount, setAmount] = useState('');
-  const pkg = PACKAGES.find(p => p.id === user.packageId) || PACKAGES[0];
-
-  const handleWithdraw = () => {
-    if (!amount || Number(amount) <= 0) return showToast("أدخل مبلغاً صحيحاً", "error");
-    if (Number(amount) > user.balance) return showToast("رصيدك غير كافٍ", "error");
-    if (Number(amount) < 5) return showToast("الحد الأدنى للسحب 5$", "warning");
-    setUser(u => ({ ...u, balance: u.balance - Number(amount) }));
-    showToast(`تم طلب سحب ${amount}$ بنجاح`, "success");
-    setShowWithdraw(false);
-    setAmount('');
-  };
-
-  return (
-    <div className="page-enter" style={{ padding: '0 0 100px 0' }}>
-      {/* Header */}
-      <div style={{ padding: '20px 20px 0', background: 'linear-gradient(180deg, #0a0a00 0%, #000 100%)', paddingTop: 50 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-          <div>
-            <p style={{ color: '#888', fontSize: 12, marginBottom: 4 }}>مرحباً 👋</p>
-            <h2 style={{ color: '#fff', fontSize: 18, fontWeight: 800 }}>{user.name}</h2>
+/* ═══════════════════════════════════════
+   SECURITY MODAL
+═══════════════════════════════════════ */
+const SecurityModal=({onClose})=>(
+  <div className="modal-overlay" onClick={onClose}>
+    <div className="modal-sheet" style={{maxHeight:"94vh"}} onClick={e=>e.stopPropagation()}>
+      <div className="modal-handle"/>
+      
+      {/* Document */}
+      <div style={{padding:"20px 20px 30px"}}>
+        
+        {/* Official Header */}
+        <div className="security-doc" style={{position:"relative",overflow:"hidden"}}>
+          <div className="watermark">BLK</div>
+          
+          {/* Doc Top Header */}
+          <div style={{
+            background:"linear-gradient(135deg,#1a0f00,#0d0700)",
+            borderBottom:"1px solid rgba(255,184,0,0.2)",
+            padding:"24px 20px",textAlign:"center",position:"relative"
+          }}>
+            {/* US Flag Banner */}
+            <div style={{
+              background:"linear-gradient(90deg,#B22234,#FFFFFF,#3C3B6E)",
+              height:6,borderRadius:3,marginBottom:20,opacity:0.8
+            }}/>
+            
+            {/* Seal */}
+            <div style={{position:"relative",display:"inline-block",marginBottom:12}}>
+              <div style={{
+                width:80,height:80,borderRadius:"50%",
+                background:"linear-gradient(135deg,#FFB800,#FF8C00,#FFD700)",
+                display:"flex",alignItems:"center",justifyContent:"center",
+                fontSize:36,boxShadow:"0 0 40px rgba(255,184,0,0.5),0 0 80px rgba(255,184,0,0.2)",
+                border:"3px solid rgba(255,184,0,0.6)"
+              }}>🏛️</div>
+              <div style={{
+                position:"absolute",bottom:-4,right:-4,width:28,height:28,
+                background:"#000",border:"2px solid #FFB800",borderRadius:"50%",
+                display:"flex",alignItems:"center",justifyContent:"center",fontSize:14
+              }}>🇺🇸</div>
+            </div>
+            
+            <div style={{fontSize:10,letterSpacing:3,color:"rgba(255,184,0,0.6)",marginBottom:6,fontFamily:"'Inter',sans-serif",textTransform:"uppercase"}}>Official Document</div>
+            <h2 style={{color:"#FFB800",fontSize:20,fontWeight:900,fontFamily:"'Inter',sans-serif",letterSpacing:1,marginBottom:4}}>BlackRock, Inc.</h2>
+            <div style={{fontSize:11,color:"#aaa",fontFamily:"'Inter',sans-serif"}}>Security & Contract Certificate</div>
+            
+            {/* US Flag Bottom */}
+            <div style={{
+              background:"linear-gradient(90deg,#B22234,#FFFFFF,#3C3B6E)",
+              height:4,borderRadius:2,marginTop:16,opacity:0.6
+            }}/>
           </div>
-          <div style={{ textAlign: 'left' }}>
-            <div style={{ width: 44, height: 44, borderRadius: '50%', background: 'linear-gradient(135deg, #D4AF37, #FFD700)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20 }}>
-              {user.avatar}
-            </div>
-          </div>
-        </div>
-
-        {/* Balance Card */}
-        <div className="gold-pulse" style={{
-          background: 'linear-gradient(135deg, #1a1500, #0d0d00, #1a1500)',
-          border: '1px solid #D4AF37',
-          borderRadius: 24, padding: '28px 24px', marginBottom: 20, textAlign: 'center', position: 'relative', overflow: 'hidden'
-        }}>
-          <div style={{ position: 'absolute', top: -20, right: -20, width: 120, height: 120, background: '#D4AF3711', borderRadius: '50%' }} />
-          <div style={{ position: 'absolute', bottom: -30, left: -30, width: 160, height: 160, background: '#D4AF3708', borderRadius: '50%' }} />
-          <p style={{ color: '#D4AF3799', fontSize: 13, marginBottom: 8, fontWeight: 600 }}>💰 رصيدك الإجمالي</p>
-          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: 4 }}>
-            <span style={{ color: '#D4AF37', fontSize: 44, fontWeight: 900, lineHeight: 1 }}>{formatNum(user.balance)}</span>
-            <span style={{ color: '#D4AF37', fontSize: 22, fontWeight: 700 }}>$</span>
-          </div>
-          <p style={{ color: '#888', fontSize: 12, marginTop: 6 }}>≈ {formatNum(user.balance * 250, 0)} دج</p>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: 20, marginTop: 16 }}>
-            <div style={{ textAlign: 'center' }}>
-              <p style={{ color: '#888', fontSize: 11 }}>الربح اليومي</p>
-              <p style={{ color: '#10B981', fontWeight: 800, fontSize: 15 }}>{formatNum(pkg.dailyEarning)}$</p>
-            </div>
-            <div style={{ width: 1, background: '#D4AF3733' }} />
-            <div style={{ textAlign: 'center' }}>
-              <p style={{ color: '#888', fontSize: 11 }}>باقتك الحالية</p>
-              <p style={{ color: pkg.color, fontWeight: 800, fontSize: 15 }}>{pkg.icon} {pkg.name}</p>
-            </div>
-            <div style={{ width: 1, background: '#D4AF3733' }} />
-            <div style={{ textAlign: 'center' }}>
-              <p style={{ color: '#888', fontSize: 11 }}>المهام اليومية</p>
-              <p style={{ color: '#D4AF37', fontWeight: 800, fontSize: 15 }}>{user.tasksLeft}/{pkg.tasks}</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Action Buttons */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 20 }}>
-          <button className="btn-gold" onClick={() => setShowDeposit(true)} style={{ borderRadius: 16, padding: '16px 12px', fontSize: 15 }}>
-            <div>💳</div>
-            <div>شحن الرصيد</div>
-          </button>
-          <button className="btn-emerald" onClick={() => setShowWithdraw(true)} style={{ borderRadius: 16, padding: '16px 12px', fontSize: 15 }}>
-            <div>💸</div>
-            <div>سحب الأرباح</div>
-          </button>
-        </div>
-
-        {/* Quick Stats */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10, marginBottom: 20 }}>
-          {[
-            { label: "إجمالي المكتسب", value: `${formatNum(user.totalEarned)}$`, icon: "📊" },
-            { label: "أيام النشاط", value: user.activeDays, icon: "📅" },
-            { label: "المهام المنجزة", value: user.completedTasks, icon: "✅" },
-          ].map((s, i) => (
-            <div key={i} className="stat-card">
-              <div style={{ fontSize: 22, marginBottom: 6 }}>{s.icon}</div>
-              <div style={{ color: '#D4AF37', fontWeight: 800, fontSize: 16 }}>{s.value}</div>
-              <div style={{ color: '#666', fontSize: 10, marginTop: 2 }}>{s.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Carousel */}
-      <div style={{ padding: '0 20px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-          <span style={{ color: '#D4AF37', fontWeight: 700, fontSize: 15 }}>📰 أخبار الأسواق العالمية</span>
-          <span style={{ color: '#555', fontSize: 11 }}>مباشر</span>
-        </div>
-        <NewsCarousel />
-      </div>
-
-      {/* Start Tasks CTA */}
-      <div style={{ padding: '0 20px' }}>
-        <button
-          className="btn-outline card-hover"
-          onClick={() => setPage('tasks')}
-          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, padding: '16px' }}
-        >
-          <span>⚡ ابدأ مهامك اليومية</span>
-          <span style={{ background: '#D4AF3722', padding: '2px 10px', borderRadius: 20, fontSize: 13 }}>{user.tasksLeft} مهمة</span>
-        </button>
-      </div>
-
-      {/* Deposit Modal */}
-      {showDeposit && (
-        <div className="modal-overlay" onClick={() => setShowDeposit(false)}>
-          <div className="modal-sheet" onClick={e => e.stopPropagation()}>
-            <div className="modal-handle" />
-            <div style={{ textAlign: 'center', marginBottom: 20 }}>
-              <div style={{ fontSize: 48, marginBottom: 10 }}>💳</div>
-              <h3 style={{ color: '#D4AF37', fontSize: 20, fontWeight: 800 }}>شحن الرصيد / الإيداع</h3>
-              <p style={{ color: '#666', fontSize: 13, marginTop: 6 }}>تواصل مع وكلائنا المعتمدين</p>
-            </div>
-
-            <div style={{ background: '#111', border: '1px solid #10B98155', borderRadius: 16, padding: 20, marginBottom: 16 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
-                <div style={{ width: 50, height: 50, background: '#1a4a2a', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 26 }}>📲</div>
-                <div>
-                  <p style={{ color: '#10B981', fontWeight: 700, fontSize: 15 }}>Signal Messenger</p>
-                  <p style={{ color: '#888', fontSize: 12 }}>التواصل الآمن والمشفر</p>
-                </div>
+          
+          {/* Title Section */}
+          <div style={{padding:"20px 20px 0",textAlign:"center"}}>
+            <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:12,marginBottom:20}}>
+              <div style={{fontSize:32}}>🛡️</div>
+              <div>
+                <h3 style={{color:"#FFB800",fontSize:17,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>الأمان والعقد</h3>
+                <p style={{color:"#888",fontSize:11,fontFamily:"'Inter','Cairo',sans-serif"}}>Security & Contract</p>
               </div>
-              <p style={{ color: '#aaa', fontSize: 13, marginBottom: 14, lineHeight: 1.8 }}>
-                للإيداع وشحن رصيدك، تواصل مع وكلائنا المعتمدين عبر تطبيق Signal
-              </p>
-              <a
-                href="https://signal.me/#eu/__kL4ayCt64xdRiSQWwYpMxOo5_u-Br5Y87rLvt7vQ9c0zoJJ3BEHIfxtpSC5JSE"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ display: 'block', textDecoration: 'none' }}
-              >
-                <button className="btn-emerald" style={{ fontSize: 15, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
-                  <span>📲</span> التواصل عبر Signal
-                </button>
-              </a>
-            </div>
-
-            <div style={{ background: '#0d1a0d', border: '1px solid #D4AF3733', borderRadius: 12, padding: 14, marginBottom: 16 }}>
-              <p style={{ color: '#D4AF37', fontSize: 12, fontWeight: 600, marginBottom: 6 }}>💡 معلومات مهمة</p>
-              <p style={{ color: '#888', fontSize: 12, lineHeight: 1.8 }}>
-                • سعر الصرف: 1$ = 250 دج<br />
-                • الحد الأدنى للإيداع: 7,000 دج (28$)<br />
-                • يتم تأكيد الإيداع خلال ساعة واحدة<br />
-                • جميع التحويلات مؤمّنة بالكامل
-              </p>
-            </div>
-
-            <button className="btn-outline" onClick={() => setShowDeposit(false)}>إغلاق</button>
-          </div>
-        </div>
-      )}
-
-      {/* Withdraw Modal */}
-      {showWithdraw && (
-        <div className="modal-overlay" onClick={() => setShowWithdraw(false)}>
-          <div className="modal-sheet" onClick={e => e.stopPropagation()}>
-            <div className="modal-handle" />
-            <div style={{ textAlign: 'center', marginBottom: 20 }}>
-              <div style={{ fontSize: 48, marginBottom: 10 }}>💸</div>
-              <h3 style={{ color: '#D4AF37', fontSize: 20, fontWeight: 800 }}>سحب الأرباح</h3>
-              <p style={{ color: '#666', fontSize: 13, marginTop: 6 }}>رصيدك المتاح: <span style={{ color: '#10B981', fontWeight: 700 }}>{formatNum(user.balance)}$</span></p>
-            </div>
-            <div style={{ marginBottom: 16 }}>
-              <label style={{ color: '#D4AF37', fontSize: 13, fontWeight: 600, display: 'block', marginBottom: 8 }}>المبلغ المطلوب سحبه ($)</label>
-              <input type="number" placeholder="مثال: 10.00" value={amount} onChange={e => setAmount(e.target.value)} />
-              {amount && <p style={{ color: '#888', fontSize: 12, marginTop: 6 }}>≈ {formatNum(Number(amount) * 250, 0)} دج</p>}
-            </div>
-            <div style={{ background: '#111', border: '1px solid #D4AF3722', borderRadius: 12, padding: 14, marginBottom: 16 }}>
-              <p style={{ color: '#888', fontSize: 12, lineHeight: 1.8 }}>
-                • الحد الأدنى للسحب: 5$<br />
-                • رسوم المعالجة: 0%<br />
-                • وقت المعالجة: 24-48 ساعة<br />
-                • للمساعدة تواصل عبر <a href="https://signal.me/#eu/__kL4ayCt64xdRiSQWwYpMxOo5_u-Br5Y87rLvt7vQ9c0zoJJ3BEHIfxtpSC5JSE" target="_blank" style={{ color: '#10B981' }}>Signal</a>
-              </p>
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-              <button className="btn-outline" onClick={() => setShowWithdraw(false)}>إلغاء</button>
-              <button className="btn-gold" onClick={handleWithdraw}>تأكيد السحب</button>
             </div>
           </div>
-        </div>
-      )}
-    </div>
-  );
-};
-
-// ==================== TASKS PAGE ====================
-const TasksPage = ({ user, setUser, showToast }) => {
-  const [currentTask, setCurrentTask] = useState(null);
-  const [timer, setTimer] = useState(40);
-  const [isRunning, setIsRunning] = useState(false);
-  const [tasksDone, setTasksDone] = useState([]);
-  const [blocked, setBlocked] = useState(false);
-  const [completedToday, setCompletedToday] = useState(0);
-  const intervalRef = useRef(null);
-  const pkg = PACKAGES.find(p => p.id === user.packageId) || PACKAGES[0];
-  const earningPerTask = pkg.dailyEarning / pkg.tasks;
-
-  const startTask = (taskIndex) => {
-    if (blocked) return showToast("مهامك موقوفة حتى الغد", "error");
-    if (tasksDone.includes(taskIndex)) return;
-    setCurrentTask(taskIndex);
-    setTimer(40);
-    setIsRunning(true);
-  };
-
-  useEffect(() => {
-    if (isRunning && timer > 0) {
-      intervalRef.current = setTimeout(() => setTimer(t => t - 1), 1000);
-    } else if (isRunning && timer === 0) {
-      // Task completed!
-      setTasksDone(prev => [...prev, currentTask]);
-      setCompletedToday(c => c + 1);
-      setUser(u => ({
-        ...u,
-        balance: u.balance + earningPerTask,
-        totalEarned: u.totalEarned + earningPerTask,
-        completedTasks: u.completedTasks + 1,
-        tasksLeft: Math.max(0, u.tasksLeft - 1),
-      }));
-      showToast(`🎉 مبروك! ربحت ${formatNum(earningPerTask)}$`, "success");
-      setIsRunning(false);
-      setCurrentTask(null);
-    }
-    return () => clearTimeout(intervalRef.current);
-  }, [isRunning, timer]);
-
-  const cancelTask = () => {
-    clearTimeout(intervalRef.current);
-    setIsRunning(false);
-    setCurrentTask(null);
-    setTimer(40);
-    setBlocked(true);
-    showToast("❌ خسرت ربح هذه المهمة! مهامك موقوفة حتى الغد.", "error");
-  };
-
-  const progress = ((40 - timer) / 40) * 100;
-  const circumference = 2 * Math.PI * 52;
-  const strokeDashoffset = circumference - (progress / 100) * circumference;
-  const availableTasks = pkg.tasks - tasksDone.length;
-
-  return (
-    <div className="page-enter" style={{ padding: '50px 20px 100px', minHeight: '100vh', background: 'linear-gradient(180deg, #050500 0%, #000 100%)' }}>
-      {/* Header */}
-      <div style={{ textAlign: 'center', marginBottom: 30 }}>
-        <h1 style={{ color: '#D4AF37', fontSize: 24, fontWeight: 900, marginBottom: 8 }}>⚡ مهامك اليومية</h1>
-        <p style={{ color: '#666', fontSize: 13 }}>أكمل المهام لكسب أرباحك اليومية</p>
-      </div>
-
-      {/* Stats */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10, marginBottom: 24 }}>
-        <div className="stat-card">
-          <div style={{ color: '#10B981', fontSize: 22, fontWeight: 800 }}>{completedToday}</div>
-          <div style={{ color: '#666', fontSize: 11 }}>منجزة</div>
-        </div>
-        <div className="stat-card">
-          <div style={{ color: '#D4AF37', fontSize: 22, fontWeight: 800 }}>{blocked ? 0 : availableTasks}</div>
-          <div style={{ color: '#666', fontSize: 11 }}>متبقية</div>
-        </div>
-        <div className="stat-card">
-          <div style={{ color: '#8B5CF6', fontSize: 16, fontWeight: 800 }}>{formatNum(completedToday * earningPerTask)}$</div>
-          <div style={{ color: '#666', fontSize: 11 }}>الربح اليوم</div>
-        </div>
-      </div>
-
-      {/* Blocked Warning */}
-      {blocked && (
-        <div style={{ background: '#1a0505', border: '1px solid #EF4444', borderRadius: 16, padding: 20, marginBottom: 24, textAlign: 'center' }}>
-          <div style={{ fontSize: 40, marginBottom: 10 }}>🚫</div>
-          <p style={{ color: '#EF4444', fontWeight: 700, fontSize: 16 }}>مهامك موقوفة لهذا اليوم</p>
-          <p style={{ color: '#888', fontSize: 13, marginTop: 6 }}>ستُفتح تلقائياً في اليوم التالي</p>
-        </div>
-      )}
-
-      {/* Active Task Timer */}
-      {isRunning && currentTask !== null && (
-        <div style={{
-          background: 'linear-gradient(135deg, #1a1500, #0d0d00)',
-          border: '2px solid #D4AF37',
-          borderRadius: 24, padding: 30, marginBottom: 24, textAlign: 'center',
-          animation: 'pulse-gold 2s infinite'
-        }}>
-          <p style={{ color: '#D4AF3799', fontSize: 13, marginBottom: 16 }}>المهمة {currentTask + 1} جارية...</p>
-
-          {/* SVG Ring Timer */}
-          <div style={{ position: 'relative', display: 'inline-block', marginBottom: 20 }}>
-            <svg width="120" height="120" style={{ transform: 'rotate(-90deg)' }}>
-              <circle cx="60" cy="60" r="52" fill="none" stroke="#1a1a1a" strokeWidth="8" />
-              <circle
-                cx="60" cy="60" r="52" fill="none"
-                stroke={timer > 20 ? "#D4AF37" : timer > 10 ? "#FF8C00" : "#EF4444"}
-                strokeWidth="8"
-                strokeLinecap="round"
-                strokeDasharray={circumference}
-                strokeDashoffset={strokeDashoffset}
-                style={{ transition: 'stroke-dashoffset 1s ease, stroke 0.3s ease' }}
-              />
-            </svg>
-            <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ color: timer > 10 ? '#D4AF37' : '#EF4444', fontSize: 32, fontWeight: 900 }}>{timer}</span>
-              <span style={{ color: '#666', fontSize: 11 }}>ثانية</span>
-            </div>
+          
+          {/* Contract Table */}
+          <div style={{padding:"0 20px 20px"}}>
+            {[
+              {label:"Registration",subLabel:"التوثيق",value:"NYSE: BLK",icon:"📊",color:"#3B82F6"},
+              {label:"Tax ID",subLabel:"الرقم الضريبي",value:"EIN: 32-0174431",icon:"🏛️",color:"#FFB800"},
+              {label:"Encryption",subLabel:"التشفير",value:"AES-256 + SSL/TLS 3.0",icon:"🔐",color:"#00C851"},
+              {label:"Algeria Contract",subLabel:"العقد الجزائري",value:"January 2025 ✅",icon:"🇩🇿",color:"#00C851"},
+              {label:"Contract End",subLabel:"نهاية العقد",value:"December 2027",icon:"📅",color:"#E31837"},
+              {label:"Fund Security",subLabel:"حماية الأموال",value:"100% Protected ✅",icon:"💰",color:"#00C851"},
+            ].map((r,i)=>(
+              <div key={i} className="contract-row">
+                <div style={{display:"flex",alignItems:"center",gap:10}}>
+                  <div style={{width:32,height:32,background:`${r.color}18`,border:`1px solid ${r.color}44`,borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center",fontSize:14,flexShrink:0}}>{r.icon}</div>
+                  <div>
+                    <div style={{color:"#fff",fontSize:12,fontWeight:700,fontFamily:"'Inter',sans-serif"}}>{r.label}</div>
+                    <div style={{color:"#666",fontSize:10,fontFamily:"'Inter','Cairo',sans-serif"}}>{r.subLabel}</div>
+                  </div>
+                </div>
+                <div style={{color:r.color,fontSize:12,fontWeight:700,fontFamily:"'Inter',sans-serif",textAlign:"left",maxWidth:160,wordBreak:"break-word"}}>{r.value}</div>
+              </div>
+            ))}
           </div>
-
-          <div style={{ background: '#D4AF3711', borderRadius: 12, padding: '10px 16px', marginBottom: 16 }}>
-            <p style={{ color: '#D4AF37', fontSize: 14, fontWeight: 700 }}>
-              الربح المتوقع: {formatNum(earningPerTask)}$
+          
+          {/* Official Text */}
+          <div style={{
+            margin:"0 20px 20px",
+            background:"linear-gradient(135deg,rgba(255,184,0,0.05),rgba(255,184,0,0.02))",
+            border:"1px solid rgba(255,184,0,0.2)",borderRadius:12,padding:18,position:"relative"
+          }}>
+            <div style={{position:"absolute",top:-10,right:16,background:"#0d0900",padding:"2px 10px",borderRadius:4}}>
+              <span style={{color:"#FFB800",fontSize:10,fontWeight:700,fontFamily:"'Inter',sans-serif",letterSpacing:1}}>OFFICIAL STATEMENT</span>
+            </div>
+            <p style={{
+              color:"#ccc",fontSize:13,lineHeight:2,fontFamily:"'Cairo',sans-serif",
+              fontStyle:"italic",textAlign:"center"
+            }}>
+              "تقر شركة BlackRock, Inc بأنها أبرمت عقداً رسمياً مع الجانب الجزائري في يناير 2025 مدته 3 سنوات ينتهي في ديسمبر 2027."
             </p>
           </div>
-
-          <div style={{ background: '#1a0505', border: '1px solid #EF444455', borderRadius: 12, padding: 12, marginBottom: 16 }}>
-            <p style={{ color: '#EF4444', fontSize: 12, fontWeight: 600 }}>⚠️ تحذير: الإلغاء سيوقف جميع مهامك اليومية!</p>
-          </div>
-
-          <button
-            onClick={cancelTask}
-            style={{
-              background: 'transparent', border: '1px solid #EF4444', color: '#EF4444',
-              borderRadius: 12, padding: '10px 30px', cursor: 'pointer',
-              fontFamily: 'Cairo', fontSize: 14, fontWeight: 700
-            }}
-          >
-            ✕ إلغاء المهمة (تحذير)
-          </button>
-        </div>
-      )}
-
-      {/* Task List */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        {Array.from({ length: pkg.tasks }, (_, i) => {
-          const isDone = tasksDone.includes(i);
-          const isActive = currentTask === i && isRunning;
-          const isLocked = blocked || (currentTask !== null && !isDone && !isActive);
-          return (
-            <div
-              key={i}
-              className="card-hover"
-              onClick={() => !isDone && !isActive && !isLocked && startTask(i)}
-              style={{
-                background: isDone ? 'linear-gradient(135deg, #0d1a0d, #071407)' :
-                  isActive ? 'linear-gradient(135deg, #1a1500, #0d0d00)' : '#111',
-                border: isDone ? '1px solid #10B98155' :
-                  isActive ? '1px solid #D4AF37' : '1px solid #222',
-                borderRadius: 16, padding: '16px 20px',
-                display: 'flex', alignItems: 'center', gap: 14,
-                cursor: isDone || isLocked ? 'not-allowed' : 'pointer',
-                opacity: isLocked && !isActive ? 0.5 : 1,
-                transition: 'all 0.3s ease'
-              }}
-            >
-              <div style={{
-                width: 44, height: 44, borderRadius: '50%',
-                background: isDone ? '#0d1a0d' : isActive ? '#1a1500' : '#1a1a1a',
-                border: `2px solid ${isDone ? '#10B981' : isActive ? '#D4AF37' : '#333'}`,
-                display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18,
-                flexShrink: 0
-              }}>
-                {isDone ? '✅' : isActive ? '⏳' : `${i + 1}`}
+          
+          {/* Signature Section */}
+          <div style={{padding:"0 20px 24px"}}>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}}>
+              
+              {/* Left Signature */}
+              <div style={{textAlign:"center"}}>
+                <div className="signature-line">
+                  <div className="signature-text" style={{fontFamily:"'Inter',cursive",fontSize:18}}>Laurence D. Fink</div>
+                </div>
+                <p style={{color:"#666",fontSize:10,marginTop:6,fontFamily:"'Inter',sans-serif"}}>Executive Chairman</p>
+                <p style={{color:"#FFB800",fontSize:10,fontWeight:700,fontFamily:"'Inter',sans-serif"}}>BlackRock, Inc.</p>
               </div>
-              <div style={{ flex: 1 }}>
-                <p style={{ color: isDone ? '#10B981' : isActive ? '#D4AF37' : '#ddd', fontWeight: 700, fontSize: 14 }}>
-                  {isDone ? 'اكتملت المهمة' : isActive ? 'جارية...' : `مهمة رقم ${i + 1}`}
-                </p>
-                <p style={{ color: '#666', fontSize: 12, marginTop: 2 }}>الربح: {formatNum(earningPerTask)}$</p>
-              </div>
-              <div style={{ textAlign: 'center' }}>
-                {isDone ? (
-                  <span style={{ color: '#10B981', fontSize: 12, fontWeight: 700 }}>+{formatNum(earningPerTask)}$</span>
-                ) : isActive ? (
-                  <span style={{ color: '#D4AF37', fontSize: 18, fontWeight: 900 }}>{timer}s</span>
-                ) : (
-                  <span style={{ color: '#555', fontSize: 20 }}>{blocked ? '🔒' : '▶'}</span>
-                )}
+              
+              {/* Right Seal */}
+              <div style={{textAlign:"center"}}>
+                <div style={{
+                  width:70,height:70,borderRadius:"50%",margin:"0 auto 8px",
+                  background:"transparent",border:"3px solid rgba(255,184,0,0.5)",
+                  display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column",
+                  boxShadow:"0 0 20px rgba(255,184,0,0.2)"
+                }}>
+                  <div style={{fontSize:22}}>🇺🇸</div>
+                  <div style={{color:"#FFB800",fontSize:8,fontWeight:700,fontFamily:"'Inter',sans-serif"}}>OFFICIAL</div>
+                </div>
+                <p style={{color:"#FFB800",fontSize:10,fontWeight:700,fontFamily:"'Inter',sans-serif"}}>SEAL OF AUTHENTICITY</p>
               </div>
             </div>
-          );
-        })}
+            
+            {/* Document ID */}
+            <div style={{
+              background:"#0d0d0d",border:"1px solid #1a1a1a",borderRadius:8,
+              padding:"10px 16px",marginTop:16,
+              display:"flex",justifyContent:"space-between",alignItems:"center"
+            }}>
+              <span style={{color:"#555",fontSize:10,fontFamily:"'Inter',sans-serif"}}>Document ID</span>
+              <span style={{color:"#FFB800",fontSize:11,fontWeight:700,fontFamily:"'Inter',sans-serif"}}>BLK-DZ-2025-003421</span>
+            </div>
+          </div>
+        </div>
+        
+        <div style={{height:16}}/>
+        <button className="btn-secondary" onClick={onClose}>إغلاق</button>
       </div>
+    </div>
+  </div>
+);
 
-      {/* Package Info */}
-      <div style={{ background: '#111', border: '1px solid #D4AF3733', borderRadius: 16, padding: 16, marginTop: 24 }}>
-        <p style={{ color: '#D4AF37', fontWeight: 700, fontSize: 13, marginBottom: 8 }}>📋 تفاصيل الباقة الحالية</p>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+/* ═══════════════════════════════════════
+   COMPANY MODAL
+═══════════════════════════════════════ */
+const CompanyModal=({onClose})=>(
+  <div className="modal-overlay" onClick={onClose}>
+    <div className="modal-sheet" style={{maxHeight:"94vh"}} onClick={e=>e.stopPropagation()}>
+      <div className="modal-handle"/>
+      <div style={{padding:"20px 20px 30px"}}>
+        
+        {/* Company Hero */}
+        <div className="company-hero" style={{marginBottom:16}}>
+          
+          {/* Header */}
+          <div style={{
+            padding:"28px 20px 20px",
+            background:"linear-gradient(160deg,rgba(227,24,55,0.15) 0%,transparent 60%)",
+            textAlign:"center",position:"relative"
+          }}>
+            <div style={{
+              position:"absolute",top:0,left:0,right:0,height:3,
+              background:"linear-gradient(90deg,transparent,#E31837,transparent)"
+            }}/>
+            
+            {/* Logo Block */}
+            <div style={{
+              width:72,height:72,background:"#E31837",borderRadius:16,
+              display:"flex",alignItems:"center",justifyContent:"center",
+              margin:"0 auto 16px",fontWeight:900,fontSize:28,color:"#fff",
+              fontFamily:"'Inter',sans-serif",boxShadow:"0 0 30px rgba(227,24,55,0.4)"
+            }}>B</div>
+            
+            <div className="tag tag-red" style={{marginBottom:10,fontSize:11}}>COMPANY PROFILE</div>
+            <h2 style={{color:"#fff",fontSize:22,fontWeight:900,fontFamily:"'Inter',sans-serif",letterSpacing:1,marginBottom:4}}>BLACKROCK</h2>
+            <p style={{color:"#888",fontSize:13,fontFamily:"'Inter','Cairo',sans-serif"}}>BlackRock, Inc — New York, USA</p>
+            
+            <div style={{display:"flex",justifyContent:"center",gap:8,marginTop:12}}>
+              <div className="tag tag-red">NYSE: BLK</div>
+              <div className="tag tag-green">موثقة ✓</div>
+            </div>
+          </div>
+          
+          {/* About */}
+          <div style={{padding:"0 20px 20px"}}>
+            <div className="br-divider-red"/>
+            <p style={{color:"#888",fontSize:12,fontFamily:"'Inter','Cairo',sans-serif",lineHeight:1.9,textAlign:"center"}}>
+              تأسست عام 1988 في نيويورك، وهي أكبر شركة لإدارة الأصول في العالم مع أكثر من 10.2 تريليون دولار من الأصول المدارة.
+            </p>
+          </div>
+        </div>
+        
+        {/* Stats Grid */}
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:16}}>
           {[
-            ["الباقة", `${pkg.icon} ${pkg.name}`],
-            ["عدد المهام", pkg.tasks],
-            ["الربح اليومي", `${formatNum(pkg.dailyEarning)}$`],
-            ["ربح كل مهمة", `${formatNum(earningPerTask)}$`],
-          ].map(([k, v], i) => (
-            <div key={i} style={{ background: '#0d0d0d', borderRadius: 10, padding: '10px 12px' }}>
-              <p style={{ color: '#666', fontSize: 11 }}>{k}</p>
-              <p style={{ color: '#fff', fontWeight: 700, fontSize: 13 }}>{v}</p>
+            {val:"1988",label:"سنة التأسيس",sub:"Founded",icon:"🏗️",color:"#E31837"},
+            {val:"$10.2T",label:"الأصول المدارة",sub:"AUM",icon:"💼",color:"#00C851"},
+            {val:"+19,000",label:"الموظفين",sub:"Employees",icon:"👥",color:"#3B82F6"},
+            {val:"38",label:"دولة",sub:"Countries",icon:"🌍",color:"#8B5CF6"},
+          ].map((s,i)=>(
+            <div key={i} style={{
+              background:"#0d0d0d",border:`1px solid ${s.color}22`,borderRadius:12,
+              padding:"16px 14px",textAlign:"center",borderTop:`2px solid ${s.color}66`
+            }}>
+              <div style={{fontSize:22,marginBottom:6}}>{s.icon}</div>
+              <div style={{color:s.color,fontSize:20,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{s.val}</div>
+              <div style={{color:"#ddd",fontSize:12,fontFamily:"'Inter','Cairo',sans-serif",marginTop:2}}>{s.label}</div>
+              <div style={{color:"#444",fontSize:10,fontFamily:"'Inter',sans-serif",marginTop:1}}>{s.sub}</div>
             </div>
           ))}
+        </div>
+        
+        {/* Security Section */}
+        <div style={{
+          background:"#0d0d0d",border:"1px solid rgba(0,200,81,0.2)",borderRadius:14,
+          padding:18,marginBottom:16,borderTop:"2px solid rgba(0,200,81,0.4)"
+        }}>
+          <div style={{fontSize:11,letterSpacing:2,color:"#00C851",fontFamily:"'Inter',sans-serif",fontWeight:700,marginBottom:14,textTransform:"uppercase"}}>الأمان والعقد</div>
+          <p style={{color:"#888",fontSize:12,fontFamily:"'Inter','Cairo',sans-serif",lineHeight:1.9,marginBottom:16}}>
+            نستخدم تشفير AES-256 العسكري مع SSL/TLS 3.0 لحماية جميع بيانات المستخدمين والمعاملات.
+          </p>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
+            {[
+              {val:"AES-256",label:"تشفير عسكري",color:"#00C851"},
+              {val:"SSL/TLS 3.0",label:"بروتوكول آمن",color:"#3B82F6"},
+              {val:"100%",label:"حماية الأموال",color:"#FFB800"},
+              {val:"24/7",label:"مراقبة مستمرة",color:"#E31837"},
+            ].map((s,i)=>(
+              <div key={i} style={{
+                background:"#111",border:`1px solid ${s.color}22`,borderRadius:10,padding:"12px",textAlign:"center"
+              }}>
+                <div style={{color:s.color,fontSize:16,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{s.val}</div>
+                <div style={{color:"#666",fontSize:10,fontFamily:"'Inter','Cairo',sans-serif",marginTop:4}}>{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        {/* Algeria Contract */}
+        <div style={{
+          background:"linear-gradient(135deg,#000a00,#000500)",
+          border:"1px solid rgba(0,200,81,0.25)",borderRadius:14,
+          padding:18,marginBottom:20,position:"relative",overflow:"hidden"
+        }}>
+          <div style={{position:"absolute",top:0,left:0,right:0,height:2,background:"linear-gradient(90deg,transparent,#00C851,transparent)"}}/>
+          
+          <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:16}}>
+            <span style={{fontSize:24}}>🇩🇿</span>
+            <div>
+              <div style={{color:"#00C851",fontSize:13,fontWeight:700,fontFamily:"'Inter','Cairo',sans-serif"}}>العقد الجزائري</div>
+              <div style={{color:"#555",fontSize:11,fontFamily:"'Inter',sans-serif"}}>Algerian Partnership Agreement</div>
+            </div>
+          </div>
+          
+          <p style={{color:"#888",fontSize:12,fontFamily:"'Inter','Cairo',sans-serif",lineHeight:1.9,marginBottom:16}}>
+            عقد رسمي مع الجزائر يبدأ من يناير 2025 وينتهي في ديسمبر 2027، مدته 3 سنوات كاملة.
+          </p>
+          
+          {/* Timeline */}
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8,marginBottom:16}}>
+            {[
+              {val:"Jan 2025",label:"البداية",icon:"🟢"},
+              {val:"Dec 2027",label:"النهاية",icon:"🔴"},
+              {val:"3 سنوات",label:"المدة",icon:"📅"},
+            ].map((t,i)=>(
+              <div key={i} style={{background:"#111",borderRadius:10,padding:"12px 8px",textAlign:"center",border:"1px solid #1a1a1a"}}>
+                <div style={{fontSize:16,marginBottom:4}}>{t.icon}</div>
+                <div style={{color:"#00C851",fontSize:13,fontWeight:700,fontFamily:"'Inter',sans-serif"}}>{t.val}</div>
+                <div style={{color:"#555",fontSize:10,fontFamily:"'Inter','Cairo',sans-serif"}}>{t.label}</div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Official Text */}
+          <div style={{
+            background:"rgba(0,200,81,0.05)",border:"1px solid rgba(0,200,81,0.15)",
+            borderRadius:10,padding:14,marginBottom:16
+          }}>
+            <div style={{fontSize:10,letterSpacing:2,color:"#00C851",fontFamily:"'Inter',sans-serif",fontWeight:700,marginBottom:8,textTransform:"uppercase"}}>النص الرسمي للعقد</div>
+            <p style={{color:"#ccc",fontSize:12,lineHeight:1.9,fontFamily:"'Cairo',sans-serif",fontStyle:"italic"}}>
+              تقر شركة BlackRock, Inc بأنها أبرمت عقداً رسمياً مع الجانب الجزائري في يناير 2025 مدته 3 سنوات ينتهي في ديسمبر 2027.
+            </p>
+          </div>
+          
+          {/* Signature */}
+          <div style={{display:"grid",gridTemplateColumns:"1fr auto",gap:16,alignItems:"end"}}>
+            <div>
+              <div style={{borderBottom:"1px solid rgba(0,200,81,0.4)",paddingBottom:6,marginBottom:6}}>
+                <span style={{color:"#00C851",fontStyle:"italic",fontSize:16,fontFamily:"'Inter',cursive",fontWeight:700}}>
+                  Laurence D. Fink
+                </span>
+              </div>
+              <div style={{color:"#555",fontSize:10,fontFamily:"'Inter',sans-serif"}}>Executive Chairman, BlackRock</div>
+            </div>
+            <div style={{
+              width:52,height:52,borderRadius:"50%",
+              border:"2px solid rgba(0,200,81,0.4)",
+              display:"flex",alignItems:"center",justifyContent:"center",fontSize:22
+            }}>🇩🇿</div>
+          </div>
+        </div>
+        
+        {/* Links */}
+        <a href="https://www.blackrock.com" target="_blank" rel="noopener noreferrer" style={{display:"block",textDecoration:"none",marginBottom:10}}>
+          <button className="btn-red-outline" style={{display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
+            <span>🌐</span><span>blackrock.com — الموقع الرسمي</span>
+          </button>
+        </a>
+        <button className="btn-secondary" onClick={onClose}>إغلاق</button>
+      </div>
+    </div>
+  </div>
+);
+
+/* ═══════════════════════════════════════
+   REFERRAL MODAL
+═══════════════════════════════════════ */
+const ReferralModal=({user,onClose,showToast})=>{
+  const copy=(txt)=>{navigator.clipboard?.writeText(txt).catch(()=>{});showToast("تم النسخ!","success")};
+  const refLink=`https://blackrock-earn.app/ref/${user.refCode}`;
+  return(
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-sheet" onClick={e=>e.stopPropagation()}>
+        <div className="modal-handle"/>
+        <div style={{padding:"20px 20px 30px"}}>
+          
+          {/* Header */}
+          <div style={{textAlign:"center",marginBottom:24}}>
+            <div style={{fontSize:48,marginBottom:10}}>🎁</div>
+            <h3 style={{color:"#fff",fontSize:20,fontWeight:900,fontFamily:"'Inter',sans-serif",marginBottom:6}}>برنامج الإحالات</h3>
+            <p style={{color:"#666",fontSize:13,fontFamily:"'Inter','Cairo',sans-serif"}}>ادعُ أصدقاءك واكسب مكافآت</p>
+          </div>
+          
+          {/* Stats */}
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10,marginBottom:20}}>
+            {[
+              {val:user.referrals||0,label:"الإحالات",color:"#E31837"},
+              {val:`${fmt((user.referrals||0)*2.5)}$`,label:"المكتسب",color:"#00C851"},
+              {val:"2.5$",label:"لكل إحالة",color:"#FFB800"},
+            ].map((s,i)=>(
+              <div key={i} className="stat-box">
+                <div style={{color:s.color,fontSize:18,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{s.val}</div>
+                <div style={{color:"#555",fontSize:10,fontFamily:"'Cairo','Inter',sans-serif",marginTop:3}}>{s.label}</div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Ref Code */}
+          <div className="ref-card" style={{marginBottom:16}}>
+            <div style={{fontSize:11,letterSpacing:2,color:"#E31837",fontFamily:"'Inter',sans-serif",fontWeight:700,marginBottom:12,textTransform:"uppercase"}}>كودك الخاص</div>
+            <div style={{
+              background:"#0d0d0d",border:"1px solid #2a2a2a",borderRadius:10,
+              padding:"14px 16px",display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12
+            }}>
+              <span style={{color:"#FFB800",fontWeight:900,fontSize:18,fontFamily:"'Inter',sans-serif",letterSpacing:2}}>{user.refCode}</span>
+              <button className="copy-btn" onClick={()=>copy(user.refCode)}>نسخ</button>
+            </div>
+            
+            <div style={{fontSize:11,letterSpacing:2,color:"#E31837",fontFamily:"'Inter',sans-serif",fontWeight:700,marginBottom:10,textTransform:"uppercase"}}>رابط الإحالة</div>
+            <div style={{
+              background:"#0d0d0d",border:"1px solid #2a2a2a",borderRadius:10,
+              padding:"12px 16px",display:"flex",justifyContent:"space-between",alignItems:"center"
+            }}>
+              <span style={{color:"#888",fontSize:11,fontFamily:"'Inter',sans-serif",flex:1,marginLeft:8,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",direction:"ltr"}}>{refLink}</span>
+              <button className="copy-btn" onClick={()=>copy(refLink)}>نسخ</button>
+            </div>
+          </div>
+          
+          {/* How it works */}
+          <div style={{
+            background:"#0d0d0d",border:"1px solid var(--br-border)",borderRadius:14,
+            padding:18,marginBottom:16
+          }}>
+            <div style={{fontSize:11,letterSpacing:2,color:"#888",fontFamily:"'Inter',sans-serif",fontWeight:700,marginBottom:14,textTransform:"uppercase"}}>كيف يعمل البرنامج</div>
+            {[
+              {step:"01",text:"شارك كودك أو رابطك مع أصدقائك",color:"#E31837"},
+              {step:"02",text:"يسجّل صديقك باستخدام رابطك",color:"#FFB800"},
+              {step:"03",text:"يشحن صديقك أي باقة مدفوعة",color:"#00C851"},
+              {step:"04",text:"تحصل فوراً على 2.5$ مكافأة",color:"#3B82F6"},
+            ].map((s,i)=>(
+              <div key={i} style={{display:"flex",alignItems:"flex-start",gap:14,marginBottom:i<3?12:0}}>
+                <div style={{
+                  width:28,height:28,borderRadius:6,background:`${s.color}22`,
+                  border:`1px solid ${s.color}44`,display:"flex",alignItems:"center",
+                  justifyContent:"center",color:s.color,fontSize:11,fontWeight:900,
+                  fontFamily:"'Inter',sans-serif",flexShrink:0
+                }}>{s.step}</div>
+                <p style={{color:"#ccc",fontSize:13,fontFamily:"'Cairo','Inter',sans-serif",lineHeight:1.7,paddingTop:4}}>{s.text}</p>
+              </div>
+            ))}
+          </div>
+          
+          {/* Share via Signal */}
+          <a href={`https://signal.me/#eu/__kL4ayCt64xdRiSQWwYpMxOo5_u-Br5Y87rLvt7vQ9c0zoJJ3BEHIfxtpSC5JSE`} target="_blank" rel="noopener noreferrer" style={{display:"block",textDecoration:"none",marginBottom:10}}>
+            <button className="btn-primary" style={{display:"flex",alignItems:"center",justifyContent:"center",gap:10,background:"linear-gradient(135deg,#1a8a2c,#157a26)"}}>
+              <span>📲</span><span>مشاركة عبر Signal</span>
+            </button>
+          </a>
+          <button className="btn-secondary" onClick={onClose}>إغلاق</button>
         </div>
       </div>
     </div>
   );
 };
 
-// ==================== UPGRADES PAGE ====================
-const UpgradesPage = ({ user, setUser, showToast }) => {
-  const [selected, setSelected] = useState(null);
-  const [showConfirm, setShowConfirm] = useState(false);
-  const [filter, setFilter] = useState('all');
-
-  const handleUpgrade = (pkg) => {
-    if (user.balance < pkg.price && pkg.price > 0) {
-      showToast("رصيدك غير كافٍ للترقية", "error");
-      return;
-    }
-    setUser(u => ({
-      ...u,
-      packageId: pkg.id,
-      balance: pkg.price > 0 ? u.balance - pkg.price : u.balance,
-      tasksLeft: pkg.tasks,
-    }));
-    showToast(`🚀 تم الترقية إلى ${pkg.name} بنجاح!`, "success");
-    setShowConfirm(false);
-    setSelected(null);
-  };
-
-  const tierColors = ["#aaa", "#10B981", "#3B82F6", "#D4AF37", "#8B5CF6", "#EF4444", "#06B6D4"];
-
-  return (
-    <div className="page-enter" style={{ padding: '50px 20px 100px', minHeight: '100vh', background: 'linear-gradient(180deg, #050500 0%, #000 100%)' }}>
-      <div style={{ textAlign: 'center', marginBottom: 24 }}>
-        <h1 style={{ color: '#D4AF37', fontSize: 24, fontWeight: 900, marginBottom: 8 }}>🚀 الترقيات والباقات</h1>
-        <p style={{ color: '#666', fontSize: 13 }}>اختر الباقة المناسبة وضاعف أرباحك</p>
-      </div>
-
-      {/* Current Package Badge */}
-      <div style={{ background: '#111', border: '1px solid #D4AF3744', borderRadius: 16, padding: '14px 20px', marginBottom: 24, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div>
-          <p style={{ color: '#888', fontSize: 12 }}>باقتك الحالية</p>
-          <p style={{ color: '#D4AF37', fontWeight: 800, fontSize: 16 }}>
-            {PACKAGES[user.packageId].icon} {PACKAGES[user.packageId].name}
-          </p>
-        </div>
-        <div style={{ textAlign: 'left' }}>
-          <p style={{ color: '#888', fontSize: 12 }}>رصيدك</p>
-          <p style={{ color: '#10B981', fontWeight: 800, fontSize: 16 }}>{formatNum(user.balance)}$</p>
-        </div>
-      </div>
-
-      {/* Package Cards */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-        {PACKAGES.map((pkg, idx) => {
-          const isOwned = user.packageId === pkg.id;
-          const canAfford = user.balance >= pkg.price || pkg.price === 0;
-          const color = tierColors[idx];
-          return (
-            <div key={pkg.id} className={`upgrade-card card-hover`} style={{ border: `1px solid ${color}44`, borderTop: `3px solid ${color}`, position: 'relative' }}>
-              {pkg.popular && (
-                <div style={{
-                  position: 'absolute', top: -1, right: 20,
-                  background: 'linear-gradient(135deg, #D4AF37, #FFD700)',
-                  color: '#000', fontSize: 10, fontWeight: 800, padding: '3px 12px', borderRadius: '0 0 8px 8px'
-                }}>⭐ الأكثر شعبية</div>
-              )}
-              {isOwned && (
-                <div style={{
-                  position: 'absolute', top: -1, left: 20,
-                  background: 'linear-gradient(135deg, #10B981, #059669)',
-                  color: '#fff', fontSize: 10, fontWeight: 800, padding: '3px 12px', borderRadius: '0 0 8px 8px'
-                }}>✅ باقتك الحالية</div>
-              )}
-              <div style={{ padding: 20 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
-                  <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
-                      <span style={{ fontSize: 28 }}>{pkg.icon}</span>
-                      <div>
-                        <h3 style={{ color, fontSize: 20, fontWeight: 900 }}>{pkg.name}</h3>
-                        <p style={{ color: '#666', fontSize: 12 }}>{pkg.desc}</p>
-                      </div>
+/* ═══════════════════════════════════════
+   CONTEST MODAL
+═══════════════════════════════════════ */
+const ContestModal=({user,onClose})=>{
+  const prizes=[
+    {rank:1,prize:"500$",icon:"🥇",color:"#FFB800",name:"المرتبة الأولى"},
+    {rank:2,prize:"200$",icon:"🥈",color:"#aaa",name:"المرتبة الثانية"},
+    {rank:3,prize:"100$",icon:"🥉",color:"#CD7F32",name:"المرتبة الثالثة"},
+    {rank:4,prize:"50$",icon:"🏅",color:"#3B82F6",name:"4-10"},
+    {rank:5,prize:"25$",icon:"🎖️",color:"#8B5CF6",name:"11-20"},
+  ];
+  const leaderboard=[
+    {rank:1,name:"Youcef B.",city:"الجزائر",score:1842,prize:"500$",color:"#FFB800"},
+    {rank:2,name:"Amina K.",city:"وهران",score:1621,prize:"200$",color:"#aaa"},
+    {rank:3,name:"Karim M.",city:"قسنطينة",score:1503,prize:"100$",color:"#CD7F32"},
+    {rank:4,name:"Nour H.",city:"عنابة",score:1287,prize:"50$",color:"#3B82F6"},
+    {rank:5,name:"Sofiane R.",city:"سطيف",score:1154,prize:"50$",color:"#3B82F6"},
+    {rank:6,name:"You",city:user.city||"جزائري",score:user.completedTasks*10||50,prize:"—",color:"#E31837",isUser:true},
+  ];
+  return(
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-sheet" onClick={e=>e.stopPropagation()}>
+        <div className="modal-handle"/>
+        <div style={{padding:"20px 20px 30px"}}>
+          
+          {/* Header */}
+          <div className="contest-card" style={{marginBottom:20}}>
+            <div style={{padding:"24px 20px",textAlign:"center"}}>
+              <div style={{fontSize:48,marginBottom:10,animation:"float 3s ease-in-out infinite"}}>🏆</div>
+              <div className="tag tag-gold" style={{marginBottom:10}}>LIVE CONTEST</div>
+              <h3 style={{color:"#FFB800",fontSize:20,fontWeight:900,fontFamily:"'Inter',sans-serif",marginBottom:6}}>مسابقة شهر يونيو</h3>
+              <p style={{color:"#888",fontSize:13,fontFamily:"'Cairo','Inter',sans-serif"}}>أكمل أكثر مهمة وفُز بجوائز حقيقية!</p>
+              
+              {/* Timer */}
+              <div style={{
+                display:"flex",gap:10,justifyContent:"center",marginTop:16
+              }}>
+                {[{val:"14",label:"يوم"},{val:"08",label:"ساعة"},{val:"32",label:"دقيقة"},{val:"51",label:"ثانية"}].map((t,i)=>(
+                  <div key={i} style={{textAlign:"center"}}>
+                    <div style={{
+                      background:"#1a1200",border:"1px solid rgba(255,184,0,0.3)",borderRadius:8,
+                      padding:"10px 12px",minWidth:44
+                    }}>
+                      <div style={{color:"#FFB800",fontSize:18,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{t.val}</div>
                     </div>
+                    <div style={{color:"#555",fontSize:9,fontFamily:"'Inter','Cairo',sans-serif",marginTop:4}}>{t.label}</div>
                   </div>
-                  <div style={{ textAlign: 'left' }}>
-                    <p style={{ color: '#D4AF37', fontSize: 22, fontWeight: 900 }}>{pkg.price === 0 ? "مجاني" : `${formatNum(pkg.price, 0)}$`}</p>
-                    {pkg.price > 0 && <p style={{ color: '#888', fontSize: 11 }}>{pkg.priceAlg}</p>}
-                  </div>
-                </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 16 }}>
-                  {[
-                    { icon: "⚡", label: "المهام اليومية", value: `${pkg.tasks} مهمة` },
-                    { icon: "💰", label: "الربح اليومي", value: `${formatNum(pkg.dailyEarning)}$` },
-                    { icon: "📅", label: "مدة الصلاحية", value: `${pkg.validity} يوم` },
-                    { icon: "🎯", label: "ربح لكل مهمة", value: `${formatNum(pkg.dailyEarning / pkg.tasks)}$` },
-                  ].map((s, i) => (
-                    <div key={i} style={{ background: '#0d0d0d', borderRadius: 10, padding: '10px 12px', display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <span style={{ fontSize: 16 }}>{s.icon}</span>
-                      <div>
-                        <p style={{ color: '#555', fontSize: 10 }}>{s.label}</p>
-                        <p style={{ color: '#ddd', fontWeight: 700, fontSize: 13 }}>{s.value}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Monthly Return */}
-                <div style={{ background: `${color}11`, border: `1px solid ${color}33`, borderRadius: 12, padding: '10px 16px', marginBottom: 16, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ color: '#888', fontSize: 13 }}>العائد الشهري المتوقع:</span>
-                  <span style={{ color, fontWeight: 900, fontSize: 16 }}>{formatNum(pkg.dailyEarning * pkg.validity, 1)}$</span>
-                </div>
-
-                {isOwned ? (
-                  <button disabled style={{ background: '#1a2a1a', border: '1px solid #10B981', color: '#10B981', borderRadius: 14, padding: '14px', width: '100%', fontFamily: 'Cairo', fontWeight: 700, fontSize: 14 }}>
-                    ✅ الباقة المفعّلة حالياً
-                  </button>
-                ) : (
-                  <button
-                    className="btn-gold"
-                    onClick={() => { setSelected(pkg); setShowConfirm(true); }}
-                    style={{ background: canAfford ? `linear-gradient(135deg, ${color}, ${color}aa)` : '#222', color: canAfford ? (idx === 3 ? '#000' : '#fff') : '#666' }}
-                  >
-                    {canAfford ? `🚀 الترقية إلى ${pkg.name}` : `💳 شحن الرصيد أولاً`}
-                  </button>
-                )}
+                ))}
               </div>
             </div>
-          );
-        })}
-      </div>
-
-      {/* Confirm Modal */}
-      {showConfirm && selected && (
-        <div className="modal-overlay" onClick={() => setShowConfirm(false)}>
-          <div className="modal-sheet" onClick={e => e.stopPropagation()}>
-            <div className="modal-handle" />
-            <div style={{ textAlign: 'center', marginBottom: 20 }}>
-              <div style={{ fontSize: 50, marginBottom: 10 }}>{selected.icon}</div>
-              <h3 style={{ color: '#D4AF37', fontSize: 22, fontWeight: 900 }}>تأكيد الترقية</h3>
-              <p style={{ color: '#666', fontSize: 14, marginTop: 6 }}>الترقية إلى باقة {selected.name}</p>
-            </div>
-            <div style={{ background: '#111', borderRadius: 16, padding: 16, marginBottom: 16 }}>
-              {[
-                ["السعر", selected.price === 0 ? "مجاني" : `${formatNum(selected.price, 0)}$`],
-                ["المهام اليومية", `${selected.tasks} مهمة`],
-                ["الربح اليومي", `${formatNum(selected.dailyEarning)}$`],
-                ["رصيدك بعد الشراء", `${formatNum(user.balance - selected.price)}$`],
-              ].map(([k, v], i) => (
-                <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: i < 3 ? '1px solid #222' : 'none' }}>
-                  <span style={{ color: '#888', fontSize: 14 }}>{k}</span>
-                  <span style={{ color: '#D4AF37', fontWeight: 700, fontSize: 14 }}>{v}</span>
+          </div>
+          
+          {/* Prizes */}
+          <div style={{marginBottom:20}}>
+            <div className="section-title">🎁 الجوائز</div>
+            <div style={{display:"flex",flexDirection:"column",gap:8}}>
+              {prizes.map((p,i)=>(
+                <div key={i} style={{
+                  background:"#0d0d0d",border:`1px solid ${p.color}22`,borderRadius:10,
+                  padding:"12px 16px",display:"flex",alignItems:"center",gap:12
+                }}>
+                  <span style={{fontSize:20}}>{p.icon}</span>
+                  <span style={{color:"#ddd",fontSize:13,fontFamily:"'Cairo','Inter',sans-serif",flex:1}}>{p.name}</span>
+                  <span style={{color:p.color,fontSize:15,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{p.prize}</span>
                 </div>
               ))}
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-              <button className="btn-outline" onClick={() => setShowConfirm(false)}>إلغاء</button>
-              <button className="btn-gold" onClick={() => handleUpgrade(selected)}>تأكيد الترقية</button>
-            </div>
           </div>
-        </div>
-      )}
-    </div>
-  );
-};
-
-// ==================== PROFILE PAGE ====================
-const ProfilePage = ({ user, setUser, showToast }) => {
-  const [showSecurity, setShowSecurity] = useState(false);
-  const [showCompany, setShowCompany] = useState(false);
-  const [showEditProfile, setShowEditProfile] = useState(false);
-  const [editName, setEditName] = useState(user.name);
-  const [editEmail, setEditEmail] = useState(user.email);
-  const pkg = PACKAGES.find(p => p.id === user.packageId) || PACKAGES[0];
-
-  const MENU_ITEMS = [
-    { icon: "🔐", label: "الأمان والعقد", sub: "بيانات التوثيق والحماية", color: "#D4AF37", action: () => setShowSecurity(true) },
-    { icon: "🏢", label: "عن الشركة", sub: "BlackRock, Inc. | NYSE: BLK", color: "#3B82F6", action: () => setShowCompany(true) },
-    { icon: "✏️", label: "تعديل الملف الشخصي", sub: "الاسم والبريد الإلكتروني", color: "#10B981", action: () => setShowEditProfile(true) },
-    { icon: "📲", label: "التواصل مع الدعم", sub: "Signal — دعم آمن ومشفر", color: "#8B5CF6", action: () => window.open("https://signal.me/#eu/__kL4ayCt64xdRiSQWwYpMxOo5_u-Br5Y87rLvt7vQ9c0zoJJ3BEHIfxtpSC5JSE", '_blank') },
-    { icon: "📊", label: "تقرير الأرباح", sub: "إجمالي الأرباح والنشاط", color: "#F59E0B", action: () => showToast("قريباً: تقرير الأرباح التفصيلي", "info") },
-    { icon: "🌐", label: "الموقع الرسمي", sub: "blackrock.com", color: "#06B6D4", action: () => window.open("https://www.blackrock.com", '_blank') },
-  ];
-
-  const saveProfile = () => {
-    if (!editName.trim()) return showToast("يرجى إدخال الاسم", "error");
-    setUser(u => ({ ...u, name: editName, email: editEmail }));
-    showToast("تم حفظ التغييرات بنجاح", "success");
-    setShowEditProfile(false);
-  };
-
-  return (
-    <div className="page-enter" style={{ padding: '50px 20px 100px', minHeight: '100vh', background: 'linear-gradient(180deg, #050500 0%, #000 100%)' }}>
-
-      {/* Profile Header */}
-      <div style={{ textAlign: 'center', marginBottom: 28 }}>
-        <div style={{ position: 'relative', display: 'inline-block', marginBottom: 16 }}>
-          <div style={{
-            width: 90, height: 90, borderRadius: '50%',
-            background: 'linear-gradient(135deg, #D4AF37, #FFD700, #B8960C)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: 40, boxShadow: '0 0 30px #D4AF3766', margin: '0 auto'
-          }}>
-            {user.avatar}
-          </div>
-          {/* Online Badge */}
-          <div style={{
-            position: 'absolute', bottom: 4, right: 4,
-            width: 18, height: 18, background: '#10B981', borderRadius: '50%',
-            border: '2px solid #000', animation: 'glow-green 2s infinite'
-          }} />
-        </div>
-
-        <h2 style={{ color: '#fff', fontSize: 22, fontWeight: 900, marginBottom: 4 }}>{user.name}</h2>
-        <p style={{ color: '#888', fontSize: 13, marginBottom: 12 }}>{user.email}</p>
-
-        <div style={{ display: 'flex', gap: 8, justifyContent: 'center', alignItems: 'center', marginBottom: 16 }}>
-          <span style={{
-            background: `${pkg.color}22`, border: `1px solid ${pkg.color}66`,
-            color: pkg.color, fontSize: 12, fontWeight: 700, padding: '4px 14px', borderRadius: 20
-          }}>
-            {pkg.icon} {pkg.name}
-          </span>
-          <span style={{
-            background: '#10B98122', border: '1px solid #10B98166',
-            color: '#10B981', fontSize: 12, fontWeight: 700, padding: '4px 14px', borderRadius: 20
-          }}>
-            🟢 نشط
-          </span>
-        </div>
-
-        {/* Balance Display */}
-        <div className="glass" style={{ borderRadius: 16, padding: '16px 24px', display: 'inline-block', minWidth: 200 }}>
-          <p style={{ color: '#888', fontSize: 12, marginBottom: 4 }}>رصيدك الحالي</p>
-          <p style={{ color: '#D4AF37', fontSize: 28, fontWeight: 900 }}>{formatNum(user.balance)}$</p>
-          <p style={{ color: '#555', fontSize: 11 }}>≈ {formatNum(user.balance * 250, 0)} دج</p>
-        </div>
-      </div>
-
-      {/* Stats Row */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10, marginBottom: 24 }}>
-        {[
-          { label: "إجمالي المكتسب", value: `${formatNum(user.totalEarned)}$`, icon: "💰", color: "#D4AF37" },
-          { label: "أيام النشاط", value: user.activeDays, icon: "📅", color: "#10B981" },
-          { label: "المهام المنجزة", value: user.completedTasks, icon: "✅", color: "#3B82F6" },
-        ].map((s, i) => (
-          <div key={i} className="stat-card">
-            <div style={{ fontSize: 20, marginBottom: 6 }}>{s.icon}</div>
-            <div style={{ color: s.color, fontWeight: 800, fontSize: 16 }}>{s.value}</div>
-            <div style={{ color: '#555', fontSize: 10 }}>{s.label}</div>
-          </div>
-        ))}
-      </div>
-
-      {/* Menu Items */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-        {MENU_ITEMS.map((item, i) => (
-          <div
-            key={i}
-            className="card-hover"
-            onClick={item.action}
-            style={{
-              background: '#111', border: '1px solid #1a1a1a', borderRadius: 16,
-              padding: '16px 20px', display: 'flex', alignItems: 'center', gap: 14,
-              cursor: 'pointer', borderRight: `3px solid ${item.color}66`
-            }}
-          >
-            <div style={{
-              width: 44, height: 44, borderRadius: 12,
-              background: `${item.color}22`, display: 'flex', alignItems: 'center',
-              justifyContent: 'center', fontSize: 20, flexShrink: 0
-            }}>
-              {item.icon}
-            </div>
-            <div style={{ flex: 1 }}>
-              <p style={{ color: '#fff', fontWeight: 700, fontSize: 15 }}>{item.label}</p>
-              <p style={{ color: '#666', fontSize: 12, marginTop: 2 }}>{item.sub}</p>
-            </div>
-            <span style={{ color: '#444', fontSize: 20 }}>‹</span>
-          </div>
-        ))}
-      </div>
-
-      {/* Security Modal */}
-      {showSecurity && (
-        <div className="modal-overlay" onClick={() => setShowSecurity(false)}>
-          <div className="modal-sheet" onClick={e => e.stopPropagation()}>
-            <div className="modal-handle" />
-            <div style={{ textAlign: 'center', marginBottom: 24 }}>
-              <div style={{ fontSize: 50, marginBottom: 10 }}>🔐</div>
-              <h3 style={{ color: '#D4AF37', fontSize: 20, fontWeight: 900 }}>الأمان والعقد</h3>
-            </div>
-
-            {[
-              { icon: "📊", label: "التوثيق البورصي", value: "NYSE: BLK", color: "#3B82F6" },
-              { icon: "🏛️", label: "الرقم الضريبي الفيدرالي", value: "EIN: 32-0174431", color: "#D4AF37" },
-              { icon: "🔒", label: "بروتوكول التشفير", value: "AES-256 + SSL/TLS 3.0", color: "#10B981" },
-              { icon: "📋", label: "العقد الجزائري", value: "يناير 2025 — ديسمبر 2027 ✅", color: "#8B5CF6" },
-              { icon: "💰", label: "حماية الأموال", value: "محمية بنسبة 100% ✅", color: "#10B981" },
-              { icon: "🛡️", label: "المراقبة الأمنية", value: "24/7 مستمر", color: "#EF4444" },
-            ].map((item, i) => (
-              <div key={i} style={{ background: '#111', border: `1px solid ${item.color}33`, borderRadius: 14, padding: '14px 16px', marginBottom: 10, display: 'flex', alignItems: 'center', gap: 14 }}>
-                <div style={{ width: 40, height: 40, background: `${item.color}22`, borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, flexShrink: 0 }}>{item.icon}</div>
-                <div>
-                  <p style={{ color: '#888', fontSize: 11 }}>{item.label}</p>
-                  <p style={{ color: item.color, fontWeight: 700, fontSize: 13 }}>{item.value}</p>
+          
+          {/* Leaderboard */}
+          <div style={{marginBottom:20}}>
+            <div className="section-title">📊 لوحة المتصدرين</div>
+            <div style={{display:"flex",flexDirection:"column",gap:8}}>
+              {leaderboard.map((p,i)=>(
+                <div key={i} className="leaderboard-row" style={{
+                  border:p.isUser?`1px solid ${p.color}66`:"1px solid var(--br-border)",
+                  background:p.isUser?"#110000":"#0d0d0d"
+                }}>
+                  <div style={{
+                    width:28,height:28,borderRadius:6,
+                    background:`${p.color}22`,border:`1px solid ${p.color}44`,
+                    display:"flex",alignItems:"center",justifyContent:"center",
+                    color:p.color,fontSize:13,fontWeight:900,fontFamily:"'Inter',sans-serif",flexShrink:0
+                  }}>{p.rank}</div>
+                  <div style={{flex:1}}>
+                    <div style={{color:p.isUser?"#E31837":"#ddd",fontSize:13,fontWeight:700,fontFamily:"'Inter','Cairo',sans-serif"}}>
+                      {p.isUser?"أنت ":""}  {p.name}
+                    </div>
+                    <div style={{color:"#555",fontSize:11,fontFamily:"'Cairo','Inter',sans-serif"}}>{p.city}</div>
+                  </div>
+                  <div style={{textAlign:"left"}}>
+                    <div style={{color:"#fff",fontSize:12,fontWeight:700,fontFamily:"'Inter',sans-serif"}}>{p.score.toLocaleString()}</div>
+                    <div style={{color:p.color,fontSize:11,fontFamily:"'Inter',sans-serif"}}>{p.prize}</div>
+                  </div>
                 </div>
-              </div>
-            ))}
-
-            <div style={{ background: '#0d1a0d', border: '1px solid #D4AF3744', borderRadius: 14, padding: 16, margin: '16px 0' }}>
-              <p style={{ color: '#D4AF37', fontSize: 12, fontWeight: 700, marginBottom: 8 }}>📄 النص الرسمي للعقد</p>
-              <p style={{ color: '#aaa', fontSize: 12, lineHeight: 1.9 }}>
-                "تقر شركة BlackRock, Inc بأنها أبرمت عقداً رسمياً مع الجانب الجزائري في يناير 2025 مدته 3 سنوات ينتهي في ديسمبر 2027"
-              </p>
+              ))}
             </div>
-
-            <button className="btn-gold" onClick={() => setShowSecurity(false)}>إغلاق</button>
           </div>
-        </div>
-      )}
-
-      {/* Company Modal */}
-      {showCompany && (
-        <div className="modal-overlay" onClick={() => setShowCompany(false)}>
-          <div className="modal-sheet" onClick={e => e.stopPropagation()}>
-            <div className="modal-handle" />
-            <div style={{ textAlign: 'center', marginBottom: 24 }}>
-              <div style={{ fontSize: 50, marginBottom: 10 }}>🏢</div>
-              <h3 style={{ color: '#D4AF37', fontSize: 20, fontWeight: 900 }}>BlackRock, Inc.</h3>
-              <p style={{ color: '#888', fontSize: 13 }}>نيويورك، الولايات المتحدة الأمريكية</p>
-            </div>
-
-            {[
-              { icon: "📈", label: "رمز البورصة", value: "NYSE: BLK", color: "#3B82F6" },
-              { icon: "🏗️", label: "سنة التأسيس", value: "1988 — نيويورك", color: "#D4AF37" },
-              { icon: "💼", label: "الأصول المدارة", value: "أكثر من 10.2 تريليون $", color: "#10B981" },
-              { icon: "🌍", label: "التواجد العالمي", value: "38 دولة حول العالم", color: "#8B5CF6" },
-              { icon: "👥", label: "عدد الموظفين", value: "أكثر من 19,000 موظف", color: "#F59E0B" },
-              { icon: "🔒", label: "معيار الأمان", value: "تشفير AES-256 العسكري", color: "#EF4444" },
-              { icon: "🕐", label: "المراقبة", value: "24/7 مستمر", color: "#06B6D4" },
-            ].map((item, i) => (
-              <div key={i} style={{ background: '#111', border: `1px solid ${item.color}33`, borderRadius: 14, padding: '14px 16px', marginBottom: 10, display: 'flex', alignItems: 'center', gap: 14 }}>
-                <div style={{ width: 40, height: 40, background: `${item.color}22`, borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, flexShrink: 0 }}>{item.icon}</div>
-                <div>
-                  <p style={{ color: '#888', fontSize: 11 }}>{item.label}</p>
-                  <p style={{ color: item.color, fontWeight: 700, fontSize: 13 }}>{item.value}</p>
-                </div>
-              </div>
-            ))}
-
-            <p style={{ color: '#666', fontSize: 12, lineHeight: 1.8, margin: '12px 0', textAlign: 'center' }}>
-              BlackRock هي أكبر شركة لإدارة الأصول في العالم، تأسست عام 1988 وتخدم عملاء في أكثر من 100 دولة
+          
+          {/* CTA */}
+          <div style={{
+            background:"#0d0d0d",border:"1px solid rgba(255,184,0,0.2)",borderRadius:12,
+            padding:16,marginBottom:16,textAlign:"center"
+          }}>
+            <p style={{color:"#888",fontSize:12,fontFamily:"'Cairo','Inter',sans-serif",lineHeight:1.8}}>
+              أنجز المهام اليومية لزيادة نقاطك ✅<br/>
+              كل مهمة = <span style={{color:"#FFB800",fontWeight:700}}>10 نقاط</span>
             </p>
+          </div>
+          
+          <button className="btn-secondary" onClick={onClose}>إغلاق</button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-            <a href="https://www.blackrock.com" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textDecoration: 'none', marginBottom: 12 }}>
-              <button className="btn-outline" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
-                <span>🌐</span> زيارة الموقع الرسمي
-              </button>
-            </a>
-            <button className="btn-gold" onClick={() => setShowCompany(false)}>إغلاق</button>
+/* ═══════════════════════════════════════
+   DEPOSIT MODAL
+═══════════════════════════════════════ */
+const DepositModal=({onClose,showToast})=>(
+  <div className="modal-overlay" onClick={onClose}>
+    <div className="modal-sheet" onClick={e=>e.stopPropagation()}>
+      <div className="modal-handle"/>
+      <div style={{padding:"20px 20px 30px"}}>
+        <div style={{textAlign:"center",marginBottom:24}}>
+          <div style={{fontSize:44,marginBottom:10}}>💳</div>
+          <h3 style={{color:"#fff",fontSize:20,fontWeight:900,fontFamily:"'Inter',sans-serif",marginBottom:4}}>شحن الرصيد</h3>
+          <p style={{color:"#666",fontSize:13,fontFamily:"'Cairo','Inter',sans-serif"}}>تواصل مع وكلائنا المعتمدين</p>
+        </div>
+        
+        <div style={{
+          background:"#0d0d0d",border:"1px solid rgba(0,200,81,0.2)",borderRadius:14,
+          padding:20,marginBottom:16,borderTop:"2px solid rgba(0,200,81,0.4)"
+        }}>
+          <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:16}}>
+            <div style={{
+              width:52,height:52,background:"#001a08",borderRadius:12,
+              display:"flex",alignItems:"center",justifyContent:"center",fontSize:26,
+              border:"1px solid rgba(0,200,81,0.3)"
+            }}>📲</div>
+            <div>
+              <div style={{color:"#00C851",fontSize:15,fontWeight:700,fontFamily:"'Inter',sans-serif"}}>Signal Messenger</div>
+              <div style={{color:"#555",fontSize:12,fontFamily:"'Inter','Cairo',sans-serif"}}>تواصل آمن ومشفر</div>
+            </div>
+          </div>
+          <p style={{color:"#888",fontSize:13,fontFamily:"'Cairo','Inter',sans-serif",lineHeight:1.9,marginBottom:16}}>
+            للإيداع وشحن رصيدك، تواصل مع وكلائنا المعتمدين عبر تطبيق Signal للحصول على خدمة سريعة وآمنة.
+          </p>
+          <a href="https://signal.me/#eu/__kL4ayCt64xdRiSQWwYpMxOo5_u-Br5Y87rLvt7vQ9c0zoJJ3BEHIfxtpSC5JSE" target="_blank" rel="noopener noreferrer" style={{display:"block",textDecoration:"none"}}>
+            <button className="btn-primary" style={{
+              background:"linear-gradient(135deg,#1a7a28,#157a22)",
+              display:"flex",alignItems:"center",justifyContent:"center",gap:10
+            }}>
+              <span>📲</span><span>اتصل بنا عبر Signal</span>
+            </button>
+          </a>
+        </div>
+        
+        <div style={{
+          background:"#0d0d0d",border:"1px solid var(--br-border)",borderRadius:12,
+          padding:16,marginBottom:16
+        }}>
+          <div style={{fontSize:11,letterSpacing:2,color:"#888",fontFamily:"'Inter',sans-serif",fontWeight:700,marginBottom:12,textTransform:"uppercase"}}>معلومات الإيداع</div>
+          {[
+            {k:"سعر الصرف",v:"1$ = 250 دج",color:"#FFB800"},
+            {k:"الحد الأدنى",v:"7,000 دج (28$)",color:"#fff"},
+            {k:"وقت التأكيد",v:"خلال ساعة واحدة",color:"#00C851"},
+            {k:"أمان الأموال",v:"محمية 100%",color:"#00C851"},
+          ].map((r,i)=>(
+            <div key={i} style={{display:"flex",justifyContent:"space-between",padding:"8px 0",borderBottom:i<3?"1px solid #1a1a1a":"none"}}>
+              <span style={{color:"#666",fontSize:13,fontFamily:"'Cairo','Inter',sans-serif"}}>{r.k}</span>
+              <span style={{color:r.color,fontSize:13,fontWeight:600,fontFamily:"'Inter',sans-serif"}}>{r.v}</span>
+            </div>
+          ))}
+        </div>
+        
+        <button className="btn-secondary" onClick={onClose}>إغلاق</button>
+      </div>
+    </div>
+  </div>
+);
+
+/* ═══════════════════════════════════════
+   WITHDRAW MODAL
+═══════════════════════════════════════ */
+const WithdrawModal=({user,setUser,onClose,showToast})=>{
+  const [amt,setAmt]=useState('');
+  const go=()=>{
+    if(!amt||Number(amt)<=0)return showToast("أدخل مبلغاً صحيحاً","error");
+    if(Number(amt)>user.balance)return showToast("رصيد غير كافٍ","error");
+    if(Number(amt)<5)return showToast("الحد الأدنى للسحب 5$","warning");
+    setUser(u=>({...u,balance:u.balance-Number(amt)}));
+    showToast(`تم طلب سحب ${amt}$ بنجاح 🎉`,"success");
+    onClose();
+  };
+  return(
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-sheet" onClick={e=>e.stopPropagation()}>
+        <div className="modal-handle"/>
+        <div style={{padding:"20px 20px 30px"}}>
+          <div style={{textAlign:"center",marginBottom:24}}>
+            <div style={{fontSize:44,marginBottom:10}}>💸</div>
+            <h3 style={{color:"#fff",fontSize:20,fontWeight:900,fontFamily:"'Inter',sans-serif",marginBottom:4}}>سحب الأرباح</h3>
+            <p style={{color:"#666",fontSize:13}}>الرصيد المتاح: <span style={{color:"#00C851",fontWeight:700}}>{fmt(user.balance)}$</span></p>
+          </div>
+          <div style={{marginBottom:16}}>
+            <label style={{color:"#888",fontSize:12,fontFamily:"'Inter',sans-serif",fontWeight:600,display:"block",marginBottom:8,letterSpacing:1,textTransform:"uppercase"}}>المبلغ ($)</label>
+            <input type="number" placeholder="0.00" value={amt} onChange={e=>setAmt(e.target.value)}/>
+            {amt&&<p style={{color:"#444",fontSize:12,marginTop:6,fontFamily:"'Inter',sans-serif"}}>≈ {fmt(Number(amt)*250,0)} دج</p>}
+          </div>
+          <div style={{
+            background:"#0d0d0d",border:"1px solid var(--br-border)",borderRadius:10,
+            padding:14,marginBottom:20
+          }}>
+            {[{k:"الحد الأدنى",v:"5$"},{k:"رسوم المعالجة",v:"0%"},{k:"وقت المعالجة",v:"24-48 ساعة"}].map((r,i)=>(
+              <div key={i} style={{display:"flex",justifyContent:"space-between",padding:"7px 0",borderBottom:i<2?"1px solid #1a1a1a":"none"}}>
+                <span style={{color:"#666",fontSize:12,fontFamily:"'Cairo','Inter',sans-serif"}}>{r.k}</span>
+                <span style={{color:"#ddd",fontSize:12,fontWeight:600,fontFamily:"'Inter',sans-serif"}}>{r.v}</span>
+              </div>
+            ))}
+          </div>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>
+            <button className="btn-secondary" onClick={onClose}>إلغاء</button>
+            <button className="btn-primary" onClick={go}>تأكيد السحب</button>
           </div>
         </div>
-      )}
+      </div>
+    </div>
+  );
+};
 
-      {/* Edit Profile Modal */}
-      {showEditProfile && (
-        <div className="modal-overlay" onClick={() => setShowEditProfile(false)}>
-          <div className="modal-sheet" onClick={e => e.stopPropagation()}>
-            <div className="modal-handle" />
-            <div style={{ textAlign: 'center', marginBottom: 20 }}>
-              <div style={{ fontSize: 48, marginBottom: 10 }}>✏️</div>
-              <h3 style={{ color: '#D4AF37', fontSize: 20, fontWeight: 900 }}>تعديل الملف الشخصي</h3>
+/* ═══════════════════════════════════════
+   HOME PAGE
+═══════════════════════════════════════ */
+const HomePage=({user,setUser,setPage,showToast})=>{
+  const [modal,setModal]=useState(null);
+  const pkg=PACKAGES.find(p=>p.id===user.packageId)||PACKAGES[0];
+  return(
+    <div className="fadeIn" style={{paddingBottom:90}}>
+      
+      {/* Header */}
+      <div style={{
+        background:"linear-gradient(180deg,#0d0000 0%,#000 100%)",
+        padding:"52px 20px 24px",
+        borderBottom:"1px solid var(--br-border)"
+      }}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:24}}>
+          <div>
+            <div style={{color:"#E31837",fontSize:18,fontWeight:900,fontFamily:"'Inter',sans-serif",letterSpacing:1}}>BLACKROCK</div>
+            <div style={{color:"#444",fontSize:11,fontFamily:"'Inter',sans-serif",letterSpacing:1}}>EARN PLATFORM</div>
+          </div>
+          <div style={{display:"flex",alignItems:"center",gap:10}}>
+            <div style={{
+              background:"rgba(0,200,81,0.1)",border:"1px solid rgba(0,200,81,0.3)",
+              borderRadius:20,padding:"4px 10px",display:"flex",alignItems:"center",gap:5
+            }}>
+              <div style={{width:6,height:6,background:"#00C851",borderRadius:"50%",animation:"greenPulse 2s infinite"}}/>
+              <span style={{color:"#00C851",fontSize:10,fontWeight:700,fontFamily:"'Inter',sans-serif"}}>LIVE</span>
             </div>
-            <div style={{ marginBottom: 16 }}>
-              <label style={{ color: '#D4AF37', fontSize: 13, fontWeight: 600, display: 'block', marginBottom: 8 }}>الاسم الكامل</label>
-              <input type="text" value={editName} onChange={e => setEditName(e.target.value)} placeholder="أدخل اسمك" />
+            <div style={{
+              width:38,height:38,borderRadius:"50%",background:"#E31837",
+              display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,fontWeight:900,
+              fontFamily:"'Inter',sans-serif",color:"#fff"
+            }}>{user.name.charAt(0).toUpperCase()}</div>
+          </div>
+        </div>
+        
+        <div style={{marginBottom:6,color:"#555",fontSize:12,fontFamily:"'Inter',sans-serif"}}>Welcome back</div>
+        <div style={{color:"#fff",fontSize:18,fontWeight:700,fontFamily:"'Inter','Cairo',sans-serif",marginBottom:24}}>{user.name}</div>
+        
+        {/* Balance Card */}
+        <div style={{
+          background:"linear-gradient(160deg,#110000 0%,#0d0000 50%,#0a0000 100%)",
+          border:"1px solid rgba(227,24,55,0.2)",borderRadius:16,padding:24,
+          position:"relative",overflow:"hidden"
+        }}>
+          <div style={{position:"absolute",top:0,left:0,right:0,height:2,background:"linear-gradient(90deg,transparent,#E31837,transparent)"}}/>
+          <div style={{position:"absolute",top:-40,right:-40,width:160,height:160,background:"rgba(227,24,55,0.04)",borderRadius:"50%"}}/>
+          <div style={{position:"absolute",bottom:-60,left:-20,width:200,height:200,background:"rgba(227,24,55,0.02)",borderRadius:"50%"}}/>
+          
+          <div style={{color:"#555",fontSize:11,fontFamily:"'Inter',sans-serif",letterSpacing:2,marginBottom:10,textTransform:"uppercase"}}>Total Balance</div>
+          <div style={{display:"flex",alignItems:"baseline",gap:6,marginBottom:4}}>
+            <span style={{color:"#fff",fontSize:42,fontWeight:900,fontFamily:"'Inter',sans-serif",lineHeight:1}}>{fmt(user.balance)}</span>
+            <span style={{color:"#E31837",fontSize:20,fontWeight:700}}>USD</span>
+          </div>
+          <div style={{color:"#444",fontSize:12,fontFamily:"'Inter',sans-serif",marginBottom:20}}>≈ {fmt(user.balance*250,0)} DZD</div>
+          
+          <div style={{display:"flex",gap:16,flexWrap:"wrap"}}>
+            {[
+              {label:"Daily Profit",val:`+${fmt(pkg.daily)}$`,color:"#00C851"},
+              {label:"Package",val:pkg.name,color:pkg.color},
+              {label:"Tasks Left",val:`${user.tasksLeft}/${pkg.tasks}`,color:"#FFB800"},
+            ].map((s,i)=>(
+              <div key={i}>
+                <div style={{color:"#444",fontSize:10,fontFamily:"'Inter',sans-serif",letterSpacing:1,textTransform:"uppercase",marginBottom:2}}>{s.label}</div>
+                <div style={{color:s.color,fontSize:13,fontWeight:700,fontFamily:"'Inter',sans-serif"}}>{s.val}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      
+      {/* Ticker */}
+      <TickerBar/>
+      
+      {/* Action Buttons */}
+      <div style={{padding:"20px 20px 0"}}>
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12,marginBottom:24}}>
+          <button onClick={()=>setModal("deposit")} style={{
+            background:"#111",border:"1px solid var(--br-border2)",borderRadius:12,padding:"16px 12px",
+            cursor:"pointer",textAlign:"center",transition:"all 0.2s",fontFamily:"'Inter','Cairo',sans-serif",
+            color:"#fff"
+          }}>
+            <div style={{fontSize:22,marginBottom:6}}>💳</div>
+            <div style={{fontSize:12,fontWeight:700,color:"#fff",marginBottom:2}}>إيداع</div>
+            <div style={{fontSize:10,color:"#555"}}>Deposit</div>
+          </button>
+          <button onClick={()=>setModal("withdraw")} style={{
+            background:"#111",border:"1px solid var(--br-border2)",borderRadius:12,padding:"16px 12px",
+            cursor:"pointer",textAlign:"center",transition:"all 0.2s",fontFamily:"'Inter','Cairo',sans-serif",
+            color:"#fff"
+          }}>
+            <div style={{fontSize:22,marginBottom:6}}>💸</div>
+            <div style={{fontSize:12,fontWeight:700,color:"#fff",marginBottom:2}}>سحب</div>
+            <div style={{fontSize:10,color:"#555"}}>Withdraw</div>
+          </button>
+        </div>
+        
+        {/* Stats Row */}
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10,marginBottom:24}}>
+          {[
+            {icon:"📊",val:`${fmt(user.totalEarned)}$`,label:"إجمالي الأرباح",sub:"Total Earned",color:"#E31837"},
+            {icon:"📅",val:user.activeDays,label:"أيام النشاط",sub:"Active Days",color:"#FFB800"},
+            {icon:"✅",val:user.completedTasks,label:"المهام المنجزة",sub:"Completed",color:"#00C851"},
+          ].map((s,i)=>(
+            <div key={i} className="stat-box">
+              <div style={{fontSize:18,marginBottom:6}}>{s.icon}</div>
+              <div style={{color:s.color,fontSize:16,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{s.val}</div>
+              <div style={{color:"#ddd",fontSize:10,fontFamily:"'Cairo','Inter',sans-serif",marginTop:2}}>{s.label}</div>
             </div>
-            <div style={{ marginBottom: 20 }}>
-              <label style={{ color: '#D4AF37', fontSize: 13, fontWeight: 600, display: 'block', marginBottom: 8 }}>البريد الإلكتروني</label>
-              <input type="email" value={editEmail} onChange={e => setEditEmail(e.target.value)} placeholder="أدخل بريدك الإلكتروني" />
+          ))}
+        </div>
+        
+        {/* News */}
+        <div className="section-title">📰 Market News</div>
+        <NewsCarousel/>
+        
+        {/* Quick Actions */}
+        <div className="section-title">⚡ Quick Actions</div>
+        <div style={{display:"flex",flexDirection:"column",gap:10,marginBottom:24}}>
+          {[
+            {icon:"⚡",title:"ابدأ المهام اليومية",sub:`${user.tasksLeft} مهمة متاحة`,color:"#E31837",action:()=>setPage("tasks")},
+            {icon:"🚀",title:"ترقية الباقة",sub:`باقتك: ${pkg.name}`,color:"#FFB800",action:()=>setPage("upgrades")},
+          ].map((a,i)=>(
+            <div key={i} onClick={a.action} style={{
+              background:"#0d0d0d",border:"1px solid var(--br-border)",borderRadius:12,
+              padding:"16px 18px",display:"flex",alignItems:"center",gap:14,cursor:"pointer",
+              transition:"all 0.2s",borderRight:`3px solid ${a.color}`
+            }}>
+              <div style={{width:42,height:42,background:`${a.color}18`,borderRadius:10,display:"flex",alignItems:"center",justifyContent:"center",fontSize:20,flexShrink:0}}>{a.icon}</div>
+              <div style={{flex:1}}>
+                <div style={{color:"#fff",fontSize:14,fontWeight:700,fontFamily:"'Cairo','Inter',sans-serif"}}>{a.title}</div>
+                <div style={{color:"#555",fontSize:12,fontFamily:"'Cairo','Inter',sans-serif",marginTop:2}}>{a.sub}</div>
+              </div>
+              <div style={{color:"#333",fontSize:20,fontFamily:"'Inter',sans-serif"}}>›</div>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-              <button className="btn-outline" onClick={() => setShowEditProfile(false)}>إلغاء</button>
-              <button className="btn-gold" onClick={saveProfile}>حفظ التغييرات</button>
+          ))}
+        </div>
+        
+        {/* NYSE Banner */}
+        <div style={{
+          background:"#0a0000",border:"1px solid rgba(227,24,55,0.15)",borderRadius:12,
+          padding:"14px 18px",display:"flex",alignItems:"center",gap:14,marginBottom:8
+        }}>
+          <div style={{fontSize:24}}>🏛️</div>
+          <div style={{flex:1}}>
+            <div style={{color:"#E31837",fontSize:11,fontWeight:700,fontFamily:"'Inter',sans-serif",letterSpacing:1,textTransform:"uppercase"}}>NYSE: BLK</div>
+            <div style={{color:"#444",fontSize:11,fontFamily:"'Inter',sans-serif"}}>New York Stock Exchange</div>
+          </div>
+          <div style={{textAlign:"left"}}>
+            <div style={{color:"#fff",fontSize:13,fontWeight:700,fontFamily:"'Inter',sans-serif"}}>$897.42</div>
+            <div style={{color:"#00C851",fontSize:11,fontFamily:"'Inter',sans-serif"}}>+1.24%</div>
+          </div>
+        </div>
+      </div>
+      
+      {modal==="deposit"&&<DepositModal onClose={()=>setModal(null)} showToast={showToast}/>}
+      {modal==="withdraw"&&<WithdrawModal user={user} setUser={setUser} onClose={()=>setModal(null)} showToast={showToast}/>}
+    </div>
+  );
+};
+
+/* ═══════════════════════════════════════
+   TASKS PAGE
+═══════════════════════════════════════ */
+const TasksPage=({user,setUser,showToast})=>{
+  const [current,setCurrent]=useState(null);
+  const [timer,setTimer]=useState(40);
+  const [running,setRunning]=useState(false);
+  const [done,setDone]=useState([]);
+  const [blocked,setBlocked]=useState(false);
+  const [earned,setEarned]=useState(0);
+  const ref=useRef(null);
+  const pkg=PACKAGES.find(p=>p.id===user.packageId)||PACKAGES[0];
+  const perTask=pkg.daily/pkg.tasks;
+  const progress=((40-timer)/40)*100;
+  const R=52,C=2*Math.PI*R;
+  
+  const start=(i)=>{
+    if(blocked)return showToast("مهامك موقوفة حتى الغد 🔒","error");
+    if(done.includes(i))return;
+    if(running)return;
+    setCurrent(i);setTimer(40);setRunning(true);
+  };
+  
+  useEffect(()=>{
+    if(running&&timer>0){ref.current=setTimeout(()=>setTimer(t=>t-1),1000);}
+    else if(running&&timer===0){
+      setDone(d=>[...d,current]);
+      setEarned(e=>e+perTask);
+      setUser(u=>({...u,balance:u.balance+perTask,totalEarned:u.totalEarned+perTask,completedTasks:u.completedTasks+1,tasksLeft:Math.max(0,u.tasksLeft-1)}));
+      showToast(`✅ +${fmt(perTask)}$ تم إضافته للرصيد`,"success");
+      setRunning(false);setCurrent(null);
+    }
+    return()=>clearTimeout(ref.current);
+  },[running,timer]);
+  
+  const cancel=()=>{
+    clearTimeout(ref.current);
+    setRunning(false);setCurrent(null);setTimer(40);setBlocked(true);
+    showToast("❌ خسرت ربح هذه المهمة! مهامك موقوفة حتى الغد","error");
+  };
+  
+  return(
+    <div className="fadeIn" style={{paddingBottom:90,minHeight:"100vh",background:"#000"}}>
+      
+      {/* Header */}
+      <div style={{
+        background:"linear-gradient(180deg,#0d0000 0%,#000 100%)",
+        padding:"52px 20px 20px",borderBottom:"1px solid var(--br-border)"
+      }}>
+        <div style={{fontSize:11,letterSpacing:2,color:"#E31837",fontFamily:"'Inter',sans-serif",fontWeight:700,textTransform:"uppercase",marginBottom:8}}>Daily Tasks</div>
+        <h1 style={{color:"#fff",fontSize:24,fontWeight:900,fontFamily:"'Inter',sans-serif",marginBottom:4}}>⚡ المهام اليومية</h1>
+        <p style={{color:"#555",fontSize:13,fontFamily:"'Cairo','Inter',sans-serif"}}>أكمل {pkg.tasks} مهمة لكسب {fmt(pkg.daily)}$ يومياً</p>
+      </div>
+      
+      <div style={{padding:"20px 20px 0"}}>
+        
+        {/* Stats */}
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10,marginBottom:20}}>
+          {[
+            {val:done.length,label:"منجزة",color:"#00C851"},
+            {val:blocked?0:pkg.tasks-done.length,label:"متبقية",color:"#FFB800"},
+            {val:`${fmt(earned)}$`,label:"اليوم",color:"#E31837"},
+          ].map((s,i)=>(
+            <div key={i} className="stat-box">
+              <div style={{color:s.color,fontSize:20,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{s.val}</div>
+              <div style={{color:"#555",fontSize:10,fontFamily:"'Cairo','Inter',sans-serif",marginTop:4}}>{s.label}</div>
+            </div>
+          ))}
+        </div>
+        
+        {/* Blocked */}
+        {blocked&&(
+          <div style={{
+            background:"#110000",border:"1px solid rgba(227,24,55,0.3)",borderRadius:12,
+            padding:20,marginBottom:20,textAlign:"center"
+          }}>
+            <div style={{fontSize:36,marginBottom:10}}>🚫</div>
+            <div style={{color:"#E31837",fontSize:15,fontWeight:700,fontFamily:"'Inter','Cairo',sans-serif",marginBottom:6}}>المهام موقوفة اليوم</div>
+            <div style={{color:"#555",fontSize:12,fontFamily:"'Cairo','Inter',sans-serif"}}>ستُفتح تلقائياً في اليوم التالي</div>
+          </div>
+        )}
+        
+        {/* Active Timer */}
+        {running&&current!==null&&(
+          <div style={{
+            background:"#110000",border:"1px solid rgba(227,24,55,0.4)",borderRadius:16,
+            padding:24,marginBottom:20,textAlign:"center",
+            boxShadow:"0 0 30px rgba(227,24,55,0.1)"
+          }}>
+            <div style={{color:"#555",fontSize:11,fontFamily:"'Inter',sans-serif",letterSpacing:2,textTransform:"uppercase",marginBottom:16}}>Task {current+1} Running</div>
+            
+            <div style={{position:"relative",display:"inline-block",marginBottom:20}}>
+              <svg width="130" height="130" className="progress-ring">
+                <circle cx="65" cy="65" r={R} className="ring-bg"/>
+                <circle cx="65" cy="65" r={R} className="ring-fg"
+                  stroke={timer>20?"#E31837":timer>10?"#FFB800":"#00C851"}
+                  strokeDasharray={C}
+                  strokeDashoffset={C-(progress/100)*C}
+                />
+              </svg>
+              <div style={{position:"absolute",inset:0,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}>
+                <span style={{color:"#fff",fontSize:36,fontWeight:900,fontFamily:"'Inter',sans-serif",lineHeight:1}}>{timer}</span>
+                <span style={{color:"#444",fontSize:11,fontFamily:"'Inter',sans-serif"}}>sec</span>
+              </div>
+            </div>
+            
+            <div style={{
+              background:"rgba(227,24,55,0.08)",border:"1px solid rgba(227,24,55,0.2)",
+              borderRadius:10,padding:"10px 20px",marginBottom:16,display:"inline-block"
+            }}>
+              <span style={{color:"#E31837",fontSize:16,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>+{fmt(perTask)}$</span>
+            </div>
+            
+            <div style={{
+              background:"#1a0000",border:"1px solid rgba(227,24,55,0.2)",
+              borderRadius:8,padding:"10px 14px",marginBottom:16,textAlign:"right"
+            }}>
+              <p style={{color:"#E31837",fontSize:12,fontFamily:"'Cairo','Inter',sans-serif"}}>⚠️ الإلغاء سيوقف جميع مهامك اليومية!</p>
+            </div>
+            
+            <button onClick={cancel} style={{
+              background:"transparent",border:"1px solid rgba(227,24,55,0.3)",
+              color:"rgba(227,24,55,0.7)",borderRadius:8,padding:"10px 24px",
+              cursor:"pointer",fontFamily:"'Inter','Cairo',sans-serif",fontSize:13
+            }}>✕ إلغاء (تحذير)</button>
+          </div>
+        )}
+        
+        {/* Task List */}
+        <div className="section-title">TASKS — {pkg.name}</div>
+        <div style={{display:"flex",flexDirection:"column",gap:8,marginBottom:20}}>
+          {Array.from({length:pkg.tasks},(_,i)=>{
+            const isDone=done.includes(i);
+            const isActive=current===i&&running;
+            const isLocked=blocked||(running&&!isDone&&!isActive);
+            return(
+              <div key={i}
+                onClick={()=>!isDone&&!isActive&&!isLocked&&start(i)}
+                className={`task-item ${isDone?"task-item-done":isActive?"task-item-active":""}`}
+                style={{opacity:isLocked&&!isActive?0.4:1,cursor:isDone||isLocked?"not-allowed":"pointer"}}
+              >
+                <div style={{
+                  width:38,height:38,borderRadius:8,
+                  background:isDone?"rgba(0,200,81,0.12)":isActive?"rgba(227,24,55,0.12)":"#1a1a1a",
+                  border:`1px solid ${isDone?"rgba(0,200,81,0.4)":isActive?"rgba(227,24,55,0.5)":"#2a2a2a"}`,
+                  display:"flex",alignItems:"center",justifyContent:"center",
+                  fontSize:isDone?18:14,fontWeight:900,color:isDone?"#00C851":isActive?"#E31837":"#555",
+                  fontFamily:"'Inter',sans-serif",flexShrink:0
+                }}>
+                  {isDone?"✓":isActive?"⏳":i+1}
+                </div>
+                <div style={{flex:1}}>
+                  <div style={{color:isDone?"#00C851":isActive?"#E31837":"#ddd",fontWeight:700,fontSize:14,fontFamily:"'Cairo','Inter',sans-serif"}}>
+                    {isDone?"اكتملت":isActive?"جارية...":blocked?"موقوفة":`مهمة ${i+1}`}
+                  </div>
+                  <div style={{color:"#444",fontSize:11,fontFamily:"'Inter',sans-serif",marginTop:2}}>+{fmt(perTask)} USD · 40s</div>
+                </div>
+                <div>
+                  {isDone?<span style={{color:"#00C851",fontSize:12,fontWeight:700,fontFamily:"'Inter',sans-serif"}}>+{fmt(perTask)}$</span>
+                  :isActive?<span style={{color:"#E31837",fontSize:18,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{timer}</span>
+                  :<span style={{color:"#2a2a2a",fontSize:18}}>›</span>}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        
+        {/* Package Bar */}
+        <div style={{
+          background:"#0d0d0d",border:"1px solid var(--br-border)",borderRadius:12,
+          padding:16,marginBottom:8
+        }}>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
+            <span style={{color:"#888",fontSize:12,fontFamily:"'Cairo','Inter',sans-serif"}}>تقدم اليوم</span>
+            <span style={{color:pkg.color,fontSize:12,fontWeight:700,fontFamily:"'Inter',sans-serif"}}>{done.length}/{pkg.tasks}</span>
+          </div>
+          <div style={{background:"#1a1a1a",borderRadius:4,height:4,overflow:"hidden"}}>
+            <div style={{
+              height:"100%",background:`linear-gradient(90deg,${pkg.color},${pkg.color}aa)`,
+              borderRadius:4,transition:"width 0.5s ease",
+              width:`${(done.length/pkg.tasks)*100}%`
+            }}/>
+          </div>
+          <div style={{display:"flex",justifyContent:"space-between",marginTop:12}}>
+            <span style={{color:"#444",fontSize:11,fontFamily:"'Cairo','Inter',sans-serif"}}>المكتسب: {fmt(earned)}$</span>
+            <span style={{color:"#444",fontSize:11,fontFamily:"'Cairo','Inter',sans-serif"}}>الهدف: {fmt(pkg.daily)}$</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* ═══════════════════════════════════════
+   UPGRADES PAGE
+═══════════════════════════════════════ */
+const UpgradesPage=({user,setUser,showToast})=>{
+  const [sel,setSel]=useState(null);
+  const [confirm,setConfirm]=useState(false);
+  
+  const upgrade=(pkg)=>{
+    if(user.balance<pkg.price&&pkg.price>0){
+      showToast("رصيد غير كافٍ للترقية","error");return;
+    }
+    setUser(u=>({...u,packageId:pkg.id,balance:pkg.price>0?u.balance-pkg.price:u.balance,tasksLeft:pkg.tasks}));
+    showToast(`🚀 تم الترقية إلى ${pkg.name}!`,"success");
+    setConfirm(false);setSel(null);
+  };
+  
+  return(
+    <div className="fadeIn" style={{paddingBottom:90,minHeight:"100vh",background:"#000"}}>
+      
+      <div style={{
+        background:"linear-gradient(180deg,#0d0000 0%,#000 100%)",
+        padding:"52px 20px 20px",borderBottom:"1px solid var(--br-border)"
+      }}>
+        <div style={{fontSize:11,letterSpacing:2,color:"#E31837",fontFamily:"'Inter',sans-serif",fontWeight:700,textTransform:"uppercase",marginBottom:8}}>Investment Packages</div>
+        <h1 style={{color:"#fff",fontSize:24,fontWeight:900,fontFamily:"'Inter',sans-serif",marginBottom:4}}>🚀 الترقيات</h1>
+        
+        {/* Current Package */}
+        <div style={{
+          background:"#0d0d0d",border:"1px solid var(--br-border2)",borderRadius:10,
+          padding:"12px 16px",display:"flex",justifyContent:"space-between",alignItems:"center",marginTop:16
+        }}>
+          <div>
+            <div style={{color:"#444",fontSize:10,fontFamily:"'Inter',sans-serif",letterSpacing:1,textTransform:"uppercase"}}>Current Package</div>
+            <div style={{color:PACKAGES[user.packageId].color,fontSize:14,fontWeight:700,fontFamily:"'Inter',sans-serif",marginTop:2}}>{PACKAGES[user.packageId].name}</div>
+          </div>
+          <div style={{textAlign:"left"}}>
+            <div style={{color:"#444",fontSize:10,fontFamily:"'Inter',sans-serif",letterSpacing:1,textTransform:"uppercase"}}>Balance</div>
+            <div style={{color:"#00C851",fontSize:14,fontWeight:700,fontFamily:"'Inter',sans-serif",marginTop:2}}>{fmt(user.balance)}$</div>
+          </div>
+        </div>
+      </div>
+      
+      <div style={{padding:"20px 20px 0"}}>
+        <div style={{display:"flex",flexDirection:"column",gap:14}}>
+          {PACKAGES.map((pkg,idx)=>{
+            const owned=user.packageId===pkg.id;
+            const canAfford=user.balance>=pkg.price||pkg.price===0;
+            return(
+              <div key={pkg.id} style={{
+                background:pkg.bg,border:`1px solid ${pkg.border}`,
+                borderRadius:14,overflow:"hidden",position:"relative",
+                boxShadow:pkg.popular?`0 0 30px ${pkg.color}15`:"none"
+              }}>
+                {pkg.popular&&(
+                  <div style={{
+                    position:"absolute",top:0,right:0,
+                    background:pkg.color,color:"#000",fontSize:10,fontWeight:800,
+                    padding:"4px 14px",borderRadius:"0 14px 0 8px",fontFamily:"'Inter',sans-serif",letterSpacing:0.5
+                  }}>⭐ POPULAR</div>
+                )}
+                {owned&&(
+                  <div style={{
+                    position:"absolute",top:0,left:0,
+                    background:"#00C851",color:"#000",fontSize:10,fontWeight:800,
+                    padding:"4px 14px",borderRadius:"14px 0 8px 0",fontFamily:"'Inter',sans-serif"
+                  }}>✓ ACTIVE</div>
+                )}
+                
+                <div style={{padding:20}}>
+                  <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:16}}>
+                    <div>
+                      <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:4}}>
+                        <div style={{
+                          width:44,height:44,borderRadius:10,
+                          background:`${pkg.color}22`,border:`1px solid ${pkg.color}44`,
+                          display:"flex",alignItems:"center",justifyContent:"center",
+                          color:pkg.color,fontSize:14,fontWeight:900,fontFamily:"'Inter',sans-serif"
+                        }}>{pkg.symbol}</div>
+                        <div>
+                          <div style={{color:"#fff",fontSize:18,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{pkg.name}</div>
+                          <div style={{color:"#555",fontSize:11,fontFamily:"'Cairo','Inter',sans-serif"}}>{pkg.desc}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div style={{textAlign:"left"}}>
+                      <div style={{color:"#fff",fontSize:22,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{pkg.price===0?"Free":`$${fmt(pkg.price,0)}`}</div>
+                      {pkg.price>0&&<div style={{color:"#555",fontSize:11,fontFamily:"'Inter',sans-serif"}}>{pkg.priceAlg}</div>}
+                    </div>
+                  </div>
+                  
+                  {/* Stats Grid */}
+                  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:16}}>
+                    {[
+                      {icon:"⚡",k:"Daily Tasks",v:`${pkg.tasks}`},
+                      {icon:"💰",k:"Daily Profit",v:`$${fmt(pkg.daily)}`},
+                      {icon:"📅",k:"Validity",v:`${pkg.validity} days`},
+                      {icon:"📈",k:"Per Task",v:`$${fmt(pkg.daily/pkg.tasks)}`},
+                    ].map((s,i)=>(
+                      <div key={i} style={{
+                        background:"rgba(0,0,0,0.4)",borderRadius:8,padding:"10px 12px",
+                        display:"flex",alignItems:"center",gap:8,border:"1px solid rgba(255,255,255,0.04)"
+                      }}>
+                        <span style={{fontSize:14}}>{s.icon}</span>
+                        <div>
+                          <div style={{color:"#444",fontSize:9,fontFamily:"'Inter',sans-serif",letterSpacing:1,textTransform:"uppercase"}}>{s.k}</div>
+                          <div style={{color:"#ddd",fontSize:12,fontWeight:700,fontFamily:"'Inter',sans-serif"}}>{s.v}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  {/* Monthly Return */}
+                  <div style={{
+                    background:`${pkg.color}0d`,border:`1px solid ${pkg.color}22`,borderRadius:8,
+                    padding:"10px 14px",marginBottom:14,display:"flex",justifyContent:"space-between",alignItems:"center"
+                  }}>
+                    <span style={{color:"#888",fontSize:12,fontFamily:"'Cairo','Inter',sans-serif"}}>العائد الشهري المتوقع</span>
+                    <span style={{color:pkg.color,fontSize:16,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>${fmt(pkg.daily*pkg.validity,1)}</span>
+                  </div>
+                  
+                  {owned?(
+                    <button disabled style={{
+                      background:"rgba(0,200,81,0.08)",border:"1px solid rgba(0,200,81,0.2)",
+                      color:"#00C851",borderRadius:8,padding:"13px",width:"100%",
+                      fontFamily:"'Inter','Cairo',sans-serif",fontWeight:700,fontSize:13
+                    }}>✓ الباقة المفعّلة حالياً</button>
+                  ):(
+                    <button className="btn-primary" onClick={()=>{setSel(pkg);setConfirm(true);}} style={{
+                      background:canAfford?pkg.color:"#1a1a1a",
+                      color:canAfford?(idx===0||idx===3?"#000":"#fff"):"#555",
+                      fontSize:13
+                    }}>
+                      {canAfford?`Upgrade to ${pkg.name} →`:`💳 شحن الرصيد أولاً`}
+                    </button>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      
+      {confirm&&sel&&(
+        <div className="modal-overlay" onClick={()=>setConfirm(false)}>
+          <div className="modal-sheet" onClick={e=>e.stopPropagation()}>
+            <div className="modal-handle"/>
+            <div style={{padding:"20px 20px 30px"}}>
+              <div style={{textAlign:"center",marginBottom:24}}>
+                <div style={{
+                  width:60,height:60,borderRadius:14,
+                  background:`${sel.color}22`,border:`1px solid ${sel.color}44`,
+                  display:"flex",alignItems:"center",justifyContent:"center",
+                  color:sel.color,fontSize:22,fontWeight:900,fontFamily:"'Inter',sans-serif",
+                  margin:"0 auto 16px"
+                }}>{sel.symbol}</div>
+                <h3 style={{color:"#fff",fontSize:20,fontWeight:900,fontFamily:"'Inter',sans-serif",marginBottom:4}}>Upgrade to {sel.name}</h3>
+                <p style={{color:"#555",fontSize:13,fontFamily:"'Cairo','Inter',sans-serif"}}>تأكيد الترقية</p>
+              </div>
+              <div style={{background:"#0d0d0d",borderRadius:12,padding:16,marginBottom:20}}>
+                {[
+                  ["السعر","price",sel.price===0?"Free":`$${fmt(sel.price,0)}`,"#fff"],
+                  ["المهام اليومية","t",`${sel.tasks} مهمة`,"#FFB800"],
+                  ["الربح اليومي","d",`$${fmt(sel.daily)}`,"#00C851"],
+                  ["رصيدك بعد الشراء","b",`$${fmt(user.balance-sel.price)}`,"#E31837"],
+                ].map(([k,,v,c],i)=>(
+                  <div key={i} style={{display:"flex",justifyContent:"space-between",padding:"9px 0",borderBottom:i<3?"1px solid #1a1a1a":"none"}}>
+                    <span style={{color:"#666",fontSize:13,fontFamily:"'Cairo','Inter',sans-serif"}}>{k}</span>
+                    <span style={{color:c,fontSize:13,fontWeight:700,fontFamily:"'Inter',sans-serif"}}>{v}</span>
+                  </div>
+                ))}
+              </div>
+              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>
+                <button className="btn-secondary" onClick={()=>setConfirm(false)}>إلغاء</button>
+                <button className="btn-primary" onClick={()=>upgrade(sel)}>تأكيد</button>
+              </div>
             </div>
           </div>
         </div>
@@ -1121,132 +1531,280 @@ const ProfilePage = ({ user, setUser, showToast }) => {
   );
 };
 
-// ==================== BOTTOM NAV ====================
-const BottomNav = ({ page, setPage }) => {
-  const tabs = [
-    { id: 'home', icon: '🏠', label: 'الرئيسية' },
-    { id: 'tasks', icon: '⚡', label: 'المهام' },
-    { id: 'upgrades', icon: '🚀', label: 'الترقيات' },
-    { id: 'profile', icon: '👤', label: 'حسابي' },
+/* ═══════════════════════════════════════
+   PROFILE PAGE
+═══════════════════════════════════════ */
+const ProfilePage=({user,setUser,showToast})=>{
+  const [modal,setModal]=useState(null);
+  const [editName,setEditName]=useState(user.name);
+  const [editEmail,setEditEmail]=useState(user.email);
+  const pkg=PACKAGES.find(p=>p.id===user.packageId)||PACKAGES[0];
+  
+  const save=()=>{
+    if(!editName.trim())return showToast("أدخل الاسم","error");
+    setUser(u=>({...u,name:editName,email:editEmail}));
+    showToast("تم الحفظ ✓","success");setModal(null);
+  };
+  
+  return(
+    <div className="fadeIn" style={{paddingBottom:90,minHeight:"100vh",background:"#000"}}>
+      
+      {/* Profile Header */}
+      <div style={{
+        background:"linear-gradient(180deg,#0d0000 0%,#000 100%)",
+        padding:"52px 20px 24px",borderBottom:"1px solid var(--br-border)",textAlign:"center"
+      }}>
+        <div style={{position:"relative",display:"inline-block",marginBottom:16}}>
+          <div style={{
+            width:80,height:80,borderRadius:"50%",background:"#E31837",
+            display:"flex",alignItems:"center",justifyContent:"center",
+            fontSize:32,fontWeight:900,color:"#fff",fontFamily:"'Inter',sans-serif",
+            boxShadow:"0 0 30px rgba(227,24,55,0.3)"
+          }}>{user.name.charAt(0).toUpperCase()}</div>
+          <div style={{
+            position:"absolute",bottom:2,right:2,width:18,height:18,
+            background:"#00C851",borderRadius:"50%",border:"2px solid #000",
+            animation:"greenPulse 2s infinite"
+          }}/>
+        </div>
+        
+        <h2 style={{color:"#fff",fontSize:20,fontWeight:900,fontFamily:"'Inter','Cairo',sans-serif",marginBottom:4}}>{user.name}</h2>
+        <p style={{color:"#555",fontSize:13,fontFamily:"'Inter',sans-serif",marginBottom:14}}>{user.email}</p>
+        
+        <div style={{display:"flex",justifyContent:"center",gap:8,flexWrap:"wrap",marginBottom:16}}>
+          <div className="tag tag-red" style={{fontSize:11}}>NYSE: BLK</div>
+          <div style={{
+            background:`${pkg.color}18`,border:`1px solid ${pkg.color}44`,
+            color:pkg.color,fontSize:11,fontWeight:700,padding:"3px 10px",borderRadius:4
+          }}>{pkg.name}</div>
+          <div className="tag tag-green" style={{fontSize:11}}>● نشط</div>
+        </div>
+        
+        <div style={{
+          background:"#0d0d0d",border:"1px solid var(--br-border)",borderRadius:12,
+          padding:"14px 24px",display:"inline-block",minWidth:180
+        }}>
+          <div style={{color:"#444",fontSize:10,fontFamily:"'Inter',sans-serif",letterSpacing:1,textTransform:"uppercase",marginBottom:4}}>Balance</div>
+          <div style={{color:"#fff",fontSize:26,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{fmt(user.balance)}<span style={{color:"#E31837",fontSize:14,marginRight:4}}> $</span></div>
+          <div style={{color:"#333",fontSize:11,fontFamily:"'Inter',sans-serif",marginTop:2}}>≈ {fmt(user.balance*250,0)} DZD</div>
+        </div>
+      </div>
+      
+      {/* Stats */}
+      <div style={{padding:"20px 20px 0"}}>
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10,marginBottom:24}}>
+          {[
+            {val:`${fmt(user.totalEarned)}$`,label:"إجمالي الأرباح",color:"#E31837"},
+            {val:user.activeDays,label:"أيام النشاط",color:"#FFB800"},
+            {val:user.completedTasks,label:"مهام منجزة",color:"#00C851"},
+          ].map((s,i)=>(
+            <div key={i} className="stat-box">
+              <div style={{color:s.color,fontSize:16,fontWeight:900,fontFamily:"'Inter',sans-serif"}}>{s.val}</div>
+              <div style={{color:"#555",fontSize:10,fontFamily:"'Cairo','Inter',sans-serif",marginTop:3}}>{s.label}</div>
+            </div>
+          ))}
+        </div>
+        
+        {/* Referral Code Banner */}
+        <div style={{
+          background:"linear-gradient(135deg,#110000,#0d0000)",
+          border:"1px solid rgba(227,24,55,0.2)",borderRadius:12,
+          padding:"16px 18px",marginBottom:20,
+          display:"flex",alignItems:"center",gap:14,
+          borderRight:"3px solid #E31837"
+        }}>
+          <div style={{fontSize:24}}>🎁</div>
+          <div style={{flex:1}}>
+            <div style={{color:"#ddd",fontSize:13,fontWeight:700,fontFamily:"'Cairo','Inter',sans-serif"}}>كودك للإحالة</div>
+            <div style={{color:"#E31837",fontSize:16,fontWeight:900,fontFamily:"'Inter',sans-serif",letterSpacing:2,marginTop:2}}>{user.refCode}</div>
+          </div>
+          <button className="copy-btn" onClick={()=>{navigator.clipboard?.writeText(user.refCode).catch(()=>{});showToast("تم نسخ الكود!","success");}}>نسخ</button>
+        </div>
+        
+        {/* Menu */}
+        <div className="section-title">SETTINGS & INFO</div>
+        <div style={{display:"flex",flexDirection:"column",gap:8,marginBottom:24}}>
+          {[
+            {icon:"🛡️",title:"الأمان والعقد",sub:"Security & Contract",color:"#FFB800",action:()=>setModal("security")},
+            {icon:"🏢",title:"عن الشركة",sub:"Company Profile",color:"#E31837",action:()=>setModal("company")},
+            {icon:"🎁",title:"الإحالات",sub:"Referral Program · +2.5$ per invite",color:"#00C851",action:()=>setModal("referral")},
+            {icon:"🏆",title:"المسابقة",sub:"Monthly Contest · Prize $500",color:"#FFB800",action:()=>setModal("contest")},
+            {icon:"✏️",title:"تعديل الملف",sub:"Edit Profile",color:"#3B82F6",action:()=>setModal("edit")},
+            {icon:"📲",title:"دعم Signal",sub:"تواصل مع الوكلاء",color:"#8B5CF6",action:()=>window.open("https://signal.me/#eu/__kL4ayCt64xdRiSQWwYpMxOo5_u-Br5Y87rLvt7vQ9c0zoJJ3BEHIfxtpSC5JSE","_blank")},
+            {icon:"🌐",title:"blackrock.com",sub:"الموقع الرسمي",color:"#06B6D4",action:()=>window.open("https://www.blackrock.com","_blank")},
+          ].map((m,i)=>(
+            <div key={i} onClick={m.action} style={{
+              background:"#0d0d0d",border:"1px solid var(--br-border)",borderRadius:12,
+              padding:"16px 18px",display:"flex",alignItems:"center",gap:14,cursor:"pointer",
+              transition:"all 0.2s",borderRight:`2px solid ${m.color}66`
+            }}>
+              <div style={{
+                width:40,height:40,background:`${m.color}18`,border:`1px solid ${m.color}22`,
+                borderRadius:10,display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,flexShrink:0
+              }}>{m.icon}</div>
+              <div style={{flex:1}}>
+                <div style={{color:"#fff",fontSize:14,fontWeight:700,fontFamily:"'Cairo','Inter',sans-serif"}}>{m.title}</div>
+                <div style={{color:"#444",fontSize:11,fontFamily:"'Inter','Cairo',sans-serif",marginTop:2}}>{m.sub}</div>
+              </div>
+              <div style={{color:"#2a2a2a",fontSize:20}}>›</div>
+            </div>
+          ))}
+        </div>
+        
+        {/* App Info */}
+        <div style={{textAlign:"center",paddingBottom:8}}>
+          <div style={{color:"#E31837",fontSize:13,fontWeight:700,fontFamily:"'Inter',sans-serif",marginBottom:2}}>BLACKROCK EARN</div>
+          <div style={{color:"#333",fontSize:11,fontFamily:"'Inter',sans-serif"}}>v2.0.0 · NYSE: BLK · EIN: 32-0174431</div>
+        </div>
+      </div>
+      
+      {modal==="security"&&<SecurityModal onClose={()=>setModal(null)}/>}
+      {modal==="company"&&<CompanyModal onClose={()=>setModal(null)}/>}
+      {modal==="referral"&&<ReferralModal user={user} onClose={()=>setModal(null)} showToast={showToast}/>}
+      {modal==="contest"&&<ContestModal user={user} onClose={()=>setModal(null)}/>}
+      {modal==="edit"&&(
+        <div className="modal-overlay" onClick={()=>setModal(null)}>
+          <div className="modal-sheet" onClick={e=>e.stopPropagation()}>
+            <div className="modal-handle"/>
+            <div style={{padding:"20px 20px 30px"}}>
+              <h3 style={{color:"#fff",fontSize:18,fontWeight:900,fontFamily:"'Inter',sans-serif",marginBottom:20}}>✏️ تعديل الملف</h3>
+              <div style={{marginBottom:14}}>
+                <label style={{color:"#888",fontSize:11,fontFamily:"'Inter',sans-serif",fontWeight:700,display:"block",marginBottom:8,letterSpacing:1,textTransform:"uppercase"}}>الاسم</label>
+                <input value={editName} onChange={e=>setEditName(e.target.value)} placeholder="الاسم الكامل"/>
+              </div>
+              <div style={{marginBottom:20}}>
+                <label style={{color:"#888",fontSize:11,fontFamily:"'Inter',sans-serif",fontWeight:700,display:"block",marginBottom:8,letterSpacing:1,textTransform:"uppercase"}}>البريد الإلكتروني</label>
+                <input value={editEmail} onChange={e=>setEditEmail(e.target.value)} placeholder="email@example.com"/>
+              </div>
+              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>
+                <button className="btn-secondary" onClick={()=>setModal(null)}>إلغاء</button>
+                <button className="btn-primary" onClick={save}>حفظ</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+/* ═══════════════════════════════════════
+   BOTTOM NAV
+═══════════════════════════════════════ */
+const BottomNav=({page,setPage})=>{
+  const tabs=[
+    {id:"home",icon:"🏠",label:"Home"},
+    {id:"tasks",icon:"⚡",label:"Tasks"},
+    {id:"upgrades",icon:"🚀",label:"Upgrade"},
+    {id:"profile",icon:"👤",label:"Profile"},
   ];
-  return (
-    <div style={{
-      position: 'fixed', bottom: 0, left: 0, right: 0,
-      background: 'rgba(5,5,0,0.97)',
-      backdropFilter: 'blur(20px)',
-      borderTop: '1px solid #D4AF3733',
-      display: 'flex', justifyContent: 'space-around',
-      padding: '10px 0 20px',
-      zIndex: 100,
-      maxWidth: '100%',
-    }}>
-      {tabs.map(tab => (
-        <button
-          key={tab.id}
-          onClick={() => setPage(tab.id)}
-          style={{
-            background: 'none', border: 'none', cursor: 'pointer',
-            display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4,
-            padding: '6px 16px', borderRadius: 12,
-            transition: 'all 0.2s ease',
-            position: 'relative'
-          }}
-        >
-          {page === tab.id && (
-            <div style={{
-              position: 'absolute', top: -10, left: '50%', transform: 'translateX(-50%)',
-              width: 32, height: 2, background: 'linear-gradient(90deg, transparent, #D4AF37, transparent)',
-              borderRadius: 2
-            }} />
-          )}
-          <span style={{ fontSize: 24, transition: 'transform 0.2s', transform: page === tab.id ? 'scale(1.2)' : 'scale(1)' }}>
-            {tab.icon}
-          </span>
-          <span style={{
-            fontSize: 10, fontWeight: page === tab.id ? 700 : 400,
-            color: page === tab.id ? '#D4AF37' : '#555',
-            fontFamily: 'Cairo',
+  return(
+    <div className="bottom-nav">
+      {tabs.map(t=>(
+        <button key={t.id} className="nav-item" onClick={()=>setPage(t.id)}
+          style={{background:page===t.id?"rgba(227,24,55,0.1)":"transparent"}}>
+          <div style={{
+            position:"relative",
+            width:26,height:26,display:"flex",alignItems:"center",justifyContent:"center"
           }}>
-            {tab.label}
-          </span>
+            {page===t.id&&(
+              <div style={{
+                position:"absolute",top:-8,left:"50%",transform:"translateX(-50%)",
+                width:20,height:2,background:"#E31837",borderRadius:1
+              }}/>
+            )}
+            <span style={{fontSize:20,transition:"transform 0.2s",transform:page===t.id?"scale(1.15)":"scale(1)"}}>{t.icon}</span>
+          </div>
+          <span style={{
+            fontSize:9,fontFamily:"'Inter',sans-serif",fontWeight:700,
+            color:page===t.id?"#E31837":"#444",letterSpacing:0.5,textTransform:"uppercase"
+          }}>{t.label}</span>
         </button>
       ))}
     </div>
   );
 };
 
-// ==================== SPLASH SCREEN ====================
-const SplashScreen = ({ onDone }) => {
-  const [progress, setProgress] = useState(0);
-  useEffect(() => {
-    let p = 0;
-    const interval = setInterval(() => {
-      p += 2;
-      setProgress(p);
-      if (p >= 100) { clearInterval(interval); setTimeout(onDone, 300); }
-    }, 40);
-    return () => clearInterval(interval);
-  }, []);
-  return (
-    <div style={{ position: 'fixed', inset: 0, background: '#000', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', zIndex: 9999 }}>
-      <div style={{ position: 'relative', marginBottom: 40 }}>
-        <div style={{ width: 100, height: 100, background: 'linear-gradient(135deg, #D4AF37, #FFD700, #B8960C)', borderRadius: 24, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 50, boxShadow: '0 0 50px #D4AF3766' }}>
-          🏛️
-        </div>
+/* ═══════════════════════════════════════
+   SPLASH
+═══════════════════════════════════════ */
+const Splash=({onDone})=>{
+  const [p,setP]=useState(0);
+  useEffect(()=>{
+    let v=0;
+    const t=setInterval(()=>{v+=1.5;setP(v);if(v>=100){clearInterval(t);setTimeout(onDone,400);}},30);
+    return()=>clearInterval(t);
+  },[]);
+  return(
+    <div style={{
+      position:"fixed",inset:0,background:"#000",
+      display:"flex",flexDirection:"column",alignItems:"center",
+      justifyContent:"center",zIndex:9999
+    }}>
+      <div style={{marginBottom:40,position:"relative"}}>
+        <div style={{
+          width:90,height:90,background:"#E31837",borderRadius:20,
+          display:"flex",alignItems:"center",justifyContent:"center",
+          fontSize:42,fontWeight:900,color:"#fff",fontFamily:"'Inter',sans-serif",
+          boxShadow:"0 0 60px rgba(227,24,55,0.5),0 0 120px rgba(227,24,55,0.2)"
+        }}>B</div>
       </div>
-      <h1 style={{ color: '#D4AF37', fontSize: 32, fontWeight: 900, marginBottom: 6, letterSpacing: 2 }}>BlackRock</h1>
-      <p style={{ color: '#888', fontSize: 14, marginBottom: 50, fontStyle: 'italic' }}>Earn & Invest Platform</p>
-      <div style={{ width: 200, height: 4, background: '#1a1a1a', borderRadius: 2, overflow: 'hidden' }}>
-        <div style={{ height: '100%', width: `${progress}%`, background: 'linear-gradient(90deg, #D4AF37, #FFD700)', borderRadius: 2, transition: 'width 0.1s ease' }} />
+      <div style={{color:"#E31837",fontSize:28,fontWeight:900,fontFamily:"'Inter',sans-serif",letterSpacing:3,marginBottom:6}}>BLACKROCK</div>
+      <div style={{color:"#333",fontSize:12,fontFamily:"'Inter',sans-serif",letterSpacing:4,marginBottom:50,textTransform:"uppercase"}}>Earn Platform</div>
+      <div style={{width:200,height:2,background:"#111",borderRadius:1,overflow:"hidden"}}>
+        <div style={{height:"100%",width:`${p}%`,background:"#E31837",borderRadius:1,transition:"width 0.05s linear"}}/>
       </div>
-      <p style={{ color: '#444', fontSize: 12, marginTop: 16 }}>{progress}%</p>
+      <div style={{color:"#333",fontSize:11,fontFamily:"'Inter',sans-serif",marginTop:12}}>{Math.floor(p)}%</div>
     </div>
   );
 };
 
-// ==================== MAIN APP ====================
-const App = () => {
-  const [showSplash, setShowSplash] = useState(true);
-  const [page, setPage] = useState('home');
-  const [toast, setToast] = useState(null);
-  const [user, setUser] = useState({
-    name: "المستخدم الكريم",
-    email: "user@blackrock-earn.com",
-    avatar: "👤",
-    balance: 2.85,
-    totalEarned: 2.85,
-    activeDays: 1,
-    completedTasks: 5,
-    packageId: 0,
-    tasksLeft: 5,
-    joinDate: "2025-01-01",
+/* ═══════════════════════════════════════
+   APP
+═══════════════════════════════════════ */
+const App=()=>{
+  const [splash,setSplash]=useState(true);
+  const [page,setPage]=useState("home");
+  const [toast,setToast]=useState(null);
+  const [user,setUser]=useState({
+    name:"المستخدم الكريم",
+    email:"user@blackrock-earn.com",
+    balance:2.85,
+    totalEarned:2.85,
+    activeDays:1,
+    completedTasks:5,
+    packageId:0,
+    tasksLeft:5,
+    referrals:0,
+    refCode:genRef(),
+    city:"الجزائر"
   });
-
-  const showToast = useCallback((msg, type = "info") => {
-    setToast({ msg, type, id: Date.now() });
-  }, []);
-
-  const renderPage = () => {
-    switch(page) {
-      case 'home': return <HomePage user={user} setUser={setUser} setPage={setPage} showToast={showToast} />;
-      case 'tasks': return <TasksPage user={user} setUser={setUser} showToast={showToast} />;
-      case 'upgrades': return <UpgradesPage user={user} setUser={setUser} showToast={showToast} />;
-      case 'profile': return <ProfilePage user={user} setUser={setUser} showToast={showToast} />;
-      default: return null;
+  
+  const showToast=useCallback((msg,type="info")=>{
+    setToast({msg,type,id:Date.now()});
+  },[]);
+  
+  const render=()=>{
+    switch(page){
+      case"home":return<HomePage user={user} setUser={setUser} setPage={setPage} showToast={showToast}/>;
+      case"tasks":return<TasksPage user={user} setUser={setUser} showToast={showToast}/>;
+      case"upgrades":return<UpgradesPage user={user} setUser={setUser} showToast={showToast}/>;
+      case"profile":return<ProfilePage user={user} setUser={setUser} showToast={showToast}/>;
+      default:return null;
     }
   };
-
-  return (
-    <div style={{ maxWidth: 480, margin: '0 auto', minHeight: '100vh', background: '#000', position: 'relative' }}>
-      {showSplash && <SplashScreen onDone={() => setShowSplash(false)} />}
-      {toast && <Toast key={toast.id} msg={toast.msg} type={toast.type} onClose={() => setToast(null)} />}
-      <div style={{ minHeight: '100vh' }}>{renderPage()}</div>
-      <BottomNav page={page} setPage={setPage} />
+  
+  return(
+    <div style={{maxWidth:480,margin:"0 auto",minHeight:"100vh",background:"#000",position:"relative",overflow:"hidden"}}>
+      {splash&&<Splash onDone={()=>setSplash(false)}/>}
+      {toast&&<Toast key={toast.id} msg={toast.msg} type={toast.type} onClose={()=>setToast(null)}/>}
+      {render()}
+      <BottomNav page={page} setPage={setPage}/>
     </div>
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<React.createElement(App),document.getElementById("root"));
 </script>
 </body>
-</html>
+  </html>
