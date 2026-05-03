@@ -2,2004 +2,1588 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
-<title>BlackRock</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+<title>BlackRock — Tasks</title>
 <style>
-/* ================================================
-   ROOT & RESET
-================================================ */
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;font-family:'Segoe UI',system-ui,sans-serif}
+
+/* ============================================
+   BLACKROCK DESIGN SYSTEM
+============================================ */
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
-  --blk:#000000;
-  --blk2:#0A0A0A;
-  --blk3:#111111;
-  --blk4:#1A1A1A;
-  --blk5:#222222;
-  --card:#161616;
-  --card2:#1C1C1C;
-  --border:rgba(255,255,255,0.08);
-  --border2:rgba(255,255,255,0.12);
-  --txt:#FFFFFF;
-  --txt2:#E0E0E0;
+  --bk:#000000;
+  --bk1:#0A0A0A;
+  --bk2:#111111;
+  --bk3:#161616;
+  --bk4:#1C1C1C;
+  --bk5:#222222;
+  --bk6:#2A2A2A;
+  --w:#FFFFFF;
+  --w2:#F5F5F5;
+  --w3:#E0E0E0;
   --muted:#888888;
-  --muted2:#666666;
-  --red:#FF3B30;
-  --green:#34C759;
-  --blue:#0A84FF;
-  --gold:#FFD60A;
-  --orange:#FF9F0A;
-  --purple:#BF5AF2;
-  --nav:72px;
-  --r:14px;
-  --r2:20px;
+  --muted2:#555555;
+  --blue:#0066CC;
+  --blue2:#0052A3;
+  --blue-l:rgba(0,102,204,0.12);
+  --green:#00A651;
+  --green-l:rgba(0,166,81,0.1);
+  --red:#CC0000;
+  --red-l:rgba(204,0,0,0.08);
+  --gold:#B8860B;
+  --gold-l:rgba(184,134,11,0.1);
+  --border:rgba(255,255,255,0.07);
+  --border2:rgba(255,255,255,0.12);
+  --r:4px;
+  --r2:8px;
+  --r3:12px;
+  --nav:68px;
 }
-html{background:var(--blk)}
+
+html,body{background:var(--bk);color:var(--w);overflow-x:hidden}
 body{
-  background:var(--blk);color:var(--txt);
+  font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
   max-width:430px;margin:0 auto;
-  min-height:100vh;overflow-x:hidden;
-  position:relative;
+  min-height:100vh;position:relative;
 }
-button{cursor:pointer;font-family:inherit;border:none;outline:none}
-input,select,textarea{font-family:inherit;outline:none}
+button{cursor:pointer;font-family:inherit;border:none;outline:none;background:none}
+input,select,textarea{font-family:inherit;outline:none;background:none}
 ::-webkit-scrollbar{width:0;height:0}
 
-/* ================================================
+/* ============================================
    PAGES
-================================================ */
-.page{display:none;min-height:100vh;padding-bottom:calc(var(--nav)+20px);animation:fadeIn .25s ease}
-.page.active{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+============================================ */
+.page{display:none;min-height:100vh;padding-bottom:calc(var(--nav)+24px)}
+.page.active{display:block;animation:pg .2s ease}
+@keyframes pg{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 
-/* ================================================
-   TOP STATUS BAR
-================================================ */
-.status-bar{
+/* ============================================
+   TOPBAR — BlackRock Style
+============================================ */
+.topbar{
   display:flex;justify-content:space-between;align-items:center;
-  padding:10px 18px 4px;
-  font-size:12px;font-weight:600;color:var(--muted);
+  padding:16px 20px 14px;
+  border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:50;
+  background:rgba(0,0,0,0.95);
+  backdrop-filter:blur(20px);
 }
-
-/* ================================================
-   HEADER
-================================================ */
-.hdr{
-  padding:8px 18px 16px;
-  display:flex;justify-content:space-between;align-items:center;
-}
-.hdr-logo{
-  display:flex;align-items:center;gap:10px;
-}
-.logo-icon{
-  width:36px;height:36px;border-radius:10px;
-  background:#fff;display:flex;align-items:center;justify-content:center;
-  font-size:18px;font-weight:900;color:#000;flex-shrink:0;
-}
-.logo-text{font-size:18px;font-weight:800;color:#fff;letter-spacing:-.3px}
-.hdr-right{display:flex;gap:10px;align-items:center}
-.hdr-btn{
-  width:38px;height:38px;border-radius:50%;
-  background:var(--card);border:1px solid var(--border);
+.br-logo{display:flex;align-items:center;gap:10px}
+.br-logo-mark{
+  width:32px;height:32px;background:var(--w);
   display:flex;align-items:center;justify-content:center;
-  font-size:16px;position:relative;
+  font-size:16px;font-weight:900;color:var(--bk);
+  letter-spacing:-1px;flex-shrink:0;
 }
-.notif-badge{
+.br-logo-text{font-size:16px;font-weight:700;color:var(--w);letter-spacing:.5px}
+.br-logo-sub{font-size:9px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;display:block;margin-top:-1px}
+.topbar-right{display:flex;gap:8px;align-items:center}
+.top-icon{
+  width:36px;height:36px;
+  border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;cursor:pointer;position:relative;
+  transition:background .2s;
+}
+.top-icon:active{background:var(--bk4)}
+.badge{
   position:absolute;top:6px;right:6px;
-  width:8px;height:8px;border-radius:50%;
-  background:var(--red);border:2px solid var(--blk);
-}
-.av-btn{
-  width:38px;height:38px;border-radius:50%;
-  background:linear-gradient(135deg,#1C3A6B,#0A84FF);
-  display:flex;align-items:center;justify-content:center;
-  font-size:16px;border:2px solid rgba(10,132,255,.3);
+  width:6px;height:6px;border-radius:50%;
+  background:var(--blue);border:1.5px solid var(--bk);
 }
 
-/* ================================================
-   PORTFOLIO HERO
-================================================ */
-.port-hero{
-  margin:0 16px 16px;
-  background:linear-gradient(160deg,#0D1B2E 0%,#0A1628 50%,#111 100%);
-  border-radius:var(--r2);padding:22px 20px;
-  border:1px solid rgba(10,132,255,.2);
-  position:relative;overflow:hidden;
+/* ============================================
+   HERO / STATS CARD
+============================================ */
+.hero{
+  padding:24px 20px 20px;
+  border-bottom:1px solid var(--border);
 }
-.port-hero::before{
-  content:'';position:absolute;
-  width:300px;height:300px;border-radius:50%;
-  background:radial-gradient(circle,rgba(10,132,255,.12) 0%,transparent 70%);
-  top:-100px;right:-80px;pointer-events:none;
+.hero-label{
+  font-size:10px;color:var(--muted);
+  letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:6px;
 }
-.port-label{font-size:12px;color:var(--muted);font-weight:500;margin-bottom:6px}
-.port-val{font-size:38px;font-weight:800;color:#fff;letter-spacing:-1px;line-height:1}
-.port-sub{display:flex;align-items:center;gap:8px;margin-top:8px}
-.port-chg{
-  display:inline-flex;align-items:center;gap:4px;
-  padding:4px 10px;border-radius:99px;
-  font-size:13px;font-weight:700;
-}
-.port-chg.up{background:rgba(52,199,89,.15);color:var(--green)}
-.port-chg.dn{background:rgba(255,59,48,.15);color:var(--red)}
-.port-period{font-size:12px;color:var(--muted)}
-.port-grid{
-  display:grid;grid-template-columns:1fr 1fr 1fr;
-  gap:10px;margin-top:18px;
-}
-.port-metric{
-  background:rgba(255,255,255,.05);
-  border-radius:10px;padding:10px 12px;
-  border:1px solid var(--border);
-}
-.pm-label{font-size:10px;color:var(--muted);margin-bottom:4px}
-.pm-val{font-size:14px;font-weight:700;color:#fff}
-
-/* ================================================
-   MINI CHART (Pure CSS+JS Canvas)
-================================================ */
-.chart-wrap{
-  margin:0 16px 16px;
-  background:var(--card);border-radius:var(--r2);
-  padding:16px;border:1px solid var(--border);
-}
-.chart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.chart-title{font-size:14px;font-weight:700}
-.chart-tabs{display:flex;gap:4px}
-.chart-tab{
-  padding:5px 12px;border-radius:99px;
-  background:transparent;color:var(--muted);
-  font-size:11px;font-weight:600;border:1px solid transparent;
-  transition:all .2s;
-}
-.chart-tab.on{background:var(--blue);color:#fff}
-canvas{width:100%!important;border-radius:8px}
-
-/* ================================================
-   ALLOCATION DONUT
-================================================ */
-.alloc-wrap{
-  margin:0 16px 16px;
-  background:var(--card);border-radius:var(--r2);
-  padding:16px;border:1px solid var(--border);
-}
-.alloc-inner{display:flex;align-items:center;gap:16px}
-.donut-box{position:relative;flex-shrink:0}
-.donut-center{
-  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  text-align:center;
-}
-.donut-center span{font-size:11px;color:var(--muted);display:block}
-.donut-center strong{font-size:16px;font-weight:800;color:#fff}
-.alloc-legend{flex:1}
-.alloc-item{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:5px 0;border-bottom:1px solid var(--border);
-}
-.alloc-item:last-child{border-bottom:none}
-.alloc-left{display:flex;align-items:center;gap:8px}
-.alloc-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-.alloc-name{font-size:12px;color:var(--txt2)}
-.alloc-pct{font-size:12px;font-weight:700;color:#fff}
-
-/* ================================================
-   SECTION HEADER
-================================================ */
-.sec{padding:0 16px;margin-bottom:10px}
-.sec-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.sec-row h3{font-size:15px;font-weight:700}
-.sec-row a{font-size:12px;color:var(--blue);cursor:pointer}
-
-/* ================================================
-   HOLDINGS
-================================================ */
-.holding-card{
-  background:var(--card);
-  border-radius:var(--r2);
-  margin:0 16px 12px;
-  overflow:hidden;
-  border:1px solid var(--border);
-}
-.holding-item{
-  display:flex;align-items:center;gap:12px;
-  padding:14px 16px;
-  border-bottom:1px solid rgba(255,255,255,.04);
-  cursor:pointer;transition:background .15s;
-}
-.holding-item:last-child{border-bottom:none}
-.holding-item:active{background:rgba(255,255,255,.03)}
-.h-logo{
-  width:42px;height:42px;border-radius:12px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:13px;font-weight:800;color:#fff;flex-shrink:0;
-}
-.h-info{flex:1;min-width:0}
-.h-name{font-size:14px;font-weight:700;color:#fff}
-.h-sub{font-size:11px;color:var(--muted);margin-top:1px}
-.h-right{text-align:left}
-.h-price{font-size:14px;font-weight:700;color:#fff}
-.h-chg{font-size:11px;font-weight:600;margin-top:2px}
-.h-chg.up{color:var(--green)}
-.h-chg.dn{color:var(--red)}
-
-/* ================================================
-   MARKET DATA (PAGE 2 - PORTFOLIO)
-================================================ */
-.market-scroll{
-  display:flex;gap:10px;
-  padding:0 16px 14px;overflow-x:auto;
-}
-.market-card{
-  min-width:130px;background:var(--card);
-  border-radius:var(--r);padding:14px;
-  border:1px solid var(--border);flex-shrink:0;
-  cursor:pointer;transition:all .2s;
-}
-.market-card:active{transform:scale(.97)}
-.mc-name{font-size:11px;color:var(--muted);margin-bottom:4px}
-.mc-val{font-size:18px;font-weight:800;color:#fff}
-.mc-chg{font-size:12px;font-weight:600;margin-top:4px}
-.mc-bar{height:3px;border-radius:99px;margin-top:10px;background:var(--blk4)}
-.mc-fill{height:100%;border-radius:99px;transition:width 1s ease}
-
-/* ================================================
-   QUICK ACTIONS
-================================================ */
-.qa-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:10px;padding:0 16px;margin-bottom:16px;
-}
-.qa-btn{
-  background:var(--card);border-radius:var(--r);
-  padding:14px 8px;text-align:center;
-  border:1px solid var(--border);
-  cursor:pointer;transition:all .2s;
-}
-.qa-btn:active{transform:scale(.95);background:var(--card2)}
-.qa-icon{font-size:22px;margin-bottom:6px}
-.qa-label{font-size:10px;color:var(--muted);font-weight:600;line-height:1.3}
-
-/* ================================================
-   NEWS CARDS
-================================================ */
-.news-scroll{display:flex;gap:10px;padding:0 16px 14px;overflow-x:auto}
-.news-card{
-  min-width:240px;background:var(--card);
-  border-radius:var(--r2);overflow:hidden;
-  border:1px solid var(--border);flex-shrink:0;
-  cursor:pointer;
-}
-.news-img{
-  width:100%;height:110px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:40px;
-}
-.news-body{padding:12px}
-.news-tag{
-  font-size:10px;font-weight:700;
-  color:var(--blue);margin-bottom:6px;
-  text-transform:uppercase;letter-spacing:.5px;
-}
-.news-title{font-size:13px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:6px}
-.news-time{font-size:11px;color:var(--muted)}
-
-/* ================================================
-   PORTFOLIO PAGE
-================================================ */
-.tabs-wrap{
-  display:flex;gap:0;margin:0 16px 16px;
-  background:var(--card);border-radius:12px;
-  padding:4px;border:1px solid var(--border);
-}
-.tab-btn{
-  flex:1;padding:10px;border-radius:9px;
-  background:transparent;color:var(--muted);
-  font-size:12px;font-weight:700;
-  transition:all .25s;
-}
-.tab-btn.on{background:var(--blk5);color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.5)}
-
-/* Performance chart period */
-.period-wrap{display:flex;gap:6px;margin:0 16px 14px;overflow-x:auto}
-.period-btn{
-  padding:6px 14px;border-radius:99px;
-  background:transparent;color:var(--muted);
-  font-size:12px;font-weight:700;
-  border:1px solid var(--border);white-space:nowrap;
-  transition:all .2s;
-}
-.period-btn.on{background:var(--blue);color:#fff;border-color:var(--blue)}
-
-/* Transactions */
-.tx-card{
-  background:var(--card);border-radius:var(--r2);
-  margin:0 16px 12px;border:1px solid var(--border);
-  overflow:hidden;
-}
-.tx-item{
-  display:flex;align-items:center;gap:12px;
-  padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.04);
-}
-.tx-item:last-child{border-bottom:none}
-.tx-ico{
-  width:42px;height:42px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:18px;flex-shrink:0;
-}
-.tx-info{flex:1}
-.tx-info strong{display:block;font-size:13px;color:#fff}
-.tx-info small{font-size:11px;color:var(--muted)}
-.tx-amt{text-align:left}
-.tx-amt strong{display:block;font-size:13px;font-weight:700}
-.tx-amt small{font-size:11px;color:var(--muted)}
-
-/* ================================================
-   INSIGHTS PAGE
-================================================ */
-.insights-hero{
-  margin:0 16px 16px;
-  background:linear-gradient(135deg,#0D1B2E,#0A1628);
-  border-radius:var(--r2);padding:20px;
-  border:1px solid rgba(10,132,255,.2);
-}
-.ih-tag{
-  display:inline-block;
-  font-size:10px;font-weight:700;color:var(--blue);
-  background:rgba(10,132,255,.15);
-  padding:3px 10px;border-radius:99px;margin-bottom:10px;
-  text-transform:uppercase;letter-spacing:.5px;
-}
-.ih-title{font-size:18px;font-weight:800;color:#fff;line-height:1.35;margin-bottom:10px}
-.ih-sub{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:14px}
-.ih-author{display:flex;align-items:center;gap:8px}
-.ih-av{
-  width:28px;height:28px;border-radius:50%;
-  background:linear-gradient(135deg,#1C3A6B,#0A84FF);
-  display:flex;align-items:center;justify-content:center;font-size:12px;
-}
-.ih-name{font-size:11px;color:var(--muted)}
-
-/* Market views */
-.mv-card{
-  background:var(--card);border-radius:var(--r2);
-  margin:0 16px 10px;padding:16px;
-  border:1px solid var(--border);
-  cursor:pointer;transition:all .2s;
-}
-.mv-card:active{transform:scale(.99)}
-.mv-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
-.mv-tag{
-  font-size:10px;font-weight:700;
-  padding:3px 8px;border-radius:99px;
-  text-transform:uppercase;letter-spacing:.5px;
-}
-.mv-bullish{background:rgba(52,199,89,.15);color:var(--green)}
-.mv-bearish{background:rgba(255,59,48,.15);color:var(--red)}
-.mv-neutral{background:rgba(10,132,255,.15);color:var(--blue)}
-.mv-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:6px}
-.mv-body{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:12px}
-.mv-footer{display:flex;justify-content:space-between;align-items:center}
-.mv-asset{font-size:11px;color:var(--blue)}
-.mv-date{font-size:11px;color:var(--muted2)}
-
-/* Polls */
-.poll-card{
-  background:var(--card);border-radius:var(--r2);
-  margin:0 16px 12px;padding:18px;
-  border:1px solid rgba(191,90,242,.25);
-}
-.poll-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:14px;line-height:1.4}
-.poll-opt{
-  padding:11px 14px;border-radius:10px;
-  background:rgba(255,255,255,.05);border:1px solid var(--border);
-  margin-bottom:8px;cursor:pointer;transition:all .2s;
-  position:relative;overflow:hidden;
-}
-.poll-opt.voted{border-color:var(--blue);background:rgba(10,132,255,.1)}
-.poll-bar{
-  position:absolute;left:0;top:0;bottom:0;
-  border-radius:10px;background:rgba(10,132,255,.12);
-  transition:width 1s ease;
-}
-.poll-txt{position:relative;z-index:1;font-size:13px;font-weight:600;color:#fff;
-  display:flex;justify-content:space-between}
-
-/* ================================================
-   ACCOUNT PAGE
-================================================ */
-.acc-hero{
-  background:linear-gradient(160deg,#0D1B2E,#0A1628,#111);
-  padding:20px 18px 40px;text-align:center;
-  position:relative;overflow:hidden;
-}
-.acc-hero::before{content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse at top,rgba(10,132,255,.2) 0%,transparent 60%)}
-.acc-content{position:relative;z-index:1}
-.acc-avatar{
-  width:88px;height:88px;border-radius:50%;
-  background:linear-gradient(135deg,#1C3A6B,#0A84FF);
-  display:flex;align-items:center;justify-content:center;
-  font-size:38px;margin:0 auto 12px;
-  border:3px solid rgba(10,132,255,.4);
-  box-shadow:0 0 40px rgba(10,132,255,.3);
-  cursor:pointer;position:relative;
-}
-.acc-edit{
-  position:absolute;bottom:0;right:0;
-  width:26px;height:26px;border-radius:50%;
-  background:var(--blue);border:2px solid var(--blk);
-  display:flex;align-items:center;justify-content:center;font-size:11px;
-}
-.acc-name{font-size:22px;font-weight:800;color:#fff;letter-spacing:-.3px}
-.acc-id{font-size:12px;color:var(--muted);margin-top:3px}
-.acc-tier{
+.hero-val{font-size:42px;font-weight:300;color:var(--w);letter-spacing:-1px;line-height:1}
+.hero-val span{font-size:18px;font-weight:300;color:var(--muted)}
+.hero-chg{
   display:inline-flex;align-items:center;gap:6px;
-  background:rgba(255,214,10,.1);border:1px solid rgba(255,214,10,.25);
-  border-radius:99px;padding:5px 14px;margin-top:10px;
-  font-size:12px;font-weight:700;color:var(--gold);
+  margin-top:8px;
+  font-size:12px;font-weight:600;
 }
-.acc-stats{
-  display:flex;justify-content:center;gap:4px;
-  margin-top:16px;padding:0 10px;
+.hero-chg.up{color:var(--green)}
+.hero-chg.dn{color:var(--red)}
+.hero-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:var(--border);
+  margin-top:20px;border:1px solid var(--border);
 }
-.acc-stat{
-  flex:1;max-width:90px;
-  background:rgba(255,255,255,.06);
-  border:1px solid var(--border);border-radius:12px;
-  padding:10px 6px;text-align:center;
+.hg-cell{
+  background:var(--bk);padding:14px 10px;text-align:center;
 }
-.acc-stat strong{display:block;font-size:17px;font-weight:800;color:#fff}
-.acc-stat span{display:block;font-size:9px;color:var(--muted);margin-top:1px}
+.hg-val{font-size:20px;font-weight:700;color:var(--w)}
+.hg-lbl{font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:3px}
 
-/* Account body */
-.acc-body{padding:0 16px;margin-top:-18px}
-.acc-card{
-  background:var(--card);border-radius:var(--r2);
-  margin-bottom:12px;overflow:hidden;
-  border:1px solid var(--border);
+/* XP Bar */
+.xp-bar-section{padding:16px 20px;border-bottom:1px solid var(--border)}
+.xp-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.xp-label{font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.xp-level{font-size:11px;font-weight:700;color:var(--blue)}
+.xp-track{height:2px;background:var(--bk5);position:relative}
+.xp-fill{height:100%;background:var(--w);transition:width .8s cubic-bezier(.4,0,.2,1)}
+.xp-pct{font-size:10px;color:var(--muted);text-align:left;margin-top:5px}
+
+/* ============================================
+   SECTION HEADERS
+============================================ */
+.sec-hdr{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 20px 10px;
 }
-.acc-card-title{
-  padding:14px 16px 8px;font-size:11px;
-  color:var(--muted);font-weight:700;
-  letter-spacing:.6px;text-transform:uppercase;
+.sec-hdr h3{
+  font-size:10px;font-weight:700;color:var(--muted);
+  letter-spacing:2px;text-transform:uppercase;
 }
-.acc-row{
+.sec-hdr a{
+  font-size:11px;color:var(--blue);cursor:pointer;
+  font-weight:600;letter-spacing:.5px;
+}
+
+/* ============================================
+   STREAK ROW
+============================================ */
+.streak-row{
+  display:flex;align-items:center;gap:16px;
+  padding:14px 20px;
+  border-bottom:1px solid var(--border);
+}
+.streak-num{font-size:28px;font-weight:300;color:var(--w)}
+.streak-info{flex:1}
+.streak-lbl{font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase}
+.streak-days{display:flex;gap:4px;margin-top:8px}
+.sd{width:28px;height:3px;background:var(--bk5)}
+.sd.done{background:var(--w)}
+.sd.now{background:var(--blue)}
+.streak-fire{font-size:28px}
+
+/* ============================================
+   ACTIVITY TABLE
+============================================ */
+.table{width:100%;border-collapse:collapse}
+.table-wrap{padding:0 20px;margin-bottom:16px}
+.tr{
+  display:grid;grid-template-columns:1fr auto;
+  padding:13px 0;border-bottom:1px solid var(--border);
+  cursor:pointer;transition:background .15s;
+  align-items:center;
+}
+.tr:last-child{border-bottom:none}
+.tr:active{background:var(--bk3);margin:0 -20px;padding:13px 20px}
+.td-main strong{font-size:13px;color:var(--w);font-weight:500;display:block}
+.td-main small{font-size:11px;color:var(--muted);margin-top:2px;display:block}
+.td-val{text-align:left}
+.td-val .v-main{font-size:13px;font-weight:600}
+.td-val .v-sub{font-size:10px;color:var(--muted);text-align:left;margin-top:2px;display:block}
+.v-up{color:var(--green)}
+.v-dn{color:var(--red)}
+
+/* ============================================
+   QUICK ACTIONS — BlackRock Style
+============================================ */
+.qa-row{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:var(--border);
+  margin:0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.qa{
+  background:var(--bk);padding:18px 16px;
+  cursor:pointer;transition:background .15s;
   display:flex;align-items:center;gap:12px;
-  padding:14px 16px;
-  border-top:1px solid rgba(255,255,255,.04);
+}
+.qa:active{background:var(--bk4)}
+.qa-ic{font-size:20px;flex-shrink:0}
+.qa-label{font-size:13px;font-weight:600;color:var(--w)}
+.qa-sub{font-size:10px;color:var(--muted);margin-top:1px}
+
+/* ============================================
+   NEWS / CARDS SCROLL
+============================================ */
+.cards-scroll{display:flex;gap:0;overflow-x:auto;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.news-item{
+  min-width:220px;padding:16px;border-left:1px solid var(--border);
+  flex-shrink:0;cursor:pointer;transition:background .15s;
+}
+.news-item:first-child{border-left:none}
+.news-item:active{background:var(--bk3)}
+.news-tag{font-size:9px;font-weight:700;color:var(--blue);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+.news-title{font-size:13px;font-weight:500;color:var(--w);line-height:1.45;margin-bottom:8px}
+.news-meta{font-size:10px;color:var(--muted)}
+
+/* ============================================
+   TASKS PAGE
+============================================ */
+.tasks-hero{
+  padding:20px 20px 16px;
+  border-bottom:1px solid var(--border);
+}
+.tasks-hero h2{font-size:28px;font-weight:300;color:var(--w);letter-spacing:-.5px}
+.tasks-hero p{font-size:12px;color:var(--muted);margin-top:4px}
+.tasks-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);margin-top:16px;
+}
+.tstat{background:var(--bk);padding:12px;text-align:center}
+.tstat .tv{font-size:22px;font-weight:700;color:var(--w)}
+.tstat .tl{font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:3px}
+
+/* Filter bar */
+.filter-bar{
+  display:flex;overflow-x:auto;
+  border-bottom:1px solid var(--border);
+}
+.ftab{
+  padding:13px 18px;font-size:11px;font-weight:700;
+  color:var(--muted);letter-spacing:1px;text-transform:uppercase;
+  border-bottom:2px solid transparent;white-space:nowrap;
+  transition:all .2s;flex-shrink:0;
+}
+.ftab.on{color:var(--w);border-bottom-color:var(--w)}
+
+/* Task items */
+.task-list{padding:0 20px}
+.task-item{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:16px 0;border-bottom:1px solid var(--border);
+  cursor:pointer;transition:all .15s;
+}
+.task-item:last-child{border-bottom:none}
+.task-item:active{opacity:.7}
+.t-check{
+  width:20px;height:20px;flex-shrink:0;
+  border:1.5px solid var(--muted2);
+  margin-top:1px;transition:all .2s;
+  display:flex;align-items:center;justify-content:center;
+}
+.t-check.done{background:var(--w);border-color:var(--w)}
+.t-check.done::after{content:'✓';font-size:11px;color:var(--bk);font-weight:900}
+.t-body{flex:1;min-width:0}
+.t-body h4{font-size:14px;font-weight:500;color:var(--w);margin-bottom:3px}
+.t-body p{font-size:11px;color:var(--muted);margin-bottom:8px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.t-body.crossed h4{text-decoration:line-through;color:var(--muted2)}
+.t-tags{display:flex;flex-wrap:wrap;gap:5px}
+.t-tag{
+  font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
+  padding:3px 8px;border:1px solid;
+}
+.tag-h{color:var(--red);border-color:rgba(204,0,0,.3)}
+.tag-m{color:var(--gold);border-color:rgba(184,134,11,.3)}
+.tag-l{color:var(--green);border-color:rgba(0,166,81,.3)}
+.tag-pts{color:var(--blue);border-color:rgba(0,102,204,.3)}
+.tag-cat{color:var(--muted);border-color:var(--border2)}
+.t-right{text-align:left;flex-shrink:0}
+.t-del{
+  font-size:14px;color:var(--muted2);padding:2px;
+  transition:color .2s;
+}
+.t-del:active{color:var(--red)}
+.empty-state{
+  text-align:center;padding:60px 20px;color:var(--muted);
+}
+.empty-state .e-ico{font-size:40px;margin-bottom:12px;opacity:.3}
+.empty-state p{font-size:13px;letter-spacing:.5px}
+
+/* FAB */
+.fab{
+  position:fixed;bottom:calc(var(--nav)+20px);
+  left:50%;transform:translateX(-50%);
+  width:52px;height:52px;
+  background:var(--w);color:var(--bk);
+  font-size:24px;font-weight:300;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 20px rgba(255,255,255,.15);
+  z-index:99;transition:transform .2s;cursor:pointer;
+}
+.fab:active{transform:translateX(-50%) scale(.93)}
+
+/* ============================================
+   UPGRADES PAGE
+============================================ */
+.up-hero{
+  padding:22px 20px 18px;
+  border-bottom:1px solid var(--border);
+}
+.up-hero h2{font-size:28px;font-weight:300;color:var(--w);letter-spacing:-.5px}
+.up-hero p{font-size:12px;color:var(--muted);margin-top:4px}
+
+.level-block{
+  padding:20px;border-bottom:1px solid var(--border);
+}
+.lb-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
+.lb-info{}
+.lb-name{font-size:20px;font-weight:300;color:var(--w)}
+.lb-tier{
+  display:inline-block;font-size:9px;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--gold);border:1px solid rgba(184,134,11,.35);
+  padding:3px 8px;margin-top:6px;
+}
+.lb-xp{font-size:11px;color:var(--muted);margin-top:4px}
+.lb-badge{
+  width:64px;height:64px;
+  border:2px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;
+}
+.lb-bar{height:1px;background:var(--bk5);margin-bottom:5px}
+.lb-bar-fill{height:100%;background:var(--w)}
+.lb-bar-info{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:5px}
+
+/* Levels timeline */
+.levels-section{padding:0 20px;margin-bottom:2px}
+.lv-item{
+  display:flex;gap:14px;align-items:flex-start;
+  padding:12px 0;border-bottom:1px solid var(--border);
+}
+.lv-item:last-child{border-bottom:none}
+.lv-dot-col{display:flex;flex-direction:column;align-items:center;width:32px;flex-shrink:0;padding-top:2px}
+.lv-dot{
+  width:32px;height:32px;
+  border:1.5px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;transition:all .3s;
+}
+.lv-dot.done{border-color:var(--muted2);background:var(--bk4)}
+.lv-dot.current{border-color:var(--w);background:var(--w);color:var(--bk)}
+.lv-dot.locked{border-color:var(--bk5);opacity:.4}
+.lv-line{width:1px;height:20px;background:var(--border);margin:2px 0}
+.lv-info{flex:1;padding-top:4px}
+.lv-info strong{font-size:13px;font-weight:500;color:var(--w);display:block}
+.lv-info span{font-size:10px;color:var(--muted);margin-top:2px;display:block}
+.lv-badge{
+  font-size:9px;font-weight:700;letter-spacing:1px;
+  text-transform:uppercase;padding:2px 7px;border:1px solid;
+  align-self:flex-start;margin-top:5px;
+}
+.lv-curr{color:var(--w);border-color:rgba(255,255,255,.3)}
+.lv-done{color:var(--muted);border-color:var(--border2)}
+.lv-lock{color:var(--muted2);border-color:var(--bk5);opacity:.4}
+
+/* Achievements */
+.ach-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:var(--border);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  margin-bottom:2px;
+}
+.ach-cell{
+  background:var(--bk);padding:14px 8px;text-align:center;
   cursor:pointer;transition:background .15s;
 }
-.acc-row:first-of-type{border-top:none}
-.acc-row:active{background:rgba(255,255,255,.03)}
-.acc-ico{
-  width:36px;height:36px;border-radius:10px;
+.ach-cell:active{background:var(--bk4)}
+.ach-cell.locked-a{opacity:.25;filter:grayscale(1)}
+.ach-ico{font-size:22px;margin-bottom:5px}
+.ach-name{font-size:9px;color:var(--muted);letter-spacing:.5px;line-height:1.3}
+.ach-cell.unlocked .ach-name{color:var(--gold)}
+
+/* Shop */
+.shop-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:var(--border);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.shop-item{
+  background:var(--bk);padding:18px 14px;
+  cursor:pointer;transition:background .15s;
+  position:relative;
+}
+.shop-item:active{background:var(--bk4)}
+.shop-item.owned-i{background:var(--bk2)}
+.shop-ico{font-size:26px;margin-bottom:10px}
+.shop-name{font-size:13px;font-weight:600;color:var(--w);margin-bottom:3px}
+.shop-desc{font-size:10px;color:var(--muted);margin-bottom:10px;line-height:1.4}
+.shop-cost{
+  font-size:10px;font-weight:700;letter-spacing:.5px;
+  color:var(--blue);border:1px solid rgba(0,102,204,.3);
+  display:inline-block;padding:3px 8px;
+}
+.shop-owned-tag{
+  position:absolute;top:12px;right:12px;
+  font-size:9px;font-weight:700;letter-spacing:1px;
+  color:var(--green);border:1px solid rgba(0,166,81,.3);
+  padding:2px 7px;text-transform:uppercase;
+}
+
+/* ============================================
+   ACCOUNT PAGE
+============================================ */
+.acc-hero{
+  padding:28px 20px 22px;
+  border-bottom:1px solid var(--border);
+  position:relative;
+}
+.acc-av{
+  width:72px;height:72px;
+  border:2px solid var(--border2);
   display:flex;align-items:center;justify-content:center;
-  font-size:17px;flex-shrink:0;
+  font-size:32px;margin-bottom:14px;cursor:pointer;
+  position:relative;transition:border-color .2s;
 }
-.acc-row-txt{flex:1}
-.acc-row-txt strong{display:block;font-size:14px;color:#fff}
-.acc-row-txt small{display:block;font-size:11px;color:var(--muted);margin-top:1px}
-.acc-row-end{color:var(--muted);font-size:20px;margin-left:4px}
-.acc-badge{
-  font-size:10px;font-weight:800;
-  padding:2px 8px;border-radius:99px;
+.acc-av:hover{border-color:var(--muted)}
+.av-edit-btn{
+  position:absolute;bottom:-1px;right:-1px;
+  width:22px;height:22px;background:var(--bk);
+  border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;cursor:pointer;
 }
-/* Toggle */
+.acc-name{font-size:24px;font-weight:300;color:var(--w);letter-spacing:-.3px}
+.acc-email{font-size:12px;color:var(--muted);margin-top:4px}
+.acc-tier-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  margin-top:10px;
+  font-size:9px;font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--gold);
+  border:1px solid rgba(184,134,11,.3);padding:4px 12px;
+}
+.acc-stats-row{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);margin-top:18px;
+}
+.a-stat{background:var(--bk);padding:12px 8px;text-align:center}
+.a-stat strong{display:block;font-size:18px;font-weight:600;color:var(--w)}
+.a-stat span{display:block;font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:3px}
+
+/* Menu */
+.menu-section{margin-bottom:2px}
+.menu-section-title{
+  padding:16px 20px 8px;
+  font-size:9px;font-weight:700;color:var(--muted);
+  letter-spacing:2px;text-transform:uppercase;
+}
+.menu-item{
+  display:flex;align-items:center;gap:14px;
+  padding:15px 20px;border-top:1px solid var(--border);
+  cursor:pointer;transition:background .15s;
+}
+.menu-item:active{background:var(--bk3)}
+.m-ico{
+  width:34px;height:34px;
+  border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;flex-shrink:0;
+}
+.m-txt{flex:1}
+.m-txt strong{display:block;font-size:13px;font-weight:500;color:var(--w)}
+.m-txt small{display:block;font-size:11px;color:var(--muted);margin-top:1px}
+.m-arr{font-size:16px;color:var(--muted2)}
+.m-badge{
+  font-size:9px;font-weight:700;letter-spacing:.5px;
+  color:var(--blue);border:1px solid rgba(0,102,204,.3);
+  padding:2px 7px;
+}
+
+/* Toggle BlackRock Style */
 .tog{
-  width:46px;height:26px;border-radius:99px;
-  background:var(--blk4);position:relative;
-  cursor:pointer;transition:background .3s;flex-shrink:0;
+  width:44px;height:22px;
+  border:1px solid var(--border2);
+  position:relative;cursor:pointer;transition:all .3s;flex-shrink:0;
 }
-.tog.on{background:var(--green)}
+.tog.on{background:var(--w);border-color:var(--w)}
 .tog::after{
   content:'';position:absolute;
-  width:20px;height:20px;border-radius:50%;
-  background:#fff;top:3px;right:3px;
-  box-shadow:0 1px 4px rgba(0,0,0,.5);
-  transition:all .3s;
+  width:14px;height:14px;background:var(--muted2);
+  top:3px;right:3px;transition:all .3s;
 }
-.tog.on::after{right:calc(100% - 23px)}
+.tog.on::after{background:var(--bk);right:calc(100% - 17px)}
 
-/* Account number card */
-.acc-num-card{
-  background:linear-gradient(135deg,#0D1B2E,#1C3A6B);
-  border-radius:var(--r2);margin-bottom:12px;
-  padding:20px;border:1px solid rgba(10,132,255,.25);
-  position:relative;overflow:hidden;
-}
-.acc-num-card::before{
-  content:'';position:absolute;
-  width:200px;height:200px;border-radius:50%;
-  background:rgba(10,132,255,.08);
-  top:-60px;right:-60px;
-}
-.an-label{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:4px}
-.an-num{font-size:20px;font-weight:700;color:#fff;letter-spacing:2px}
-.an-row{display:flex;justify-content:space-between;margin-top:16px;position:relative;z-index:1}
-.an-field small{font-size:10px;color:rgba(255,255,255,.5);display:block;margin-bottom:2px}
-.an-field span{font-size:13px;font-weight:700;color:#fff}
+/* Divider */
+.div{height:8px;background:var(--bk2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+
+/* Progress bar (account) */
+.prog-mini{padding:0 20px;margin-bottom:2px}
+.pm-row{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-bottom:6px;padding-top:14px}
+.pm-bar{height:1px;background:var(--bk5)}
+.pm-fill{height:100%;background:var(--w)}
+.pm-sub{display:flex;justify-content:space-between;font-size:9px;color:var(--muted2);margin-top:5px;padding-bottom:14px;border-bottom:1px solid var(--border)}
 
 /* Logout */
-.logout-btn{
-  width:100%;padding:15px;
-  background:rgba(255,59,48,.08);
-  border:1px solid rgba(255,59,48,.2);
-  border-radius:var(--r2);color:var(--red);
-  font-size:14px;font-weight:700;
+.logout{
+  width:calc(100% - 40px);margin:16px 20px;
+  padding:14px;background:transparent;
+  border:1px solid rgba(204,0,0,.25);
+  color:var(--red);font-size:12px;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;
   display:flex;align-items:center;justify-content:center;gap:8px;
-  margin:4px 0 20px;transition:all .2s;
+  transition:all .2s;cursor:pointer;
 }
-.logout-btn:active{background:rgba(255,59,48,.15)}
+.logout:active{background:rgba(204,0,0,.08)}
 
-/* ================================================
-   BOTTOM NAV
-================================================ */
+/* ============================================
+   MODAL
+============================================ */
+.overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.9);
+  z-index:500;display:none;align-items:flex-end;
+  backdrop-filter:blur(10px);
+}
+.overlay.open{display:flex}
+.modal{
+  background:var(--bk2);
+  border-top:1px solid var(--border2);
+  padding:0 20px 40px;
+  width:100%;max-width:430px;margin:0 auto;
+  animation:mUp .3s cubic-bezier(.4,0,.2,1);
+  max-height:88vh;overflow-y:auto;
+}
+@keyframes mUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.modal-bar{
+  width:32px;height:3px;background:var(--bk6);
+  margin:14px auto 20px;
+}
+.modal h3{
+  font-size:18px;font-weight:300;color:var(--w);
+  letter-spacing:-.3px;margin-bottom:20px;
+  padding-bottom:14px;border-bottom:1px solid var(--border);
+}
+.igrp{margin-bottom:14px}
+.igrp label{
+  display:block;font-size:9px;font-weight:700;
+  color:var(--muted);margin-bottom:7px;
+  letter-spacing:1.5px;text-transform:uppercase;
+}
+.igrp input,.igrp select,.igrp textarea{
+  width:100%;background:var(--bk3);
+  border:1px solid var(--border2);padding:13px 14px;
+  color:var(--w);font-size:14px;transition:border-color .2s;
+  font-weight:400;
+}
+.igrp input:focus,.igrp select:focus,.igrp textarea:focus{border-color:var(--muted)}
+.igrp select option{background:var(--bk2)}
+.igrp textarea{resize:none}
+.i2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.modal-btns{display:flex;gap:8px;margin-top:20px}
+.m-cancel{
+  flex:1;padding:14px;background:transparent;
+  border:1px solid var(--border2);color:var(--muted);
+  font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  transition:all .2s;
+}
+.m-cancel:active{background:var(--bk4)}
+.m-ok{
+  flex:2;padding:14px;background:var(--w);
+  color:var(--bk);font-size:12px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;
+  transition:opacity .2s;border:none;
+}
+.m-ok:active{opacity:.85}
+
+/* Priority selector */
+.pri-sel{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px}
+.pri-btn{
+  padding:10px;border:1px solid var(--border2);
+  color:var(--muted);font-size:10px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;
+  transition:all .2s;text-align:center;cursor:pointer;
+}
+.pri-btn.sel-h{color:var(--red);border-color:rgba(204,0,0,.5);background:rgba(204,0,0,.05)}
+.pri-btn.sel-m{color:var(--gold);border-color:rgba(184,134,11,.5);background:rgba(184,134,11,.05)}
+.pri-btn.sel-l{color:var(--green);border-color:rgba(0,166,81,.5);background:rgba(0,166,81,.05)}
+
+/* ============================================
+   BOTTOM NAV — BlackRock Style
+============================================ */
 .bnav{
-  position:fixed;bottom:0;left:50%;
-  transform:translateX(-50%);
-  width:100%;max-width:430px;
-  height:var(--nav);
-  background:rgba(10,10,10,.97);
-  backdrop-filter:blur(28px);
-  border-top:1px solid var(--border);
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  width:100%;max-width:430px;height:var(--nav);
+  background:rgba(0,0,0,.97);
+  border-top:1px solid var(--border2);
   display:flex;z-index:200;
+  backdrop-filter:blur(30px);
 }
 .nb{
   flex:1;display:flex;flex-direction:column;
   align-items:center;justify-content:center;
-  gap:4px;background:none;border:none;
-  position:relative;transition:all .2s;
+  gap:5px;cursor:pointer;position:relative;
+  transition:all .2s;
 }
-.nb-ico{font-size:22px;transition:transform .2s}
-.nb-lbl{font-size:10px;color:var(--muted);font-weight:600;transition:color .2s}
-.nb.on .nb-ico{transform:translateY(-2px)}
-.nb.on .nb-lbl{color:var(--blue)}
+.nb-ico{font-size:20px;transition:transform .2s}
+.nb-lbl{
+  font-size:9px;color:var(--muted);font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;transition:color .2s;
+}
+.nb.on .nb-ico{transform:translateY(-1px)}
+.nb.on .nb-lbl{color:var(--w)}
 .nb.on::after{
   content:'';position:absolute;bottom:0;
   left:50%;transform:translateX(-50%);
-  width:24px;height:3px;border-radius:99px;
-  background:var(--blue);
+  width:20px;height:2px;background:var(--w);
 }
 .nb-dot{
-  position:absolute;top:9px;right:calc(50% - 18px);
-  width:7px;height:7px;border-radius:50%;
-  background:var(--red);border:2px solid var(--blk);
-  display:none;
+  position:absolute;top:10px;right:calc(50% - 16px);
+  width:6px;height:6px;border-radius:50%;
+  background:var(--blue);border:1.5px solid var(--bk);
 }
 
-/* ================================================
-   MODALS
-================================================ */
-.overlay{
-  position:fixed;inset:0;
-  background:rgba(0,0,0,.85);
-  z-index:500;display:none;
-  align-items:flex-end;
-  backdrop-filter:blur(8px);
-}
-.overlay.open{display:flex}
-.modal{
-  background:#1A1A1A;
-  border-radius:24px 24px 0 0;
-  padding:0 18px 40px;
-  width:100%;max-width:430px;margin:0 auto;
-  animation:mUp .35s cubic-bezier(.4,0,.2,1);
-  max-height:88vh;overflow-y:auto;
-}
-@keyframes mUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.modal-handle{
-  width:36px;height:4px;background:rgba(255,255,255,.15);
-  border-radius:99px;margin:14px auto 20px;
-}
-.modal h3{font-size:18px;font-weight:800;margin-bottom:20px}
-.igrp{margin-bottom:14px}
-.igrp label{
-  display:block;font-size:11px;font-weight:700;
-  color:var(--muted);margin-bottom:6px;
-  text-transform:uppercase;letter-spacing:.5px;
-}
-.igrp input,.igrp select,.igrp textarea{
-  width:100%;background:rgba(255,255,255,.06);
-  border:1px solid var(--border2);
-  border-radius:12px;padding:13px 14px;
-  color:#fff;font-size:14px;
-  transition:border-color .2s;
-}
-.igrp input:focus,.igrp select:focus{border-color:var(--blue)}
-.igrp select option{background:#1A1A1A}
-.igrp textarea{resize:none}
-.i2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.mbtn-row{display:flex;gap:10px;margin-top:18px}
-.mbtn-cancel{
-  flex:1;padding:14px;border-radius:12px;
-  background:rgba(255,255,255,.06);
-  border:1px solid var(--border);
-  color:var(--muted);font-size:14px;font-weight:600;
-}
-.mbtn-ok{
-  flex:2;padding:14px;border-radius:12px;
-  background:var(--blue);
-  border:none;color:#fff;font-size:14px;font-weight:800;
-  transition:opacity .2s;
-}
-.mbtn-ok:active{opacity:.85}
-.mbtn-sell{background:var(--red)}
-
-/* Trade type */
-.trade-types{display:flex;gap:0;background:var(--blk4);border-radius:10px;padding:3px;margin-bottom:16px}
-.tt-btn{
-  flex:1;padding:9px;border-radius:8px;
-  background:transparent;font-size:13px;
-  font-weight:700;color:var(--muted);transition:all .2s;
-}
-.tt-btn.on{background:var(--card2);color:#fff}
-.tt-btn.buy.on{color:var(--green)}
-.tt-btn.sell.on{color:var(--red)}
-
-/* ================================================
-   STOCK DETAIL MODAL
-================================================ */
-.stock-header{
-  display:flex;align-items:center;gap:14px;
-  padding:6px 0 16px;
-  border-bottom:1px solid var(--border);margin-bottom:16px;
-}
-.stock-logo{
-  width:52px;height:52px;border-radius:14px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:18px;font-weight:800;color:#fff;flex-shrink:0;
-}
-.stock-info-main{flex:1}
-.stock-info-main h4{font-size:18px;font-weight:800;color:#fff}
-.stock-info-main p{font-size:12px;color:var(--muted);margin-top:2px}
-.stock-price-block{text-align:left}
-.stock-price{font-size:22px;font-weight:800;color:#fff}
-.stock-chg{font-size:13px;font-weight:700;margin-top:2px}
-.stock-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
-.stock-stat-box{
-  background:var(--blk4);border-radius:10px;
-  padding:10px 12px;border:1px solid var(--border);
-}
-.ssb-label{font-size:10px;color:var(--muted);margin-bottom:3px}
-.ssb-val{font-size:14px;font-weight:700;color:#fff}
-
-/* ================================================
+/* ============================================
    TOAST
-================================================ */
+============================================ */
 .toast{
-  position:fixed;
-  bottom:calc(var(--nav) + 100px);
-  left:50%;transform:translateX(-50%) translateY(10px);
-  background:#1C1C1E;color:#fff;
-  padding:12px 20px;border-radius:14px;
-  font-size:13px;font-weight:600;
-  box-shadow:0 8px 32px rgba(0,0,0,.6);
-  z-index:9999;white-space:nowrap;
-  opacity:0;pointer-events:none;
-  transition:all .3s cubic-bezier(.4,0,.2,1);
-  border-left:3px solid var(--blue);
-  max-width:320px;white-space:normal;text-align:center;
+  position:fixed;bottom:calc(var(--nav)+24px);
+  left:50%;transform:translateX(-50%) translateY(8px);
+  background:var(--w);color:var(--bk);
+  padding:11px 18px;font-size:12px;font-weight:700;
+  letter-spacing:.3px;
+  box-shadow:0 4px 20px rgba(0,0,0,.6);
+  z-index:9999;opacity:0;pointer-events:none;
+  transition:all .25s cubic-bezier(.4,0,.2,1);
+  white-space:nowrap;max-width:340px;
+  text-align:center;
 }
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-/* ================================================
-   LOADING SPINNER
-================================================ */
-.loader{
-  display:flex;align-items:center;justify-content:center;
-  padding:30px;
+/* ============================================
+   CHART MINI
+============================================ */
+canvas{display:block;width:100%!important}
+.chart-mini{
+  padding:16px 20px;
+  border-bottom:1px solid var(--border);
 }
-.spinner{
-  width:28px;height:28px;border-radius:50%;
-  border:3px solid rgba(255,255,255,.1);
-  border-top-color:var(--blue);
-  animation:spin .7s linear infinite;
+.chart-mini-hdr{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:12px;
 }
-@keyframes spin{to{transform:rotate(360deg)}}
+.chart-mini-title{font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase}
+.chart-tabs{display:flex;gap:0;border:1px solid var(--border2)}
+.ct{
+  padding:5px 10px;font-size:9px;font-weight:700;
+  color:var(--muted);letter-spacing:1px;text-transform:uppercase;
+  border-left:1px solid var(--border2);transition:all .2s;cursor:pointer;
+}
+.ct:first-child{border-left:none}
+.ct.on{background:var(--w);color:var(--bk)}
 
-/* ================================================
-   UTILITY
-================================================ */
-.divider{height:1px;background:var(--border);margin:4px 0}
-.green{color:var(--green)}
-.red{color:var(--red)}
-.section-gap{height:16px}
 </style>
 </head>
 <body>
 
-<!-- ████████████████████████
-     PAGE: HOME - الرئيسية
-████████████████████████ -->
+
+<!-- ==========================================
+     PAGE 1: HOME — الرئيسية
+========================================== -->
 <div id="pg-home" class="page active">
 
-  <!-- Status Bar -->
-  <div class="status-bar">
-    <span id="current-time">9:41</span>
-    <span>BlackRock®</span>
-    <span>●●●</span>
-  </div>
-
-  <!-- Header -->
-  <div class="hdr">
-    <div class="hdr-logo">
-      <div class="logo-icon">B</div>
-      <div class="logo-text">BlackRock</div>
-    </div>
-    <div class="hdr-right">
-      <div class="hdr-btn" onclick="showToast('🔔 ليس لديك إشعارات جديدة')">
-        🔔<span class="notif-badge"></span>
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="br-logo">
+      <div class="br-logo-mark">B</div>
+      <div>
+        <div class="br-logo-text">BlackRock</div>
+        <div class="br-logo-sub">Task Management</div>
       </div>
-      <div class="av-btn" onclick="go('account')">👤</div>
+    </div>
+    <div class="topbar-right">
+      <div class="top-icon" onclick="toast('🔔 لا توجد إشعارات جديدة')">
+        🔔<span class="badge"></span>
+      </div>
+      <div class="top-icon" onclick="go('account')">👤</div>
     </div>
   </div>
 
-  <!-- Portfolio Hero -->
-  <div class="port-hero">
-    <div class="port-label">إجمالي المحفظة</div>
-    <div class="port-val" id="h-total-val">$247,832.50</div>
-    <div class="port-sub">
-      <span class="port-chg up" id="h-chg">▲ +$3,241.20 (1.32%)</span>
-      <span class="port-period">اليوم</span>
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-label">مجموع نقاط الأداء</div>
+    <div class="hero-val" id="h-pts">1,250 <span>XP</span></div>
+    <div class="hero-chg up" id="h-chg">▲ +85 نقطة هذا الأسبوع</div>
+    <div class="hero-grid">
+      <div class="hg-cell">
+        <div class="hg-val" id="hg-done">12</div>
+        <div class="hg-lbl">مكتملة</div>
+      </div>
+      <div class="hg-cell">
+        <div class="hg-val" id="hg-pend">5</div>
+        <div class="hg-lbl">متبقية</div>
+      </div>
+      <div class="hg-cell">
+        <div class="hg-val">3</div>
+        <div class="hg-lbl">ترقيات</div>
+      </div>
+      <div class="hg-cell">
+        <div class="hg-val">7🔥</div>
+        <div class="hg-lbl">سلسلة</div>
+      </div>
     </div>
-    <div class="port-grid">
-      <div class="port-metric">
-        <div class="pm-label">الأسهم</div>
-        <div class="pm-val" style="color:var(--green)">+2.1%</div>
-      </div>
-      <div class="port-metric">
-        <div class="pm-label">السندات</div>
-        <div class="pm-val" style="color:var(--red)">-0.4%</div>
-      </div>
-      <div class="port-metric">
-        <div class="pm-label">النقد</div>
-        <div class="pm-val">$12,400</div>
-      </div>
+  </div>
+
+  <!-- XP Progress -->
+  <div class="xp-bar-section">
+    <div class="xp-row">
+      <span class="xp-label">مستوى الأداء</span>
+      <span class="xp-level">GOLD TIER — 62.5%</span>
     </div>
+    <div class="xp-track"><div class="xp-fill" style="width:62.5%"></div></div>
+    <div class="xp-pct">750 نقطة حتى المستوى التالي — Diamond Tier</div>
   </div>
 
   <!-- Chart -->
-  <div class="chart-wrap">
-    <div class="chart-header">
-      <span class="chart-title">أداء المحفظة</span>
+  <div class="chart-mini">
+    <div class="chart-mini-hdr">
+      <span class="chart-mini-title">أداء الأسبوع</span>
       <div class="chart-tabs">
-        <button class="chart-tab on" onclick="switchChartPeriod('1W',this)">1أ</button>
-        <button class="chart-tab" onclick="switchChartPeriod('1M',this)">1ش</button>
-        <button class="chart-tab" onclick="switchChartPeriod('3M',this)">3ش</button>
-        <button class="chart-tab" onclick="switchChartPeriod('1Y',this)">1س</button>
+        <span class="ct on" onclick="switchHomeChart('1W',this)">1أ</span>
+        <span class="ct" onclick="switchHomeChart('1M',this)">1ش</span>
+        <span class="ct" onclick="switchHomeChart('3M',this)">3ش</span>
       </div>
     </div>
-    <canvas id="portfolio-chart" height="120"></canvas>
+    <canvas id="home-chart" height="80"></canvas>
+  </div>
+
+  <!-- Streak -->
+  <div class="streak-row">
+    <div class="streak-fire">🔥</div>
+    <div class="streak-info">
+      <div class="streak-lbl">سلسلة الإنجاز المتواصل</div>
+      <div class="streak-num">7 أيام</div>
+      <div class="streak-days">
+        <div class="sd done"></div><div class="sd done"></div>
+        <div class="sd done"></div><div class="sd done"></div>
+        <div class="sd done"></div><div class="sd done"></div>
+        <div class="sd now"></div>
+      </div>
+    </div>
   </div>
 
   <!-- Quick Actions -->
-  <div class="sec-row" style="padding:0 16px;margin-bottom:10px">
-    <h3>الإجراءات السريعة</h3>
-  </div>
-  <div class="qa-grid">
-    <div class="qa-btn" onclick="openTradeModal('buy')">
-      <div class="qa-icon">📈</div>
-      <div class="qa-label">شراء</div>
+  <div class="sec-hdr"><h3>الإجراءات السريعة</h3></div>
+  <div class="qa-row">
+    <div class="qa" onclick="go('tasks');setTimeout(openModal,250)">
+      <span class="qa-ic">➕</span>
+      <div><div class="qa-label">مهمة جديدة</div><div class="qa-sub">إضافة إلى قائمتك</div></div>
     </div>
-    <div class="qa-btn" onclick="openTradeModal('sell')">
-      <div class="qa-icon">📉</div>
-      <div class="qa-label">بيع</div>
+    <div class="qa" onclick="go('upgrades')">
+      <span class="qa-ic">⬆️</span>
+      <div><div class="qa-label">الترقيات</div><div class="qa-sub">طوّر مستواك</div></div>
     </div>
-    <div class="qa-btn" onclick="openDepositModal()">
-      <div class="qa-icon">💳</div>
-      <div class="qa-label">إيداع</div>
+    <div class="qa" onclick="go('tasks')">
+      <span class="qa-ic">📋</span>
+      <div><div class="qa-label">المهام</div><div class="qa-sub">عرض كل المهام</div></div>
     </div>
-    <div class="qa-btn" onclick="openWithdrawModal()">
-      <div class="qa-icon">🏦</div>
-      <div class="qa-label">سحب</div>
+    <div class="qa" onclick="go('account')">
+      <span class="qa-ic">📊</span>
+      <div><div class="qa-label">إحصائياتي</div><div class="qa-sub">تقرير الأداء</div></div>
     </div>
   </div>
 
-  <!-- Top Holdings -->
-  <div class="sec">
-    <div class="sec-row">
-      <h3>أبرز الاستثمارات</h3>
-      <a onclick="go('portfolio')">عرض الكل</a>
-    </div>
-  </div>
-  <div class="holding-card">
-    <div class="holding-item" onclick="openStockModal('AAPL')">
-      <div class="h-logo" style="background:linear-gradient(135deg,#555,#333)">🍎</div>
-      <div class="h-info">
-        <div class="h-name">Apple Inc.</div>
-        <div class="h-sub">AAPL • 25 سهم</div>
+  <!-- Recent Activity -->
+  <div class="sec-hdr"><h3>النشاط الأخير</h3><a onclick="go('tasks')">عرض الكل</a></div>
+  <div class="table-wrap">
+    <div class="tr">
+      <div class="td-main">
+        <strong>أكملت: تعلم JavaScript</strong>
+        <small>منذ ساعتين — تعليم</small>
       </div>
-      <div class="h-right">
-        <div class="h-price">$189.25</div>
-        <div class="h-chg up">+1.24%</div>
+      <div class="td-val">
+        <div class="v-main v-up">+50 XP</div>
+        <span class="v-sub">مكتمل</span>
       </div>
     </div>
-    <div class="holding-item" onclick="openStockModal('MSFT')">
-      <div class="h-logo" style="background:linear-gradient(135deg,#0078D4,#004499)">⊞</div>
-      <div class="h-info">
-        <div class="h-name">Microsoft Corp.</div>
-        <div class="h-sub">MSFT • 18 سهم</div>
+    <div class="tr">
+      <div class="td-main">
+        <strong>ترقية جديدة: Gold Tier</strong>
+        <small>أمس</small>
       </div>
-      <div class="h-right">
-        <div class="h-price">$415.80</div>
-        <div class="h-chg up">+0.87%</div>
-      </div>
-    </div>
-    <div class="holding-item" onclick="openStockModal('NVDA')">
-      <div class="h-logo" style="background:linear-gradient(135deg,#76B900,#4a7500)">N</div>
-      <div class="h-info">
-        <div class="h-name">NVIDIA Corp.</div>
-        <div class="h-sub">NVDA • 12 سهم</div>
-      </div>
-      <div class="h-right">
-        <div class="h-price">$875.42</div>
-        <div class="h-chg dn">-0.53%</div>
+      <div class="td-val">
+        <div class="v-main v-up">+200 XP</div>
+        <span class="v-sub">ترقية</span>
       </div>
     </div>
-    <div class="holding-item" onclick="openStockModal('GOOGL')">
-      <div class="h-logo" style="background:linear-gradient(135deg,#4285F4,#1a56d6)">G</div>
-      <div class="h-info">
-        <div class="h-name">Alphabet Inc.</div>
-        <div class="h-sub">GOOGL • 8 سهم</div>
+    <div class="tr">
+      <div class="td-main">
+        <strong>إضافة مهمة: تصميم UI</strong>
+        <small>منذ يومين — عمل</small>
       </div>
-      <div class="h-right">
-        <div class="h-price">$172.35</div>
-        <div class="h-chg up">+2.10%</div>
+      <div class="td-val">
+        <div class="v-main v-up">+5 XP</div>
+        <span class="v-sub">جديد</span>
+      </div>
+    </div>
+    <div class="tr">
+      <div class="td-main">
+        <strong>سلسلة 7 أيام مكتملة</strong>
+        <small>اليوم</small>
+      </div>
+      <div class="td-val">
+        <div class="v-main v-up">+100 XP</div>
+        <span class="v-sub">🔥 سلسلة</span>
+      </div>
+    </div>
+    <div class="tr">
+      <div class="td-main">
+        <strong>مهمة: مراجعة الكود — فائتة</strong>
+        <small>منذ 3 أيام</small>
+      </div>
+      <div class="td-val">
+        <div class="v-main v-dn">-10 XP</div>
+        <span class="v-sub">فائت</span>
       </div>
     </div>
   </div>
 
-  <!-- Markets -->
-  <div class="sec">
-    <div class="sec-row">
-      <h3>الأسواق العالمية</h3>
-      <a onclick="go('insights')">التحليلات</a>
+  <!-- Tips -->
+  <div class="sec-hdr"><h3>نصائح الأداء</h3></div>
+  <div class="cards-scroll">
+    <div class="news-item" onclick="toast('💡 نصيحة: ابدأ بالمهام عالية الأهمية')">
+      <div class="news-tag">إنتاجية</div>
+      <div class="news-title">اعمل على المهام عالية الأهمية في الصباح الباكر لتعظيم إنتاجيتك</div>
+      <div class="news-meta">BlackRock Insights</div>
     </div>
-  </div>
-  <div class="market-scroll">
-    <div class="market-card" onclick="showToast('📊 S&P 500: مؤشر أمريكي رئيسي')">
-      <div class="mc-name">S&P 500</div>
-      <div class="mc-val">5,127</div>
-      <div class="mc-chg green">▲ +0.82%</div>
-      <div class="mc-bar"><div class="mc-fill" style="width:72%;background:var(--green)"></div></div>
+    <div class="news-item" onclick="toast('🎯 نصيحة: حدد 3 أهداف يومية')">
+      <div class="news-tag">تخطيط</div>
+      <div class="news-title">حدد 3 مهام أساسية يومياً بدلاً من قائمة مهام طويلة لا نهائية</div>
+      <div class="news-meta">BlackRock Performance</div>
     </div>
-    <div class="market-card" onclick="showToast('📊 NASDAQ: مؤشر التكنولوجيا')">
-      <div class="mc-name">NASDAQ</div>
-      <div class="mc-val">16,340</div>
-      <div class="mc-chg green">▲ +1.14%</div>
-      <div class="mc-bar"><div class="mc-fill" style="width:80%;background:var(--green)"></div></div>
-    </div>
-    <div class="market-card" onclick="showToast('📊 Dow Jones: مؤشر الصناعي')">
-      <div class="mc-name">Dow Jones</div>
-      <div class="mc-val">38,892</div>
-      <div class="mc-chg red">▼ -0.31%</div>
-      <div class="mc-bar"><div class="mc-fill" style="width:40%;background:var(--red)"></div></div>
-    </div>
-    <div class="market-card" onclick="showToast('📊 Gold: الذهب')">
-      <div class="mc-name">الذهب XAU</div>
-      <div class="mc-val">$2,312</div>
-      <div class="mc-chg green">▲ +0.56%</div>
-      <div class="mc-bar"><div class="mc-fill" style="width:60%;background:var(--gold)"></div></div>
-    </div>
-    <div class="market-card" onclick="showToast('📊 Bitcoin: العملة الرقمية')">
-      <div class="mc-name">Bitcoin BTC</div>
-      <div class="mc-val">$62,400</div>
-      <div class="mc-chg red">▼ -1.87%</div>
-      <div class="mc-bar"><div class="mc-fill" style="width:35%;background:var(--red)"></div></div>
+    <div class="news-item" onclick="toast('🔥 حافظ على سلسلتك!')">
+      <div class="news-tag">سلسلة</div>
+      <div class="news-title">الاتساق أهم من الكمال — أكمل مهمة واحدة على الأقل كل يوم</div>
+      <div class="news-meta">BlackRock Research</div>
     </div>
   </div>
 
-  <!-- News -->
-  <div class="sec">
-    <div class="sec-row">
-      <h3>آخر الأخبار</h3>
-      <a onclick="go('insights')">المزيد</a>
-    </div>
-  </div>
-  <div class="news-scroll">
-    <div class="news-card" onclick="showToast('📰 يتم فتح المقال...')">
-      <div class="news-img" style="background:linear-gradient(135deg,#0D1B2E,#1C3A6B)">📊</div>
-      <div class="news-body">
-        <div class="news-tag">الأسواق</div>
-        <div class="news-title">S&P 500 يرتفع للأسبوع الثالث على التوالي مدفوعاً بأرباح التكنولوجيا</div>
-        <div class="news-time">منذ ساعتين • BlackRock BII</div>
-      </div>
-    </div>
-    <div class="news-card" onclick="showToast('📰 يتم فتح المقال...')">
-      <div class="news-img" style="background:linear-gradient(135deg,#1a0a2e,#3d1a6b)">🏦</div>
-      <div class="news-body">
-        <div class="news-tag">السياسة النقدية</div>
-        <div class="news-title">الفيدرالي يُلمح لتخفيض محتمل للفائدة في النصف الثاني</div>
-        <div class="news-time">منذ 4 ساعات • Reuters</div>
-      </div>
-    </div>
-    <div class="news-card" onclick="showToast('📰 يتم فتح المقال...')">
-      <div class="news-img" style="background:linear-gradient(135deg,#0a1a0e,#1a4a2e)">🌍</div>
-      <div class="news-body">
-        <div class="news-tag">الاقتصاد الكلي</div>
-        <div class="news-title">توقعات النمو العالمي لعام 2026 ترتفع إلى 3.2%</div>
-        <div class="news-time">أمس • IMF</div>
-      </div>
-    </div>
-  </div>
-  <div class="section-gap"></div>
 </div>
 
 
-<!-- ████████████████████████
-     PAGE: PORTFOLIO - المحفظة
-████████████████████████ -->
-<div id="pg-portfolio" class="page">
+<!-- ==========================================
+     PAGE 2: TASKS — المهام
+========================================== -->
+<div id="pg-tasks" class="page">
 
-  <div class="status-bar"><span id="pt2">9:41</span><span>المحفظة</span><span>●●●</span></div>
-
-  <div class="hdr">
-    <div style="font-size:20px;font-weight:800">المحفظة الاستثمارية</div>
-    <div class="hdr-btn" onclick="openTradeModal('buy')">＋</div>
-  </div>
-
-  <!-- Summary -->
-  <div class="port-hero" style="margin-bottom:14px">
-    <div class="port-label">إجمالي القيمة السوقية</div>
-    <div class="port-val">$247,832.50</div>
-    <div class="port-sub">
-      <span class="port-chg up">▲ +$3,241.20 اليوم</span>
-      <span class="port-period">•</span>
-      <span class="port-chg up" style="font-size:12px">▲ +24.1% السنة</span>
-    </div>
-    <div class="port-grid">
-      <div class="port-metric">
-        <div class="pm-label">الأسهم</div>
-        <div class="pm-val">$185,400</div>
-      </div>
-      <div class="port-metric">
-        <div class="pm-label">ETFs</div>
-        <div class="pm-val">$50,032</div>
-      </div>
-      <div class="port-metric">
-        <div class="pm-label">النقد</div>
-        <div class="pm-val">$12,400</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Allocation Donut -->
-  <div class="alloc-wrap">
-    <div class="sec-row"><h3>توزيع الأصول</h3></div>
-    <div class="alloc-inner">
-      <div class="donut-box">
-        <canvas id="donut-chart" width="120" height="120"></canvas>
-        <div class="donut-center">
-          <span>إجمالي</span>
-          <strong>100%</strong>
-        </div>
-      </div>
-      <div class="alloc-legend">
-        <div class="alloc-item">
-          <div class="alloc-left"><div class="alloc-dot" style="background:#0A84FF"></div><span class="alloc-name">أسهم أمريكية</span></div>
-          <span class="alloc-pct">47%</span>
-        </div>
-        <div class="alloc-item">
-          <div class="alloc-left"><div class="alloc-dot" style="background:#34C759"></div><span class="alloc-name">ETFs</span></div>
-          <span class="alloc-pct">20%</span>
-        </div>
-        <div class="alloc-item">
-          <div class="alloc-left"><div class="alloc-dot" style="background:#FF9F0A"></div><span class="alloc-name">أسهم دولية</span></div>
-          <span class="alloc-pct">18%</span>
-        </div>
-        <div class="alloc-item">
-          <div class="alloc-left"><div class="alloc-dot" style="background:#BF5AF2"></div><span class="alloc-name">سندات</span></div>
-          <span class="alloc-pct">10%</span>
-        </div>
-        <div class="alloc-item">
-          <div class="alloc-left"><div class="alloc-dot" style="background:#888"></div><span class="alloc-name">نقد</span></div>
-          <span class="alloc-pct">5%</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Tabs -->
-  <div class="tabs-wrap">
-    <button class="tab-btn on" onclick="switchPortTab('holdings',this)">الأوراق المالية</button>
-    <button class="tab-btn" onclick="switchPortTab('transactions',this)">المعاملات</button>
-    <button class="tab-btn" onclick="switchPortTab('performance',this)">الأداء</button>
-  </div>
-
-  <!-- Holdings Tab -->
-  <div id="tab-holdings">
-    <div class="holding-card">
-      <div class="holding-item" onclick="openStockModal('AAPL')">
-        <div class="h-logo" style="background:linear-gradient(135deg,#555,#333)">🍎</div>
-        <div class="h-info">
-          <div class="h-name">Apple Inc.</div>
-          <div class="h-sub">AAPL • 25 سهم • $4,731</div>
-        </div>
-        <div class="h-right">
-          <div class="h-price">$189.25</div>
-          <div class="h-chg up">+$58.25 (1.24%)</div>
-        </div>
-      </div>
-      <div class="holding-item" onclick="openStockModal('MSFT')">
-        <div class="h-logo" style="background:linear-gradient(135deg,#0078D4,#004499)">⊞</div>
-        <div class="h-info">
-          <div class="h-name">Microsoft Corp.</div>
-          <div class="h-sub">MSFT • 18 سهم • $7,484</div>
-        </div>
-        <div class="h-right">
-          <div class="h-price">$415.80</div>
-          <div class="h-chg up">+$36.12 (0.87%)</div>
-        </div>
-      </div>
-      <div class="holding-item" onclick="openStockModal('NVDA')">
-        <div class="h-logo" style="background:linear-gradient(135deg,#76B900,#4a7500)">N</div>
-        <div class="h-info">
-          <div class="h-name">NVIDIA Corp.</div>
-          <div class="h-sub">NVDA • 12 سهم • $10,505</div>
-        </div>
-        <div class="h-right">
-          <div class="h-price">$875.42</div>
-          <div class="h-chg dn">-$46.71 (-0.53%)</div>
-        </div>
-      </div>
-      <div class="holding-item" onclick="openStockModal('GOOGL')">
-        <div class="h-logo" style="background:linear-gradient(135deg,#4285F4,#1a56d6)">G</div>
-        <div class="h-info">
-          <div class="h-name">Alphabet Inc.</div>
-          <div class="h-sub">GOOGL • 8 سهم • $1,379</div>
-        </div>
-        <div class="h-right">
-          <div class="h-price">$172.35</div>
-          <div class="h-chg up">+$35.60 (2.10%)</div>
-        </div>
-      </div>
-      <div class="holding-item" onclick="openStockModal('AMZN')">
-        <div class="h-logo" style="background:linear-gradient(135deg,#FF9900,#c77a00)">A</div>
-        <div class="h-info">
-          <div class="h-name">Amazon.com Inc.</div>
-          <div class="h-sub">AMZN • 15 سهم • $2,862</div>
-        </div>
-        <div class="h-right">
-          <div class="h-price">$190.80</div>
-          <div class="h-chg up">+$2.14 (1.13%)</div>
-        </div>
-      </div>
-      <div class="holding-item" onclick="openStockModal('TSLA')">
-        <div class="h-logo" style="background:linear-gradient(135deg,#CC0000,#880000)">T</div>
-        <div class="h-info">
-          <div class="h-name">Tesla Inc.</div>
-          <div class="h-sub">TSLA • 30 سهم • $5,220</div>
-        </div>
-        <div class="h-right">
-          <div class="h-price">$174.00</div>
-          <div class="h-chg dn">-$5.80 (-3.23%)</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Transactions Tab -->
-  <div id="tab-transactions" style="display:none">
-    <div class="sec" style="margin-top:4px">
-      <div class="sec-row"><h3>سجل المعاملات</h3></div>
-    </div>
-    <div class="tx-card">
-      <div class="tx-item">
-        <div class="tx-ico" style="background:rgba(52,199,89,.12)">📈</div>
-        <div class="tx-info"><strong>شراء AAPL</strong><small>25 سهم • 28 أبريل 2026</small></div>
-        <div class="tx-amt"><strong class="green">+25 سهم</strong><small>$4,665.75</small></div>
-      </div>
-      <div class="tx-item">
-        <div class="tx-ico" style="background:rgba(255,59,48,.12)">📉</div>
-        <div class="tx-info"><strong>بيع TSLA</strong><small>10 سهم • 25 أبريل 2026</small></div>
-        <div class="tx-amt"><strong class="red">-10 سهم</strong><small>$1,782.50</small></div>
-      </div>
-      <div class="tx-item">
-        <div class="tx-ico" style="background:rgba(10,132,255,.12)">💳</div>
-        <div class="tx-info"><strong>إيداع</strong><small>22 أبريل 2026</small></div>
-        <div class="tx-amt"><strong class="green">+$10,000</strong><small>تحويل بنكي</small></div>
-      </div>
-      <div class="tx-item">
-        <div class="tx-ico" style="background:rgba(52,199,89,.12)">📈</div>
-        <div class="tx-info"><strong>شراء NVDA</strong><small>12 سهم • 20 أبريل 2026</small></div>
-        <div class="tx-amt"><strong class="green">+12 سهم</strong><small>$9,842.40</small></div>
-      </div>
-      <div class="tx-item">
-        <div class="tx-ico" style="background:rgba(255,214,10,.12)">🏦</div>
-        <div class="tx-info"><strong>سحب</strong><small>15 أبريل 2026</small></div>
-        <div class="tx-amt"><strong class="red">-$5,000</strong><small>إلى حساب بنكي</small></div>
-      </div>
-      <div class="tx-item">
-        <div class="tx-ico" style="background:rgba(52,199,89,.12)">📈</div>
-        <div class="tx-info"><strong>شراء MSFT</strong><small>18 سهم • 10 أبريل 2026</small></div>
-        <div class="tx-amt"><strong class="green">+18 سهم</strong><small>$7,202.40</small></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Performance Tab -->
-  <div id="tab-performance" style="display:none">
-    <div class="period-wrap">
-      <button class="period-btn" onclick="setPeriod(this,'1W')">1أسبوع</button>
-      <button class="period-btn on" onclick="setPeriod(this,'1M')">1شهر</button>
-      <button class="period-btn" onclick="setPeriod(this,'3M')">3أشهر</button>
-      <button class="period-btn" onclick="setPeriod(this,'6M')">6أشهر</button>
-      <button class="period-btn" onclick="setPeriod(this,'1Y')">1سنة</button>
-    </div>
-    <div class="chart-wrap" style="margin:0 16px 14px">
-      <canvas id="perf-chart" height="140"></canvas>
-    </div>
-    <div class="holding-card" style="margin-bottom:14px">
-      <div class="holding-item">
-        <div class="h-info"><div class="h-name">العائد الإجمالي</div></div>
-        <div class="h-right"><div class="h-price">+$47,832</div><div class="h-chg up">+24.1%</div></div>
-      </div>
-      <div class="holding-item">
-        <div class="h-info"><div class="h-name">أفضل استثمار</div><div class="h-sub">NVDA</div></div>
-        <div class="h-right"><div class="h-price">+$4,200</div><div class="h-chg up">+66.8%</div></div>
-      </div>
-      <div class="holding-item">
-        <div class="h-info"><div class="h-name">أسوأ استثمار</div><div class="h-sub">TSLA</div></div>
-        <div class="h-right"><div class="h-price">-$780</div><div class="h-chg dn">-13.0%</div></div>
-      </div>
-      <div class="holding-item">
-        <div class="h-info"><div class="h-name">نسبة الشارب</div></div>
-        <div class="h-right"><div class="h-price">1.84</div><div class="h-chg up">ممتاز</div></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="section-gap"></div>
-</div>
-
-
-<!-- ████████████████████████
-     PAGE: INSIGHTS - التحليلات
-████████████████████████ -->
-<div id="pg-insights" class="page">
-
-  <div class="status-bar"><span>9:41</span><span>التحليلات</span><span>●●●</span></div>
-  <div class="hdr">
-    <div style="font-size:20px;font-weight:800">رؤى BlackRock</div>
-    <div class="hdr-btn" onclick="showToast('🔍 البحث في المقالات')">🔍</div>
-  </div>
-
-  <!-- Featured -->
-  <div class="insights-hero">
-    <span class="ih-tag">📌 مميز</span>
-    <div class="ih-title">توقعات الأسواق للنصف الثاني من 2026: بين التفاؤل الحذر والمخاطر الجيوسياسية</div>
-    <div class="ih-sub">يرى فريق معهد BlackRock للاستثمار أن الأسواق الأمريكية ستستمر في أدائها الإيجابي مع تزايد احتمالات خفض الفائدة...</div>
-    <div class="ih-author">
-      <div class="ih-av">👤</div>
-      <div class="ih-name">د. جين بويفين — رئيس معهد BlackRock للاستثمار</div>
-    </div>
-  </div>
-
-  <!-- Market Views -->
-  <div class="sec">
-    <div class="sec-row"><h3>آراء السوق</h3><a onclick="showToast('عرض كل الآراء')">الكل</a></div>
-  </div>
-
-  <div class="mv-card" onclick="showToast('📊 قراءة التحليل الكامل')">
-    <div class="mv-header">
+  <div class="topbar">
+    <div class="br-logo">
+      <div class="br-logo-mark">B</div>
       <div>
-        <span class="mv-tag mv-bullish">صعودي</span>
-      </div>
-      <span style="font-size:11px;color:var(--muted)">3 مايو 2026</span>
-    </div>
-    <div class="mv-title">أسهم التكنولوجيا الأمريكية: فرصة على المدى المتوسط</div>
-    <div class="mv-body">نتائج أرباح Q1 2026 فاقت التوقعات بنسبة 8.3%، مع نمو قوي في الذكاء الاصطناعي ومنصات السحابة.</div>
-    <div class="mv-footer">
-      <span class="mv-asset">NASDAQ • تكنولوجيا</span>
-      <span class="mv-date">فريق BII</span>
-    </div>
-  </div>
-
-  <div class="mv-card" onclick="showToast('📊 قراءة التحليل الكامل')">
-    <div class="mv-header">
-      <div><span class="mv-tag mv-bearish">هبوطي</span></div>
-      <span style="font-size:11px;color:var(--muted)">2 مايو 2026</span>
-    </div>
-    <div class="mv-title">العقارات التجارية: ضغوط مستمرة رغم استقرار الفائدة</div>
-    <div class="mv-body">ارتفاع معدلات الشواغر في المكاتب إلى 18.4% يضغط على عوائد REITs المكتبية، وندعو للحذر.</div>
-    <div class="mv-footer">
-      <span class="mv-asset">REITs • عقارات</span>
-      <span class="mv-date">فريق الأصول</span>
-    </div>
-  </div>
-
-  <div class="mv-card" onclick="showToast('📊 قراءة التحليل الكامل')">
-    <div class="mv-header">
-      <div><span class="mv-tag mv-neutral">محايد</span></div>
-      <span style="font-size:11px;color:var(--muted)">1 مايو 2026</span>
-    </div>
-    <div class="mv-title">السندات الحكومية: الانتظار قبل أي إجراء</div>
-    <div class="mv-body">في انتظار قرار الفيدرالي في يونيو، نحافظ على وزن محايد للسندات طويلة الأجل مع تفضيل الآجال القصيرة.</div>
-    <div class="mv-footer">
-      <span class="mv-asset">Treasuries • سندات</span>
-      <span class="mv-date">فريق الدخل الثابت</span>
-    </div>
-  </div>
-
-  <!-- Weekly Poll -->
-  <div class="sec" style="margin-top:8px">
-    <div class="sec-row"><h3>📊 استطلاع الأسبوع</h3></div>
-  </div>
-  <div class="poll-card">
-    <div class="poll-title">ما توقعك لسعر الفائدة الأمريكي في نهاية 2026؟</div>
-    <div class="poll-opt" onclick="vote(this,'4.75%',45)">
-      <div class="poll-bar" id="pb1" style="width:0"></div>
-      <div class="poll-txt"><span>بدون تغيير — 5.25%</span><span id="pp1" style="display:none">45%</span></div>
-    </div>
-    <div class="poll-opt" onclick="vote(this,'4.75%',38)">
-      <div class="poll-bar" id="pb2" style="width:0"></div>
-      <div class="poll-txt"><span>تخفيض واحد — 5.00%</span><span id="pp2" style="display:none">38%</span></div>
-    </div>
-    <div class="poll-opt" onclick="vote(this,'4.50%',17)">
-      <div class="poll-bar" id="pb3" style="width:0"></div>
-      <div class="poll-txt"><span>تخفيضان — 4.75%</span><span id="pp3" style="display:none">17%</span></div>
-    </div>
-    <div id="poll-result" style="display:none;margin-top:10px;font-size:12px;color:var(--muted);text-align:center">
-      شكراً لمشاركتك! 1,247 مستثمر صوّت
-    </div>
-  </div>
-
-  <!-- Education -->
-  <div class="sec">
-    <div class="sec-row"><h3>🎓 التعليم المالي</h3><a onclick="showToast('عرض كل الدورات')">الكل (24)</a></div>
-  </div>
-  <div class="news-scroll">
-    <div class="news-card" onclick="showToast('📚 فتح الدورة: تقييم المخاطر')">
-      <div class="news-img" style="background:linear-gradient(135deg,#0a1628,#1C3A6B)">🎯</div>
-      <div class="news-body">
-        <div class="news-tag">مستوى متقدم</div>
-        <div class="news-title">تحليل المخاطر وتقييم المحافظ الاستثمارية</div>
-        <div class="news-time">45 دقيقة • معهد BlackRock</div>
+        <div class="br-logo-text">BlackRock</div>
+        <div class="br-logo-sub">Task Management</div>
       </div>
     </div>
-    <div class="news-card" onclick="showToast('📚 فتح الدورة: ETFs')">
-      <div class="news-img" style="background:linear-gradient(135deg,#0a2010,#1a4a20)">📈</div>
-      <div class="news-body">
-        <div class="news-tag">مبتدئ</div>
-        <div class="news-title">دليل المبتدئ الشامل للاستثمار في صناديق ETFs</div>
-        <div class="news-time">30 دقيقة • iShares</div>
-      </div>
-    </div>
-    <div class="news-card" onclick="showToast('📚 فتح الدورة: الذكاء الاصطناعي')">
-      <div class="news-img" style="background:linear-gradient(135deg,#1a0a2e,#3d1a6b)">🤖</div>
-      <div class="news-body">
-        <div class="news-tag">جديد</div>
-        <div class="news-title">ثورة الذكاء الاصطناعي وتأثيرها على أسواق رأس المال</div>
-        <div class="news-time">60 دقيقة • Aladdin</div>
-      </div>
+    <div class="topbar-right">
+      <div class="top-icon" onclick="openModal()" style="font-size:22px;font-weight:300">＋</div>
     </div>
   </div>
 
-  <div class="section-gap"></div>
+  <div class="tasks-hero">
+    <h2>المهام</h2>
+    <p id="tasks-desc">إدارة وتتبع مهامك اليومية</p>
+    <div class="tasks-stats">
+      <div class="tstat"><div class="tv" id="ts-all">0</div><div class="tl">الكل</div></div>
+      <div class="tstat"><div class="tv" id="ts-pend">0</div><div class="tl">متبقية</div></div>
+      <div class="tstat"><div class="tv" id="ts-pts">0</div><div class="tl">نقاط مكتسبة</div></div>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filter-bar">
+    <button class="ftab on" onclick="setF('all',this)">الكل</button>
+    <button class="ftab" onclick="setF('pending',this)">متبقية</button>
+    <button class="ftab" onclick="setF('done',this)">مكتملة</button>
+    <button class="ftab" onclick="setF('high',this)">عالية</button>
+    <button class="ftab" onclick="setF('med',this)">متوسطة</button>
+    <button class="ftab" onclick="setF('low',this)">منخفضة</button>
+  </div>
+
+  <!-- List -->
+  <div class="task-list" id="task-list"></div>
+
+  <button class="fab" onclick="openModal()">＋</button>
 </div>
 
 
-<!-- ████████████████████████
-     PAGE: ACCOUNT - الحساب
-████████████████████████ -->
+<!-- ==========================================
+     PAGE 3: UPGRADES — الترقيات
+========================================== -->
+<div id="pg-upgrades" class="page">
+
+  <div class="topbar">
+    <div class="br-logo">
+      <div class="br-logo-mark">B</div>
+      <div>
+        <div class="br-logo-text">BlackRock</div>
+        <div class="br-logo-sub">Performance Tiers</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="top-icon" onclick="toast('⭐ رصيدك: 1,250 نقطة')">⭐</div>
+    </div>
+  </div>
+
+  <div class="up-hero">
+    <h2>الترقيات</h2>
+    <p>طوّر مستواك واكسب مزايا حصرية</p>
+  </div>
+
+  <!-- Level Block -->
+  <div class="level-block">
+    <div class="lb-top">
+      <div class="lb-info">
+        <div class="lb-name">Ahmed Al-Rashid</div>
+        <div class="lb-tier">★ Gold Tier</div>
+        <div class="lb-xp">1,250 / 2,000 نقطة XP</div>
+      </div>
+      <div class="lb-badge">🏆</div>
+    </div>
+    <div class="lb-bar"><div class="lb-bar-fill" style="width:62.5%"></div></div>
+    <div class="lb-bar-info">
+      <span>Gold: 1,250 XP</span>
+      <span>Diamond: 2,000 XP</span>
+    </div>
+  </div>
+
+  <!-- Achievements -->
+  <div class="sec-hdr"><h3>الإنجازات</h3><a onclick="toast('🏅 عرض كل 24 إنجاز')">الكل (24)</a></div>
+  <div class="ach-grid">
+    <div class="ach-cell unlocked" onclick="toast('🔥 سلسلة 7 أيام!')">
+      <div class="ach-ico">🔥</div><div class="ach-name">7 أيام</div>
+    </div>
+    <div class="ach-cell unlocked" onclick="toast('💯 10 مهام مكتملة!')">
+      <div class="ach-ico">💯</div><div class="ach-name">10 مهام</div>
+    </div>
+    <div class="ach-cell unlocked" onclick="toast('⚡ منجز سريع!')">
+      <div class="ach-ico">⚡</div><div class="ach-name">منجز سريع</div>
+    </div>
+    <div class="ach-cell unlocked" onclick="toast('🌟 أول 1000 XP!')">
+      <div class="ach-ico">🌟</div><div class="ach-name">1000 XP</div>
+    </div>
+    <div class="ach-cell unlocked" onclick="toast('🎯 دقة 100%!')">
+      <div class="ach-ico">🎯</div><div class="ach-name">دقة عالية</div>
+    </div>
+    <div class="ach-cell unlocked" onclick="toast('🏆 Gold Tier!')">
+      <div class="ach-ico">🏆</div><div class="ach-name">Gold Tier</div>
+    </div>
+    <div class="ach-cell unlocked" onclick="toast('🚀 50 مهمة!')">
+      <div class="ach-ico">🚀</div><div class="ach-name">50 مهمة</div>
+    </div>
+    <div class="ach-cell unlocked" onclick="toast('👑 أسبوع مثالي!')">
+      <div class="ach-ico">👑</div><div class="ach-name">أسبوع مثالي</div>
+    </div>
+    <div class="ach-cell locked-a"><div class="ach-ico">💎</div><div class="ach-name">Diamond</div></div>
+    <div class="ach-cell locked-a"><div class="ach-ico">🌈</div><div class="ach-name">كل الفئات</div></div>
+    <div class="ach-cell locked-a"><div class="ach-ico">🎓</div><div class="ach-name">100 مهمة</div></div>
+    <div class="ach-cell locked-a"><div class="ach-ico">🌙</div><div class="ach-name">30 يوم</div></div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- Levels Timeline -->
+  <div class="sec-hdr"><h3>مستويات الأداء</h3></div>
+  <div class="levels-section" id="lvl-list"></div>
+
+  <div class="div"></div>
+
+  <!-- Shop -->
+  <div class="sec-hdr"><h3>متجر الترقيات</h3><a onclick="toast('💰 رصيدك: 1,250 XP')">رصيدك: 1,250 ⭐</a></div>
+  <div class="shop-grid" id="shop-grid"></div>
+
+</div>
+
+
+<!-- ==========================================
+     PAGE 4: ACCOUNT — الحساب
+========================================== -->
 <div id="pg-account" class="page">
 
-  <div class="status-bar"><span>9:41</span><span>الحساب</span><span>●●●</span></div>
-
-  <!-- Hero -->
-  <div class="acc-hero">
-    <div class="acc-content">
-      <div class="acc-avatar" onclick="showToast('📷 تغيير صورة الملف الشخصي')">
-        👤<div class="acc-edit">✏️</div>
+  <div class="topbar">
+    <div class="br-logo">
+      <div class="br-logo-mark">B</div>
+      <div>
+        <div class="br-logo-text">BlackRock</div>
+        <div class="br-logo-sub">My Account</div>
       </div>
-      <div class="acc-name">أحمد محمد الراشد</div>
-      <div class="acc-id">BLK-2024-AH-7842 • عميل موثق ✓</div>
-      <div class="acc-tier">⭐ BlackRock Institutional Tier</div>
-      <div class="acc-stats">
-        <div class="acc-stat"><strong>$247K</strong><span>محفظة</span></div>
-        <div class="acc-stat"><strong>+24.1%</strong><span>العائد</span></div>
-        <div class="acc-stat"><strong>6</strong><span>أوراق</span></div>
-        <div class="acc-stat"><strong>14</strong><span>شهراً</span></div>
-      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="top-icon" onclick="toast('⚙️ الإعدادات')">⚙️</div>
     </div>
   </div>
 
-  <div class="acc-body">
+  <div class="acc-hero">
+    <div class="acc-av" onclick="toast('📷 تغيير صورة الملف الشخصي')">
+      👤
+      <div class="av-edit-btn">✏️</div>
+    </div>
+    <div class="acc-name">Ahmed Al-Rashid</div>
+    <div class="acc-email">ahmed.alrashid@email.com</div>
+    <div class="acc-tier-badge">★ BlackRock Gold Tier</div>
+    <div class="acc-stats-row">
+      <div class="a-stat"><strong>1,250</strong><span>نقطة XP</span></div>
+      <div class="a-stat"><strong id="ah-tasks">17</strong><span>مهمة</span></div>
+      <div class="a-stat"><strong>3</strong><span>ترقية</span></div>
+      <div class="a-stat"><strong>7🔥</strong><span>سلسلة</span></div>
+    </div>
+  </div>
 
-    <!-- Account Number Card -->
-    <div class="acc-num-card">
-      <div style="position:relative;z-index:1">
-        <div class="an-label">رقم الحساب الاستثماري</div>
-        <div class="an-num">BLK •••• •••• 7842</div>
-        <div class="an-row">
-          <div class="an-field"><small>نوع الحساب</small><span>مؤسسي - استثماري</span></div>
-          <div class="an-field"><small>تاريخ الفتح</small><span>مارس 2025</span></div>
-          <div class="an-field"><small>الحالة</small><span style="color:var(--green)">✓ نشط</span></div>
-        </div>
+  <!-- Progress to next level -->
+  <div class="prog-mini">
+    <div class="pm-row">
+      <span>تقدم المستوى — Gold Tier</span>
+      <span style="color:var(--gold);font-weight:700">62.5%</span>
+    </div>
+    <div class="pm-bar"><div class="pm-fill" style="width:62.5%"></div></div>
+    <div class="pm-sub">
+      <span>1,250 XP</span>
+      <span>Diamond Tier: 2,000 XP</span>
+    </div>
+  </div>
+
+  <!-- Performance -->
+  <div class="menu-section">
+    <div class="menu-section-title">الأداء والمهام</div>
+    <div class="menu-item" onclick="go('tasks')">
+      <div class="m-ico">📋</div>
+      <div class="m-txt"><strong>إدارة المهام</strong><small id="ah-desc">17 مهمة إجمالاً</small></div>
+      <span class="m-arr">›</span>
+    </div>
+    <div class="menu-item" onclick="go('upgrades')">
+      <div class="m-ico">⬆️</div>
+      <div class="m-txt"><strong>الترقيات والإنجازات</strong><small>3 ترقيات مكتسبة — 8 إنجازات</small></div>
+      <span class="m-arr">›</span>
+    </div>
+    <div class="menu-item" onclick="toast('📊 تقرير الأداء الأسبوعي')">
+      <div class="m-ico">📊</div>
+      <div class="m-txt"><strong>تقارير الأداء</strong><small>أسبوعية وشهرية</small></div>
+      <span class="m-arr">›</span>
+    </div>
+    <div class="menu-item" onclick="toast('📤 تصدير البيانات')">
+      <div class="m-ico">📤</div>
+      <div class="m-txt"><strong>تصدير البيانات</strong><small>CSV • PDF • JSON</small></div>
+      <span class="m-arr">›</span>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- Stats Summary -->
+  <div class="menu-section">
+    <div class="menu-section-title">ملخص الإحصائيات</div>
+    <div class="menu-item">
+      <div class="m-ico">✅</div>
+      <div class="m-txt"><strong>مهام مكتملة</strong><small>إجمالي المهام المنجزة</small></div>
+      <span class="m-badge" id="ah-done-badge">12</span>
+    </div>
+    <div class="menu-item">
+      <div class="m-ico">🔥</div>
+      <div class="m-txt"><strong>أطول سلسلة إنجاز</strong><small>أيام متتالية</small></div>
+      <span class="m-badge">7 أيام</span>
+    </div>
+    <div class="menu-item">
+      <div class="m-ico">⭐</div>
+      <div class="m-txt"><strong>إجمالي النقاط المكتسبة</strong><small>منذ بداية الاستخدام</small></div>
+      <span class="m-badge">1,250 XP</span>
+    </div>
+    <div class="menu-item">
+      <div class="m-ico">📅</div>
+      <div class="m-txt"><strong>تاريخ الانضمام</strong><small>عضو منذ</small></div>
+      <span class="m-badge">يناير 2026</span>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- Account Settings -->
+  <div class="menu-section">
+    <div class="menu-section-title">الحساب والأمان</div>
+    <div class="menu-item" onclick="toast('✏️ تعديل الملف الشخصي')">
+      <div class="m-ico">👤</div>
+      <div class="m-txt"><strong>الملف الشخصي</strong><small>الاسم والبريد الإلكتروني</small></div>
+      <span class="m-arr">›</span>
+    </div>
+    <div class="menu-item" onclick="toast('🔐 تغيير كلمة المرور')">
+      <div class="m-ico">🔐</div>
+      <div class="m-txt"><strong>كلمة المرور والأمان</strong><small>تغيير أو إعادة تعيين</small></div>
+      <span class="m-arr">›</span>
+    </div>
+    <div class="menu-item">
+      <div class="m-ico">🔒</div>
+      <div class="m-txt"><strong>التحقق بخطوتين</strong><small>أمان إضافي للحساب</small></div>
+      <div class="tog on" onclick="this.classList.toggle('on');toast(this.classList.contains('on')?'🔒 2FA مفعّل':'⚠️ 2FA معطّل')"></div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- Notifications -->
+  <div class="menu-section">
+    <div class="menu-section-title">الإشعارات والتفضيلات</div>
+    <div class="menu-item">
+      <div class="m-ico">🔔</div>
+      <div class="m-txt"><strong>إشعارات المهام</strong><small>تذكير بالمهام المتبقية</small></div>
+      <div class="tog on" onclick="this.classList.toggle('on');toast(this.classList.contains('on')?'🔔 مفعّل':'🔕 معطّل')"></div>
+    </div>
+    <div class="menu-item">
+      <div class="m-ico">🔥</div>
+      <div class="m-txt"><strong>تنبيه السلسلة</strong><small>لا تكسر سلسلة إنجازك</small></div>
+      <div class="tog on" onclick="this.classList.toggle('on');toast(this.classList.contains('on')?'🔥 مفعّل':'❌ معطّل')"></div>
+    </div>
+    <div class="menu-item">
+      <div class="m-ico">⭐</div>
+      <div class="m-txt"><strong>إشعارات الترقيات</strong><small>عند الوصول لمستوى جديد</small></div>
+      <div class="tog" onclick="this.classList.toggle('on');toast(this.classList.contains('on')?'⭐ مفعّل':'❌ معطّل')"></div>
+    </div>
+    <div class="menu-item" onclick="toast('🌐 اللغة: العربية')">
+      <div class="m-ico">🌐</div>
+      <div class="m-txt"><strong>اللغة</strong><small>العربية — Arabic</small></div>
+      <span class="m-arr">›</span>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- Support -->
+  <div class="menu-section">
+    <div class="menu-section-title">المساعدة والدعم</div>
+    <div class="menu-item" onclick="toast('❓ مركز المساعدة')">
+      <div class="m-ico">❓</div>
+      <div class="m-txt"><strong>مركز المساعدة</strong><small>الأسئلة الشائعة والإرشادات</small></div>
+      <span class="m-arr">›</span>
+    </div>
+    <div class="menu-item" onclick="toast('💬 الدعم الفوري')">
+      <div class="m-ico">💬</div>
+      <div class="m-txt"><strong>تواصل مع الدعم</strong><small>متاح 24/7</small></div>
+      <span class="m-arr">›</span>
+    </div>
+    <div class="menu-item" onclick="toast('⭐ شكراً لتقييمك!')">
+      <div class="m-ico">⭐</div>
+      <div class="m-txt"><strong>تقييم التطبيق</strong><small>ساعدنا في التحسين</small></div>
+      <span class="m-arr">›</span>
+    </div>
+    <div class="menu-item" onclick="toast('ℹ️ BlackRock Tasks v2.0 — مايو 2026')">
+      <div class="m-ico">ℹ️</div>
+      <div class="m-txt"><strong>عن التطبيق</strong><small>الإصدار 2.0.0</small></div>
+      <span class="m-arr">›</span>
+    </div>
+  </div>
+
+  <button class="logout" onclick="toast('👋 تم تسجيل الخروج بأمان')">
+    ← تسجيل الخروج
+  </button>
+
+</div>
+
+
+<!-- ==========================================
+     ADD TASK MODAL
+========================================== -->
+<div class="overlay" id="modal-add" onclick="closeOut('modal-add',event)">
+  <div class="modal">
+    <div class="modal-bar"></div>
+    <h3>إضافة مهمة جديدة</h3>
+
+    <div class="igrp">
+      <label>عنوان المهمة *</label>
+      <input type="text" id="m-title" placeholder="ماذا تريد أن تنجز؟"/>
+    </div>
+    <div class="igrp">
+      <label>الوصف</label>
+      <textarea id="m-desc" rows="2" placeholder="تفاصيل إضافية..."></textarea>
+    </div>
+
+    <div class="igrp">
+      <label>مستوى الأولوية</label>
+      <div class="pri-sel">
+        <button class="pri-btn" id="pb-high" onclick="selectPri('high')">HIGH</button>
+        <button class="pri-btn sel-m" id="pb-med" onclick="selectPri('med')">MEDIUM</button>
+        <button class="pri-btn" id="pb-low" onclick="selectPri('low')">LOW</button>
       </div>
     </div>
 
-    <!-- Portfolio Summary -->
-    <div class="acc-card">
-      <div class="acc-card-title">ملخص المحفظة</div>
-      <div class="acc-row" onclick="go('portfolio')">
-        <div class="acc-ico" style="background:rgba(10,132,255,.12)">📊</div>
-        <div class="acc-row-txt"><strong>المحفظة الاستثمارية</strong><small>$247,832.50 • +24.1%</small></div>
-        <span class="acc-row-end">›</span>
+    <div class="i2">
+      <div class="igrp">
+        <label>نقاط XP</label>
+        <input type="number" id="m-pts" value="30" min="5" max="500"/>
       </div>
-      <div class="acc-row" onclick="showToast('💵 الرصيد النقدي المتاح')">
-        <div class="acc-ico" style="background:rgba(52,199,89,.1)">💵</div>
-        <div class="acc-row-txt"><strong>الرصيد النقدي</strong><small>$12,400.00 متاح للاستثمار</small></div>
-        <span class="acc-row-end">›</span>
-      </div>
-      <div class="acc-row" onclick="showToast('📋 تقرير الأداء الشهري')">
-        <div class="acc-ico" style="background:rgba(255,159,10,.1)">📋</div>
-        <div class="acc-row-txt"><strong>تقارير الأداء</strong><small>آخر تقرير: أبريل 2026</small></div>
-        <span class="acc-row-end">›</span>
-      </div>
-      <div class="acc-row" onclick="showToast('📄 الكشوفات الشهرية والضريبية')">
-        <div class="acc-ico" style="background:rgba(191,90,242,.1)">📄</div>
-        <div class="acc-row-txt"><strong>الكشوفات والوثائق</strong><small>بيانات • ضريبية • تأكيدات</small></div>
-        <span class="acc-row-end">›</span>
+      <div class="igrp">
+        <label>الموعد النهائي</label>
+        <input type="date" id="m-date"/>
       </div>
     </div>
 
-    <!-- Trading Actions -->
-    <div class="acc-card">
-      <div class="acc-card-title">الاستثمار والتداول</div>
-      <div class="acc-row" onclick="openTradeModal('buy')">
-        <div class="acc-ico" style="background:rgba(52,199,89,.1)">📈</div>
-        <div class="acc-row-txt"><strong>شراء أوراق مالية</strong><small>شراء أسهم وETFs والسندات</small></div>
-        <span class="acc-row-end">›</span>
-      </div>
-      <div class="acc-row" onclick="openTradeModal('sell')">
-        <div class="acc-ico" style="background:rgba(255,59,48,.1)">📉</div>
-        <div class="acc-row-txt"><strong>بيع أوراق مالية</strong><small>بيع من محفظتك الحالية</small></div>
-        <span class="acc-row-end">›</span>
-      </div>
-      <div class="acc-row" onclick="openDepositModal()">
-        <div class="acc-ico" style="background:rgba(10,132,255,.12)">💳</div>
-        <div class="acc-row-txt"><strong>إيداع أموال</strong><small>تحويل للحساب الاستثماري</small></div>
-        <span class="acc-row-end">›</span>
-      </div>
-      <div class="acc-row" onclick="openWithdrawModal()">
-        <div class="acc-ico" style="background:rgba(255,214,10,.1)">🏦</div>
-        <div class="acc-row-txt"><strong>سحب أموال</strong><small>تحويل للحساب البنكي</small></div>
-        <span class="acc-row-end">›</span>
-      </div>
-      <div class="acc-row" onclick="showToast('⚡ إعداد الاستثمار التلقائي')">
-        <div class="acc-ico" style="background:rgba(191,90,242,.1)">⚡</div>
-        <div class="acc-row-txt"><strong>الاستثمار التلقائي</strong><small>استثمار دوري تلقائي</small></div>
-        <span class="acc-row-end">›</span>
-      </div>
+    <div class="igrp">
+      <label>الفئة</label>
+      <select id="m-cat">
+        <option value="عام">عام — General</option>
+        <option value="تعليم">تعليم — Education</option>
+        <option value="عمل">عمل — Work</option>
+        <option value="صحة">صحة — Health</option>
+        <option value="شخصي">شخصي — Personal</option>
+        <option value="مشاريع">مشاريع — Projects</option>
+      </select>
     </div>
 
-    <!-- Settings -->
-    <div class="acc-card">
-      <div class="acc-card-title">الإعدادات والأمان</div>
-      <div class="acc-row" onclick="showToast('✏️ تعديل البيانات الشخصية')">
-        <div class="acc-ico" style="background:rgba(10,132,255,.12)">👤</div>
-        <div class="acc-row-txt"><strong>البيانات الشخصية</strong><small>الاسم والعنوان والوثائق</small></div>
-        <span class="acc-row-end">›</span>
-      </div>
-      <div class="acc-row" onclick="showToast('🔐 إعدادات الأمان المتقدمة')">
-        <div class="acc-ico" style="background:rgba(52,199,89,.1)">🔐</div>
-        <div class="acc-row-txt"><strong>كلمة المرور والأمان</strong><small>البيومتري والرمز السري</small></div>
-        <span class="acc-row-end">›</span>
-      </div>
-      <div class="acc-row">
-        <div class="acc-ico" style="background:rgba(255,214,10,.1)">🔔</div>
-        <div class="acc-row-txt"><strong>إشعارات السوق</strong><small>تنبيهات الأسعار والأخبار</small></div>
-        <div class="tog on" onclick="this.classList.toggle('on');showToast(this.classList.contains('on')?'🔔 الإشعارات مفعلة':'🔕 الإشعارات معطلة')"></div>
-      </div>
-      <div class="acc-row">
-        <div class="acc-ico" style="background:rgba(10,132,255,.12)">🔒</div>
-        <div class="acc-row-txt"><strong>التحقق بخطوتين</strong><small>أمان إضافي للحساب</small></div>
-        <div class="tog on" onclick="this.classList.toggle('on');showToast(this.classList.contains('on')?'🔒 2FA مفعل':'⚠️ تنبيه: 2FA معطل')"></div>
-      </div>
-      <div class="acc-row">
-        <div class="acc-ico" style="background:rgba(52,199,89,.1)">🌿</div>
-        <div class="acc-row-txt"><strong>تقارير ESG</strong><small>الاستثمار المستدام</small></div>
-        <div class="tog" onclick="this.classList.toggle('on');showToast(this.classList.contains('on')?'🌿 تقارير ESG مفعلة':'ESG معطل')"></div>
-      </div>
+    <div class="modal-btns">
+      <button class="m-cancel" onclick="closeModal('modal-add')">إلغاء</button>
+      <button class="m-ok" onclick="addTask()">إضافة المهمة</button>
     </div>
-
-    <!-- Beneficiary -->
-    <div class="acc-card">
-      <div class="acc-card-title">المستفيدون والتواصل</div>
-      <div class="acc-row" onclick="showToast('👥 إدارة المستفيدين')">
-        <div class="acc-ico" style="background:rgba(10,132,255,.12)">👥</div>
-        <div class="acc-row-txt"><strong>المستفيدون</strong><small>إضافة أو تعديل المستفيدين</small></div>
-        <span class="acc-row-end">›</span>
-      </div>
-      <div class="acc-row" onclick="showToast('💬 التواصل مع مستشار BlackRock')">
-        <div class="acc-ico" style="background:rgba(52,199,89,.1)">💬</div>
-        <div class="acc-row-txt"><strong>مستشارك الشخصي</strong><small>محمد العلي — متاح الآن</small></div>
-        <span style="background:rgba(52,199,89,.15);color:var(--green);font-size:10px;padding:3px 8px;border-radius:99px;font-weight:700">متاح</span>
-      </div>
-      <div class="acc-row" onclick="showToast('❓ مركز المساعدة')">
-        <div class="acc-ico" style="background:rgba(255,159,10,.1)">❓</div>
-        <div class="acc-row-txt"><strong>مركز المساعدة</strong><small>الأسئلة الشائعة والدعم</small></div>
-        <span class="acc-row-end">›</span>
-      </div>
-      <div class="acc-row" onclick="showToast('⭐ شكراً لتقييمك!')">
-        <div class="acc-ico" style="background:rgba(255,214,10,.1)">⭐</div>
-        <div class="acc-row-txt"><strong>تقييم التطبيق</strong><small>ساعدنا في التحسين</small></div>
-        <span class="acc-row-end">›</span>
-      </div>
-    </div>
-
-    <!-- Legal -->
-    <div class="acc-card">
-      <div class="acc-card-title">قانوني وامتثال</div>
-      <div class="acc-row" onclick="showToast('📜 سياسة الخصوصية')">
-        <div class="acc-ico" style="background:rgba(255,255,255,.05)">📜</div>
-        <div class="acc-row-txt"><strong>سياسة الخصوصية</strong></div>
-        <span class="acc-row-end">›</span>
-      </div>
-      <div class="acc-row" onclick="showToast('📋 الشروط والأحكام')">
-        <div class="acc-ico" style="background:rgba(255,255,255,.05)">📋</div>
-        <div class="acc-row-txt"><strong>الشروط والأحكام</strong></div>
-        <span class="acc-row-end">›</span>
-      </div>
-      <div class="acc-row" onclick="showToast('ℹ️ الإصدار 4.2.1 | آخر تحديث: مايو 2026')">
-        <div class="acc-ico" style="background:rgba(255,255,255,.05)">ℹ️</div>
-        <div class="acc-row-txt"><strong>عن التطبيق</strong><small>الإصدار 4.2.1</small></div>
-        <span class="acc-row-end">›</span>
-      </div>
-    </div>
-
-    <button class="logout-btn" onclick="showToast('👋 تم تسجيل الخروج بأمان')">
-      🚪 تسجيل الخروج
-    </button>
   </div>
 </div>
 
 
-<!-- ████████████████████████
+<!-- ==========================================
      BOTTOM NAV
-████████████████████████ -->
+========================================== -->
 <nav class="bnav">
   <button class="nb on" id="nb-home" onclick="go('home')">
     <span class="nb-ico">🏠</span>
     <span class="nb-lbl">الرئيسية</span>
   </button>
-  <button class="nb" id="nb-portfolio" onclick="go('portfolio')">
-    <span class="nb-ico">📊</span>
-    <span class="nb-lbl">المحفظة</span>
+  <button class="nb" id="nb-tasks" onclick="go('tasks')">
+    <span class="nb-ico">📋</span>
+    <span class="nb-lbl">المهام</span>
+    <span class="nb-dot" id="nav-dot"></span>
   </button>
-  <button class="nb" id="nb-insights" onclick="go('insights')">
-    <span class="nb-ico">💡</span>
-    <span class="nb-lbl">التحليلات</span>
+  <button class="nb" id="nb-upgrades" onclick="go('upgrades')">
+    <span class="nb-ico">⬆️</span>
+    <span class="nb-lbl">الترقيات</span>
   </button>
   <button class="nb" id="nb-account" onclick="go('account')">
     <span class="nb-ico">👤</span>
-    <span class="nb-lbl">الحساب</span>
-    <span class="nb-dot" id="acc-dot" style="display:block"></span>
+    <span class="nb-lbl">حسابي</span>
   </button>
 </nav>
 
-
-<!-- ████████████████████████
-     MODALS
-████████████████████████ -->
-
-<!-- Trade Modal -->
-<div class="overlay" id="trade-modal" onclick="closeOverlay('trade-modal',event)">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <h3 id="trade-title">📈 أمر شراء</h3>
-    <div class="trade-types">
-      <button class="tt-btn buy on" id="tt-buy" onclick="setTradeType('buy')">شراء</button>
-      <button class="tt-btn sell" id="tt-sell" onclick="setTradeType('sell')">بيع</button>
-    </div>
-    <div class="igrp">
-      <label>الرمز أو اسم الشركة</label>
-      <input type="text" id="trade-symbol" placeholder="مثال: AAPL, MSFT, NVDA"/>
-    </div>
-    <div class="i2">
-      <div class="igrp">
-        <label>الكمية (أسهم)</label>
-        <input type="number" id="trade-qty" placeholder="0" min="1" oninput="calcTradeTotal()"/>
-      </div>
-      <div class="igrp">
-        <label>السعر ($)</label>
-        <input type="number" id="trade-price" placeholder="0.00" min="0" oninput="calcTradeTotal()"/>
-      </div>
-    </div>
-    <div class="igrp">
-      <label>نوع الأمر</label>
-      <select id="trade-type-order">
-        <option value="market">سوقي — تنفيذ فوري</option>
-        <option value="limit">محدود — بسعر معين</option>
-        <option value="stop">إيقاف خسارة</option>
-      </select>
-    </div>
-    <div class="igrp" style="background:rgba(255,255,255,.04);border-radius:12px;padding:14px;border:1px solid var(--border)">
-      <div style="display:flex;justify-content:space-between;margin-bottom:8px">
-        <span style="font-size:12px;color:var(--muted)">القيمة الإجمالية</span>
-        <span style="font-size:16px;font-weight:800;color:#fff" id="trade-total">$0.00</span>
-      </div>
-      <div style="display:flex;justify-content:space-between">
-        <span style="font-size:11px;color:var(--muted)">العمولة</span>
-        <span style="font-size:11px;color:var(--green)">$0 — بدون عمولة</span>
-      </div>
-    </div>
-    <div class="mbtn-row">
-      <button class="mbtn-cancel" onclick="closeModal('trade-modal')">إلغاء</button>
-      <button class="mbtn-ok" id="trade-submit-btn" onclick="submitTrade()">✓ تأكيد الشراء</button>
-    </div>
-  </div>
-</div>
-
-<!-- Deposit Modal -->
-<div class="overlay" id="deposit-modal" onclick="closeOverlay('deposit-modal',event)">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <h3>💳 إيداع أموال</h3>
-    <div class="igrp">
-      <label>طريقة الإيداع</label>
-      <select id="dep-method">
-        <option>تحويل بنكي (ACH)</option>
-        <option>بطاقة ائتمانية</option>
-        <option>تحويل دولي (SWIFT)</option>
-        <option>شيك إلكتروني</option>
-      </select>
-    </div>
-    <div class="igrp">
-      <label>المبلغ ($)</label>
-      <input type="number" id="dep-amount" placeholder="0.00" min="100"/>
-    </div>
-    <div class="igrp">
-      <label>من حساب</label>
-      <select>
-        <option>البنك الأهلي •••• 4521</option>
-        <option>بنك الرياض •••• 7832</option>
-        <option>إضافة حساب جديد</option>
-      </select>
-    </div>
-    <div style="background:rgba(10,132,255,.08);border:1px solid rgba(10,132,255,.2);border-radius:12px;padding:12px;margin-bottom:14px">
-      <div style="font-size:11px;color:var(--blue);font-weight:700;margin-bottom:4px">ℹ️ معلومات مهمة</div>
-      <div style="font-size:11px;color:var(--muted);line-height:1.5">التحويل البنكي يستغرق 1-3 أيام عمل. الحد الأدنى للإيداع $1,000. أموالك مؤمنة حتى $500,000.</div>
-    </div>
-    <div class="mbtn-row">
-      <button class="mbtn-cancel" onclick="closeModal('deposit-modal')">إلغاء</button>
-      <button class="mbtn-ok" onclick="submitDeposit()">✓ تأكيد الإيداع</button>
-    </div>
-  </div>
-</div>
-
-<!-- Withdraw Modal -->
-<div class="overlay" id="withdraw-modal" onclick="closeOverlay('withdraw-modal',event)">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <h3>🏦 سحب أموال</h3>
-    <div class="igrp">
-      <label>المبلغ ($)</label>
-      <input type="number" id="with-amount" placeholder="0.00" min="100"/>
-    </div>
-    <div class="igrp">
-      <label>إلى حساب</label>
-      <select>
-        <option>البنك الأهلي •••• 4521</option>
-        <option>بنك الرياض •••• 7832</option>
-        <option>إضافة حساب جديد</option>
-      </select>
-    </div>
-    <div class="igrp">
-      <label>الرصيد النقدي المتاح</label>
-      <input type="text" value="$12,400.00" disabled style="opacity:.6"/>
-    </div>
-    <div style="background:rgba(255,214,10,.08);border:1px solid rgba(255,214,10,.2);border-radius:12px;padding:12px;margin-bottom:14px">
-      <div style="font-size:11px;color:var(--gold);font-weight:700;margin-bottom:4px">⚠️ تنبيه</div>
-      <div style="font-size:11px;color:var(--muted);line-height:1.5">السحب يستغرق 2-5 أيام عمل. قد تنطبق قيود على السحوبات الكبيرة.</div>
-    </div>
-    <div class="mbtn-row">
-      <button class="mbtn-cancel" onclick="closeModal('withdraw-modal')">إلغاء</button>
-      <button class="mbtn-ok" style="background:var(--gold);color:#000" onclick="submitWithdraw()">✓ تأكيد السحب</button>
-    </div>
-  </div>
-</div>
-
-<!-- Stock Detail Modal -->
-<div class="overlay" id="stock-modal" onclick="closeOverlay('stock-modal',event)">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div class="stock-header">
-      <div class="stock-logo" id="sm-logo" style="background:linear-gradient(135deg,#555,#333)">🍎</div>
-      <div class="stock-info-main">
-        <h4 id="sm-name">Apple Inc.</h4>
-        <p id="sm-symbol">AAPL • NASDAQ</p>
-      </div>
-      <div class="stock-price-block">
-        <div class="stock-price" id="sm-price">$189.25</div>
-        <div class="stock-chg up" id="sm-chg">+$2.30 (+1.24%)</div>
-      </div>
-    </div>
-    <canvas id="stock-chart" height="100" style="margin-bottom:14px"></canvas>
-    <div class="stock-stat-grid" id="sm-stats"></div>
-    <div class="mbtn-row">
-      <button class="mbtn-ok" style="background:var(--red)" onclick="closeModal('stock-modal');openTradeModal('sell')">📉 بيع</button>
-      <button class="mbtn-ok" onclick="closeModal('stock-modal');openTradeModal('buy')">📈 شراء</button>
-    </div>
-  </div>
-</div>
-
-<!-- Toast -->
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast-el"></div>
 
 
-<!-- ████████████████████████
+<!-- ==========================================
      JAVASCRIPT
-████████████████████████ -->
+========================================== -->
 <script>
-/* =============================================
+
+/* ============================================
+   DATA
+============================================ */
+let tasks=[
+  {id:1,title:'تعلم HTML وCSS الاحترافي',desc:'إنهاء دورة HTML5+CSS3',pri:'high',pts:80,cat:'تعليم',date:'2026-05-05',done:false},
+  {id:2,title:'بناء مشروع JavaScript',desc:'تطبيق قائمة المهام التفاعلي',pri:'high',pts:100,cat:'مشاريع',date:'2026-05-08',done:false},
+  {id:3,title:'قراءة كتاب العادات الذرية',desc:'30 صفحة يومياً',pri:'med',pts:40,cat:'شخصي',date:'2026-05-10',done:false},
+  {id:4,title:'ممارسة الرياضة يومياً',desc:'30 دقيقة جري + 20 قوة',pri:'low',pts:30,cat:'صحة',date:'2026-05-04',done:false},
+  {id:5,title:'دورة Python الأساسية',desc:'تعلم بايثون من الصفر',pri:'med',pts:60,cat:'تعليم',date:'2026-05-12',done:false},
+  {id:6,title:'مراجعة الكود القديم',desc:'تحسين جودة الكود',pri:'low',pts:25,cat:'عمل',date:'2026-05-06',done:true},
+  {id:7,title:'تصميم واجهة Figma',desc:'نموذج أولي لتطبيق الجوال',pri:'high',pts:70,cat:'عمل',date:'2026-05-07',done:true},
+  {id:8,title:'التخطيط الأسبوعي',desc:'أهداف وخطة الأسبوع',pri:'med',pts:20,cat:'شخصي',date:'2026-05-05',done:false},
+];
+let nextId=9;
+let activeFilter='all';
+let selectedPri='med';
+
+const LEVELS=[
+  {name:'Bronze',icon:'🥉',min:0,max:300,tier:'Entry Level'},
+  {name:'Silver',icon:'🥈',min:300,max:700,tier:'Developing'},
+  {name:'Advanced',icon:'🥇',min:700,max:1200,tier:'Proficient'},
+  {name:'Gold',icon:'🏆',min:1200,max:2000,tier:'Expert'},
+  {name:'Diamond',icon:'💎',min:2000,max:3500,tier:'Elite'},
+  {name:'Platinum',icon:'🌟',min:3500,max:6000,tier:'Master'},
+  {name:'Legendary',icon:'👑',min:6000,max:Infinity,tier:'BlackRock Elite'},
+];
+
+const SHOP=[
+  {id:1,icon:'⚡',name:'XP Booster',desc:'مضاعفة النقاط لمدة ساعة',cost:200,owned:true},
+  {id:2,icon:'🛡️',name:'Deadline Shield',desc:'تمديد الموعد 3 مرات',cost:150,owned:true},
+  {id:3,icon:'🎯',name:'Priority Access',desc:'مهام حصرية عالية القيمة',cost:350,owned:false},
+  {id:4,icon:'🔥',name:'Focus Mode',desc:'تعطيل الإشعارات تلقائياً',cost:100,owned:true},
+  {id:5,icon:'💰',name:'Daily Bonus',desc:'+25% نقاط إضافية يومياً',cost:500,owned:false},
+  {id:6,icon:'🎨',name:'Custom Themes',desc:'ثيمات وأيقونات حصرية',cost:300,owned:false},
+  {id:7,icon:'📊',name:'Analytics Pro',desc:'تقارير مفصلة وإحصائيات',cost:400,owned:false},
+  {id:8,icon:'🌙',name:'Night Mode Pro',desc:'واجهة مخصصة للعمل الليلي',cost:120,owned:false},
+];
+
+/* ============================================
    NAVIGATION
-============================================= */
-const pages = {
-  home:'pg-home',portfolio:'pg-portfolio',
-  insights:'pg-insights',account:'pg-account'
-};
-const navBtns = {
-  home:'nb-home',portfolio:'nb-portfolio',
-  insights:'nb-insights',account:'nb-account'
-};
+============================================ */
+const PG={home:'pg-home',tasks:'pg-tasks',upgrades:'pg-upgrades',account:'pg-account'};
+const NB={home:'nb-home',tasks:'nb-tasks',upgrades:'nb-upgrades',account:'nb-account'};
 
 function go(pg){
-  Object.values(pages).forEach(p=>document.getElementById(p).classList.remove('active'));
-  Object.values(navBtns).forEach(n=>document.getElementById(n).classList.remove('on'));
-  document.getElementById(pages[pg]).classList.add('active');
-  document.getElementById(navBtns[pg]).classList.add('on');
+  Object.values(PG).forEach(p=>document.getElementById(p).classList.remove('active'));
+  Object.values(NB).forEach(n=>document.getElementById(n).classList.remove('on'));
+  document.getElementById(PG[pg]).classList.add('active');
+  document.getElementById(NB[pg]).classList.add('on');
   window.scrollTo(0,0);
-  if(pg==='home') drawPortfolioChart('1W');
-  if(pg==='portfolio'){ drawDonutChart(); drawPerfChart(); }
+  if(pg==='home'){drawHomeChart('1W');updateHome()}
+  if(pg==='tasks'){renderTasks();updateTaskStats()}
+  if(pg==='upgrades'){renderLevels();renderShop()}
+  if(pg==='account')updateAccount();
 }
 
-/* =============================================
-   CLOCK
-============================================= */
-function updateClock(){
-  const now=new Date();
-  const t=now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');
-  document.querySelectorAll('.status-bar span:first-child').forEach(el=>el.textContent=t);
-  document.getElementById('current-time').textContent=t;
-}
-updateClock();
-setInterval(updateClock,30000);
+/* ============================================
+   CHART
+============================================ */
+const CHART_DATA={
+  '1W':[850,920,880,950,1050,1100,1200,1250],
+  '1M':[600,680,720,800,850,950,1100,1250],
+  '3M':[200,350,500,700,850,1000,1150,1250],
+};
 
-/* =============================================
-   CHARTS
-============================================= */
-function drawLineChart(canvasId, data, color, fill){
-  const canvas=document.getElementById(canvasId);
-  if(!canvas) return;
-  const ctx=canvas.getContext('2d');
-  const W=canvas.parentElement.clientWidth-32||300;
-  canvas.width=W*2; canvas.height=canvas.height*2||240;
-  canvas.style.width=W+'px';
+function drawLineChart(id,data,color){
+  const cv=document.getElementById(id);if(!cv)return;
+  const ctx=cv.getContext('2d');
+  const pw=cv.parentElement.clientWidth-40||300;
+  cv.width=pw*2;cv.height=(parseInt(cv.getAttribute('height'))||80)*2;
+  cv.style.width=pw+'px';
   ctx.scale(2,2);
-  const w=W, h=canvas.height/2;
-  const min=Math.min(...data)-5, max=Math.max(...data)+5;
-  const scaleX=w/(data.length-1), scaleY=(h-20)/(max-min);
+  const W=pw,H=cv.height/2;
+  const mn=Math.min(...data)-20,mx=Math.max(...data)+20;
+  const sX=W/(data.length-1),sY=(H-16)/(mx-mn);
+  ctx.clearRect(0,0,W,H);
 
-  ctx.clearRect(0,0,w,h);
-
-  // Grid
-  ctx.strokeStyle='rgba(255,255,255,0.04)';
-  ctx.lineWidth=1;
-  for(let i=0;i<4;i++){
-    const y=10+(i*(h-20)/3);
-    ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();
+  // Grid lines
+  ctx.strokeStyle='rgba(255,255,255,0.04)';ctx.lineWidth=1;
+  for(let i=0;i<3;i++){
+    const y=8+i*(H-16)/2;
+    ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();
   }
 
-  // Gradient fill
-  if(fill){
-    const grad=ctx.createLinearGradient(0,0,0,h);
-    grad.addColorStop(0,color+'33');
-    grad.addColorStop(1,'transparent');
-    ctx.beginPath();
-    ctx.moveTo(0,h);
-    data.forEach((v,i)=>ctx.lineTo(i*scaleX,h-10-(v-min)*scaleY));
-    ctx.lineTo((data.length-1)*scaleX,h);
-    ctx.closePath();
-    ctx.fillStyle=grad;
-    ctx.fill();
-  }
+  // Fill gradient
+  const g=ctx.createLinearGradient(0,0,0,H);
+  g.addColorStop(0,color+'20');g.addColorStop(1,'transparent');
+  ctx.beginPath();ctx.moveTo(0,H);
+  data.forEach((v,i)=>ctx.lineTo(i*sX,H-8-(v-mn)*sY));
+  ctx.lineTo((data.length-1)*sX,H);ctx.closePath();
+  ctx.fillStyle=g;ctx.fill();
 
   // Line
-  ctx.beginPath();
-  ctx.strokeStyle=color;
-  ctx.lineWidth=2.5;
-  ctx.lineJoin='round';
-  ctx.lineCap='round';
+  ctx.beginPath();ctx.strokeStyle=color;ctx.lineWidth=1.5;
+  ctx.lineJoin='round';ctx.lineCap='round';
   data.forEach((v,i)=>{
-    const x=i*scaleX, y=h-10-(v-min)*scaleY;
+    const x=i*sX,y=H-8-(v-mn)*sY;
     i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
-  });
-  ctx.stroke();
+  });ctx.stroke();
 
-  // Dot at end
-  const lx=(data.length-1)*scaleX;
-  const ly=h-10-(data[data.length-1]-min)*scaleY;
-  ctx.beginPath();
-  ctx.arc(lx,ly,4,0,Math.PI*2);
-  ctx.fillStyle=color;
-  ctx.fill();
-  ctx.beginPath();
-  ctx.arc(lx,ly,6,0,Math.PI*2);
-  ctx.strokeStyle=color+'55';
-  ctx.lineWidth=2;
-  ctx.stroke();
+  // End dot
+  const lx=(data.length-1)*sX;
+  const ly=H-8-(data[data.length-1]-mn)*sY;
+  ctx.beginPath();ctx.arc(lx,ly,3,0,Math.PI*2);
+  ctx.fillStyle=color;ctx.fill();
 }
 
-const chartData={
-  '1W':[240,243,241,245,243,247,248,247.8],
-  '1M':[220,225,218,230,228,235,240,247.8],
-  '3M':[200,210,205,220,215,230,240,247.8],
-  '1Y':[150,165,170,185,190,210,230,247.8],
-};
-
-function drawPortfolioChart(period){
-  const d=chartData[period]||chartData['1W'];
-  const rising=d[d.length-1]>=d[0];
-  drawLineChart('portfolio-chart',d,rising?'#34C759':'#FF3B30',true);
+function drawHomeChart(p){
+  drawLineChart('home-chart',CHART_DATA[p]||CHART_DATA['1W'],'#FFFFFF');
+}
+function switchHomeChart(p,btn){
+  document.querySelectorAll('.ct').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');drawHomeChart(p);
 }
 
-function switchChartPeriod(p,btn){
-  document.querySelectorAll('.chart-tab').forEach(b=>b.classList.remove('on'));
+/* ============================================
+   HOME
+============================================ */
+function updateHome(){
+  document.getElementById('hg-done').textContent=tasks.filter(t=>t.done).length;
+  document.getElementById('hg-pend').textContent=tasks.filter(t=>!t.done).length;
+  updateNavDot();
+}
+
+/* ============================================
+   TASKS
+============================================ */
+function updateTaskStats(){
+  const all=tasks.length;
+  const pend=tasks.filter(t=>!t.done).length;
+  const pts=tasks.filter(t=>t.done).reduce((s,t)=>s+t.pts,0);
+  document.getElementById('ts-all').textContent=all;
+  document.getElementById('ts-pend').textContent=pend;
+  document.getElementById('ts-pts').textContent=pts;
+  document.getElementById('tasks-desc').textContent=
+    pend>0?`لديك ${pend} مهمة متبقية اليوم`:'🎉 أنجزت جميع مهامك!';
+  updateNavDot();
+}
+
+function setF(f,btn){
+  activeFilter=f;
+  document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
-  drawPortfolioChart(p);
+  renderTasks();
 }
 
-function drawPerfChart(){
-  const d=[200,210,205,220,215,230,235,238,242,245,247.8];
-  drawLineChart('perf-chart',d,'#0A84FF',true);
-}
+function renderTasks(){
+  let list=[...tasks];
+  if(activeFilter==='pending') list=list.filter(t=>!t.done);
+  else if(activeFilter==='done') list=list.filter(t=>t.done);
+  else if(activeFilter==='high') list=list.filter(t=>t.pri==='high');
+  else if(activeFilter==='med') list=list.filter(t=>t.pri==='med');
+  else if(activeFilter==='low') list=list.filter(t=>t.pri==='low');
 
-function setPeriod(btn,p){
-  document.querySelectorAll('.period-btn').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  drawPerfChart();
-  showToast('📊 عرض أداء '+p);
-}
+  const el=document.getElementById('task-list');
+  if(!list.length){
+    el.innerHTML=`<div class="empty-state"><div class="e-ico">—</div><p>لا توجد مهام في هذه الفئة</p></div>`;
+    return;
+  }
 
-function drawDonutChart(){
-  const canvas=document.getElementById('donut-chart');
-  if(!canvas) return;
-  const ctx=canvas.getContext('2d');
-  const size=120, cx=size/2, cy=size/2, r=46, inner=30;
-  canvas.width=size*2; canvas.height=size*2;
-  canvas.style.width=size+'px'; canvas.style.height=size+'px';
-  ctx.scale(2,2);
+  const priLabel={high:'HIGH',med:'MEDIUM',low:'LOW'};
+  const priClass={high:'tag-h',med:'tag-m',low:'tag-l'};
 
-  const segs=[
-    {pct:.47,color:'#0A84FF'},
-    {pct:.20,color:'#34C759'},
-    {pct:.18,color:'#FF9F0A'},
-    {pct:.10,color:'#BF5AF2'},
-    {pct:.05,color:'#888888'},
-  ];
-
-  let start=-Math.PI/2;
-  segs.forEach(s=>{
-    const angle=s.pct*Math.PI*2;
-    ctx.beginPath();
-    ctx.moveTo(cx,cy);
-    ctx.arc(cx,cy,r,start,start+angle);
-    ctx.closePath();
-    ctx.fillStyle=s.color;
-    ctx.fill();
-    start+=angle;
-  });
-
-  // Inner hole
-  ctx.beginPath();
-  ctx.arc(cx,cy,inner,0,Math.PI*2);
-  ctx.fillStyle='#1C1C1C';
-  ctx.fill();
-}
-
-function drawStockChart(symbol){
-  const colors={
-    AAPL:'#34C759',MSFT:'#0A84FF',NVDA:'#FF3B30',
-    GOOGL:'#34C759',AMZN:'#FF9F0A',TSLA:'#FF3B30'
-  };
-  const data={
-    AAPL:[182,184,181,186,185,188,187,189],
-    MSFT:[405,408,403,410,412,415,414,415.8],
-    NVDA:[900,890,880,870,882,875,870,875],
-    GOOGL:[165,168,166,170,172,170,171,172.3],
-    AMZN:[185,187,184,188,190,189,191,190.8],
-    TSLA:[185,182,179,181,178,176,174,174],
-  };
-  const d=data[symbol]||data['AAPL'];
-  const rising=d[d.length-1]>=d[0];
-  drawLineChart('stock-chart',d,rising?'#34C759':'#FF3B30',true);
-}
-
-/* =============================================
-   PORTFOLIO TABS
-============================================= */
-function switchPortTab(tab, btn){
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  ['holdings','transactions','performance'].forEach(t=>{
-    const el=document.getElementById('tab-'+t);
-    if(el) el.style.display=t===tab?'block':'none';
-  });
-  if(tab==='performance') drawPerfChart();
-}
-
-/* =============================================
-   TRADE MODAL
-============================================= */
-let currentTradeType='buy';
-function openTradeModal(type){
-  currentTradeType=type;
-  setTradeType(type);
-  document.getElementById('trade-modal').classList.add('open');
-}
-function setTradeType(type){
-  currentTradeType=type;
-  document.getElementById('tt-buy').classList.toggle('on',type==='buy');
-  document.getElementById('tt-sell').classList.toggle('on',type==='sell');
-  document.getElementById('trade-title').textContent=type==='buy'?'📈 أمر شراء':'📉 أمر بيع';
-  const btn=document.getElementById('trade-submit-btn');
-  btn.textContent=type==='buy'?'✓ تأكيد الشراء':'✓ تأكيد البيع';
-  btn.style.background=type==='buy'?'var(--blue)':'var(--red)';
-}
-function calcTradeTotal(){
-  const qty=parseFloat(document.getElementById('trade-qty').value)||0;
-  const price=parseFloat(document.getElementById('trade-price').value)||0;
-  document.getElementById('trade-total').textContent='$'+(qty*price).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-}
-function submitTrade(){
-  const sym=document.getElementById('trade-symbol').value.trim().toUpperCase();
-  const qty=document.getElementById('trade-qty').value;
-  const price=document.getElementById('trade-price').value;
-  const total=document.getElementById('trade-total').textContent;
-  if(!sym){showToast('⚠️ أدخل رمز السهم');return}
-  if(!qty||qty<1){showToast('⚠️ أدخل الكمية');return}
-  if(!price||price<=0){showToast('⚠️ أدخل السعر');return}
-  closeModal('trade-modal');
-  showToast(`✅ تم ${currentTradeType==='buy'?'شراء':'بيع'} ${qty} سهم ${sym} بقيمة ${total}`);
-  document.getElementById('trade-symbol').value='';
-  document.getElementById('trade-qty').value='';
-  document.getElementById('trade-price').value='';
-  document.getElementById('trade-total').textContent='$0.00';
-}
-
-/* =============================================
-   DEPOSIT / WITHDRAW MODALS
-============================================= */
-function openDepositModal(){
-  closeModal('trade-modal');
-  document.getElementById('deposit-modal').classList.add('open');
-}
-function openWithdrawModal(){
-  closeModal('trade-modal');
-  document.getElementById('withdraw-modal').classList.add('open');
-}
-function submitDeposit(){
-  const amt=document.getElementById('dep-amount').value;
-  if(!amt||amt<100){showToast('⚠️ الحد الأدنى للإيداع $100');return}
-  closeModal('deposit-modal');
-  showToast(`✅ طلب إيداع $${parseFloat(amt).toLocaleString()} قيد المعالجة`);
-  document.getElementById('dep-amount').value='';
-}
-function submitWithdraw(){
-  const amt=document.getElementById('with-amount').value;
-  if(!amt||amt<100){showToast('⚠️ الحد الأدنى للسحب $100');return}
-  if(parseFloat(amt)>12400){showToast('⚠️ المبلغ يتجاوز الرصيد النقدي المتاح');return}
-  closeModal('withdraw-modal');
-  showToast(`✅ طلب سحب $${parseFloat(amt).toLocaleString()} قيد المعالجة`);
-  document.getElementById('with-amount').value='';
-}
-
-/* =============================================
-   STOCK MODAL
-============================================= */
-const stocksDB={
-  AAPL:{name:'Apple Inc.',symbol:'AAPL • NASDAQ',price:'$189.25',chg:'+$2.30 (+1.24%)',up:true,
-    logo:'🍎',bg:'linear-gradient(135deg,#555,#333)',
-    stats:[['الافتتاح','$186.95'],['أعلى سعر','$190.12'],['أدنى سعر','$186.22'],['الحجم','82.4M'],['القيمة السوقية','$2.94T'],['P/E','28.4'],['EPS','$6.66'],['توزيعات','$0.96']]},
-  MSFT:{name:'Microsoft Corp.',symbol:'MSFT • NASDAQ',price:'$415.80',chg:'+$3.60 (+0.87%)',up:true,
-    logo:'⊞',bg:'linear-gradient(135deg,#0078D4,#004499)',
-    stats:[['الافتتاح','$412.20'],['أعلى سعر','$417.50'],['أدنى سعر','$411.80'],['الحجم','21.8M'],['القيمة السوقية','$3.09T'],['P/E','35.2'],['EPS','$11.80'],['توزيعات','$3.00']]},
-  NVDA:{name:'NVIDIA Corp.',symbol:'NVDA • NASDAQ',price:'$875.42',chg:'-$4.68 (-0.53%)',up:false,
-    logo:'N',bg:'linear-gradient(135deg,#76B900,#4a7500)',
-    stats:[['الافتتاح','$880.10'],['أعلى سعر','$885.30'],['أدنى سعر','$873.20'],['الحجم','45.2M'],['القيمة السوقية','$2.16T'],['P/E','74.8'],['EPS','$11.70'],['توزيعات','$0.16']]},
-  GOOGL:{name:'Alphabet Inc.',symbol:'GOOGL • NASDAQ',price:'$172.35',chg:'+$3.55 (+2.10%)',up:true,
-    logo:'G',bg:'linear-gradient(135deg,#4285F4,#1a56d6)',
-    stats:[['الافتتاح','$168.80'],['أعلى سعر','$173.10'],['أدنى سعر','$168.40'],['الحجم','28.6M'],['القيمة السوقية','$2.14T'],['P/E','23.1'],['EPS','$7.46'],['توزيعات','—']]},
-  AMZN:{name:'Amazon.com Inc.',symbol:'AMZN • NASDAQ',price:'$190.80',chg:'+$2.14 (+1.13%)',up:true,
-    logo:'A',bg:'linear-gradient(135deg,#FF9900,#c77a00)',
-    stats:[['الافتتاح','$188.66'],['أعلى سعر','$192.40'],['أدنى سعر','$188.10'],['الحجم','38.4M'],['القيمة السوقية','$2.00T'],['P/E','44.6'],['EPS','$4.28'],['توزيعات','—']]},
-  TSLA:{name:'Tesla Inc.',symbol:'TSLA • NASDAQ',price:'$174.00',chg:'-$5.80 (-3.23%)',up:false,
-    logo:'T',bg:'linear-gradient(135deg,#CC0000,#880000)',
-    stats:[['الافتتاح','$179.80'],['أعلى سعر','$180.20'],['أدنى سعر','$173.40'],['الحجم','112.8M'],['القيمة السوقية','$554B'],['P/E','48.9'],['EPS','$3.56'],['توزيعات','—']]},
-};
-
-function openStockModal(sym){
-  const s=stocksDB[sym];
-  if(!s) return;
-  document.getElementById('sm-logo').textContent=s.logo;
-  document.getElementById('sm-logo').style.background=s.bg;
-  document.getElementById('sm-name').textContent=s.name;
-  document.getElementById('sm-symbol').textContent=s.symbol;
-  document.getElementById('sm-price').textContent=s.price;
-  const chgEl=document.getElementById('sm-chg');
-  chgEl.textContent=s.chg;
-  chgEl.className='stock-chg '+(s.up?'up':'dn');
-  document.getElementById('sm-stats').innerHTML=
-    s.stats.map(([l,v])=>`
-      <div class="stock-stat-box">
-        <div class="ssb-label">${l}</div>
-        <div class="ssb-val">${v}</div>
+  el.innerHTML=list.map(t=>`
+    <div class="task-item">
+      <div class="t-check ${t.done?'done':''}" onclick="toggleTask(${t.id})"></div>
+      <div class="t-body ${t.done?'crossed':''}">
+        <h4>${t.title}</h4>
+        ${t.desc?`<p>${t.desc}</p>`:''}
+        <div class="t-tags">
+          <span class="t-tag ${priClass[t.pri]}">${priLabel[t.pri]}</span>
+          <span class="t-tag tag-pts">+${t.pts} XP</span>
+          ${t.cat?`<span class="t-tag tag-cat">${t.cat.toUpperCase()}</span>`:''}
+          ${t.date?`<span class="t-tag tag-cat">${t.date}</span>`:''}
+        </div>
       </div>
-    `).join('');
-  document.getElementById('stock-modal').classList.add('open');
-  setTimeout(()=>drawStockChart(sym),100);
+      <button class="t-del" onclick="deleteTask(${t.id})">✕</button>
+    </div>
+  `).join('');
 }
 
-/* =============================================
-   POLL
-============================================= */
-let voted=false;
-function vote(el,val,pct){
-  if(voted) return;
-  voted=true;
-  const opts=[document.querySelectorAll('.poll-opt')];
-  document.querySelectorAll('.poll-opt').forEach((o,i)=>{
-    const bar=o.querySelector('.poll-bar');
-    const pts=o.querySelector('.poll-txt span:last-child');
-    const pcts=[45,38,17];
-    setTimeout(()=>{
-      bar.style.width=pcts[i]+'%';
-      pts.style.display='block';
-    },100);
-  });
-  el.classList.add('voted');
-  document.getElementById('poll-result').style.display='block';
-  showToast('✅ تم تسجيل صوتك! شكراً');
+function toggleTask(id){
+  const t=tasks.find(x=>x.id===id);t.done=!t.done;
+  toast(t.done?`✓ مكتمل — +${t.pts} XP`:'↩ تم إعادة المهمة');
+  renderTasks();updateTaskStats();updateHome();updateAccount();
 }
 
-/* =============================================
-   MODAL HELPERS
-============================================= */
+function deleteTask(id){
+  tasks=tasks.filter(x=>x.id!==id);
+  toast('✕ تم حذف المهمة');
+  renderTasks();updateTaskStats();updateHome();updateAccount();
+}
+
+/* ============================================
+   MODAL
+============================================ */
+function openModal(){
+  document.getElementById('modal-add').classList.add('open');
+  document.getElementById('m-date').value=new Date().toISOString().split('T')[0];
+  document.getElementById('m-title').focus();
+}
 function closeModal(id){document.getElementById(id).classList.remove('open')}
-function closeOverlay(id,e){if(e.target===document.getElementById(id))closeModal(id)}
+function closeOut(id,e){if(e.target===document.getElementById(id))closeModal(id)}
 
-/* =============================================
+function selectPri(p){
+  selectedPri=p;
+  document.getElementById('pb-high').className='pri-btn'+(p==='high'?' sel-h':'');
+  document.getElementById('pb-med').className='pri-btn'+(p==='med'?' sel-m':'');
+  document.getElementById('pb-low').className='pri-btn'+(p==='low'?' sel-l':'');
+}
+
+function addTask(){
+  const title=document.getElementById('m-title').value.trim();
+  if(!title){toast('⚠ الرجاء إدخال عنوان المهمة');return}
+  tasks.unshift({
+    id:nextId++,title,
+    desc:document.getElementById('m-desc').value.trim(),
+    pri:selectedPri,
+    pts:parseInt(document.getElementById('m-pts').value)||30,
+    cat:document.getElementById('m-cat').value,
+    date:document.getElementById('m-date').value,
+    done:false
+  });
+  closeModal('modal-add');
+  renderTasks();updateTaskStats();updateHome();updateAccount();
+  toast('✓ تمت إضافة المهمة بنجاح');
+  // Reset form
+  document.getElementById('m-title').value='';
+  document.getElementById('m-desc').value='';
+  document.getElementById('m-pts').value=30;
+  selectPri('med');
+}
+
+/* ============================================
+   UPGRADES
+============================================ */
+function renderLevels(){
+  document.getElementById('lvl-list').innerHTML=LEVELS.map((lv,i)=>{
+    const cur=i===3,done=i<3,locked=i>3;
+    const dc=cur?'current':done?'done':'locked';
+    const bc=cur?'lv-curr':done?'lv-done':'lv-lock';
+    const bl=cur?'CURRENT':done?'COMPLETED':'LOCKED';
+    return`<div class="lv-item">
+      <div class="lv-dot-col">
+        <div class="lv-dot ${dc}">${lv.icon}</div>
+        ${i<LEVELS.length-1?'<div class="lv-line"></div>':''}
+      </div>
+      <div class="lv-info">
+        <strong>${lv.name} — ${lv.tier}</strong>
+        <span>${lv.max===Infinity?lv.min.toLocaleString()+' XP+':lv.min.toLocaleString()+' – '+lv.max.toLocaleString()+' XP'}</span>
+      </div>
+      <span class="lv-badge ${bc}">${bl}</span>
+    </div>`;
+  }).join('');
+}
+
+function renderShop(){
+  document.getElementById('shop-grid').innerHTML=SHOP.map(u=>`
+    <div class="shop-item ${u.owned?'owned-i':''}" onclick="${u.owned?`toast('✓ ${u.name} — مفعّل بالفعل')`:`buyUpgrade(${u.id})`}">
+      ${u.owned?'<span class="shop-owned-tag">ACTIVE</span>':''}
+      <div class="shop-ico">${u.icon}</div>
+      <div class="shop-name">${u.name}</div>
+      <div class="shop-desc">${u.desc}</div>
+      ${u.owned?`<span class="shop-cost" style="color:var(--green);border-color:rgba(0,166,81,.3)">✓ OWNED</span>`:`<span class="shop-cost">⭐ ${u.cost} XP</span>`}
+    </div>
+  `).join('');
+}
+
+function buyUpgrade(id){
+  const u=SHOP.find(x=>x.id===id);
+  if(u){u.owned=true;renderShop();toast(`✓ تم شراء: ${u.name}`)}
+}
+
+/* ============================================
+   ACCOUNT
+============================================ */
+function updateAccount(){
+  const done=tasks.filter(t=>t.done).length;
+  const total=tasks.length;
+  const el1=document.getElementById('ah-tasks');
+  const el2=document.getElementById('ah-desc');
+  const el3=document.getElementById('ah-done-badge');
+  if(el1)el1.textContent=total;
+  if(el2)el2.textContent=total+' مهمة إجمالاً';
+  if(el3)el3.textContent=done;
+}
+
+/* ============================================
+   NAV DOT
+============================================ */
+function updateNavDot(){
+  const dot=document.getElementById('nav-dot');
+  if(dot)dot.style.display=tasks.filter(t=>!t.done).length>0?'block':'none';
+}
+
+/* ============================================
    TOAST
-============================================= */
+============================================ */
 let _tt;
-function showToast(msg){
-  const el=document.getElementById('toast');
+function toast(msg){
+  const el=document.getElementById('toast-el');
   el.textContent=msg;el.classList.add('show');
   clearTimeout(_tt);_tt=setTimeout(()=>el.classList.remove('show'),3000);
 }
 
-/* =============================================
+/* ============================================
+   CLOCK
+============================================ */
+function clock(){
+  const n=new Date();
+  const t=n.getHours().toString().padStart(2,'0')+':'+n.getMinutes().toString().padStart(2,'0');
+}
+clock();setInterval(clock,60000);
+
+/* ============================================
    INIT
-============================================= */
+============================================ */
 (function(){
-  drawPortfolioChart('1W');
-  // Live prices simulation
-  setInterval(()=>{
-    const change=(Math.random()-.48)*100;
-    const base=247832.50;
-    const newVal=base+change;
-    const el=document.getElementById('h-total-val');
-    if(el) el.textContent='$'+newVal.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-    const chgEl=document.getElementById('h-chg');
-    if(chgEl){
-      const daily=3241.20+change;
-      const isUp=daily>=0;
-      const pct=((Math.abs(daily)/base)*100).toFixed(2);
-      chgEl.textContent=(isUp?'▲ +':'▼ -')+'$'+Math.abs(daily).toFixed(2)+' ('+pct+'%)';
-      chgEl.className='port-chg '+(isUp?'up':'dn');
-    }
-  },4000);
+  drawHomeChart('1W');
+  updateHome();
+  updateNavDot();
+  renderTasks();
+  updateTaskStats();
+  renderLevels();
+  renderShop();
+  updateAccount();
 })();
 </script>
 </body>
