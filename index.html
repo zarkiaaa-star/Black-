@@ -1,988 +1,1459 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>تطبيقي</title>
-  <style>
-    /* ====== RESET & BASE ====== */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --primary:   #6C63FF;
-      --secondary: #FF6584;
-      --accent:    #43E97B;
-      --dark:      #1A1A2E;
-      --card:      #16213E;
-      --card2:     #0F3460;
-      --text:      #E0E0E0;
-      --muted:     #8892B0;
-      --gold:      #FFD700;
-      --radius:    16px;
-      --nav-h:     70px;
-    }
-    body {
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      background: var(--dark);
-      color: var(--text);
-      min-height: 100vh;
-      max-width: 430px;
-      margin: 0 auto;
-      position: relative;
-      overflow-x: hidden;
-    }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TaskPro - تطبيقي</title>
+<style>
 
-    /* ====== PAGES ====== */
-    .page { display: none; padding: 0 0 calc(var(--nav-h) + 10px); min-height: 100vh; }
-    .page.active { display: block; }
+/* ==========================================
+   VARIABLES & RESET
+========================================== */
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --p1:#7C3AED;
+  --p2:#4F46E5;
+  --p3:#06B6D4;
+  --acc:#10B981;
+  --warn:#F59E0B;
+  --danger:#EF4444;
+  --bg:#0D0D1A;
+  --bg2:#13131F;
+  --card:#1A1A2E;
+  --card2:#1E1E35;
+  --border:rgba(255,255,255,0.07);
+  --txt:#F1F1F1;
+  --muted:#8B93B0;
+  --gold:#F59E0B;
+  --silver:#94A3B8;
+  --bronze:#B45309;
+  --nav:70px;
+  --r:16px;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Segoe UI',Tahoma,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--txt);
+  max-width:430px;
+  margin:0 auto;
+  min-height:100vh;
+  overflow-x:hidden;
+  position:relative;
+}
 
-    /* ====== TOP BAR ====== */
-    .topbar {
-      background: linear-gradient(135deg, var(--primary), var(--card2));
-      padding: 20px 20px 30px;
-      position: relative;
-      overflow: hidden;
-    }
-    .topbar::before {
-      content: '';
-      position: absolute;
-      width: 200px; height: 200px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.05);
-      top: -80px; left: -60px;
-    }
-    .topbar::after {
-      content: '';
-      position: absolute;
-      width: 150px; height: 150px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.05);
-      bottom: -60px; right: -40px;
-    }
-    .topbar-row { display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; }
-    .topbar h2 { font-size: 20px; font-weight: 700; color: #fff; }
-    .topbar p  { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 2px; }
-    .avatar-sm {
-      width: 42px; height: 42px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--secondary), var(--primary));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px; border: 2px solid rgba(255,255,255,0.3);
-      cursor: pointer;
-    }
-    .notif-btn {
-      width: 42px; height: 42px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.15);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 20px; cursor: pointer; position: relative;
-      border: none; color: #fff;
-    }
-    .notif-dot {
-      width: 10px; height: 10px;
-      background: var(--secondary);
-      border-radius: 50%;
-      position: absolute; top: 6px; right: 6px;
-      border: 2px solid var(--primary);
-    }
+/* ==========================================
+   SCROLLBAR
+========================================== */
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--p1);border-radius:99px}
 
-    /* ====== CONTENT WRAPPER ====== */
-    .content { padding: 20px 16px; }
+/* ==========================================
+   PAGES
+========================================== */
+.page{display:none;min-height:100vh;padding-bottom:calc(var(--nav) + 16px)}
+.page.active{display:block;animation:pageIn .3s ease}
+@keyframes pageIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-    /* ====== CARDS ====== */
-    .card {
-      background: var(--card);
-      border-radius: var(--radius);
-      padding: 18px;
-      margin-bottom: 14px;
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-    .card-title { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
-    .card-value { font-size: 28px; font-weight: 700; color: #fff; }
-    .card-sub   { font-size: 12px; color: var(--accent); margin-top: 4px; }
+/* ==========================================
+   TOPBAR
+========================================== */
+.topbar{
+  padding:20px 18px 24px;
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(135deg,#0D0D1A 0%,#1A0A2E 100%);
+}
+.topbar-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at top right,rgba(124,58,237,.25) 0%,transparent 70%),
+             radial-gradient(ellipse at bottom left,rgba(79,70,229,.15) 0%,transparent 70%);
+}
+.topbar-content{position:relative;z-index:1}
+.topbar-row{display:flex;justify-content:space-between;align-items:center}
+.greeting{font-size:12px;color:var(--muted);margin-bottom:2px}
+.topbar-name{font-size:20px;font-weight:800;color:#fff}
+.topbar-actions{display:flex;gap:8px;align-items:center}
+.icon-btn{
+  width:40px;height:40px;border-radius:12px;
+  background:rgba(255,255,255,.07);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;cursor:pointer;position:relative;
+  transition:all .2s;
+}
+.icon-btn:active{transform:scale(.93)}
+.badge-dot{
+  position:absolute;top:6px;right:6px;
+  width:8px;height:8px;border-radius:50%;
+  background:var(--danger);border:2px solid var(--bg);
+}
 
-    /* ====== STATS ROW ====== */
-    .stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
-    .stat-card {
-      background: var(--card);
-      border-radius: var(--radius);
-      padding: 16px;
-      border: 1px solid rgba(255,255,255,0.06);
-      text-align: center;
-    }
-    .stat-icon { font-size: 28px; margin-bottom: 8px; }
-    .stat-label { font-size: 12px; color: var(--muted); }
-    .stat-num   { font-size: 22px; font-weight: 700; color: #fff; margin: 4px 0; }
+/* ==========================================
+   XP CARD
+========================================== */
+.xp-card{
+  margin:16px 16px 0;
+  background:linear-gradient(135deg,var(--p1),var(--p2));
+  border-radius:20px;padding:20px;
+  position:relative;overflow:hidden;
+}
+.xp-card::before{
+  content:'';position:absolute;
+  width:200px;height:200px;border-radius:50%;
+  background:rgba(255,255,255,.06);
+  top:-80px;right:-60px;
+}
+.xp-card::after{
+  content:'';position:absolute;
+  width:120px;height:120px;border-radius:50%;
+  background:rgba(255,255,255,.04);
+  bottom:-40px;left:-30px;
+}
+.xp-top{display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:1}
+.xp-pts{font-size:38px;font-weight:900;color:#fff;line-height:1}
+.xp-pts span{font-size:14px;font-weight:400;opacity:.7;display:block;margin-top:4px}
+.xp-level{
+  background:rgba(255,255,255,.15);
+  border-radius:12px;padding:8px 14px;text-align:center;
+  backdrop-filter:blur(10px);
+}
+.xp-level .lv-icon{font-size:24px}
+.xp-level .lv-name{font-size:11px;color:rgba(255,255,255,.8);margin-top:2px}
+.xp-bar-wrap{margin-top:16px;position:relative;z-index:1}
+.xp-bar-info{display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.7);margin-bottom:8px}
+.xp-bar{height:8px;background:rgba(255,255,255,.2);border-radius:99px;overflow:hidden}
+.xp-fill{height:100%;border-radius:99px;background:rgba(255,255,255,.9);transition:width .8s cubic-bezier(.4,0,.2,1)}
 
-    /* ====== PROGRESS BAR ====== */
-    .prog-wrap { margin: 10px 0 4px; }
-    .prog-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
-    .prog-bar {
-      width: 100%; height: 8px;
-      background: rgba(255,255,255,0.08);
-      border-radius: 99px; overflow: hidden;
-    }
-    .prog-fill {
-      height: 100%;
-      border-radius: 99px;
-      background: linear-gradient(90deg, var(--primary), var(--accent));
-      transition: width .6s ease;
-    }
+/* ==========================================
+   STATS GRID
+========================================== */
+.content{padding:16px}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+.stat-box{
+  background:var(--card);border-radius:14px;
+  padding:12px 8px;text-align:center;
+  border:1px solid var(--border);
+}
+.stat-box .s-icon{font-size:22px;margin-bottom:4px}
+.stat-box .s-num{font-size:18px;font-weight:800;color:#fff}
+.stat-box .s-lbl{font-size:10px;color:var(--muted);margin-top:1px}
 
-    /* ====== SECTION HEADER ====== */
-    .sec-header {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 12px;
-    }
-    .sec-header h3 { font-size: 16px; font-weight: 700; }
-    .sec-header span { font-size: 13px; color: var(--primary); cursor: pointer; }
+/* ==========================================
+   SECTION HEADER
+========================================== */
+.sec-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.sec-hdr h3{font-size:15px;font-weight:700;display:flex;align-items:center;gap:6px}
+.sec-hdr a{font-size:12px;color:var(--p3);cursor:pointer;text-decoration:none}
 
-    /* ====== ACTIVITY LIST ====== */
-    .activity-item {
-      display: flex; align-items: center; gap: 14px;
-      padding: 12px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-    .activity-item:last-child { border-bottom: none; padding-bottom: 0; }
-    .act-icon {
-      width: 40px; height: 40px; border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px; flex-shrink: 0;
-    }
-    .act-info { flex: 1; }
-    .act-info strong { font-size: 14px; color: #fff; display: block; }
-    .act-info small  { font-size: 12px; color: var(--muted); }
-    .act-pts { font-size: 13px; font-weight: 700; color: var(--accent); white-space: nowrap; }
+/* ==========================================
+   STREAK CARD
+========================================== */
+.streak-card{
+  background:linear-gradient(135deg,rgba(245,158,11,.15),rgba(239,68,68,.1));
+  border:1px solid rgba(245,158,11,.25);
+  border-radius:var(--r);padding:16px;
+  display:flex;align-items:center;gap:14px;
+  margin-bottom:14px;
+}
+.streak-fire{font-size:40px;line-height:1}
+.streak-info{flex:1}
+.streak-num{font-size:28px;font-weight:900;color:var(--gold)}
+.streak-txt{font-size:12px;color:var(--muted);margin-top:2px}
+.streak-days{display:flex;gap:4px;margin-top:10px}
+.streak-day{
+  flex:1;height:6px;border-radius:99px;
+  background:rgba(255,255,255,.1);
+}
+.streak-day.done{background:var(--gold)}
+.streak-day.today{background:var(--acc);animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 
-    /* ====== TASKS ====== */
-    .task-filters {
-      display: flex; gap: 8px; margin-bottom: 16px;
-      overflow-x: auto; padding-bottom: 4px;
-    }
-    .task-filters::-webkit-scrollbar { display: none; }
-    .filter-btn {
-      padding: 7px 16px; border-radius: 99px;
-      border: 1px solid rgba(255,255,255,0.15);
-      background: transparent; color: var(--muted);
-      font-size: 13px; cursor: pointer; white-space: nowrap;
-      transition: all .25s;
-    }
-    .filter-btn.active {
-      background: var(--primary);
-      border-color: var(--primary);
-      color: #fff;
-    }
-    .task-item {
-      background: var(--card);
-      border-radius: var(--radius);
-      padding: 16px;
-      margin-bottom: 10px;
-      display: flex; align-items: flex-start; gap: 14px;
-      border: 1px solid rgba(255,255,255,0.06);
-      transition: transform .2s;
-    }
-    .task-item:active { transform: scale(0.98); }
-    .task-check {
-      width: 24px; height: 24px; border-radius: 8px;
-      border: 2px solid var(--primary);
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; flex-shrink: 0; margin-top: 2px;
-      transition: all .25s;
-    }
-    .task-check.done { background: var(--accent); border-color: var(--accent); }
-    .task-check.done::after { content: '✓'; font-size: 14px; color: var(--dark); font-weight: 900; }
-    .task-body { flex: 1; }
-    .task-body h4 { font-size: 14px; color: #fff; margin-bottom: 4px; }
-    .task-body p  { font-size: 12px; color: var(--muted); }
-    .task-body.done-text h4 { text-decoration: line-through; opacity: .5; }
-    .task-meta { display: flex; gap: 8px; align-items: center; margin-top: 8px; }
-    .task-badge {
-      font-size: 11px; padding: 3px 10px; border-radius: 99px;
-      font-weight: 600;
-    }
-    .badge-high  { background: rgba(255,101,132,.15); color: var(--secondary); }
-    .badge-med   { background: rgba(255,215,0,.12);   color: var(--gold); }
-    .badge-low   { background: rgba(67,233,123,.12);  color: var(--accent); }
-    .task-pts-badge {
-      font-size: 11px; color: var(--primary);
-      background: rgba(108,99,255,.12); padding: 3px 10px; border-radius: 99px;
-    }
-    .task-deadline { font-size: 11px; color: var(--muted); margin-right: auto; }
+/* ==========================================
+   CHALLENGE CARDS
+========================================== */
+.challenge-scroll{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;margin-bottom:16px}
+.challenge-scroll::-webkit-scrollbar{display:none}
+.challenge-card{
+  min-width:160px;background:var(--card);
+  border-radius:var(--r);padding:14px;
+  border:1px solid var(--border);flex-shrink:0;
+  cursor:pointer;transition:transform .2s;
+}
+.challenge-card:active{transform:scale(.97)}
+.ch-icon{font-size:28px;margin-bottom:8px}
+.ch-name{font-size:13px;font-weight:700;color:#fff;margin-bottom:4px}
+.ch-desc{font-size:11px;color:var(--muted);margin-bottom:10px}
+.ch-pts{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:11px;font-weight:700;color:var(--p3);
+  background:rgba(6,182,212,.12);padding:3px 8px;border-radius:99px;
+}
+.ch-prog-bar{height:4px;background:rgba(255,255,255,.08);border-radius:99px;margin-top:8px;overflow:hidden}
+.ch-prog-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--p1),var(--p3))}
 
-    /* ADD TASK BUTTON */
-    .fab {
-      position: fixed; bottom: calc(var(--nav-h) + 16px); left: 50%;
-      transform: translateX(-50%);
-      width: 56px; height: 56px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 28px; color: #fff; cursor: pointer;
-      box-shadow: 0 6px 20px rgba(108,99,255,.5);
-      border: none; z-index: 99;
-      transition: transform .2s;
-    }
-    .fab:active { transform: translateX(-50%) scale(0.92); }
+/* ==========================================
+   ACTIVITY LIST
+========================================== */
+.act-card{background:var(--card);border-radius:var(--r);padding:14px;border:1px solid var(--border)}
+.act-item{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,.04);
+}
+.act-item:last-child{border-bottom:none;padding-bottom:0}
+.act-ico{
+  width:38px;height:38px;border-radius:11px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:17px;flex-shrink:0;
+}
+.act-txt{flex:1}
+.act-txt strong{font-size:13px;color:#fff;display:block}
+.act-txt small{font-size:11px;color:var(--muted)}
+.act-pts{font-size:12px;font-weight:700;white-space:nowrap}
 
-    /* MODAL */
-    .modal-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,.7);
-      z-index: 200; display: none; align-items: flex-end;
-      backdrop-filter: blur(4px);
-    }
-    .modal-overlay.open { display: flex; }
-    .modal {
-      background: var(--card);
-      border-radius: 24px 24px 0 0;
-      padding: 24px 20px 36px;
-      width: 100%; max-width: 430px; margin: 0 auto;
-      animation: slideUp .3s ease;
-    }
-    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-    .modal h3 { font-size: 18px; font-weight: 700; margin-bottom: 20px; }
-    .input-group { margin-bottom: 14px; }
-    .input-group label { font-size: 13px; color: var(--muted); display: block; margin-bottom: 6px; }
-    .input-group input,
-    .input-group select,
-    .input-group textarea {
-      width: 100%; background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 12px; padding: 12px 14px;
-      color: #fff; font-size: 14px; outline: none;
-      font-family: inherit; resize: none;
-    }
-    .input-group select option { background: var(--dark); }
-    .modal-btns { display: flex; gap: 10px; margin-top: 20px; }
-    .btn-cancel {
-      flex: 1; padding: 14px; border-radius: 12px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: var(--muted); font-size: 14px; cursor: pointer;
-    }
-    .btn-add {
-      flex: 2; padding: 14px; border-radius: 12px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      border: none; color: #fff; font-size: 14px;
-      font-weight: 700; cursor: pointer;
-    }
+/* ==========================================
+   TASKS PAGE
+========================================== */
+.tasks-topbar{
+  padding:20px 18px 16px;
+  background:linear-gradient(135deg,#0D0D1A,#1A0A2E);
+  position:relative;overflow:hidden;
+}
+.tasks-topbar::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top left,rgba(124,58,237,.2) 0%,transparent 60%)}
+.tasks-topbar-content{position:relative;z-index:1}
+.tasks-topbar h2{font-size:22px;font-weight:800;color:#fff}
+.tasks-topbar p{font-size:13px;color:var(--muted);margin-top:2px}
+.tasks-topbar-stats{display:flex;gap:10px;margin-top:14px}
+.t-stat{
+  flex:1;background:rgba(255,255,255,.06);
+  border-radius:12px;padding:10px;text-align:center;
+  border:1px solid var(--border);
+}
+.t-stat .ts-num{font-size:20px;font-weight:800;color:#fff}
+.t-stat .ts-lbl{font-size:10px;color:var(--muted);margin-top:2px}
 
-    /* ====== UPGRADES ====== */
-    .level-card {
-      background: linear-gradient(135deg, var(--card2), var(--card));
-      border-radius: var(--radius);
-      padding: 22px 18px;
-      margin-bottom: 14px;
-      text-align: center;
-      border: 1px solid rgba(108,99,255,.3);
-    }
-    .level-badge {
-      width: 80px; height: 80px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--gold), #FF8C00);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 36px; margin: 0 auto 12px;
-      box-shadow: 0 0 30px rgba(255,215,0,.4);
-    }
-    .level-name  { font-size: 22px; font-weight: 700; color: var(--gold); }
-    .level-desc  { font-size: 13px; color: var(--muted); margin: 6px 0 16px; }
-    .level-xp    { font-size: 14px; color: var(--text); margin-bottom: 8px; }
+/* Filter tabs */
+.filter-wrap{padding:14px 16px 0;display:flex;gap:8px;overflow-x:auto}
+.filter-wrap::-webkit-scrollbar{display:none}
+.ftab{
+  padding:8px 16px;border-radius:99px;
+  border:1px solid rgba(255,255,255,.1);
+  background:transparent;color:var(--muted);
+  font-size:12px;cursor:pointer;white-space:nowrap;
+  transition:all .25s;font-family:inherit;
+}
+.ftab.on{background:var(--p1);border-color:var(--p1);color:#fff;font-weight:700}
 
-    .upgrade-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .upgrade-card {
-      background: var(--card);
-      border-radius: var(--radius);
-      padding: 16px;
-      border: 1px solid rgba(255,255,255,0.06);
-      text-align: center;
-      cursor: pointer; transition: all .25s;
-      position: relative; overflow: hidden;
-    }
-    .upgrade-card:hover { border-color: var(--primary); transform: translateY(-2px); }
-    .upgrade-card.locked { opacity: .5; }
-    .upgrade-card .u-icon { font-size: 32px; margin-bottom: 8px; }
-    .upgrade-card h4 { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 4px; }
-    .upgrade-card p  { font-size: 11px; color: var(--muted); }
-    .upgrade-card .u-cost {
-      display: inline-flex; align-items: center; gap: 4px;
-      margin-top: 10px; font-size: 12px; font-weight: 700;
-      color: var(--gold); background: rgba(255,215,0,.1);
-      padding: 4px 10px; border-radius: 99px;
-    }
-    .upgrade-card .u-owned {
-      position: absolute; top: 8px; right: 8px;
-      background: var(--accent); color: var(--dark);
-      font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 99px;
-    }
+/* Task items */
+.task-list{padding:14px 16px}
+.task-card{
+  background:var(--card);border-radius:var(--r);
+  padding:14px;margin-bottom:10px;
+  display:flex;gap:12px;align-items:flex-start;
+  border:1px solid var(--border);
+  transition:all .2s;position:relative;
+  overflow:hidden;
+}
+.task-card::before{
+  content:'';position:absolute;
+  left:0;top:0;bottom:0;width:3px;
+  border-radius:0 99px 99px 0;
+}
+.task-card.pri-high::before{background:var(--danger)}
+.task-card.pri-med::before{background:var(--warn)}
+.task-card.pri-low::before{background:var(--acc)}
+.task-card:active{transform:scale(.99)}
+.task-chk{
+  width:22px;height:22px;border-radius:7px;
+  border:2px solid var(--p1);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:1px;transition:all .25s;
+}
+.task-chk.done{background:var(--acc);border-color:var(--acc)}
+.task-chk.done::after{content:'✓';font-size:13px;color:#fff;font-weight:900}
+.task-body{flex:1;min-width:0}
+.task-body h4{font-size:14px;color:#fff;margin-bottom:3px;font-weight:700}
+.task-body p{font-size:12px;color:var(--muted);margin-bottom:8px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.task-body.crossed h4{text-decoration:line-through;opacity:.45}
+.task-tags{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.tag{font-size:10px;padding:3px 9px;border-radius:99px;font-weight:600}
+.tag-high{background:rgba(239,68,68,.15);color:#FCA5A5}
+.tag-med{background:rgba(245,158,11,.15);color:#FCD34D}
+.tag-low{background:rgba(16,185,129,.15);color:#6EE7B7}
+.tag-pts{background:rgba(124,58,237,.15);color:#C4B5FD}
+.tag-date{background:rgba(255,255,255,.07);color:var(--muted)}
+.task-del{
+  background:none;border:none;color:var(--muted);
+  cursor:pointer;font-size:15px;padding:4px;
+  transition:color .2s;flex-shrink:0;
+}
+.task-del:hover{color:var(--danger)}
+.empty-state{
+  text-align:center;padding:50px 20px;
+  color:var(--muted);
+}
+.empty-state .em-ico{font-size:56px;margin-bottom:12px;opacity:.6}
+.empty-state p{font-size:14px}
 
-    /* ====== PROFILE ====== */
-    .profile-header {
-      background: linear-gradient(135deg, var(--primary), var(--card2));
-      padding: 30px 20px 50px; text-align: center; position: relative;
-    }
-    .profile-avatar {
-      width: 90px; height: 90px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--secondary), var(--primary));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 40px; margin: 0 auto 12px;
-      border: 4px solid rgba(255,255,255,.25);
-      position: relative;
-    }
-    .avatar-edit {
-      position: absolute; bottom: 0; right: 0;
-      width: 28px; height: 28px; border-radius: 50%;
-      background: var(--primary); border: 2px solid var(--dark);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 12px; cursor: pointer;
-    }
-    .profile-name  { font-size: 22px; font-weight: 700; color: #fff; }
-    .profile-email { font-size: 13px; color: rgba(255,255,255,.6); margin-top: 4px; }
-    .profile-stats {
-      display: flex; justify-content: center; gap: 30px; margin-top: 16px;
-    }
-    .p-stat { text-align: center; }
-    .p-stat strong { display: block; font-size: 20px; color: #fff; }
-    .p-stat span   { font-size: 11px; color: rgba(255,255,255,.6); }
+/* FAB */
+.fab{
+  position:fixed;bottom:calc(var(--nav) + 18px);
+  left:50%;transform:translateX(-50%);
+  width:54px;height:54px;border-radius:50%;
+  background:linear-gradient(135deg,var(--p1),var(--p2));
+  border:none;color:#fff;font-size:26px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 24px rgba(124,58,237,.5);
+  z-index:99;transition:transform .2s;
+}
+.fab:active{transform:translateX(-50%) scale(.91)}
 
-    .profile-body { padding: 0 16px; margin-top: -20px; }
-    .menu-card {
-      background: var(--card);
-      border-radius: var(--radius);
-      overflow: hidden;
-      margin-bottom: 14px;
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-    .menu-item {
-      display: flex; align-items: center; gap: 14px;
-      padding: 16px 18px;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      cursor: pointer; transition: background .2s;
-    }
-    .menu-item:last-child { border-bottom: none; }
-    .menu-item:active { background: rgba(255,255,255,.04); }
-    .menu-icon {
-      width: 38px; height: 38px; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px; flex-shrink: 0;
-    }
-    .menu-text { flex: 1; }
-    .menu-text strong { display: block; font-size: 14px; color: #fff; }
-    .menu-text small  { font-size: 12px; color: var(--muted); }
-    .menu-arrow { color: var(--muted); font-size: 18px; }
-    .menu-badge {
-      background: var(--secondary); color: #fff;
-      font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 99px;
-    }
+/* ==========================================
+   UPGRADES PAGE
+========================================== */
+.up-topbar{
+  padding:20px 18px 18px;
+  background:linear-gradient(135deg,#0D0D1A,#0A1A2E);
+}
+.up-topbar h2{font-size:22px;font-weight:800;color:#fff}
+.up-topbar p{font-size:13px;color:var(--muted);margin-top:2px}
 
-    .logout-btn {
-      width: 100%; padding: 16px;
-      background: rgba(255,101,132,.1);
-      border: 1px solid rgba(255,101,132,.3);
-      border-radius: var(--radius);
-      color: var(--secondary); font-size: 15px;
-      font-weight: 700; cursor: pointer; margin: 6px 0 20px;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-    }
+.level-hero{
+  margin:0 16px 16px;
+  background:linear-gradient(135deg,#1A1A2E,#0F1A3E);
+  border-radius:20px;padding:20px;
+  border:1px solid rgba(79,70,229,.3);
+  text-align:center;position:relative;overflow:hidden;
+}
+.level-hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at top,rgba(124,58,237,.2) 0%,transparent 70%);
+}
+.lh-content{position:relative;z-index:1}
+.lh-badge{
+  width:88px;height:88px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),#FF8C00);
+  display:flex;align-items:center;justify-content:center;
+  font-size:40px;margin:0 auto 12px;
+  box-shadow:0 0 40px rgba(245,158,11,.4);
+  border:3px solid rgba(245,158,11,.3);
+}
+.lh-name{font-size:24px;font-weight:900;color:var(--gold)}
+.lh-sub{font-size:12px;color:var(--muted);margin:6px 0 16px}
+.lh-xp{font-size:13px;color:var(--txt);margin-bottom:8px}
+.lh-bar{height:10px;background:rgba(255,255,255,.1);border-radius:99px;overflow:hidden;max-width:280px;margin:0 auto}
+.lh-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--gold),#FF8C00);transition:width .8s ease}
+.lh-next{font-size:11px;color:var(--muted);margin-top:8px}
 
-    /* ====== BOTTOM NAV ====== */
-    .bottom-nav {
-      position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
-      width: 100%; max-width: 430px;
-      height: var(--nav-h);
-      background: rgba(22,33,62,.95);
-      backdrop-filter: blur(20px);
-      border-top: 1px solid rgba(255,255,255,0.07);
-      display: flex; z-index: 100;
-      border-radius: 0;
-    }
-    .nav-item {
-      flex: 1; display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 4px; cursor: pointer; transition: all .25s;
-      position: relative; border: none; background: none;
-    }
-    .nav-icon { font-size: 22px; transition: transform .25s; }
-    .nav-label { font-size: 11px; color: var(--muted); transition: color .25s; }
-    .nav-item.active .nav-icon { transform: translateY(-2px); }
-    .nav-item.active .nav-label { color: var(--primary); font-weight: 700; }
-    .nav-item.active::after {
-      content: '';
-      position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-      width: 30px; height: 3px; border-radius: 99px;
-      background: var(--primary);
-    }
-    .nav-indicator {
-      position: absolute; top: 8px; right: calc(50% - 18px);
-      width: 8px; height: 8px; border-radius: 50%;
-      background: var(--secondary);
-    }
+/* Levels timeline */
+.levels-section{padding:0 16px;margin-bottom:6px}
+.lv-timeline{}
+.lv-row{display:flex;gap:12px;align-items:flex-start;margin-bottom:8px}
+.lv-dot-col{display:flex;flex-direction:column;align-items:center;width:44px;flex-shrink:0}
+.lv-dot{
+  width:44px;height:44px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;border:2px solid transparent;
+  transition:all .3s;
+}
+.lv-dot.done{border-color:var(--acc)}
+.lv-dot.current{
+  background:linear-gradient(135deg,var(--p1),var(--p2));
+  border-color:var(--p1);
+  box-shadow:0 0 20px rgba(124,58,237,.5);
+  animation:glowPulse 2s infinite;
+}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 20px rgba(124,58,237,.5)}50%{box-shadow:0 0 35px rgba(124,58,237,.8)}}
+.lv-dot.locked{opacity:.35;background:rgba(255,255,255,.05)}
+.lv-line{width:2px;flex:1;min-height:20px;background:rgba(255,255,255,.06);margin:2px 0}
+.lv-info-card{
+  flex:1;border-radius:12px;padding:12px 14px;
+  border:1px solid var(--border);background:var(--card);
+  margin-bottom:8px;transition:all .2s;
+}
+.lv-info-card.current{
+  background:rgba(124,58,237,.1);
+  border-color:rgba(124,58,237,.35);
+}
+.lv-info-card.done{border-color:rgba(16,185,129,.25)}
+.lv-card-top{display:flex;justify-content:space-between;align-items:center}
+.lv-card-name{font-size:14px;font-weight:700;color:#fff}
+.lv-card-xp{font-size:11px;color:var(--muted)}
+.lv-card-badge{font-size:10px;padding:2px 8px;border-radius:99px;font-weight:700}
+.badge-current{background:rgba(124,58,237,.25);color:#C4B5FD}
+.badge-done{background:rgba(16,185,129,.2);color:#6EE7B7}
+.badge-locked{background:rgba(255,255,255,.06);color:var(--muted)}
 
-    /* ====== TOAST ====== */
-    .toast {
-      position: fixed; bottom: calc(var(--nav-h) + 90px); left: 50%; transform: translateX(-50%);
-      background: var(--card2); color: #fff;
-      padding: 12px 22px; border-radius: 12px;
-      font-size: 13px; font-weight: 600;
-      box-shadow: 0 8px 24px rgba(0,0,0,.4);
-      z-index: 500; opacity: 0; pointer-events: none;
-      transition: opacity .3s; white-space: nowrap;
-      border-left: 4px solid var(--accent);
-    }
-    .toast.show { opacity: 1; }
+/* Upgrades shop */
+.shop-section{padding:0 16px}
+.upgrade-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.up-card{
+  background:var(--card);border-radius:var(--r);
+  padding:16px;border:1px solid var(--border);
+  cursor:pointer;transition:all .25s;
+  text-align:center;position:relative;overflow:hidden;
+}
+.up-card:active{transform:scale(.97)}
+.up-card.owned{border-color:rgba(16,185,129,.3);background:rgba(16,185,129,.05)}
+.up-card.locked-item{opacity:.5}
+.up-owned-badge{
+  position:absolute;top:8px;right:8px;
+  background:var(--acc);color:#fff;
+  font-size:9px;font-weight:800;
+  padding:2px 7px;border-radius:99px;
+}
+.up-icon{font-size:34px;margin-bottom:8px}
+.up-name{font-size:13px;font-weight:700;color:#fff;margin-bottom:3px}
+.up-desc{font-size:11px;color:var(--muted);margin-bottom:10px}
+.up-cost{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:11px;font-weight:700;color:var(--gold);
+  background:rgba(245,158,11,.12);padding:4px 10px;border-radius:99px;
+}
 
-    /* ====== ANIMATIONS ====== */
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    .page.active .content > * { animation: fadeIn .35s ease forwards; }
+/* Achievements */
+.ach-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.ach-card{
+  background:var(--card);border-radius:12px;
+  padding:12px 8px;text-align:center;
+  border:1px solid var(--border);
+}
+.ach-card.unlocked{border-color:rgba(245,158,11,.3)}
+.ach-card.locked-ach{opacity:.4;filter:grayscale(1)}
+.ach-ico{font-size:24px;margin-bottom:4px}
+.ach-name{font-size:10px;color:var(--muted);line-height:1.3}
+.ach-card.unlocked .ach-name{color:var(--gold)}
 
-    /* ====== SCROLLBAR ====== */
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 99px; }
-  </style>
+/* ==========================================
+   PROFILE PAGE
+========================================== */
+.profile-hero{
+  background:linear-gradient(135deg,#0D0D1A,#1A0A2E,#0A1A2E);
+  padding:28px 18px 50px;
+  text-align:center;position:relative;overflow:hidden;
+}
+.profile-hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at center top,rgba(124,58,237,.3) 0%,transparent 65%);
+}
+.ph-content{position:relative;z-index:1}
+.profile-av{
+  width:96px;height:96px;border-radius:50%;
+  background:linear-gradient(135deg,var(--p1),var(--p2));
+  display:flex;align-items:center;justify-content:center;
+  font-size:44px;margin:0 auto 12px;
+  border:3px solid rgba(255,255,255,.15);
+  position:relative;cursor:pointer;
+  box-shadow:0 0 40px rgba(124,58,237,.4);
+}
+.av-edit{
+  position:absolute;bottom:0;right:0;
+  width:28px;height:28px;border-radius:50%;
+  background:var(--p1);border:2px solid var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;cursor:pointer;
+}
+.ph-name{font-size:22px;font-weight:800;color:#fff}
+.ph-email{font-size:12px;color:var(--muted);margin-top:3px}
+.ph-level{
+  display:inline-flex;align-items:center;gap:6px;
+  margin-top:10px;background:rgba(124,58,237,.2);
+  border:1px solid rgba(124,58,237,.35);
+  border-radius:99px;padding:5px 14px;
+  font-size:12px;font-weight:700;color:#C4B5FD;
+}
+.ph-stats-row{
+  display:flex;justify-content:center;gap:6px;
+  margin-top:16px;
+}
+.ph-stat{
+  flex:1;max-width:90px;
+  background:rgba(255,255,255,.07);
+  border-radius:12px;padding:10px 6px;
+  border:1px solid var(--border);
+}
+.ph-stat strong{display:block;font-size:18px;font-weight:800;color:#fff}
+.ph-stat span{font-size:10px;color:var(--muted);margin-top:1px;display:block}
+
+/* Profile body */
+.profile-body{padding:0 16px;margin-top:-22px}
+.p-card{
+  background:var(--card);border-radius:var(--r);
+  overflow:hidden;margin-bottom:12px;
+  border:1px solid var(--border);
+}
+.p-card-title{
+  padding:14px 16px 10px;
+  font-size:12px;font-weight:700;
+  color:var(--muted);letter-spacing:.5px;
+  text-transform:uppercase;
+}
+.p-menu-item{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 16px;
+  border-top:1px solid rgba(255,255,255,.04);
+  cursor:pointer;transition:background .2s;
+}
+.p-menu-item:first-of-type{border-top:none}
+.p-menu-item:active{background:rgba(255,255,255,.03)}
+.p-menu-ico{
+  width:36px;height:36px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:17px;flex-shrink:0;
+}
+.p-menu-txt{flex:1}
+.p-menu-txt strong{display:block;font-size:14px;color:#fff}
+.p-menu-txt small{display:block;font-size:11px;color:var(--muted);margin-top:1px}
+.p-menu-end{color:var(--muted);font-size:18px}
+.p-notif-badge{
+  background:var(--danger);color:#fff;
+  font-size:10px;font-weight:800;
+  padding:2px 7px;border-radius:99px;
+}
+/* Toggle switch */
+.toggle{
+  width:44px;height:24px;border-radius:99px;
+  background:rgba(255,255,255,.1);
+  position:relative;cursor:pointer;transition:background .3s;
+  flex-shrink:0;
+}
+.toggle.on{background:var(--acc)}
+.toggle::after{
+  content:'';position:absolute;
+  width:18px;height:18px;border-radius:50%;
+  background:#fff;top:3px;right:3px;
+  transition:all .3s;
+}
+.toggle.on::after{right:calc(100% - 21px)}
+
+/* Progress mini */
+.prog-mini{margin-top:8px}
+.prog-mini-bar{height:5px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden}
+.prog-mini-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--p1),var(--p3))}
+
+/* Logout */
+.logout-btn{
+  width:100%;padding:15px;
+  background:rgba(239,68,68,.1);
+  border:1px solid rgba(239,68,68,.25);
+  border-radius:var(--r);color:#FCA5A5;
+  font-size:14px;font-weight:700;
+  cursor:pointer;margin:4px 0 16px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  font-family:inherit;transition:all .2s;
+}
+.logout-btn:active{background:rgba(239,68,68,.2)}
+
+/* ==========================================
+   MODAL
+========================================== */
+.overlay{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.75);
+  z-index:300;display:none;
+  align-items:flex-end;
+  backdrop-filter:blur(6px);
+}
+.overlay.open{display:flex}
+.modal{
+  background:var(--card2);
+  border-radius:24px 24px 0 0;
+  padding:24px 18px 36px;
+  width:100%;max-width:430px;margin:0 auto;
+  animation:slideUp .35s cubic-bezier(.4,0,.2,1);
+  max-height:90vh;overflow-y:auto;
+}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.modal-handle{
+  width:36px;height:4px;border-radius:99px;
+  background:rgba(255,255,255,.15);
+  margin:0 auto 20px;
+}
+.modal h3{font-size:18px;font-weight:800;margin-bottom:18px;color:#fff}
+.inp-grp{margin-bottom:12px}
+.inp-grp label{font-size:12px;color:var(--muted);display:block;margin-bottom:6px;font-weight:600}
+.inp-grp input,
+.inp-grp select,
+.inp-grp textarea{
+  width:100%;background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:12px;padding:13px 14px;
+  color:#fff;font-size:14px;outline:none;
+  font-family:inherit;resize:none;
+  transition:border-color .2s;
+}
+.inp-grp input:focus,
+.inp-grp select:focus,
+.inp-grp textarea:focus{border-color:var(--p1)}
+.inp-grp select option{background:var(--card)}
+.inp-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.modal-btns{display:flex;gap:10px;margin-top:18px}
+.m-cancel{
+  flex:1;padding:14px;border-radius:12px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  color:var(--muted);font-size:14px;
+  cursor:pointer;font-family:inherit;
+}
+.m-save{
+  flex:2;padding:14px;border-radius:12px;
+  background:linear-gradient(135deg,var(--p1),var(--p2));
+  border:none;color:#fff;font-size:14px;
+  font-weight:800;cursor:pointer;font-family:inherit;
+  transition:opacity .2s;
+}
+.m-save:active{opacity:.85}
+
+/* Category buttons */
+.cat-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.cat-btn{
+  padding:7px 14px;border-radius:99px;
+  border:1px solid rgba(255,255,255,.1);
+  background:transparent;color:var(--muted);
+  font-size:12px;cursor:pointer;font-family:inherit;
+  transition:all .2s;
+}
+.cat-btn.sel{background:var(--p1);border-color:var(--p1);color:#fff;font-weight:700}
+
+/* ==========================================
+   BOTTOM NAV
+========================================== */
+.bottom-nav{
+  position:fixed;bottom:0;left:50%;
+  transform:translateX(-50%);
+  width:100%;max-width:430px;
+  height:var(--nav);
+  background:rgba(19,19,31,.97);
+  backdrop-filter:blur(24px);
+  border-top:1px solid var(--border);
+  display:flex;z-index:200;
+}
+.nav-btn{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:4px;cursor:pointer;background:none;
+  border:none;position:relative;
+  transition:all .2s;
+}
+.nav-ico{font-size:22px;transition:transform .25s}
+.nav-lbl{font-size:10px;color:var(--muted);transition:color .25s;font-weight:600}
+.nav-btn.on .nav-ico{transform:translateY(-2px)}
+.nav-btn.on .nav-lbl{color:var(--p1)}
+.nav-btn.on::after{
+  content:'';position:absolute;
+  bottom:0;left:50%;transform:translateX(-50%);
+  width:28px;height:3px;border-radius:99px;
+  background:linear-gradient(90deg,var(--p1),var(--p3));
+}
+.nav-dot{
+  position:absolute;top:8px;
+  right:calc(50% - 20px);
+  width:7px;height:7px;border-radius:50%;
+  background:var(--danger);
+  border:2px solid var(--bg);
+}
+
+/* ==========================================
+   TOAST
+========================================== */
+.toast{
+  position:fixed;
+  bottom:calc(var(--nav) + 88px);
+  left:50%;transform:translateX(-50%);
+  background:var(--card2);color:#fff;
+  padding:12px 20px;border-radius:14px;
+  font-size:13px;font-weight:600;
+  box-shadow:0 10px 30px rgba(0,0,0,.5);
+  z-index:999;white-space:nowrap;
+  opacity:0;pointer-events:none;
+  transition:all .3s cubic-bezier(.4,0,.2,1);
+  border-left:3px solid var(--acc);
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(-4px)}
+
+/* ==========================================
+   UTILS
+========================================== */
+.mt8{margin-top:8px}
+.mt12{margin-top:12px}
+.mt16{margin-top:16px}
+.mb8{margin-bottom:8px}
+.mb12{margin-bottom:12px}
+.mb16{margin-bottom:16px}
+.flex-c{display:flex;align-items:center;gap:8px}
+.divider{height:1px;background:var(--border);margin:4px 0}
+
+</style>
 </head>
 <body>
 
-<!-- ╔══════════════════════════════╗ -->
-<!-- ║        PAGE: الرئيسية        ║ -->
-<!-- ╚══════════════════════════════╝ -->
-<div id="page-home" class="page active">
+<!-- ████████████████████████████████████
+     PAGE 1 — الرئيسية
+████████████████████████████████████ -->
+<div id="p-home" class="page active">
+
+  <!-- Topbar -->
   <div class="topbar">
-    <div class="topbar-row">
-      <div>
-        <h2>مرحباً، أحمد 👋</h2>
-        <p>الأحد، 3 مايو 2026</p>
-      </div>
-      <div style="display:flex;gap:10px;align-items:center">
-        <button class="notif-btn" onclick="showToast('🔔 لديك 3 إشعارات جديدة')">
-          🔔 <span class="notif-dot"></span>
-        </button>
-        <div class="avatar-sm" onclick="goTo('profile')">🧑</div>
+    <div class="topbar-bg"></div>
+    <div class="topbar-content">
+      <div class="topbar-row">
+        <div>
+          <div class="greeting">مرحباً بعودتك 👋</div>
+          <div class="topbar-name">أحمد محمد</div>
+        </div>
+        <div class="topbar-actions">
+          <div class="icon-btn" onclick="toast('🔔 لا توجد إشعارات جديدة')">
+            🔔<span class="badge-dot"></span>
+          </div>
+          <div class="icon-btn" onclick="nav('profile')">🧑</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="content">
-    <!-- Points Card -->
-    <div class="card" style="background:linear-gradient(135deg,#6C63FF,#0F3460);border:none">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <div>
-          <div class="card-title" style="color:rgba(255,255,255,.7)">مجموع النقاط</div>
-          <div class="card-value" id="total-pts">1,250</div>
-          <div class="card-sub">🚀 +85 نقطة هذا الأسبوع</div>
-        </div>
-        <div style="font-size:56px;opacity:.8">🏆</div>
+  <!-- XP Card -->
+  <div class="xp-card">
+    <div class="xp-top">
+      <div>
+        <div class="xp-pts" id="h-pts">1,250<span>مجموع النقاط</span></div>
       </div>
-      <div class="prog-wrap" style="margin-top:14px">
-        <div class="prog-label">
-          <span style="color:rgba(255,255,255,.7)">المستوى الحالي: ذهبي</span>
-          <span style="color:rgba(255,255,255,.7)">1250 / 2000</span>
-        </div>
-        <div class="prog-bar">
-          <div class="prog-fill" id="xp-bar" style="width:62.5%"></div>
+      <div class="xp-level">
+        <div class="lv-icon">🏆</div>
+        <div class="lv-name">ذهبي</div>
+      </div>
+    </div>
+    <div class="xp-bar-wrap">
+      <div class="xp-bar-info">
+        <span>المستوى الذهبي</span>
+        <span>1,250 / 2,000 XP</span>
+      </div>
+      <div class="xp-bar"><div class="xp-fill" id="h-xp" style="width:62.5%"></div></div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-box"><div class="s-icon">✅</div><div class="s-num" id="h-done">12</div><div class="s-lbl">مكتملة</div></div>
+      <div class="stat-box"><div class="s-icon">⏳</div><div class="s-num" id="h-pend">5</div><div class="s-lbl">متبقية</div></div>
+      <div class="stat-box"><div class="s-icon">🎖️</div><div class="s-num">3</div><div class="s-lbl">ترقيات</div></div>
+      <div class="stat-box"><div class="s-icon">🏅</div><div class="s-num">8</div><div class="s-lbl">إنجازات</div></div>
+    </div>
+
+    <!-- Streak -->
+    <div class="streak-card">
+      <div class="streak-fire">🔥</div>
+      <div class="streak-info">
+        <div class="streak-num">7 أيام</div>
+        <div class="streak-txt">سلسلة إنجاز رائعة! لا تتوقف</div>
+        <div class="streak-days">
+          <div class="streak-day done"></div>
+          <div class="streak-day done"></div>
+          <div class="streak-day done"></div>
+          <div class="streak-day done"></div>
+          <div class="streak-day done"></div>
+          <div class="streak-day done"></div>
+          <div class="streak-day today"></div>
         </div>
       </div>
     </div>
 
-    <!-- Stats -->
-    <div class="stats-row">
-      <div class="stat-card">
-        <div class="stat-icon">✅</div>
-        <div class="stat-num" id="stat-done">12</div>
-        <div class="stat-label">مهام مكتملة</div>
+    <!-- Daily Challenges -->
+    <div class="sec-hdr"><h3>⚡ تحديات اليوم</h3><a onclick="nav('tasks')">عرض الكل</a></div>
+    <div class="challenge-scroll">
+      <div class="challenge-card" onclick="toast('🎯 تحدي قيد التنفيذ!')">
+        <div class="ch-icon">📚</div>
+        <div class="ch-name">القراءة اليومية</div>
+        <div class="ch-desc">اقرأ 30 صفحة اليوم</div>
+        <div class="ch-pts">⭐ 50 نقطة</div>
+        <div class="ch-prog-bar"><div class="ch-prog-fill" style="width:60%"></div></div>
       </div>
-      <div class="stat-card">
-        <div class="stat-icon">⏳</div>
-        <div class="stat-num" id="stat-pending">5</div>
-        <div class="stat-label">مهام متبقية</div>
+      <div class="challenge-card" onclick="toast('💪 استمر!')">
+        <div class="ch-icon">💪</div>
+        <div class="ch-name">التمرين اليومي</div>
+        <div class="ch-desc">30 دقيقة رياضة</div>
+        <div class="ch-pts">⭐ 40 نقطة</div>
+        <div class="ch-prog-bar"><div class="ch-prog-fill" style="width:100%"></div></div>
       </div>
-      <div class="stat-card">
-        <div class="stat-icon">🎖️</div>
-        <div class="stat-num">3</div>
-        <div class="stat-label">ترقيات مكتسبة</div>
+      <div class="challenge-card" onclick="toast('🧠 تحدي التعلم!')">
+        <div class="ch-icon">🧠</div>
+        <div class="ch-name">تعلم مهارة جديدة</div>
+        <div class="ch-desc">درس واحد على الأقل</div>
+        <div class="ch-pts">⭐ 60 نقطة</div>
+        <div class="ch-prog-bar"><div class="ch-prog-fill" style="width:30%"></div></div>
       </div>
-      <div class="stat-card">
-        <div class="stat-icon">🔥</div>
-        <div class="stat-num">7</div>
-        <div class="stat-label">أيام متتالية</div>
+      <div class="challenge-card" onclick="toast('💧 اشرب ماء!')">
+        <div class="ch-icon">💧</div>
+        <div class="ch-name">شرب الماء</div>
+        <div class="ch-desc">8 أكواب يومياً</div>
+        <div class="ch-pts">⭐ 20 نقطة</div>
+        <div class="ch-prog-bar"><div class="ch-prog-fill" style="width:75%"></div></div>
       </div>
     </div>
 
     <!-- Recent Activity -->
-    <div class="card">
-      <div class="sec-header">
-        <h3>📋 النشاط الأخير</h3>
-        <span onclick="goTo('tasks')">عرض الكل</span>
+    <div class="sec-hdr"><h3>🕐 النشاط الأخير</h3><a onclick="toast('📊 السجل الكامل')">السجل</a></div>
+    <div class="act-card">
+      <div class="act-item">
+        <div class="act-ico" style="background:rgba(16,185,129,.12)">✅</div>
+        <div class="act-txt"><strong>أكملت: تعلم JavaScript</strong><small>منذ ساعتين</small></div>
+        <span class="act-pts" style="color:var(--acc)">+50</span>
       </div>
-      <div class="activity-item">
-        <div class="act-icon" style="background:rgba(67,233,123,.12)">✅</div>
-        <div class="act-info">
-          <strong>أكملت مهمة: تعلم JavaScript</strong>
-          <small>منذ ساعتين</small>
-        </div>
-        <span class="act-pts">+50 نقطة</span>
+      <div class="act-item">
+        <div class="act-ico" style="background:rgba(245,158,11,.12)">🏅</div>
+        <div class="act-txt"><strong>ترقية جديدة: مستوى ذهبي</strong><small>أمس</small></div>
+        <span class="act-pts" style="color:var(--gold)">+200</span>
       </div>
-      <div class="activity-item">
-        <div class="act-icon" style="background:rgba(255,215,0,.12)">🏅</div>
-        <div class="act-info">
-          <strong>حصلت على ترقية: متقدم</strong>
-          <small>أمس</small>
-        </div>
-        <span class="act-pts">+200 نقطة</span>
+      <div class="act-item">
+        <div class="act-ico" style="background:rgba(124,58,237,.12)">📝</div>
+        <div class="act-txt"><strong>أضفت مهمة: تصميم UI</strong><small>منذ يومين</small></div>
+        <span class="act-pts" style="color:var(--p3)">+5</span>
       </div>
-      <div class="activity-item">
-        <div class="act-icon" style="background:rgba(108,99,255,.12)">📝</div>
-        <div class="act-info">
-          <strong>أضفت مهمة جديدة</strong>
-          <small>منذ يومين</small>
-        </div>
-        <span class="act-pts">+5 نقطة</span>
+      <div class="act-item">
+        <div class="act-ico" style="background:rgba(239,68,68,.1)">🔥</div>
+        <div class="act-txt"><strong>حققت سلسلة 7 أيام</strong><small>اليوم</small></div>
+        <span class="act-pts" style="color:var(--danger)">+100</span>
       </div>
     </div>
 
     <!-- Quick Actions -->
-    <div class="sec-header"><h3>⚡ إجراءات سريعة</h3></div>
+    <div class="sec-hdr mt16"><h3>🚀 إجراءات سريعة</h3></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-      <button onclick="goTo('tasks');openModal()" style="background:linear-gradient(135deg,var(--primary),#5a52e0);border:none;border-radius:var(--radius);padding:16px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px">
+      <button onclick="nav('tasks');setTimeout(openModal,300)" style="background:linear-gradient(135deg,var(--p1),var(--p2));border:none;border-radius:var(--r);padding:15px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">
         ➕ مهمة جديدة
       </button>
-      <button onclick="goTo('upgrades')" style="background:linear-gradient(135deg,#FF6584,#FF8C55);border:none;border-radius:var(--radius);padding:16px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px">
+      <button onclick="nav('upgrades')" style="background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(239,68,68,.1));border:1px solid rgba(245,158,11,.3);border-radius:var(--r);padding:15px;color:var(--gold);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">
         ⬆️ الترقيات
       </button>
     </div>
+
   </div>
 </div>
 
 
-<!-- ╔══════════════════════════════╗ -->
-<!-- ║        PAGE: المهام          ║ -->
-<!-- ╚══════════════════════════════╝ -->
-<div id="page-tasks" class="page">
-  <div class="topbar">
-    <div class="topbar-row">
-      <div>
-        <h2>📋 المهام</h2>
-        <p id="tasks-count-label">لديك 5 مهام متبقية</p>
+<!-- ████████████████████████████████████
+     PAGE 2 — المهام
+████████████████████████████████████ -->
+<div id="p-tasks" class="page">
+
+  <!-- Top -->
+  <div class="tasks-topbar">
+    <div class="tasks-topbar-content">
+      <h2>📋 المهام</h2>
+      <p id="tasks-sub">لديك مهام متبقية</p>
+      <div class="tasks-topbar-stats">
+        <div class="t-stat"><div class="ts-num" id="ts-all">0</div><div class="ts-lbl">الكل</div></div>
+        <div class="t-stat"><div class="ts-num" id="ts-pend">0</div><div class="ts-lbl">متبقية</div></div>
+        <div class="t-stat"><div class="ts-num" id="ts-done">0</div><div class="ts-lbl">مكتملة</div></div>
+        <div class="t-stat"><div class="ts-num" id="ts-pts">0</div><div class="ts-lbl">نقاط</div></div>
       </div>
     </div>
   </div>
 
-  <div class="content">
-    <!-- Filters -->
-    <div class="task-filters">
-      <button class="filter-btn active" onclick="filterTasks('all',this)">الكل</button>
-      <button class="filter-btn" onclick="filterTasks('pending',this)">قيد التنفيذ</button>
-      <button class="filter-btn" onclick="filterTasks('done',this)">مكتملة</button>
-      <button class="filter-btn" onclick="filterTasks('high',this)">عالية الأهمية</button>
-    </div>
-
-    <!-- Task List -->
-    <div id="task-list"></div>
+  <!-- Filters -->
+  <div class="filter-wrap">
+    <button class="ftab on" onclick="setFilter('all',this)">🗂 الكل</button>
+    <button class="ftab" onclick="setFilter('pending',this)">⏳ قيد التنفيذ</button>
+    <button class="ftab" onclick="setFilter('done',this)">✅ مكتملة</button>
+    <button class="ftab" onclick="setFilter('high',this)">🔴 عالية</button>
+    <button class="ftab" onclick="setFilter('med',this)">🟡 متوسطة</button>
+    <button class="ftab" onclick="setFilter('low',this)">🟢 منخفضة</button>
   </div>
+
+  <!-- List -->
+  <div class="task-list" id="task-list"></div>
 
   <!-- FAB -->
   <button class="fab" onclick="openModal()">＋</button>
 </div>
 
 
-<!-- ╔══════════════════════════════╗ -->
-<!-- ║        PAGE: الترقيات        ║ -->
-<!-- ╚══════════════════════════════╝ -->
-<div id="page-upgrades" class="page">
-  <div class="topbar">
-    <div class="topbar-row">
-      <div>
-        <h2>⬆️ الترقيات</h2>
-        <p>طوّر مستواك واكسب مكافآت</p>
-      </div>
+<!-- ████████████████████████████████████
+     PAGE 3 — الترقيات
+████████████████████████████████████ -->
+<div id="p-upgrades" class="page">
+
+  <div class="up-topbar">
+    <h2>⬆️ الترقيات</h2>
+    <p>طوّر مستواك واكسب مكافآت حصرية</p>
+  </div>
+
+  <!-- Level Hero -->
+  <div class="level-hero">
+    <div class="lh-content">
+      <div class="lh-badge">🏆</div>
+      <div class="lh-name">المستوى الذهبي</div>
+      <div class="lh-sub">أنت ضمن أفضل 15% من المستخدمين!</div>
+      <div class="lh-xp">1,250 / 2,000 نقطة XP</div>
+      <div class="lh-bar"><div class="lh-fill" style="width:62.5%"></div></div>
+      <div class="lh-next">750 نقطة حتى المستوى الماسي 💎</div>
     </div>
   </div>
 
   <div class="content">
-    <!-- Current Level -->
-    <div class="level-card">
-      <div class="level-badge">🥇</div>
-      <div class="level-name">المستوى الذهبي</div>
-      <div class="level-desc">أنت من أفضل 15% من المستخدمين!</div>
-      <div class="level-xp">1,250 / 2,000 نقطة XP</div>
-      <div class="prog-bar" style="max-width:300px;margin:0 auto">
-        <div class="prog-fill" style="width:62.5%"></div>
-      </div>
-      <p style="font-size:12px;color:var(--muted);margin-top:10px">750 نقطة حتى المستوى الماسي 💎</p>
+
+    <!-- Achievements -->
+    <div class="sec-hdr"><h3>🏅 الإنجازات</h3><a onclick="toast('🏅 عرض كل الإنجازات')">الكل (24)</a></div>
+    <div class="ach-grid mb16">
+      <div class="ach-card unlocked"><div class="ach-ico">🔥</div><div class="ach-name">7 أيام متتالية</div></div>
+      <div class="ach-card unlocked"><div class="ach-ico">💯</div><div class="ach-name">10 مهام كاملة</div></div>
+      <div class="ach-card unlocked"><div class="ach-ico">⚡</div><div class="ach-name">منجز سريع</div></div>
+      <div class="ach-card unlocked"><div class="ach-ico">🌟</div><div class="ach-name">أول 1000 XP</div></div>
+      <div class="ach-card unlocked"><div class="ach-ico">🎯</div><div class="ach-name">دقة 100%</div></div>
+      <div class="ach-card unlocked"><div class="ach-ico">🏆</div><div class="ach-name">المستوى الذهبي</div></div>
+      <div class="ach-card unlocked"><div class="ach-ico">🚀</div><div class="ach-name">50 مهمة</div></div>
+      <div class="ach-card unlocked"><div class="ach-ico">👑</div><div class="ach-name">أسبوع مثالي</div></div>
+      <div class="ach-card locked-ach"><div class="ach-ico">💎</div><div class="ach-name">المستوى الماسي</div></div>
+      <div class="ach-card locked-ach"><div class="ach-ico">🌈</div><div class="ach-name">كل الفئات</div></div>
+      <div class="ach-card locked-ach"><div class="ach-ico">🎓</div><div class="ach-name">100 مهمة</div></div>
+      <div class="ach-card locked-ach"><div class="ach-ico">🌙</div><div class="ach-name">30 يوم متتالي</div></div>
     </div>
 
     <!-- Levels Timeline -->
-    <div class="sec-header"><h3>🗺️ خريطة المستويات</h3></div>
-    <div id="levels-timeline"></div>
+    <div class="levels-section">
+      <div class="sec-hdr"><h3>🗺️ خريطة المستويات</h3></div>
+      <div class="lv-timeline" id="levels-list"></div>
+    </div>
 
-    <!-- Upgrades Grid -->
-    <div class="sec-header" style="margin-top:20px"><h3>🛒 متجر الترقيات</h3></div>
-    <div class="upgrade-grid" id="upgrades-grid"></div>
+    <!-- Shop -->
+    <div class="shop-section">
+      <div class="sec-hdr mt8"><h3>🛒 متجر الترقيات</h3><a onclick="toast('💰 رصيدك: 1,250 نقطة')">رصيدك: 1,250 ⭐</a></div>
+      <div class="upgrade-grid" id="shop-grid"></div>
+    </div>
+
   </div>
 </div>
 
 
-<!-- ╔══════════════════════════════╗ -->
-<!-- ║        PAGE: حسابي           ║ -->
-<!-- ╚══════════════════════════════╝ -->
-<div id="page-profile" class="page">
-  <div class="profile-header">
-    <div class="profile-avatar">
-      🧑
-      <div class="avatar-edit" onclick="showToast('📷 تغيير الصورة')">✏️</div>
-    </div>
-    <div class="profile-name">أحمد محمد</div>
-    <div class="profile-email">ahmed@example.com</div>
-    <div class="profile-stats">
-      <div class="p-stat"><strong>1,250</strong><span>نقطة</span></div>
-      <div class="p-stat"><strong>17</strong><span>مهمة</span></div>
-      <div class="p-stat"><strong>3</strong><span>ترقية</span></div>
+<!-- ████████████████████████████████████
+     PAGE 4 — حسابي
+████████████████████████████████████ -->
+<div id="p-profile" class="page">
+
+  <!-- Hero -->
+  <div class="profile-hero">
+    <div class="ph-content">
+      <div class="profile-av" onclick="toast('📷 تغيير الصورة')">
+        🧑<div class="av-edit">✏️</div>
+      </div>
+      <div class="ph-name">أحمد محمد</div>
+      <div class="ph-email">ahmed@example.com</div>
+      <div class="ph-level">🏆 المستوى الذهبي</div>
+      <div class="ph-stats-row">
+        <div class="ph-stat"><strong id="ph-pts">1,250</strong><span>نقطة</span></div>
+        <div class="ph-stat"><strong id="ph-tasks">17</strong><span>مهمة</span></div>
+        <div class="ph-stat"><strong>3</strong><span>ترقية</span></div>
+        <div class="ph-stat"><strong>7</strong><span>سلسلة 🔥</span></div>
+      </div>
     </div>
   </div>
 
   <div class="profile-body">
-    <!-- Account Info -->
-    <div class="menu-card" style="margin-top:14px">
-      <div class="menu-item" onclick="showToast('✏️ تعديل الملف الشخصي')">
-        <div class="menu-icon" style="background:rgba(108,99,255,.15)">👤</div>
-        <div class="menu-text"><strong>الملف الشخصي</strong><small>تعديل بياناتك الشخصية</small></div>
-        <span class="menu-arrow">›</span>
+
+    <!-- Progress to next level -->
+    <div class="p-card" style="padding:16px;border-radius:var(--r);margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <span style="font-size:13px;font-weight:700">📈 التقدم للمستوى التالي</span>
+        <span style="font-size:12px;color:var(--gold)">💎 ماسي</span>
       </div>
-      <div class="menu-item" onclick="showToast('🔐 تغيير كلمة المرور')">
-        <div class="menu-icon" style="background:rgba(67,233,123,.12)">🔐</div>
-        <div class="menu-text"><strong>الأمان</strong><small>كلمة المرور والحماية</small></div>
-        <span class="menu-arrow">›</span>
+      <div class="prog-mini">
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:5px">
+          <span>1,250 XP</span><span>2,000 XP</span>
+        </div>
+        <div class="prog-mini-bar"><div class="prog-mini-fill" style="width:62.5%"></div></div>
       </div>
-      <div class="menu-item" onclick="showToast('📧 إعدادات الإشعارات')">
-        <div class="menu-icon" style="background:rgba(255,215,0,.12)">🔔</div>
-        <div class="menu-text"><strong>الإشعارات</strong><small>تحكم في التنبيهات</small></div>
-        <span class="menu-badge">3</span>
-        <span class="menu-arrow">›</span>
+    </div>
+
+    <!-- Account -->
+    <div class="p-card">
+      <div class="p-card-title">الحساب</div>
+      <div class="p-menu-item" onclick="toast('✏️ تعديل الملف الشخصي')">
+        <div class="p-menu-ico" style="background:rgba(124,58,237,.15)">👤</div>
+        <div class="p-menu-txt"><strong>الملف الشخصي</strong><small>تعديل الاسم والبريد والصورة</small></div>
+        <span class="p-menu-end">›</span>
+      </div>
+      <div class="p-menu-item" onclick="toast('🔐 تغيير كلمة المرور')">
+        <div class="p-menu-ico" style="background:rgba(16,185,129,.12)">🔐</div>
+        <div class="p-menu-txt"><strong>كلمة المرور</strong><small>تغيير أو إعادة تعيين</small></div>
+        <span class="p-menu-end">›</span>
+      </div>
+      <div class="p-menu-item" onclick="toast('📧 تأكيد البريد الإلكتروني')">
+        <div class="p-menu-ico" style="background:rgba(6,182,212,.12)">📧</div>
+        <div class="p-menu-txt"><strong>البريد الإلكتروني</strong><small>ahmed@example.com ✓</small></div>
+        <span class="p-menu-end">›</span>
+      </div>
+    </div>
+
+    <!-- Notifications -->
+    <div class="p-card">
+      <div class="p-card-title">الإشعارات</div>
+      <div class="p-menu-item">
+        <div class="p-menu-ico" style="background:rgba(245,158,11,.12)">🔔</div>
+        <div class="p-menu-txt"><strong>إشعارات المهام</strong><small>تذكير بالمهام المتبقية</small></div>
+        <div class="toggle on" onclick="this.classList.toggle('on');toast(this.classList.contains('on')?'🔔 مفعّل':'🔕 معطّل')"></div>
+      </div>
+      <div class="p-menu-item">
+        <div class="p-menu-ico" style="background:rgba(239,68,68,.1)">🔥</div>
+        <div class="p-menu-txt"><strong>تنبيه السلسلة</strong><small>تذكير بالحفاظ على السلسلة</small></div>
+        <div class="toggle on" onclick="this.classList.toggle('on');toast(this.classList.contains('on')?'🔥 مفعّل':'❌ معطّل')"></div>
+      </div>
+      <div class="p-menu-item">
+        <div class="p-menu-ico" style="background:rgba(124,58,237,.15)">⭐</div>
+        <div class="p-menu-txt"><strong>إشعارات الترقيات</strong><small>عند الوصول لمستوى جديد</small></div>
+        <div class="toggle" onclick="this.classList.toggle('on');toast(this.classList.contains('on')?'⭐ مفعّل':'❌ معطّل')"></div>
       </div>
     </div>
 
     <!-- App Settings -->
-    <div class="menu-card">
-      <div class="menu-item" onclick="showToast('🌙 تغيير المظهر')">
-        <div class="menu-icon" style="background:rgba(108,99,255,.15)">🌙</div>
-        <div class="menu-text"><strong>المظهر</strong><small>الوضع الداكن / الفاتح</small></div>
-        <span class="menu-arrow">›</span>
+    <div class="p-card">
+      <div class="p-card-title">إعدادات التطبيق</div>
+      <div class="p-menu-item" onclick="toast('🌙 الوضع الداكن مفعّل')">
+        <div class="p-menu-ico" style="background:rgba(79,70,229,.15)">🌙</div>
+        <div class="p-menu-txt"><strong>المظهر</strong><small>الوضع الداكن</small></div>
+        <span class="p-menu-end">›</span>
       </div>
-      <div class="menu-item" onclick="showToast('🌐 تغيير اللغة')">
-        <div class="menu-icon" style="background:rgba(67,233,123,.12)">🌐</div>
-        <div class="menu-text"><strong>اللغة</strong><small>العربية</small></div>
-        <span class="menu-arrow">›</span>
+      <div class="p-menu-item" onclick="toast('🌐 اللغة: العربية')">
+        <div class="p-menu-ico" style="background:rgba(16,185,129,.12)">🌐</div>
+        <div class="p-menu-txt"><strong>اللغة</strong><small>العربية</small></div>
+        <span class="p-menu-end">›</span>
       </div>
-      <div class="menu-item" onclick="showToast('📊 عرض إحصائياتك')">
-        <div class="menu-icon" style="background:rgba(255,101,132,.12)">📊</div>
-        <div class="menu-text"><strong>إحصائياتي</strong><small>تقارير الأداء</small></div>
-        <span class="menu-arrow">›</span>
+      <div class="p-menu-item" onclick="toast('📊 عرض التقارير التفصيلية')">
+        <div class="p-menu-ico" style="background:rgba(6,182,212,.12)">📊</div>
+        <div class="p-menu-txt"><strong>إحصائياتي التفصيلية</strong><small>تقارير أسبوعية وشهرية</small></div>
+        <span class="p-menu-end">›</span>
+      </div>
+      <div class="p-menu-item" onclick="toast('📤 تصدير البيانات')">
+        <div class="p-menu-ico" style="background:rgba(245,158,11,.12)">📤</div>
+        <div class="p-menu-txt"><strong>تصدير البيانات</strong><small>نسخ احتياطي لمهامك</small></div>
+        <span class="p-menu-end">›</span>
+      </div>
+    </div>
+
+    <!-- Stats Summary -->
+    <div class="p-card">
+      <div class="p-card-title">ملخص إحصائياتي</div>
+      <div style="padding:4px 16px 14px">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)">
+          <span style="font-size:13px;color:var(--muted)">🏆 إجمالي النقاط</span>
+          <span style="font-size:14px;font-weight:700;color:var(--gold)">1,250 XP</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)">
+          <span style="font-size:13px;color:var(--muted)">✅ مهام مكتملة</span>
+          <span style="font-size:14px;font-weight:700;color:var(--acc)" id="ph-done">12</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)">
+          <span style="font-size:13px;color:var(--muted)">🔥 أطول سلسلة</span>
+          <span style="font-size:14px;font-weight:700;color:var(--danger)">7 أيام</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)">
+          <span style="font-size:13px;color:var(--muted)">🎖️ ترقيات مكتسبة</span>
+          <span style="font-size:14px;font-weight:700;color:var(--p3)">3 ترقيات</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0">
+          <span style="font-size:13px;color:var(--muted)">📅 عضو منذ</span>
+          <span style="font-size:14px;font-weight:700;color:var(--muted)">يناير 2026</span>
+        </div>
       </div>
     </div>
 
     <!-- Support -->
-    <div class="menu-card">
-      <div class="menu-item" onclick="showToast('❓ فتح المساعدة')">
-        <div class="menu-icon" style="background:rgba(255,215,0,.12)">❓</div>
-        <div class="menu-text"><strong>المساعدة والدعم</strong><small>الأسئلة الشائعة</small></div>
-        <span class="menu-arrow">›</span>
+    <div class="p-card">
+      <div class="p-card-title">الدعم والمساعدة</div>
+      <div class="p-menu-item" onclick="toast('❓ فتح مركز المساعدة')">
+        <div class="p-menu-ico" style="background:rgba(6,182,212,.12)">❓</div>
+        <div class="p-menu-txt"><strong>مركز المساعدة</strong><small>الأسئلة الشائعة والإرشادات</small></div>
+        <span class="p-menu-end">›</span>
       </div>
-      <div class="menu-item" onclick="showToast('⭐ شكراً لتقييمك!')">
-        <div class="menu-icon" style="background:rgba(67,233,123,.12)">⭐</div>
-        <div class="menu-text"><strong>تقييم التطبيق</strong><small>ساعدنا بتحسين التطبيق</small></div>
-        <span class="menu-arrow">›</span>
+      <div class="p-menu-item" onclick="toast('💬 فتح المحادثة مع الدعم')">
+        <div class="p-menu-ico" style="background:rgba(16,185,129,.12)">💬</div>
+        <div class="p-menu-txt"><strong>تواصل معنا</strong><small>دعم فوري عبر المحادثة</small></div>
+        <span class="p-menu-end">›</span>
+      </div>
+      <div class="p-menu-item" onclick="toast('⭐ شكراً لتقييمك الرائع!')">
+        <div class="p-menu-ico" style="background:rgba(245,158,11,.12)">⭐</div>
+        <div class="p-menu-txt"><strong>قيّم التطبيق</strong><small>رأيك يطور التطبيق</small></div>
+        <span class="p-menu-end">›</span>
+      </div>
+      <div class="p-menu-item" onclick="toast('📋 نسخة 2.0.0 | آخر تحديث: مايو 2026')">
+        <div class="p-menu-ico" style="background:rgba(124,58,237,.15)">ℹ️</div>
+        <div class="p-menu-txt"><strong>عن التطبيق</strong><small>الإصدار 2.0.0</small></div>
+        <span class="p-menu-end">›</span>
       </div>
     </div>
 
     <!-- Logout -->
-    <button class="logout-btn" onclick="showToast('👋 تم تسجيل الخروج')">
+    <button class="logout-btn" onclick="toast('👋 إلى اللقاء! تم تسجيل الخروج')">
       🚪 تسجيل الخروج
     </button>
+
   </div>
 </div>
 
 
-<!-- ====== ADD TASK MODAL ====== -->
-<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+<!-- ████████████████████████████████████
+     ADD TASK MODAL
+████████████████████████████████████ -->
+<div class="overlay" id="modal-overlay" onclick="closeModalOut(event)">
   <div class="modal">
+    <div class="modal-handle"></div>
     <h3>➕ إضافة مهمة جديدة</h3>
-    <div class="input-group">
-      <label>عنوان المهمة</label>
-      <input type="text" id="task-title" placeholder="أدخل عنوان المهمة..."/>
+    <div class="inp-grp">
+      <label>عنوان المهمة *</label>
+      <input type="text" id="m-title" placeholder="ماذا تريد أن تنجز؟"/>
     </div>
-    <div class="input-group">
+    <div class="inp-grp">
       <label>الوصف</label>
-      <textarea id="task-desc" rows="2" placeholder="وصف المهمة (اختياري)..."></textarea>
+      <textarea id="m-desc" rows="2" placeholder="تفاصيل إضافية (اختياري)..."></textarea>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-      <div class="input-group">
+    <div class="inp-row">
+      <div class="inp-grp">
         <label>الأولوية</label>
-        <select id="task-priority">
+        <select id="m-pri">
           <option value="high">🔴 عالية</option>
           <option value="med" selected>🟡 متوسطة</option>
           <option value="low">🟢 منخفضة</option>
         </select>
       </div>
-      <div class="input-group">
+      <div class="inp-grp">
         <label>النقاط</label>
-        <input type="number" id="task-pts" value="30" min="5" max="200"/>
+        <input type="number" id="m-pts" value="30" min="5" max="500"/>
       </div>
     </div>
-    <div class="input-group">
-      <label>الموعد النهائي</label>
-      <input type="date" id="task-date"/>
+    <div class="inp-row">
+      <div class="inp-grp">
+        <label>الفئة</label>
+        <select id="m-cat">
+          <option value="عام">🗂 عام</option>
+          <option value="تعليم">📚 تعليم</option>
+          <option value="عمل">💼 عمل</option>
+          <option value="صحة">💪 صحة</option>
+          <option value="شخصي">🌟 شخصي</option>
+          <option value="مشاريع">🚀 مشاريع</option>
+        </select>
+      </div>
+      <div class="inp-grp">
+        <label>الموعد النهائي</label>
+        <input type="date" id="m-date"/>
+      </div>
     </div>
     <div class="modal-btns">
-      <button class="btn-cancel" onclick="closeModal()">إلغاء</button>
-      <button class="btn-add" onclick="addTask()">إضافة المهمة ✨</button>
+      <button class="m-cancel" onclick="closeModal()">إلغاء</button>
+      <button class="m-save" onclick="addTask()">✨ إضافة المهمة</button>
     </div>
   </div>
 </div>
 
 
-<!-- ====== BOTTOM NAV ====== -->
+<!-- ████████████████████████████████████
+     BOTTOM NAV
+████████████████████████████████████ -->
 <nav class="bottom-nav">
-  <button class="nav-item active" id="nav-home" onclick="goTo('home')">
-    <span class="nav-icon">🏠</span>
-    <span class="nav-label">الرئيسية</span>
+  <button class="nav-btn on" id="nb-home" onclick="nav('home')">
+    <span class="nav-ico">🏠</span>
+    <span class="nav-lbl">الرئيسية</span>
   </button>
-  <button class="nav-item" id="nav-tasks" onclick="goTo('tasks')">
-    <span class="nav-icon">📋</span>
-    <span class="nav-label">المهام</span>
-    <span class="nav-indicator" id="tasks-dot"></span>
+  <button class="nav-btn" id="nb-tasks" onclick="nav('tasks')">
+    <span class="nav-ico">📋</span>
+    <span class="nav-lbl">المهام</span>
+    <span class="nav-dot" id="nav-dot"></span>
   </button>
-  <button class="nav-item" id="nav-upgrades" onclick="goTo('upgrades')">
-    <span class="nav-icon">⬆️</span>
-    <span class="nav-label">الترقيات</span>
+  <button class="nav-btn" id="nb-upgrades" onclick="nav('upgrades')">
+    <span class="nav-ico">⬆️</span>
+    <span class="nav-lbl">الترقيات</span>
   </button>
-  <button class="nav-item" id="nav-profile" onclick="goTo('profile')">
-    <span class="nav-icon">👤</span>
-    <span class="nav-label">حسابي</span>
+  <button class="nav-btn" id="nb-profile" onclick="nav('profile')">
+    <span class="nav-ico">👤</span>
+    <span class="nav-lbl">حسابي</span>
   </button>
 </nav>
 
 <!-- TOAST -->
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast-el"></div>
 
 
+<!-- ████████████████████████████████████
+     JAVASCRIPT
+████████████████████████████████████ -->
 <script>
-/* ============================================================
-   DATA
-   ============================================================ */
+
+/* ==========================================
+   DATA LAYER
+========================================== */
 let tasks = [
-  { id:1, title:'تعلم HTML وCSS', desc:'دراسة أساسيات الويب', priority:'high', pts:50, date:'2026-05-05', done:false },
-  { id:2, title:'إنهاء مشروع JavaScript', desc:'بناء تطبيق مهام', priority:'high', pts:80, date:'2026-05-08', done:false },
-  { id:3, title:'قراءة كتاب تقني', desc:'30 صفحة يومياً', priority:'med', pts:30, date:'2026-05-10', done:false },
-  { id:4, title:'ممارسة الرياضة', desc:'ساعة كاملة', priority:'low', pts:20, date:'2026-05-04', done:false },
-  { id:5, title:'تعلم Python', desc:'مقدمة البرمجة', priority:'med', pts:40, date:'2026-05-12', done:false },
-  { id:6, title:'مراجعة مشروع قديم', desc:'تحسين الكود', priority:'low', pts:25, date:'2026-05-06', done:true },
-  { id:7, title:'تصميم واجهة مستخدم', desc:'Figma prototype', priority:'high', pts:60, date:'2026-05-07', done:true },
+  {id:1,title:'تعلم HTML و CSS الاحترافي',desc:'إنهاء دورة HTML5 + CSS3',pri:'high',pts:80,cat:'تعليم',date:'2026-05-05',done:false},
+  {id:2,title:'بناء مشروع JavaScript',desc:'تطبيق قائمة المهام التفاعلي',pri:'high',pts:100,cat:'مشاريع',date:'2026-05-08',done:false},
+  {id:3,title:'قراءة كتاب "العادات الذرية"',desc:'30 صفحة يومياً لمدة أسبوع',pri:'med',pts:40,cat:'شخصي',date:'2026-05-10',done:false},
+  {id:4,title:'ممارسة الرياضة يومياً',desc:'30 دقيقة جري + 20 دقيقة قوة',pri:'low',pts:30,cat:'صحة',date:'2026-05-04',done:false},
+  {id:5,title:'دورة Python الأساسية',desc:'تعلم بايثون من الصفر',pri:'med',pts:60,cat:'تعليم',date:'2026-05-12',done:false},
+  {id:6,title:'مراجعة الكود القديم',desc:'تحسين جودة الكود وتوثيقه',pri:'low',pts:25,cat:'عمل',date:'2026-05-06',done:true},
+  {id:7,title:'تصميم واجهة Figma',desc:'نموذج أولي لتطبيق الجوال',pri:'high',pts:70,cat:'عمل',date:'2026-05-07',done:true},
+  {id:8,title:'تعلم Git وGitHub',desc:'إدارة المشاريع بالإصدارات',pri:'med',pts:50,cat:'تعليم',date:'2026-05-11',done:true},
+  {id:9,title:'التخطيط الأسبوعي',desc:'كتابة أهداف وخطة الأسبوع القادم',pri:'low',pts:20,cat:'شخصي',date:'2026-05-05',done:false},
+  {id:10,title:'مشاريع React.js',desc:'تعلم أساسيات React',pri:'high',pts:90,cat:'تعليم',date:'2026-05-15',done:false},
 ];
 
-let currentFilter = 'all';
-let nextId = 8;
+let nextId = 11;
+let activeFilter = 'all';
 
-const levels = [
-  { name:'مبتدئ',   icon:'🥉', min:0,    max:300,  color:'#CD7F32' },
-  { name:'متوسط',   icon:'🥈', min:300,  max:700,  color:'#C0C0C0' },
-  { name:'متقدم',   icon:'🥇', min:700,  max:1200, color:'#FFD700' },
-  { name:'ذهبي',    icon:'🏆', min:1200, max:2000, color:'#FFD700' },
-  { name:'ماسي',    icon:'💎', min:2000, max:4000, color:'#B9F2FF' },
-  { name:'محترف',   icon:'🌟', min:4000, max:8000, color:'#FF6584' },
-  { name:'أسطوري',  icon:'👑', min:8000, max:Infinity, color:'#6C63FF' },
+const LEVELS = [
+  {name:'مبتدئ',    icon:'🥉',min:0,    max:300,  color:'#CD7F32'},
+  {name:'متوسط',   icon:'🥈',min:300,  max:700,  color:'#C0C0C0'},
+  {name:'متقدم',   icon:'🥇',min:700,  max:1200, color:'#FFD700'},
+  {name:'ذهبي',    icon:'🏆',min:1200, max:2000, color:'#FFD700'},
+  {name:'ماسي',    icon:'💎',min:2000, max:3500, color:'#B9F2FF'},
+  {name:'محترف',   icon:'🌟',min:3500, max:6000, color:'#FF6584'},
+  {name:'خبير',    icon:'🔮',min:6000, max:10000,color:'#7C3AED'},
+  {name:'أسطوري',  icon:'👑',min:10000,max:Infinity,color:'#FF8C00'},
 ];
 
-const upgrades = [
-  { id:1, icon:'⚡', name:'تعزيز سرعة XP', desc:'×2 نقاط لساعة', cost:200, owned:true  },
-  { id:2, icon:'🛡️', name:'درع المهلة',    desc:'تمديد الموعد ×3', cost:150, owned:true  },
-  { id:3, icon:'🎯', name:'مهام مميزة',   desc:'مهام حصرية +100%', cost:350, owned:false },
-  { id:4, icon:'🔥', name:'وضع التركيز',  desc:'تركيز بلا إشعارات', cost:100, owned:true  },
-  { id:5, icon:'💰', name:'مكافأة إضافية', desc:'+25% نقاط يومياً', cost:500, owned:false },
-  { id:6, icon:'🎨', name:'ثيمات حصرية',  desc:'ألوان وأيقونات فريدة', cost:300, owned:false },
+const SHOP = [
+  {id:1,icon:'⚡',name:'مضاعف النقاط',  desc:'×2 XP لمدة ساعة كاملة',  cost:200,owned:true},
+  {id:2,icon:'🛡️',name:'درع الموعد',    desc:'تمديد الموعد ×3 مرات',    cost:150,owned:true},
+  {id:3,icon:'🎯',name:'مهام مميزة',    desc:'وصول لمهام حصرية +100%',  cost:350,owned:false},
+  {id:4,icon:'🔥',name:'وضع التركيز',   desc:'تعطيل الإشعارات تلقائياً',cost:100,owned:true},
+  {id:5,icon:'💰',name:'مكافأة يومية',  desc:'+25% نقاط إضافية يومياً',  cost:500,owned:false},
+  {id:6,icon:'🎨',name:'ثيمات حصرية',  desc:'ألوان وأيقونات فريدة',     cost:300,owned:false},
+  {id:7,icon:'🌙',name:'الوضع الليلي', desc:'واجهة مخصصة للليل',        cost:120,owned:false},
+  {id:8,icon:'📊',name:'تقارير تفصيلية',desc:'إحصائيات ورسوم بيانية',   cost:400,owned:false},
 ];
 
-/* ============================================================
+/* ==========================================
    NAVIGATION
-   ============================================================ */
-const pages = { home:'page-home', tasks:'page-tasks', upgrades:'page-upgrades', profile:'page-profile' };
-const navIds = { home:'nav-home', tasks:'nav-tasks', upgrades:'nav-upgrades', profile:'nav-profile' };
+========================================== */
+const PAGE_MAP = {home:'p-home',tasks:'p-tasks',upgrades:'p-upgrades',profile:'p-profile'};
+const NAV_MAP  = {home:'nb-home',tasks:'nb-tasks',upgrades:'nb-upgrades',profile:'nb-profile'};
 
-function goTo(page) {
-  Object.values(pages).forEach(p => document.getElementById(p).classList.remove('active'));
-  Object.values(navIds).forEach(n => document.getElementById(n).classList.remove('active'));
-  document.getElementById(pages[page]).classList.add('active');
-  document.getElementById(navIds[page]).classList.add('active');
-  if (page === 'tasks') renderTasks();
-  if (page === 'upgrades') renderUpgrades();
-  if (page === 'home') updateHome();
+function nav(pg){
+  Object.values(PAGE_MAP).forEach(p=>document.getElementById(p).classList.remove('active'));
+  Object.values(NAV_MAP).forEach(n=>document.getElementById(n).classList.remove('on'));
+  document.getElementById(PAGE_MAP[pg]).classList.add('active');
+  document.getElementById(NAV_MAP[pg]).classList.add('on');
+  if(pg==='tasks')    {renderTasks();updateTaskStats()}
+  if(pg==='upgrades') {renderLevels();renderShop()}
+  if(pg==='home')     updateHome();
+  if(pg==='profile')  updateProfile();
+  window.scrollTo(0,0);
 }
 
-/* ============================================================
+/* ==========================================
    HOME
-   ============================================================ */
-function updateHome() {
-  const done = tasks.filter(t => t.done).length;
-  const pending = tasks.filter(t => !t.done).length;
-  document.getElementById('stat-done').textContent = done;
-  document.getElementById('stat-pending').textContent = pending;
+========================================== */
+function updateHome(){
+  const done=tasks.filter(t=>t.done).length;
+  const pend=tasks.filter(t=>!t.done).length;
+  document.getElementById('h-done').textContent=done;
+  document.getElementById('h-pend').textContent=pend;
+  updateNavDot();
 }
 
-/* ============================================================
+/* ==========================================
    TASKS
-   ============================================================ */
-function renderTasks() {
-  const list = document.getElementById('task-list');
-  let filtered = [...tasks];
-  if (currentFilter === 'pending') filtered = filtered.filter(t => !t.done);
-  if (currentFilter === 'done')    filtered = filtered.filter(t =>  t.done);
-  if (currentFilter === 'high')    filtered = filtered.filter(t => t.priority === 'high');
+========================================== */
+function updateTaskStats(){
+  const all=tasks.length;
+  const done=tasks.filter(t=>t.done).length;
+  const pend=tasks.filter(t=>!t.done).length;
+  const pts=tasks.filter(t=>t.done).reduce((s,t)=>s+t.pts,0);
+  document.getElementById('ts-all').textContent=all;
+  document.getElementById('ts-done').textContent=done;
+  document.getElementById('ts-pend').textContent=pend;
+  document.getElementById('ts-pts').textContent=pts;
+  document.getElementById('tasks-sub').textContent=
+    pend>0?`لديك ${pend} مهمة متبقية اليوم`:'🎉 أنجزت جميع مهامك!';
+}
 
-  const pending = tasks.filter(t => !t.done).length;
-  document.getElementById('tasks-count-label').textContent = `لديك ${pending} مهمة متبقية`;
-  document.getElementById('tasks-dot').style.display = pending > 0 ? 'block' : 'none';
+function setFilter(f,btn){
+  activeFilter=f;
+  document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderTasks();
+}
 
-  if (!filtered.length) {
-    list.innerHTML = `<div style="text-align:center;padding:40px;color:var(--muted)">
-      <div style="font-size:48px">🎉</div>
-      <p style="margin-top:10px">لا توجد مهام في هذه الفئة</p>
-    </div>`;
+function renderTasks(){
+  let list=[...tasks];
+  if(activeFilter==='pending') list=list.filter(t=>!t.done);
+  else if(activeFilter==='done') list=list.filter(t=>t.done);
+  else if(activeFilter==='high') list=list.filter(t=>t.pri==='high');
+  else if(activeFilter==='med')  list=list.filter(t=>t.pri==='med');
+  else if(activeFilter==='low')  list=list.filter(t=>t.pri==='low');
+
+  const el=document.getElementById('task-list');
+  if(!list.length){
+    el.innerHTML=`<div class="empty-state"><div class="em-ico">🎉</div><p>لا توجد مهام في هذه الفئة</p></div>`;
     return;
   }
 
-  list.innerHTML = filtered.map(t => `
-    <div class="task-item" id="task-${t.id}">
-      <div class="task-check ${t.done ? 'done' : ''}" onclick="toggleTask(${t.id})"></div>
-      <div class="task-body ${t.done ? 'done-text' : ''}">
+  const priLabel={high:'🔴 عالية',med:'🟡 متوسطة',low:'🟢 منخفضة'};
+  const priBadge={high:'tag-high',med:'tag-med',low:'tag-low'};
+
+  el.innerHTML=list.map(t=>`
+    <div class="task-card pri-${t.pri}" id="tc-${t.id}">
+      <div class="task-chk ${t.done?'done':''}" onclick="toggleTask(${t.id})"></div>
+      <div class="task-body ${t.done?'crossed':''}">
         <h4>${t.title}</h4>
-        ${t.desc ? `<p>${t.desc}</p>` : ''}
-        <div class="task-meta">
-          <span class="task-badge badge-${t.priority}">${t.priority==='high'?'🔴 عالية':t.priority==='med'?'🟡 متوسطة':'🟢 منخفضة'}</span>
-          <span class="task-pts-badge">⭐ ${t.pts} نقطة</span>
-          ${t.date ? `<span class="task-deadline">📅 ${t.date}</span>` : ''}
+        ${t.desc?`<p>${t.desc}</p>`:''}
+        <div class="task-tags">
+          <span class="tag ${priBadge[t.pri]}">${priLabel[t.pri]}</span>
+          <span class="tag tag-pts">⭐ ${t.pts} نقطة</span>
+          ${t.cat?`<span class="tag" style="background:rgba(6,182,212,.1);color:#67E8F9">${t.cat}</span>`:''}
+          ${t.date?`<span class="tag tag-date">📅 ${t.date}</span>`:''}
         </div>
       </div>
-      <button onclick="deleteTask(${t.id})" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;padding:4px">🗑️</button>
+      <button class="task-del" onclick="deleteTask(${t.id})">🗑️</button>
     </div>
   `).join('');
 }
 
-function filterTasks(f, btn) {
-  currentFilter = f;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+function toggleTask(id){
+  const t=tasks.find(x=>x.id===id);
+  t.done=!t.done;
+  toast(t.done?`✅ رائع! +${t.pts} نقطة مكتسبة`:'↩️ تم إعادة المهمة للقائمة');
   renderTasks();
-}
-
-function toggleTask(id) {
-  const t = tasks.find(x => x.id === id);
-  t.done = !t.done;
-  if (t.done) showToast(`✅ أحسنت! +${t.pts} نقطة`);
-  renderTasks();
+  updateTaskStats();
   updateHome();
+  updateProfile();
 }
 
-function deleteTask(id) {
-  tasks = tasks.filter(x => x.id !== id);
-  showToast('🗑️ تم حذف المهمة');
+function deleteTask(id){
+  tasks=tasks.filter(x=>x.id!==id);
+  toast('🗑️ تم حذف المهمة');
   renderTasks();
+  updateTaskStats();
   updateHome();
+  updateProfile();
 }
 
-/* ============================================================
+/* ==========================================
    MODAL
-   ============================================================ */
-function openModal() {
+========================================== */
+function openModal(){
   document.getElementById('modal-overlay').classList.add('open');
-  const today = new Date().toISOString().split('T')[0];
-  document.getElementById('task-date').value = today;
+  const today=new Date().toISOString().split('T')[0];
+  document.getElementById('m-date').value=today;
+  document.getElementById('m-title').focus();
 }
-function closeModal() {
+function closeModal(){
   document.getElementById('modal-overlay').classList.remove('open');
-  document.getElementById('task-title').value = '';
-  document.getElementById('task-desc').value = '';
-  document.getElementById('task-pts').value = 30;
+  document.getElementById('m-title').value='';
+  document.getElementById('m-desc').value='';
+  document.getElementById('m-pts').value=30;
 }
-function closeModalOutside(e) {
-  if (e.target === document.getElementById('modal-overlay')) closeModal();
+function closeModalOut(e){
+  if(e.target===document.getElementById('modal-overlay')) closeModal();
 }
-
-function addTask() {
-  const title = document.getElementById('task-title').value.trim();
-  if (!title) { showToast('⚠️ أدخل عنوان المهمة'); return; }
+function addTask(){
+  const title=document.getElementById('m-title').value.trim();
+  if(!title){toast('⚠️ الرجاء إدخال عنوان المهمة');return}
   tasks.unshift({
-    id: nextId++,
-    title,
-    desc:     document.getElementById('task-desc').value.trim(),
-    priority: document.getElementById('task-priority').value,
-    pts:      parseInt(document.getElementById('task-pts').value) || 30,
-    date:     document.getElementById('task-date').value,
-    done: false
+    id:nextId++,title,
+    desc:document.getElementById('m-desc').value.trim(),
+    pri:document.getElementById('m-pri').value,
+    pts:parseInt(document.getElementById('m-pts').value)||30,
+    cat:document.getElementById('m-cat').value,
+    date:document.getElementById('m-date').value,
+    done:false
   });
   closeModal();
   renderTasks();
+  updateTaskStats();
   updateHome();
-  showToast('🎉 تمت إضافة المهمة بنجاح!');
+  updateProfile();
+  toast('🎉 تمت إضافة المهمة بنجاح!');
 }
 
-/* ============================================================
+/* ==========================================
    UPGRADES
-   ============================================================ */
-function renderUpgrades() {
-  // Levels
-  const tl = document.getElementById('levels-timeline');
-  tl.innerHTML = levels.map((lv,i) => {
-    const current = (i === 3);
+========================================== */
+function renderLevels(){
+  const el=document.getElementById('levels-list');
+  el.innerHTML=LEVELS.map((lv,i)=>{
+    const cur=i===3;
+    const done=i<3;
+    const cls=cur?'current':done?'done':'locked';
+    const badge=cur?'<span class="lv-card-badge badge-current">← أنت هنا</span>':done?'<span class="lv-card-badge badge-done">✓ مكتمل</span>':'<span class="lv-card-badge badge-locked">🔒 مقفل</span>';
+    const xpTxt=lv.max===Infinity?`${lv.min.toLocaleString()} XP +`:`${lv.min.toLocaleString()} - ${lv.max.toLocaleString()} XP`;
     return `
-    <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:12px">
-      <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0">
-        <div style="width:40px;height:40px;border-radius:50%;background:${current?'linear-gradient(135deg,'+lv.color+',#fff3)':'rgba(255,255,255,0.07)'};border:2px solid ${current?lv.color:'rgba(255,255,255,0.1)'};display:flex;align-items:center;justify-content:center;font-size:18px">${lv.icon}</div>
-        ${i<levels.length-1?`<div style="width:2px;height:30px;background:rgba(255,255,255,0.07);margin:2px 0"></div>`:''}
-      </div>
-      <div style="background:${current?'rgba(108,99,255,.15)':'var(--card)'};border-radius:12px;padding:12px 14px;flex:1;border:1px solid ${current?'rgba(108,99,255,.3)':'rgba(255,255,255,0.05)'}">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <strong style="font-size:14px;color:${current?lv.color:'#fff'}">${lv.name} ${current?'← أنت هنا':''}</strong>
-          <span style="font-size:11px;color:var(--muted)">${lv.min === 0 ? '0' : lv.min.toLocaleString()} - ${lv.max === Infinity ? '∞' : lv.max.toLocaleString()} XP</span>
+      <div class="lv-row">
+        <div class="lv-dot-col">
+          <div class="lv-dot ${cls}" style="${done?'background:rgba(16,185,129,.15)':cur?'':'background:rgba(255,255,255,.04)'}">
+            ${lv.icon}
+          </div>
+          ${i<LEVELS.length-1?'<div class="lv-line"></div>':''}
+        </div>
+        <div class="lv-info-card ${cls}">
+          <div class="lv-card-top">
+            <span class="lv-card-name" style="color:${cur?lv.color:done?'#6EE7B7':'#fff'}">${lv.name}</span>
+            ${badge}
+          </div>
+          <div class="lv-card-xp">${xpTxt}</div>
         </div>
       </div>
-    </div>`;
+    `;
   }).join('');
+}
 
-  // Upgrades Shop
-  const grid = document.getElementById('upgrades-grid');
-  grid.innerHTML = upgrades.map(u => `
-    <div class="upgrade-card ${u.owned?'':'locked'}" onclick="${u.owned ? `showToast('✅ ${u.name} مفعّل بالفعل')` : `buyUpgrade(${u.id})`}">
-      ${u.owned ? '<span class="u-owned">مُفعَّل</span>' : ''}
-      <div class="u-icon">${u.icon}</div>
-      <h4>${u.name}</h4>
-      <p>${u.desc}</p>
-      ${u.owned ? '' : `<div class="u-cost">⭐ ${u.cost} نقطة</div>`}
+function renderShop(){
+  document.getElementById('shop-grid').innerHTML=SHOP.map(u=>`
+    <div class="up-card ${u.owned?'owned':'locked-item'}" onclick="${u.owned?`toast('✅ ${u.name} مفعّل بالفعل!')`:`buyUpgrade(${u.id})`}">
+      ${u.owned?'<span class="up-owned-badge">✓ مفعّل</span>':''}
+      <div class="up-icon">${u.icon}</div>
+      <div class="up-name">${u.name}</div>
+      <div class="up-desc">${u.desc}</div>
+      ${u.owned?'':`<div class="up-cost">⭐ ${u.cost} نقطة</div>`}
     </div>
   `).join('');
 }
 
-function buyUpgrade(id) {
-  const u = upgrades.find(x => x.id === id);
-  if (u) {
-    u.owned = true;
-    showToast(`🎉 تم شراء: ${u.name}!`);
-    renderUpgrades();
-  }
+function buyUpgrade(id){
+  const u=SHOP.find(x=>x.id===id);
+  if(u){u.owned=true;renderShop();toast(`🎉 تم شراء: ${u.name} بنجاح!`)}
 }
 
-/* ============================================================
+/* ==========================================
+   PROFILE
+========================================== */
+function updateProfile(){
+  const done=tasks.filter(t=>t.done).length;
+  const total=tasks.length;
+  document.getElementById('ph-tasks').textContent=total;
+  document.getElementById('ph-done').textContent=done;
+}
+
+/* ==========================================
+   NAV DOT
+========================================== */
+function updateNavDot(){
+  const dot=document.getElementById('nav-dot');
+  dot.style.display=tasks.filter(t=>!t.done).length>0?'block':'none';
+}
+
+/* ==========================================
    TOAST
-   ============================================================ */
-let toastTimer;
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+========================================== */
+let _toastTimer;
+function toast(msg){
+  const el=document.getElementById('toast-el');
+  el.textContent=msg;el.classList.add('show');
+  clearTimeout(_toastTimer);
+  _toastTimer=setTimeout(()=>el.classList.remove('show'),2800);
 }
 
-/* ============================================================
+/* ==========================================
    INIT
-   ============================================================ */
-updateHome();
-renderTasks();
-document.getElementById('tasks-dot').style.display =
-  tasks.filter(t => !t.done).length > 0 ? 'block' : 'none';
+========================================== */
+(function init(){
+  updateHome();
+  updateNavDot();
+  renderTasks();
+  updateTaskStats();
+  renderLevels();
+  renderShop();
+  updateProfile();
+})();
+
 </script>
 </body>
-        </html>
+  </html>
