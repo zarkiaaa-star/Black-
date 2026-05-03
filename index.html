@@ -5,9 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
 <title>BlackRock — Task System</title>
 <style>
-/* ═══════════════════════════════════════
-   BLACKROCK DESIGN SYSTEM v3.0
-═══════════════════════════════════════ */
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
   --bk:#000;--bk1:#080808;--bk2:#101010;--bk3:#161616;
@@ -18,270 +15,139 @@
   --green:#00C853;--green-l:rgba(0,200,83,0.08);
   --red:#E53935;--red-l:rgba(229,57,53,0.08);
   --gold:#D4A017;--gold-l:rgba(212,160,23,0.1);
-  --orange:#E87D1A;
   --border:rgba(255,255,255,0.06);
   --border2:rgba(255,255,255,0.11);
   --border3:rgba(255,255,255,0.18);
-  --shadow:0 8px 32px rgba(0,0,0,0.6);
   --nav:72px;
 }
 html{background:var(--bk);scroll-behavior:smooth}
-body{
-  font-family:-apple-system,'SF Pro Display','Helvetica Neue',Arial,sans-serif;
-  background:var(--bk);color:var(--w);
-  max-width:430px;margin:0 auto;min-height:100vh;
-  overflow-x:hidden;-webkit-font-smoothing:antialiased;
-}
+body{font-family:-apple-system,'SF Pro Display','Helvetica Neue',Arial,sans-serif;background:var(--bk);color:var(--w);max-width:430px;margin:0 auto;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 button{cursor:pointer;font-family:inherit;border:none;outline:none;background:none;color:inherit}
 input,select,textarea{font-family:inherit;outline:none;background:none;color:var(--w)}
 a{color:inherit;text-decoration:none}
 ::-webkit-scrollbar{width:0;height:0}
-img{display:block}
 
-/* ═══════════════════════════════════════
-   PAGES
-═══════════════════════════════════════ */
+/* ── PAGES ── */
 .page{display:none;min-height:100vh;padding-bottom:calc(var(--nav)+16px)}
 .page.active{display:block;animation:fadeUp .25s cubic-bezier(.4,0,.2,1)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
-/* ═══════════════════════════════════════
-   TOPBAR
-═══════════════════════════════════════ */
-.topbar{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:14px 20px;
-  position:sticky;top:0;z-index:100;
-  background:rgba(0,0,0,0.96);
-  border-bottom:1px solid var(--border);
-  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-}
+/* ── TOPBAR ── */
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;position:sticky;top:0;z-index:100;background:rgba(0,0,0,0.96);border-bottom:1px solid var(--border);backdrop-filter:blur(24px)}
 .logo-wrap{display:flex;align-items:center;gap:10px}
-.logo-square{
-  width:34px;height:34px;background:var(--w);
-  display:flex;align-items:center;justify-content:center;
-  font-size:15px;font-weight:900;color:var(--bk);
-  letter-spacing:-0.5px;flex-shrink:0;
-}
+.logo-sq{width:34px;height:34px;background:var(--w);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;color:var(--bk);flex-shrink:0}
 .logo-name{font-size:16px;font-weight:700;color:var(--w);letter-spacing:.3px}
 .logo-tag{font-size:9px;color:var(--muted);letter-spacing:1.8px;text-transform:uppercase;display:block;margin-top:-1px}
 .top-actions{display:flex;gap:8px;align-items:center}
-.icon-btn{
-  width:36px;height:36px;border:1px solid var(--border2);
-  display:flex;align-items:center;justify-content:center;
-  font-size:15px;cursor:pointer;position:relative;
-  transition:background .15s,border-color .15s;
-  flex-shrink:0;
-}
-.icon-btn:active{background:var(--bk4);border-color:var(--border3)}
-.notif-pip{
-  position:absolute;top:7px;right:7px;
-  width:6px;height:6px;border-radius:50%;
-  background:var(--blue);border:1.5px solid var(--bk);
-}
+.icon-btn{width:36px;height:36px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;position:relative;transition:background .15s}
+.icon-btn:active{background:var(--bk4)}
+.notif-pip{position:absolute;top:7px;right:7px;width:6px;height:6px;border-radius:50%;background:var(--blue);border:1.5px solid var(--bk)}
 
-/* ═══════════════════════════════════════
-   HERO SECTION
-═══════════════════════════════════════ */
-.hero-section{
-  padding:24px 20px 20px;
-  border-bottom:1px solid var(--border);
-  background:linear-gradient(180deg,var(--bk1) 0%,var(--bk) 100%);
-}
+/* ── HERO ── */
+.hero-section{padding:24px 20px 20px;border-bottom:1px solid var(--border);background:linear-gradient(180deg,var(--bk1) 0%,var(--bk) 100%)}
 .hero-eyebrow{font-size:9px;color:var(--muted);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:8px}
 .hero-value{font-size:44px;font-weight:200;color:var(--w);letter-spacing:-2px;line-height:1;font-variant-numeric:tabular-nums}
-.hero-value sup{font-size:20px;font-weight:300;vertical-align:top;margin-top:8px;display:inline-block;letter-spacing:0}
-.hero-badge{
-  display:inline-flex;align-items:center;gap:6px;
-  margin-top:10px;padding:4px 10px;
-  border:1px solid var(--border2);font-size:10px;font-weight:700;
-  letter-spacing:.5px;
-}
-.hero-badge.green-b{color:var(--green);border-color:rgba(0,200,83,.25)}
-.hero-badge.red-b{color:var(--red);border-color:rgba(229,57,53,.25)}
-.hero-metrics{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:1px;background:var(--border);
-  margin-top:20px;border:1px solid var(--border);
-}
-.hm-cell{
-  background:var(--bk);padding:14px 8px;text-align:center;
-  cursor:pointer;transition:background .15s;
-}
-.hm-cell:active{background:var(--bk3)}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:4px 10px;border:1px solid var(--border2);font-size:10px;font-weight:700;letter-spacing:.5px}
+.hero-badge.up{color:var(--green);border-color:rgba(0,200,83,.25)}
+.hero-badge.dn{color:var(--red);border-color:rgba(229,57,53,.25)}
+.hero-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-top:20px;border:1px solid var(--border)}
+.hm{background:var(--bk);padding:14px 8px;text-align:center;cursor:pointer;transition:background .15s}
+.hm:active{background:var(--bk3)}
 .hm-v{font-size:19px;font-weight:700;color:var(--w);font-variant-numeric:tabular-nums}
-.hm-l{font-size:9px;color:var(--muted);letter-spacing:1.2px;text-transform:uppercase;margin-top:3px;line-height:1.2}
+.hm-l{font-size:9px;color:var(--muted);letter-spacing:1.2px;text-transform:uppercase;margin-top:3px}
 
-/* ═══════════════════════════════════════
-   XP PROGRESS BAR
-═══════════════════════════════════════ */
+/* ── XP BAR ── */
 .xp-section{padding:16px 20px;border-bottom:1px solid var(--border)}
 .xp-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
 .xp-title{font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
-.xp-level-tag{font-size:10px;font-weight:700;color:var(--gold);letter-spacing:.5px}
-.xp-track{height:2px;background:var(--bk5);border-radius:0;overflow:hidden}
+.xp-lvl-tag{font-size:10px;font-weight:700;color:var(--gold)}
+.xp-track{height:2px;background:var(--bk5);overflow:hidden}
 .xp-progress{height:100%;background:linear-gradient(90deg,var(--w),rgba(255,255,255,.7));transition:width 1s cubic-bezier(.4,0,.2,1)}
 .xp-footer{display:flex;justify-content:space-between;margin-top:6px}
-.xp-footer span{font-size:9px;color:var(--muted2);letter-spacing:.5px}
+.xp-footer span{font-size:9px;color:var(--muted2)}
 
-/* ═══════════════════════════════════════
-   SECTION LABELS
-═══════════════════════════════════════ */
-.section-label{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:16px 20px 10px;
-}
-.section-label h3{font-size:9px;font-weight:700;color:var(--muted);letter-spacing:2.5px;text-transform:uppercase}
-.section-label button{font-size:10px;color:var(--blue);font-weight:700;letter-spacing:.5px}
-.section-label button:active{opacity:.7}
+/* ── SECTION LABEL ── */
+.sec-lbl{display:flex;justify-content:space-between;align-items:center;padding:16px 20px 10px}
+.sec-lbl h3{font-size:9px;font-weight:700;color:var(--muted);letter-spacing:2.5px;text-transform:uppercase}
+.sec-lbl button{font-size:10px;color:var(--blue);font-weight:700;letter-spacing:.5px}
 
-/* ═══════════════════════════════════════
-   STREAK WIDGET
-═══════════════════════════════════════ */
-.streak-widget{
-  margin:0 20px 4px;
-  border:1px solid var(--border2);background:var(--bk1);
-  padding:16px;display:flex;gap:14px;align-items:center;
-}
+/* ── STREAK ── */
+.streak-widget{margin:0 20px 4px;border:1px solid var(--border2);background:var(--bk1);padding:16px;display:flex;gap:14px;align-items:center}
 .streak-fire{font-size:36px;line-height:1;flex-shrink:0}
 .streak-body{flex:1}
 .streak-count{font-size:28px;font-weight:200;color:var(--w);letter-spacing:-1px;line-height:1}
 .streak-label{font-size:9px;color:var(--muted);letter-spacing:1.8px;text-transform:uppercase;margin-top:3px}
 .streak-pips{display:flex;gap:5px;margin-top:10px}
 .pip{width:30px;height:2px;background:var(--bk5)}
-.pip.active{background:var(--w)}
-.pip.current{background:var(--blue)}
+.pip.active{background:var(--w)}.pip.current{background:var(--blue)}
 .streak-best{font-size:10px;color:var(--muted);text-align:right;align-self:flex-end}
 
-/* ═══════════════════════════════════════
-   DIVIDER
-═══════════════════════════════════════ */
+/* ── DIVIDER ── */
 .divider{height:8px;background:var(--bk1);border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin:4px 0}
 
-/* ═══════════════════════════════════════
-   ACTIVITY LIST
-═══════════════════════════════════════ */
+/* ── ACTIVITY ── */
 .activity-list{padding:0 20px}
-.activity-row{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:13px 0;border-bottom:1px solid var(--border);
-  cursor:pointer;transition:opacity .15s;
-}
+.activity-row{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:opacity .15s}
 .activity-row:last-child{border-bottom:none}
 .activity-row:active{opacity:.6}
-.ar-left{}
 .ar-title{font-size:13px;font-weight:500;color:var(--w)}
-.ar-sub{font-size:10px;color:var(--muted);margin-top:2px;display:flex;align-items:center;gap:6px}
-.ar-dot{width:4px;height:4px;border-radius:50%;background:var(--muted2)}
+.ar-sub{font-size:10px;color:var(--muted);margin-top:2px}
 .ar-right{text-align:left;flex-shrink:0}
 .ar-pts{font-size:13px;font-weight:700}
 .ar-pts.up{color:var(--green)}.ar-pts.dn{color:var(--red)}
-.ar-time{font-size:9px;color:var(--muted);margin-top:2px;display:block;text-align:left}
+.ar-time{font-size:9px;color:var(--muted);display:block;text-align:left;margin-top:2px}
 
-/* ═══════════════════════════════════════
-   HORIZONTAL SCROLL CARDS
-═══════════════════════════════════════ */
-.h-scroll{display:flex;overflow-x:auto;gap:0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-.h-scroll::-webkit-scrollbar{display:none}
-.h-card{
-  min-width:200px;max-width:200px;padding:16px;
-  border-left:1px solid var(--border);flex-shrink:0;
-  cursor:pointer;transition:background .15s;
-}
+/* ── H-SCROLL ── */
+.h-scroll{display:flex;overflow-x:auto;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.h-card{min-width:200px;max-width:200px;padding:16px;border-left:1px solid var(--border);flex-shrink:0;cursor:pointer;transition:background .15s}
 .h-card:first-child{border-left:none}
 .h-card:active{background:var(--bk2)}
 .hc-tag{font-size:8px;font-weight:700;color:var(--blue);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;display:flex;align-items:center;gap:5px}
 .hc-tag::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--blue);display:inline-block}
 .hc-title{font-size:12px;font-weight:500;color:var(--w);line-height:1.45;margin-bottom:8px}
-.hc-meta{font-size:9px;color:var(--muted);letter-spacing:.5px}
+.hc-meta{font-size:9px;color:var(--muted)}
 
-/* ═══════════════════════════════════════
-   QUICK ACTION GRID
-═══════════════════════════════════════ */
-.qa-grid{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:1px;background:var(--border);
-  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
-}
-.qa-cell{
-  background:var(--bk);padding:18px 16px;
-  cursor:pointer;transition:background .15s;
-  display:flex;align-items:center;gap:12px;
-}
+/* ── QA GRID ── */
+.qa-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.qa-cell{background:var(--bk);padding:18px 16px;cursor:pointer;transition:background .15s;display:flex;align-items:center;gap:12px}
 .qa-cell:active{background:var(--bk3)}
 .qa-icon{font-size:20px;flex-shrink:0;width:28px;text-align:center}
-.qa-text{}
 .qa-name{font-size:13px;font-weight:600;color:var(--w)}
 .qa-hint{font-size:9px;color:var(--muted);letter-spacing:.5px;margin-top:2px}
 
-/* ═══════════════════════════════════════
-   MINI CHART
-═══════════════════════════════════════ */
+/* ── CHART ── */
 .chart-section{padding:16px 20px;border-bottom:1px solid var(--border)}
 .chart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
 .chart-title{font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
 .chart-periods{display:flex;border:1px solid var(--border2)}
 .cp{padding:5px 11px;font-size:9px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;cursor:pointer;border-left:1px solid var(--border2);transition:all .2s}
-.cp:first-child{border-left:none}
-.cp.on{background:var(--w);color:var(--bk)}
+.cp:first-child{border-left:none}.cp.on{background:var(--w);color:var(--bk)}
 canvas{display:block;width:100%!important}
 
-/* ═══════════════════════════════════════
+/* ════════════════════════════════
    TASKS PAGE
-═══════════════════════════════════════ */
-.tasks-header{
-  padding:20px 20px 16px;
-  border-bottom:1px solid var(--border);
-  background:var(--bk1);
-}
+════════════════════════════════ */
+.tasks-header{padding:20px 20px 16px;border-bottom:1px solid var(--border);background:var(--bk1)}
 .tasks-header h2{font-size:28px;font-weight:200;color:var(--w);letter-spacing:-.5px}
 .tasks-header p{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.5}
-.tasks-kpi{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:1px;background:var(--border);
-  border:1px solid var(--border);margin-top:16px;
-}
+.tasks-kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:16px}
 .kpi{background:var(--bk);padding:13px 10px;text-align:center}
 .kpi-v{font-size:22px;font-weight:700;color:var(--w);font-variant-numeric:tabular-nums}
 .kpi-l{font-size:8px;color:var(--muted);letter-spacing:1.2px;text-transform:uppercase;margin-top:3px}
-
-/* Filter tabs */
 .filter-tabs{display:flex;overflow-x:auto;border-bottom:1px solid var(--border)}
 .filter-tabs::-webkit-scrollbar{display:none}
-.ftab{
-  padding:12px 16px;font-size:10px;font-weight:700;
-  color:var(--muted);letter-spacing:1.2px;text-transform:uppercase;
-  border-bottom:2px solid transparent;white-space:nowrap;
-  flex-shrink:0;transition:all .2s;
-}
+.ftab{padding:12px 16px;font-size:10px;font-weight:700;color:var(--muted);letter-spacing:1.2px;text-transform:uppercase;border-bottom:2px solid transparent;white-space:nowrap;flex-shrink:0;transition:all .2s}
 .ftab.on{color:var(--w);border-bottom-color:var(--w)}
-
-/* ═══════════════════════════════════════
-   TASK CARD
-═══════════════════════════════════════ */
 .tasks-list{padding:0 20px;margin-top:4px}
-.task-card{
-  border:1px solid var(--border);margin:10px 0;
-  background:var(--bk1);position:relative;
-  transition:border-color .3s;overflow:hidden;
-}
+.task-card{border:1px solid var(--border);margin:10px 0;background:var(--bk1);position:relative;transition:border-color .3s;overflow:hidden}
 .task-card.is-running{border-color:var(--blue);background:rgba(26,111,232,0.03)}
 .task-card.is-done{border-color:rgba(0,200,83,.25);opacity:.65}
 .task-card.is-locked{border-color:var(--border);opacity:.45}
 .task-card.is-paused{border-color:rgba(212,160,23,.35)}
-
-/* Priority indicator */
 .task-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px}
-.task-card.pri-h::before{background:var(--red)}
-.task-card.pri-m::before{background:var(--gold)}
-.task-card.pri-l::before{background:var(--green)}
-
+.task-card.pri-h::before{background:var(--red)}.task-card.pri-m::before{background:var(--gold)}.task-card.pri-l::before{background:var(--green)}
 .tc-top{display:flex;gap:12px;padding:14px 14px 12px 16px;align-items:flex-start}
-.tc-icon{
-  width:42px;height:42px;border:1px solid var(--border2);flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;font-size:18px;
-  background:var(--bk2);
-}
+.tc-icon{width:42px;height:42px;border:1px solid var(--border2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px;background:var(--bk2)}
 .tc-content{flex:1;min-width:0}
 .tc-name{font-size:14px;font-weight:600;color:var(--w);line-height:1.3}
 .tc-desc{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.4}
@@ -291,489 +157,489 @@ canvas{display:block;width:100%!important}
 .tag-penalty{color:var(--red);border-color:rgba(229,57,53,.3);background:var(--red-l)}
 .tag-dur{color:var(--blue);border-color:rgba(26,111,232,.3);background:var(--blue-l)}
 .tag-cat{color:var(--muted);border-color:var(--border2)}
-.tag-pri-h{color:var(--red);border-color:rgba(229,57,53,.3)}
-.tag-pri-m{color:var(--gold);border-color:rgba(212,160,23,.3)}
-.tag-pri-l{color:var(--green);border-color:rgba(0,200,83,.3)}
+.tag-ph{color:var(--red);border-color:rgba(229,57,53,.3)}.tag-pm{color:var(--gold);border-color:rgba(212,160,23,.3)}.tag-pl{color:var(--green);border-color:rgba(0,200,83,.3)}
 .tag-done{color:var(--green);border-color:rgba(0,200,83,.3);background:var(--green-l)}
 .tag-locked{color:var(--muted);border-color:var(--border)}
 .tag-paused{color:var(--gold);border-color:rgba(212,160,23,.3)}
-
-/* Timer */
 .tc-timer{padding:0 14px 12px 16px}
 .timer-track{height:3px;background:var(--bk5);overflow:hidden;margin-bottom:8px}
 .timer-fill{height:100%;background:var(--blue);transition:width .6s linear}
-.timer-fill.paused{background:var(--gold)}
-.timer-fill.done{background:var(--green)}
+.timer-fill.paused-f{background:var(--gold)}.timer-fill.done-f{background:var(--green)}
 .timer-info{display:flex;justify-content:space-between;align-items:center}
-.timer-remaining{font-size:13px;font-weight:700;color:var(--w);font-variant-numeric:tabular-nums;letter-spacing:.5px}
-.timer-pct{font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums}
-
-/* Task actions */
+.timer-rem{font-size:13px;font-weight:700;color:var(--w);font-variant-numeric:tabular-nums;letter-spacing:.5px}
+.timer-pct{font-size:10px;color:var(--muted)}
 .tc-actions{display:flex;border-top:1px solid var(--border)}
-.tca{
-  flex:1;padding:13px 10px;font-size:10px;font-weight:700;
-  letter-spacing:1px;text-transform:uppercase;
-  display:flex;align-items:center;justify-content:center;gap:5px;
-  cursor:pointer;transition:background .15s;border-left:1px solid var(--border);
-}
-.tca:first-child{border-left:none}
-.tca:active{background:var(--bk4)}
-.tca-start{color:var(--blue)}
-.tca-pause{color:var(--gold)}
-.tca-cancel{color:var(--red)}
-.tca-delete{color:var(--muted);flex:0;min-width:52px}
-.tca-resume{color:var(--blue)}
+.tca{flex:1;padding:13px 10px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:5px;cursor:pointer;transition:background .15s;border-left:1px solid var(--border)}
+.tca:first-child{border-left:none}.tca:active{background:var(--bk4)}
+.tca-start{color:var(--blue)}.tca-pause{color:var(--gold)}.tca-cancel{color:var(--red)}
+.tca-delete{color:var(--muted);flex:0;min-width:52px}.tca-resume{color:var(--blue)}
+.tc-msg{padding:11px 16px;font-size:10px;letter-spacing:.5px;border-top:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.tc-msg.msg-done{color:var(--green);border-top-color:rgba(0,200,83,.15);background:rgba(0,200,83,.03)}
+.tc-msg.msg-locked{color:var(--muted);background:var(--bk2)}
+.tc-msg.msg-paused{color:var(--gold);border-top-color:rgba(212,160,23,.15)}
+.fab{position:fixed;bottom:calc(var(--nav)+20px);left:50%;transform:translateX(-50%);width:52px;height:52px;background:var(--w);color:var(--bk);font-size:26px;font-weight:200;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(255,255,255,.12);z-index:98;cursor:pointer;border:none;transition:transform .2s}
+.fab:active{transform:translateX(-50%) scale(.91)}
 
-.tc-status-msg{
-  padding:11px 16px;
-  font-size:10px;letter-spacing:.5px;
-  border-top:1px solid var(--border);
-  display:flex;align-items:center;gap:8px;
-}
-.tc-status-msg.msg-done{color:var(--green);border-top-color:rgba(0,200,83,.15);background:rgba(0,200,83,.03)}
-.tc-status-msg.msg-locked{color:var(--muted);background:var(--bk2)}
-.tc-status-msg.msg-paused{color:var(--gold);border-top-color:rgba(212,160,23,.15)}
-
-/* FAB */
-.fab{
-  position:fixed;bottom:calc(var(--nav) + 20px);
-  left:50%;transform:translateX(-50%);
-  width:52px;height:52px;
-  background:var(--w);color:var(--bk);
-  font-size:26px;font-weight:200;line-height:1;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 6px 24px rgba(255,255,255,.12);
-  z-index:98;cursor:pointer;border:none;
-  transition:transform .2s,box-shadow .2s;
-}
-.fab:active{transform:translateX(-50%) scale(.91);box-shadow:0 2px 8px rgba(255,255,255,.08)}
-
-/* ═══════════════════════════════════════
+/* ════════════════════════════════
    UPGRADES PAGE
-═══════════════════════════════════════ */
+════════════════════════════════ */
 .up-header{padding:20px 20px 16px;border-bottom:1px solid var(--border);background:var(--bk1)}
 .up-header h2{font-size:28px;font-weight:200;letter-spacing:-.5px}
 .up-header p{font-size:11px;color:var(--muted);margin-top:4px}
-
-.level-hero{
-  padding:20px;border-bottom:1px solid var(--border);
-  background:var(--bk1);
-}
+.level-hero{padding:20px;border-bottom:1px solid var(--border);background:var(--bk1)}
 .lh-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
-.lh-left{}
 .lh-name{font-size:18px;font-weight:300;color:var(--w)}
-.lh-badge{
-  display:inline-block;font-size:8px;font-weight:700;
-  letter-spacing:1.8px;text-transform:uppercase;
-  color:var(--gold);border:1px solid rgba(212,160,23,.3);
-  padding:3px 9px;margin-top:6px;
-}
-.lh-xp{font-size:10px;color:var(--muted);margin-top:4px;font-variant-numeric:tabular-nums}
-.lh-icon{
-  width:60px;height:60px;border:1px solid var(--border2);
-  display:flex;align-items:center;justify-content:center;font-size:28px;
-  background:var(--bk2);
-}
-.lh-track{height:2px;background:var(--bk5)}
-.lh-fill{height:100%;background:linear-gradient(90deg,var(--gold),rgba(212,160,23,.5));transition:width .8s ease}
-.lh-meta{display:flex;justify-content:space-between;font-size:9px;color:var(--muted2);margin-top:6px;letter-spacing:.5px}
-
-/* Achievements grid */
-.ach-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:1px;background:var(--border);
-  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
-}
-.ach-cell{
-  background:var(--bk);padding:14px 8px;text-align:center;
-  cursor:pointer;transition:background .15s;
-}
-.ach-cell:active{background:var(--bk3)}
-.ach-cell.locked-ach{opacity:.2;filter:grayscale(1)}
-.ach-icon{font-size:22px;margin-bottom:5px}
-.ach-name{font-size:8px;color:var(--muted);letter-spacing:.5px;line-height:1.3}
+.lh-badge{display:inline-block;font-size:8px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(212,160,23,.3);padding:3px 9px;margin-top:6px}
+.lh-xp{font-size:10px;color:var(--muted);margin-top:4px}
+.lh-icon{width:60px;height:60px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:28px;background:var(--bk2)}
+.lh-track{height:2px;background:var(--bk5)}.lh-fill{height:100%;background:linear-gradient(90deg,var(--gold),rgba(212,160,23,.5));transition:width .8s ease}
+.lh-meta{display:flex;justify-content:space-between;font-size:9px;color:var(--muted2);margin-top:6px}
+.ach-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.ach-cell{background:var(--bk);padding:14px 8px;text-align:center;cursor:pointer;transition:background .15s}
+.ach-cell:active{background:var(--bk3)}.ach-cell.locked-ach{opacity:.2;filter:grayscale(1)}
+.ach-icon{font-size:22px;margin-bottom:5px}.ach-name{font-size:8px;color:var(--muted);letter-spacing:.5px;line-height:1.3}
 .ach-cell.earned .ach-name{color:var(--gold)}
-.ach-cell.earned .ach-icon{filter:drop-shadow(0 0 6px rgba(212,160,23,.5))}
-
-/* Levels */
 .levels-list{padding:0 20px}
 .lv-row{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--border)}
 .lv-row:last-child{border-bottom:none}
-.lv-dot-col{display:flex;flex-direction:column;align-items:center;width:32px;flex-shrink:0;padding-top:2px}
-.lv-dot{width:32px;height:32px;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .3s}
-.lv-dot.lv-done{border-color:rgba(0,200,83,.4);background:rgba(0,200,83,.05)}
-.lv-dot.lv-current{border-color:var(--w);background:var(--w)}
-.lv-dot.lv-locked{border-color:var(--bk5);opacity:.3}
+.lv-dc{display:flex;flex-direction:column;align-items:center;width:32px;flex-shrink:0;padding-top:2px}
+.lv-dot{width:32px;height:32px;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:14px}
+.lv-dot.lv-done{border-color:rgba(0,200,83,.4);background:rgba(0,200,83,.05)}.lv-dot.lv-curr{border-color:var(--w);background:var(--w)}.lv-dot.lv-lock{border-color:var(--bk5);opacity:.3}
 .lv-line{width:1px;height:22px;background:var(--border);margin:3px 0}
 .lv-info{flex:1;padding-top:4px}
 .lv-info strong{font-size:13px;font-weight:500;color:var(--w);display:block}
-.lv-info span{font-size:10px;color:var(--muted);margin-top:2px;display:block;font-variant-numeric:tabular-nums}
-.lv-status{
-  font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
-  padding:2px 7px;border:1px solid;align-self:flex-start;margin-top:5px;flex-shrink:0;
-}
-.lv-s-done{color:var(--green);border-color:rgba(0,200,83,.3)}
-.lv-s-current{color:var(--w);border-color:rgba(255,255,255,.3)}
-.lv-s-locked{color:var(--muted2);border-color:var(--bk5);opacity:.5}
-
-/* Shop */
-.shop-grid{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:1px;background:var(--border);
-  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
-}
-.shop-card{
-  background:var(--bk);padding:18px 14px;
-  cursor:pointer;transition:background .15s;position:relative;overflow:hidden;
-}
-.shop-card:active{background:var(--bk3)}
-.shop-card.owned{background:rgba(0,200,83,.03);border-bottom:none}
-.shop-card.cant-afford{opacity:.5}
-.owned-badge{
-  position:absolute;top:10px;right:10px;
-  font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
-  color:var(--green);border:1px solid rgba(0,200,83,.3);padding:2px 6px;
-}
-.shop-icon{font-size:26px;margin-bottom:10px}
-.shop-name{font-size:12px;font-weight:700;color:var(--w);margin-bottom:3px}
+.lv-info span{font-size:10px;color:var(--muted);margin-top:2px;display:block}
+.lv-status{font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border:1px solid;align-self:flex-start;margin-top:5px;flex-shrink:0}
+.lvs-done{color:var(--green);border-color:rgba(0,200,83,.3)}.lvs-curr{color:var(--w);border-color:rgba(255,255,255,.3)}.lvs-lock{color:var(--muted2);border-color:var(--bk5);opacity:.5}
+.shop-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.shop-card{background:var(--bk);padding:18px 14px;cursor:pointer;transition:background .15s;position:relative;overflow:hidden}
+.shop-card:active{background:var(--bk3)}.shop-card.owned{background:rgba(0,200,83,.03)}.shop-card.cant-afford{opacity:.5}
+.owned-badge{position:absolute;top:10px;right:10px;font-size:8px;font-weight:700;letter-spacing:1px;color:var(--green);border:1px solid rgba(0,200,83,.3);padding:2px 6px;text-transform:uppercase}
+.shop-icon{font-size:26px;margin-bottom:10px}.shop-name{font-size:12px;font-weight:700;color:var(--w);margin-bottom:3px}
 .shop-desc{font-size:10px;color:var(--muted);line-height:1.45;margin-bottom:10px}
-.shop-price{
-  font-size:9px;font-weight:700;letter-spacing:.5px;
-  padding:3px 8px;border:1px solid;display:inline-block;
-}
-.sp-owned{color:var(--green);border-color:rgba(0,200,83,.3)}
-.sp-buy{color:var(--blue);border-color:rgba(26,111,232,.3)}
-.sp-no{color:var(--muted);border-color:var(--border)}
+.shop-price{font-size:9px;font-weight:700;letter-spacing:.5px;padding:3px 8px;border:1px solid;display:inline-block}
+.sp-owned{color:var(--green);border-color:rgba(0,200,83,.3)}.sp-buy{color:var(--blue);border-color:rgba(26,111,232,.3)}.sp-no{color:var(--muted);border-color:var(--border)}
 
-/* ═══════════════════════════════════════
+/* ════════════════════════════════
    CONTACT PAGE
-═══════════════════════════════════════ */
+════════════════════════════════ */
 .contact-header{padding:22px 20px 18px;border-bottom:1px solid var(--border);background:var(--bk1)}
 .contact-header h2{font-size:28px;font-weight:200;letter-spacing:-.5px}
 .contact-header p{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.5}
-
-.info-banner{
-  margin:14px 20px;padding:14px 16px;
-  border:1px solid rgba(26,111,232,.25);
-  background:var(--blue-l);
-}
+.info-banner{margin:14px 20px;padding:14px 16px;border:1px solid rgba(26,111,232,.25);background:var(--blue-l)}
 .ib-title{font-size:9px;font-weight:700;color:var(--blue);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
 .ib-text{font-size:11px;color:var(--muted);line-height:1.6}
-
-.agent-card{
-  margin:0 20px 12px;
-  border:1px solid var(--border2);background:var(--bk1);overflow:hidden;
-}
+.agent-card{margin:0 20px 12px;border:1px solid var(--border2);background:var(--bk1);overflow:hidden}
 .agent-card.online{border-color:rgba(0,200,83,.3)}
 .agent-top{display:flex;align-items:center;gap:12px;padding:16px 16px 12px}
-.agent-avatar{
-  width:50px;height:50px;border:1.5px solid var(--border2);
-  display:flex;align-items:center;justify-content:center;
-  font-size:22px;flex-shrink:0;background:var(--bk2);position:relative;
-}
-.agent-online-dot{
-  position:absolute;bottom:2px;right:2px;
-  width:10px;height:10px;border-radius:50%;
-  background:var(--green);border:2px solid var(--bk1);
-}
-.agent-offline-dot{
-  position:absolute;bottom:2px;right:2px;
-  width:10px;height:10px;border-radius:50%;
-  background:var(--muted2);border:2px solid var(--bk1);
-}
+.agent-av{width:50px;height:50px;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;background:var(--bk2);position:relative}
+.online-dot{position:absolute;bottom:2px;right:2px;width:10px;height:10px;border-radius:50%;background:var(--green);border:2px solid var(--bk1)}
 .agent-info{flex:1}
 .agent-name{font-size:14px;font-weight:600;color:var(--w)}
 .agent-role{font-size:10px;color:var(--muted);margin-top:2px}
-.agent-status-tag{
-  display:inline-block;font-size:8px;font-weight:700;
-  letter-spacing:1px;text-transform:uppercase;
-  padding:2px 7px;border:1px solid;margin-top:5px;
-}
-.ast-online{color:var(--green);border-color:rgba(0,200,83,.3)}
-.ast-offline{color:var(--muted);border-color:var(--border)}
-.agent-stats{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:1px;background:var(--border);border-top:1px solid var(--border);
-}
-.ag-s{background:var(--bk);padding:11px 8px;text-align:center}
-.ag-sv{font-size:13px;font-weight:700;color:var(--w)}
-.ag-sl{font-size:8px;color:var(--muted);letter-spacing:.8px;text-transform:uppercase;margin-top:2px}
-
-.signal-btn{
-  display:flex;align-items:center;gap:12px;
-  padding:16px;border-top:1px solid var(--border);
-  cursor:pointer;transition:background .15s;text-decoration:none;
-  background:rgba(26,111,232,.05);
-}
+.ast{display:inline-block;font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border:1px solid;margin-top:5px}
+.ast.on{color:var(--green);border-color:rgba(0,200,83,.3)}
+.agent-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-top:1px solid var(--border)}
+.ags{background:var(--bk);padding:11px 8px;text-align:center}
+.ags-v{font-size:13px;font-weight:700;color:var(--w)}.ags-l{font-size:8px;color:var(--muted);letter-spacing:.8px;text-transform:uppercase;margin-top:2px}
+.signal-btn{display:flex;align-items:center;gap:12px;padding:16px;border-top:1px solid var(--border);cursor:pointer;transition:background .15s;background:rgba(26,111,232,.05)}
 .signal-btn:active{background:rgba(26,111,232,.12)}
-.signal-icon-box{
-  width:44px;height:44px;background:var(--blue);
-  display:flex;align-items:center;justify-content:center;
-  font-size:20px;flex-shrink:0;
-}
+.signal-icon-box{width:44px;height:44px;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 .signal-text{flex:1}
 .signal-text strong{display:block;font-size:13px;font-weight:600;color:var(--w)}
 .signal-text small{display:block;font-size:10px;color:var(--muted);margin-top:2px}
 .signal-arrow{font-size:18px;color:var(--muted);flex-shrink:0}
-
-.why-signal{margin:0 20px 12px;border:1px solid var(--border)}
-.ws-item{
-  display:flex;align-items:center;gap:12px;
-  padding:13px 14px;border-top:1px solid var(--border);
-}
-.ws-item:first-child{border-top:none}
-.ws-icon{width:32px;height:32px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;background:var(--bk2)}
-.ws-text strong{display:block;font-size:12px;font-weight:500;color:var(--w)}
-.ws-text small{display:block;font-size:10px;color:var(--muted);margin-top:1px}
-
+.why-grid{margin:0 20px 12px;border:1px solid var(--border)}
+.why-row{display:flex;align-items:center;gap:12px;padding:13px 14px;border-top:1px solid var(--border)}
+.why-row:first-child{border-top:none}
+.why-ico{width:32px;height:32px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;background:var(--bk2)}
+.why-txt strong{display:block;font-size:12px;font-weight:500;color:var(--w)}
+.why-txt small{display:block;font-size:10px;color:var(--muted);margin-top:1px}
 .faq-wrap{margin:0 20px 16px}
 .faq-card{border:1px solid var(--border);margin-bottom:6px;overflow:hidden}
-.faq-q{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:13px 14px;cursor:pointer;transition:background .15s;
-}
-.faq-q:active{background:var(--bk3)}
-.faq-q-text{font-size:12px;font-weight:500;color:var(--w)}
-.faq-chevron{font-size:14px;color:var(--muted);transition:transform .2s;flex-shrink:0}
-.faq-q.open .faq-chevron{transform:rotate(90deg);color:var(--w)}
-.faq-answer{
-  display:none;padding:12px 14px;
-  font-size:11px;color:var(--muted);line-height:1.65;
-  border-top:1px solid var(--border);background:var(--bk1);
-}
-.faq-answer.visible{display:block}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:13px 14px;cursor:pointer;transition:background .15s}
+.faq-q:active{background:var(--bk3)}.faq-q-txt{font-size:12px;font-weight:500;color:var(--w)}
+.faq-chev{font-size:14px;color:var(--muted);transition:transform .2s;flex-shrink:0}
+.faq-q.open .faq-chev{transform:rotate(90deg);color:var(--w)}
+.faq-ans{display:none;padding:12px 14px;font-size:11px;color:var(--muted);line-height:1.65;border-top:1px solid var(--border);background:var(--bk1)}
+.faq-ans.visible{display:block}
 
-/* ═══════════════════════════════════════
-   ACCOUNT PAGE
-═══════════════════════════════════════ */
-.acc-header{
-  padding:26px 20px 22px;border-bottom:1px solid var(--border);
-  background:linear-gradient(180deg,var(--bk2) 0%,var(--bk) 100%);
-}
-.acc-avatar-wrap{
-  width:72px;height:72px;border:1.5px solid var(--border2);
-  display:flex;align-items:center;justify-content:center;
-  font-size:32px;cursor:pointer;position:relative;
-  background:var(--bk2);margin-bottom:14px;transition:border-color .2s;
-}
-.acc-avatar-wrap:active{border-color:var(--border3)}
-.acc-edit-pin{
-  position:absolute;bottom:-1px;right:-1px;
-  width:22px;height:22px;background:var(--bk);
-  border:1px solid var(--border2);
-  display:flex;align-items:center;justify-content:center;font-size:10px;
-}
+/* ════════════════════════════════
+   ACCOUNT PAGE — BASE
+════════════════════════════════ */
+.acc-header{padding:26px 20px 22px;border-bottom:1px solid var(--border);background:linear-gradient(180deg,var(--bk2) 0%,var(--bk) 100%)}
+.acc-av-wrap{width:72px;height:72px;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:32px;cursor:pointer;position:relative;background:var(--bk2);margin-bottom:14px}
+.acc-edit-pin{position:absolute;bottom:-1px;right:-1px;width:22px;height:22px;background:var(--bk);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:10px}
 .acc-name{font-size:24px;font-weight:200;color:var(--w);letter-spacing:-.5px}
 .acc-email{font-size:11px;color:var(--muted);margin-top:4px}
-.acc-tier{
-  display:inline-flex;align-items:center;gap:6px;
-  margin-top:10px;font-size:9px;font-weight:700;
-  letter-spacing:1.8px;text-transform:uppercase;
-  color:var(--gold);border:1px solid rgba(212,160,23,.3);padding:4px 12px;
-}
-.acc-kpi{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:1px;background:var(--border);border:1px solid var(--border);margin-top:18px;
-}
+.acc-tier{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:9px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(212,160,23,.3);padding:4px 12px}
+.acc-kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:18px}
 .ak{background:var(--bk);padding:12px 6px;text-align:center}
 .ak strong{display:block;font-size:17px;font-weight:700;color:var(--w);font-variant-numeric:tabular-nums}
 .ak span{display:block;font-size:8px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:3px}
-
 .level-progress{padding:16px 20px;border-bottom:1px solid var(--border)}
 .lp-row{display:flex;justify-content:space-between;font-size:10px;margin-bottom:7px}
-.lp-label{color:var(--muted);letter-spacing:.5px}
-.lp-val{color:var(--gold);font-weight:700}
-.lp-track{height:1.5px;background:var(--bk5)}
-.lp-fill{height:100%;background:linear-gradient(90deg,var(--gold),rgba(212,160,23,.4))}
+.lp-label{color:var(--muted)}.lp-val{color:var(--gold);font-weight:700}
+.lp-track{height:1.5px;background:var(--bk5)}.lp-fill{height:100%;background:linear-gradient(90deg,var(--gold),rgba(212,160,23,.4))}
 .lp-sub{display:flex;justify-content:space-between;font-size:9px;color:var(--muted2);margin-top:5px}
-
-.menu-group{margin-bottom:0}
-.menu-group-title{padding:14px 20px 8px;font-size:9px;font-weight:700;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
-.menu-row{
-  display:flex;align-items:center;gap:12px;
-  padding:14px 20px;border-top:1px solid var(--border);
-  cursor:pointer;transition:background .15s;
-}
-.menu-row:first-of-type{border-top:none}
+.menu-grp-title{padding:14px 20px 8px;font-size:9px;font-weight:700;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
+.menu-row{display:flex;align-items:center;gap:12px;padding:14px 20px;border-top:1px solid var(--border);cursor:pointer;transition:background .15s}
 .menu-row:active{background:var(--bk2)}
-.menu-icon{
-  width:34px;height:34px;border:1px solid var(--border2);
-  display:flex;align-items:center;justify-content:center;
-  font-size:15px;flex-shrink:0;background:var(--bk2);
-}
-.menu-text{flex:1}
-.menu-text strong{display:block;font-size:13px;font-weight:500;color:var(--w)}
-.menu-text small{display:block;font-size:10px;color:var(--muted);margin-top:1px}
-.menu-arrow{font-size:18px;color:var(--muted2)}
-.menu-chip{font-size:9px;font-weight:700;letter-spacing:.5px;color:var(--blue);border:1px solid rgba(26,111,232,.3);padding:2px 7px}
-.menu-chip.chip-red{color:var(--red);border-color:rgba(229,57,53,.3)}
-
-/* Toggle switch */
-.toggle{
-  width:44px;height:24px;border:1.5px solid var(--border2);
-  position:relative;cursor:pointer;transition:all .3s;flex-shrink:0;
-}
+.m-ico{width:34px;height:34px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;background:var(--bk2)}
+.m-txt{flex:1}
+.m-txt strong{display:block;font-size:13px;font-weight:500;color:var(--w)}
+.m-txt small{display:block;font-size:10px;color:var(--muted);margin-top:1px}
+.m-arr{font-size:18px;color:var(--muted2)}
+.m-chip{font-size:9px;font-weight:700;letter-spacing:.5px;color:var(--blue);border:1px solid rgba(26,111,232,.3);padding:2px 7px}
+.m-chip.chip-red{color:var(--red);border-color:rgba(229,57,53,.3)}
+.toggle{width:44px;height:24px;border:1.5px solid var(--border2);position:relative;cursor:pointer;transition:all .3s;flex-shrink:0}
 .toggle.on{background:var(--w);border-color:var(--w)}
-.toggle::after{
-  content:'';position:absolute;width:16px;height:16px;
-  background:var(--muted2);top:2px;right:2px;transition:all .3s;
-}
+.toggle::after{content:'';position:absolute;width:16px;height:16px;background:var(--muted2);top:2px;right:2px;transition:all .3s}
 .toggle.on::after{background:var(--bk);right:calc(100% - 18px)}
-
-.logout-btn{
-  width:calc(100% - 40px);margin:16px 20px;
-  padding:14px;background:transparent;
-  border:1px solid rgba(229,57,53,.25);
-  color:var(--red);font-size:11px;font-weight:700;
-  letter-spacing:1.5px;text-transform:uppercase;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  cursor:pointer;transition:all .2s;
-}
+.logout-btn{width:calc(100% - 40px);margin:16px 20px;padding:14px;background:transparent;border:1px solid rgba(229,57,53,.25);color:var(--red);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:all .2s}
 .logout-btn:active{background:rgba(229,57,53,.07)}
 
-/* ═══════════════════════════════════════
-   MODALS
-═══════════════════════════════════════ */
-.overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,.88);
-  z-index:500;display:none;align-items:flex-end;
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+/* ════════════════════════════════
+   SECURITY & CONTRACT SECTION
+════════════════════════════════ */
+.sec-contract{margin:0 20px 12px}
+
+/* Header card */
+.sc-header-card{
+  background:linear-gradient(135deg,#0A1628 0%,#0D1F3A 50%,#0A1628 100%);
+  border:1px solid rgba(26,111,232,.3);
+  padding:20px;margin-bottom:1px;
+  position:relative;overflow:hidden;
 }
+.sc-header-card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at top right,rgba(26,111,232,.15) 0%,transparent 60%);
+  pointer-events:none;
+}
+.sc-header-card::after{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--blue),transparent);
+}
+.sc-hdr-top{display:flex;align-items:center;gap:12px;position:relative;z-index:1}
+.sc-shield-ico{
+  width:48px;height:48px;
+  background:linear-gradient(135deg,rgba(26,111,232,.2),rgba(26,111,232,.05));
+  border:1px solid rgba(26,111,232,.4);
+  display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;
+}
+.sc-hdr-info{}
+.sc-hdr-title{font-size:15px;font-weight:700;color:var(--w);letter-spacing:.3px}
+.sc-hdr-sub{font-size:10px;color:rgba(26,111,232,.9);margin-top:3px;letter-spacing:.5px}
+.sc-verified-row{display:flex;align-items:center;gap:8px;margin-top:14px;position:relative;z-index:1}
+.sc-verified-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(0,200,83,.1);border:1px solid rgba(0,200,83,.3);
+  padding:4px 10px;font-size:9px;font-weight:700;
+  color:var(--green);letter-spacing:1px;text-transform:uppercase;
+}
+.sc-nyse-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(212,160,23,.1);border:1px solid rgba(212,160,23,.3);
+  padding:4px 10px;font-size:9px;font-weight:700;
+  color:var(--gold);letter-spacing:1px;text-transform:uppercase;
+}
+
+/* Registration info row */
+.sc-reg-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:rgba(26,111,232,.15);
+  border:1px solid rgba(26,111,232,.2);
+  margin-bottom:1px;
+}
+.sc-reg-cell{
+  background:linear-gradient(180deg,#0A1628,#080F1E);
+  padding:14px 14px;
+}
+.sc-reg-label{font-size:8px;font-weight:700;color:rgba(26,111,232,.8);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px}
+.sc-reg-val{font-size:13px;font-weight:700;color:var(--w);letter-spacing:.3px;font-variant-numeric:tabular-nums}
+.sc-reg-sub{font-size:9px;color:var(--muted);margin-top:2px}
+
+/* Encryption block */
+.sc-encrypt-card{
+  background:linear-gradient(135deg,#0A1A0A,#081408);
+  border:1px solid rgba(0,200,83,.25);
+  padding:16px;margin-bottom:1px;
+}
+.sc-enc-title{font-size:9px;font-weight:700;color:var(--green);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.sc-enc-title::before{content:'';width:16px;height:1px;background:var(--green)}
+.sc-enc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sc-enc-item{
+  background:rgba(0,200,83,.05);border:1px solid rgba(0,200,83,.15);
+  padding:12px;text-align:center;
+}
+.sc-enc-ico{font-size:20px;margin-bottom:6px}
+.sc-enc-val{font-size:12px;font-weight:700;color:var(--green);letter-spacing:.5px;margin-bottom:2px}
+.sc-enc-lbl{font-size:9px;color:var(--muted);letter-spacing:.5px}
+
+/* Contract block */
+.sc-contract-card{
+  background:linear-gradient(135deg,#1A1000,#120C00);
+  border:1px solid rgba(212,160,23,.3);
+  padding:16px;margin-bottom:1px;
+  position:relative;overflow:hidden;
+}
+.sc-contract-card::after{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.sc-contract-title{font-size:9px;font-weight:700;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:6px}
+.sc-contract-title::before{content:'🇩🇿';font-size:14px}
+.sc-contract-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(212,160,23,.15);border:1px solid rgba(212,160,23,.2);margin-bottom:14px}
+.sc-cg-cell{background:linear-gradient(180deg,#1A1000,#100B00);padding:12px 8px;text-align:center}
+.sc-cg-val{font-size:13px;font-weight:700;color:var(--gold);margin-bottom:3px}
+.sc-cg-lbl{font-size:8px;color:var(--muted);letter-spacing:.8px;text-transform:uppercase}
+.sc-timeline{display:flex;align-items:center;gap:0;margin-bottom:14px}
+.sc-tl-dot{width:10px;height:10px;border-radius:50%;background:var(--green);flex-shrink:0}
+.sc-tl-line{flex:1;height:2px;background:linear-gradient(90deg,var(--green),var(--gold))}
+.sc-tl-dot-end{width:10px;height:10px;border-radius:50%;border:2px solid var(--gold);flex-shrink:0}
+.sc-tl-labels{display:flex;justify-content:space-between;font-size:9px;margin-bottom:14px}
+.sc-tl-labels span{color:var(--muted)}
+.sc-tl-labels span:first-child{color:var(--green)}.sc-tl-labels span:last-child{color:var(--gold)}
+.sc-progress-bar{height:4px;background:rgba(212,160,23,.15);border-radius:0;overflow:hidden;margin-bottom:14px}
+.sc-progress-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--gold));width:48%}
+
+/* Official contract text */
+.sc-official-text{
+  background:rgba(0,0,0,.4);
+  border:1px solid rgba(255,255,255,.08);
+  border-right:3px solid var(--gold);
+  padding:14px;
+  position:relative;
+}
+.sc-official-label{font-size:8px;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
+.sc-official-body{font-size:11px;color:var(--w3);line-height:1.7;letter-spacing:.2px}
+.sc-official-body em{color:var(--gold);font-style:normal;font-weight:700}
+
+/* Signature block */
+.sc-signature-block{
+  background:rgba(0,0,0,.6);
+  border:1px solid rgba(255,255,255,.08);
+  padding:16px;margin-top:1px;
+  display:flex;align-items:flex-end;justify-content:space-between;
+}
+.sc-sig-left{}
+.sc-sig-name{font-size:22px;color:rgba(255,255,255,.7);margin-bottom:4px;font-family:'Brush Script MT','Dancing Script',cursive;letter-spacing:1px}
+.sc-sig-line{width:120px;height:1px;background:rgba(255,255,255,.3);margin-bottom:6px}
+.sc-sig-label{font-size:9px;color:var(--muted);letter-spacing:.5px}
+.sc-sig-date{font-size:9px;color:var(--muted);text-align:right}
+.sc-sig-seal{
+  width:52px;height:52px;border-radius:50%;
+  border:2px solid rgba(212,160,23,.4);
+  background:rgba(212,160,23,.08);
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;
+  box-shadow:0 0 20px rgba(212,160,23,.1),inset 0 0 20px rgba(212,160,23,.05);
+}
+
+/* Fund security */
+.sc-fund-card{
+  background:linear-gradient(135deg,#000510,#000A1E);
+  border:1px solid rgba(26,111,232,.25);
+  padding:14px;margin-bottom:1px;
+}
+.sc-fund-row{display:flex;align-items:center;gap:12px}
+.sc-fund-icon{
+  width:38px;height:38px;background:rgba(0,200,83,.1);
+  border:1px solid rgba(0,200,83,.3);
+  display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;
+}
+.sc-fund-info{flex:1}
+.sc-fund-title{font-size:12px;font-weight:700;color:var(--w)}
+.sc-fund-sub{font-size:10px;color:var(--muted);margin-top:2px}
+.sc-fund-badge{
+  font-size:9px;font-weight:700;letter-spacing:.5px;
+  color:var(--green);border:1px solid rgba(0,200,83,.3);
+  padding:3px 8px;flex-shrink:0;
+}
+
+/* ════════════════════════════════
+   ABOUT COMPANY SECTION
+════════════════════════════════ */
+.about-section{margin:0 20px 12px}
+
+.about-company-card{
+  background:linear-gradient(160deg,#0A0A0A,#141414);
+  border:1px solid var(--border2);
+  overflow:hidden;
+}
+
+/* Company profile header */
+.about-profile-hdr{
+  background:linear-gradient(135deg,#000,#0A0A0A);
+  padding:20px 18px;
+  border-bottom:1px solid var(--border);
+  position:relative;
+}
+.about-profile-hdr::after{
+  content:'';position:absolute;
+  bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);
+}
+.about-eyebrow{font-size:8px;font-weight:700;color:var(--muted);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:10px}
+.about-logo-row{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.about-logo-sq{
+  width:52px;height:52px;background:var(--w);
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;font-weight:900;color:var(--bk);flex-shrink:0;
+}
+.about-company-name{font-size:22px;font-weight:200;color:var(--w);letter-spacing:-.3px}
+.about-company-full{font-size:11px;color:var(--muted);margin-top:2px}
+.about-badges-row{display:flex;gap:6px;flex-wrap:wrap}
+.about-badge{font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border:1px solid}
+.ab-verified{color:var(--green);border-color:rgba(0,200,83,.35);background:rgba(0,200,83,.06)}
+.ab-nyse{color:var(--gold);border-color:rgba(212,160,23,.35);background:rgba(212,160,23,.06)}
+.ab-sec{color:var(--blue);border-color:rgba(26,111,232,.35);background:rgba(26,111,232,.06)}
+
+/* About description */
+.about-desc{
+  padding:16px 18px;
+  border-bottom:1px solid var(--border);
+  font-size:12px;color:rgba(255,255,255,.75);
+  line-height:1.75;letter-spacing:.2px;
+}
+.about-desc em{color:var(--w);font-style:normal;font-weight:600}
+
+/* Company stats grid */
+.about-stats-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:var(--border);
+  border-bottom:1px solid var(--border);
+}
+.about-stat-cell{
+  background:var(--bk1);padding:16px 14px;
+}
+.asc-val{font-size:24px;font-weight:200;color:var(--w);letter-spacing:-1px;margin-bottom:4px}
+.asc-label{font-size:9px;font-weight:700;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase}
+.asc-val.blue{color:var(--blue)}.asc-val.green{color:var(--green)}.asc-val.gold{color:var(--gold)}
+
+/* Security grid */
+.about-security{padding:16px 18px;border-bottom:1px solid var(--border)}
+.about-sec-title{font-size:9px;font-weight:700;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
+.about-sec-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.about-sec-item{
+  background:var(--bk2);border:1px solid var(--border);
+  padding:12px;text-align:center;
+}
+.asi-ico{font-size:18px;margin-bottom:6px}
+.asi-val{font-size:12px;font-weight:700;color:var(--w);margin-bottom:2px}
+.asi-lbl{font-size:9px;color:var(--muted);letter-spacing:.5px}
+
+/* Algeria contract mini */
+.about-algeria{
+  padding:16px 18px;
+  border-bottom:1px solid var(--border);
+  background:linear-gradient(135deg,rgba(212,160,23,.03),transparent);
+}
+.aa-title{
+  font-size:9px;font-weight:700;color:var(--gold);
+  letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:12px;display:flex;align-items:center;gap:6px;
+}
+.aa-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.aa-key{font-size:10px;color:var(--muted)}
+.aa-val{font-size:11px;font-weight:700;color:var(--w);letter-spacing:.3px}
+.aa-val.green{color:var(--green)}.aa-val.gold{color:var(--gold)}
+.aa-progress{margin:12px 0;height:3px;background:rgba(212,160,23,.12)}
+.aa-progress-fill{height:100%;width:48%;background:linear-gradient(90deg,var(--green),var(--gold))}
+.aa-contract-text{
+  background:rgba(0,0,0,.4);border-right:2px solid var(--gold);
+  padding:10px 12px;margin-top:12px;
+  font-size:10px;color:rgba(255,255,255,.65);
+  line-height:1.65;
+}
+
+/* Signature in about */
+.about-signature{
+  padding:16px 18px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.sig-left{}
+.sig-handwriting{
+  font-size:26px;
+  color:rgba(255,255,255,.6);
+  font-family:'Brush Script MT','Segoe Script','Comic Sans MS',cursive;
+  line-height:1.2;margin-bottom:4px;
+  letter-spacing:1px;
+}
+.sig-underline{width:110px;height:1px;background:rgba(255,255,255,.25);margin-bottom:5px}
+.sig-name{font-size:9px;color:var(--muted);letter-spacing:.5px}
+.sig-right{text-align:right}
+.sig-seal-circle{
+  width:54px;height:54px;border-radius:50%;
+  border:2px solid rgba(212,160,23,.35);
+  background:radial-gradient(circle,rgba(212,160,23,.1),transparent);
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;
+  box-shadow:0 0 24px rgba(212,160,23,.08);
+}
+.sig-date-txt{font-size:9px;color:var(--muted2);margin-top:6px;text-align:right}
+
+/* ════════════════════════════════
+   MODALS
+════════════════════════════════ */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:500;display:none;align-items:flex-end;backdrop-filter:blur(12px)}
 .overlay.open{display:flex;animation:ovIn .2s ease}
 @keyframes ovIn{from{opacity:0}to{opacity:1}}
-.modal-sheet{
-  background:var(--bk2);border-top:1px solid var(--border2);
-  padding:0 20px 44px;width:100%;max-width:430px;margin:0 auto;
-  animation:sheetUp .32s cubic-bezier(.4,0,.2,1);
-  max-height:92vh;overflow-y:auto;
-}
+.modal-sheet{background:var(--bk2);border-top:1px solid var(--border2);padding:0 20px 44px;width:100%;max-width:430px;margin:0 auto;animation:sheetUp .32s cubic-bezier(.4,0,.2,1);max-height:92vh;overflow-y:auto}
 @keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.modal-handle{width:36px;height:3px;background:var(--bk6);margin:14px auto 20px;border-radius:0}
+.modal-handle{width:36px;height:3px;background:var(--bk6);margin:14px auto 20px}
 .modal-title{font-size:18px;font-weight:300;color:var(--w);letter-spacing:-.3px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border)}
-
 .field{margin-bottom:14px}
 .field label{display:block;font-size:9px;font-weight:700;color:var(--muted);letter-spacing:1.8px;text-transform:uppercase;margin-bottom:7px}
-.field input,.field select,.field textarea{
-  width:100%;background:var(--bk3);border:1px solid var(--border2);
-  padding:13px 14px;color:var(--w);font-size:13px;
-  transition:border-color .2s;
-}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--muted);outline:none}
+.field input,.field select,.field textarea{width:100%;background:var(--bk3);border:1px solid var(--border2);padding:13px 14px;color:var(--w);font-size:13px;transition:border-color .2s}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--muted)}
 .field select option{background:var(--bk2)}
 .field textarea{resize:none}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-
 .pri-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.pri-opt{
-  padding:10px;border:1px solid var(--border2);
-  color:var(--muted);font-size:9px;font-weight:700;
-  letter-spacing:1px;text-transform:uppercase;text-align:center;
-  cursor:pointer;transition:all .2s;
-}
+.pri-opt{padding:10px;border:1px solid var(--border2);color:var(--muted);font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-align:center;cursor:pointer;transition:all .2s}
 .pri-opt.ph{color:var(--red);border-color:rgba(229,57,53,.5);background:rgba(229,57,53,.05)}
 .pri-opt.pm{color:var(--gold);border-color:rgba(212,160,23,.5);background:rgba(212,160,23,.05)}
 .pri-opt.pl{color:var(--green);border-color:rgba(0,200,83,.5);background:rgba(0,200,83,.05)}
-
 .modal-actions{display:flex;gap:8px;margin-top:20px}
-.btn-cancel{
-  flex:1;padding:13px;background:transparent;
-  border:1px solid var(--border2);color:var(--muted);
-  font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;
-  transition:all .2s;cursor:pointer;font-family:inherit;
-}
+.btn-cancel{flex:1;padding:13px;background:transparent;border:1px solid var(--border2);color:var(--muted);font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;cursor:pointer;font-family:inherit}
 .btn-cancel:active{background:var(--bk4)}
-.btn-confirm{
-  flex:2;padding:13px;background:var(--w);
-  border:none;color:var(--bk);font-size:10px;font-weight:700;
-  letter-spacing:1.2px;text-transform:uppercase;
-  transition:opacity .2s;cursor:pointer;font-family:inherit;
-}
+.btn-confirm{flex:2;padding:13px;background:var(--w);border:none;color:var(--bk);font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;cursor:pointer;font-family:inherit}
 .btn-confirm:active{opacity:.8}
 .btn-confirm.btn-red{background:var(--red);color:var(--w)}
-.btn-confirm.btn-gold{background:var(--gold);color:var(--bk)}
-
-/* Penalty Modal */
 .penalty-icon{font-size:52px;text-align:center;margin:10px 0 12px;display:block}
 .penalty-title{font-size:22px;font-weight:200;text-align:center;color:var(--red);margin-bottom:8px;letter-spacing:-.5px}
 .penalty-desc{font-size:12px;color:var(--muted);text-align:center;line-height:1.65;margin-bottom:20px;padding:0 10px}
-.penalty-box{
-  border:1px solid rgba(229,57,53,.25);padding:16px;text-align:center;
-  background:rgba(229,57,53,.04);margin-bottom:16px;
-}
+.penalty-box{border:1px solid rgba(229,57,53,.25);padding:16px;text-align:center;background:rgba(229,57,53,.04);margin-bottom:16px}
 .penalty-box-label{font-size:9px;color:var(--red);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
-.penalty-box-val{font-size:32px;font-weight:700;color:var(--red);font-variant-numeric:tabular-nums}
-
-/* Warning banner */
-.warn-banner{
-  display:none;margin:10px 20px;
-  border:1px solid rgba(229,57,53,.3);
-  background:rgba(229,57,53,.05);padding:12px 14px;
-  flex-direction:row;gap:10px;align-items:flex-start;
-}
+.penalty-box-val{font-size:32px;font-weight:700;color:var(--red)}
+.warn-banner{display:none;margin:10px 20px;border:1px solid rgba(229,57,53,.3);background:rgba(229,57,53,.05);padding:12px 14px;flex-direction:row;gap:10px;align-items:flex-start}
 .warn-banner.show{display:flex}
-.wb-icon{font-size:16px;flex-shrink:0;padding-top:1px}
+.wb-icon{font-size:16px;flex-shrink:0}
 .wb-body strong{font-size:11px;color:var(--red);display:block;margin-bottom:2px}
 .wb-body small{font-size:10px;color:var(--muted);line-height:1.4}
-
-/* Empty state */
 .empty-state{text-align:center;padding:52px 20px;color:var(--muted)}
 .empty-icon{font-size:40px;opacity:.2;margin-bottom:12px}
 .empty-text{font-size:12px;letter-spacing:.5px;margin-bottom:4px}
 .empty-hint{font-size:10px;color:var(--muted2)}
 
-/* ═══════════════════════════════════════
-   BOTTOM NAV
-═══════════════════════════════════════ */
-.bottom-nav{
-  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
-  width:100%;max-width:430px;height:var(--nav);
-  background:rgba(0,0,0,.97);
-  border-top:1px solid var(--border2);
-  display:flex;z-index:200;
-  backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);
-}
-.nav-btn{
-  flex:1;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  gap:4px;cursor:pointer;position:relative;
-  transition:all .2s;border:none;background:none;
-}
+/* ── BOTTOM NAV ── */
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;height:var(--nav);background:rgba(0,0,0,.97);border-top:1px solid var(--border2);display:flex;z-index:200;backdrop-filter:blur(32px)}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;position:relative;transition:all .2s;border:none;background:none}
 .nav-btn:active{opacity:.6}
 .nav-icon{font-size:20px;transition:transform .2s}
-.nav-label{
-  font-size:8px;color:var(--muted);font-weight:700;
-  letter-spacing:1.2px;text-transform:uppercase;transition:color .2s;
-}
+.nav-label{font-size:8px;color:var(--muted);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;transition:color .2s}
 .nav-btn.on .nav-icon{transform:translateY(-2px)}
 .nav-btn.on .nav-label{color:var(--w)}
-.nav-btn.on::after{
-  content:'';position:absolute;bottom:0;
-  left:50%;transform:translateX(-50%);
-  width:16px;height:2px;background:var(--w);
-}
-.nav-pip{
-  position:absolute;top:10px;right:calc(50% - 17px);
-  width:6px;height:6px;border-radius:50%;
-  background:var(--blue);border:1.5px solid var(--bk);display:none;
-}
+.nav-btn.on::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:16px;height:2px;background:var(--w)}
+.nav-pip{position:absolute;top:10px;right:calc(50% - 17px);width:6px;height:6px;border-radius:50%;background:var(--blue);border:1.5px solid var(--bk);display:none}
 
-/* ═══════════════════════════════════════
-   TOAST
-═══════════════════════════════════════ */
-.toast-wrap{
-  position:fixed;bottom:calc(var(--nav) + 20px);
-  left:50%;transform:translateX(-50%) translateY(10px);
-  z-index:9999;pointer-events:none;
-  transition:all .28s cubic-bezier(.4,0,.2,1);
-  opacity:0;min-width:200px;max-width:340px;
-}
+/* ── TOAST ── */
+.toast-wrap{position:fixed;bottom:calc(var(--nav)+20px);left:50%;transform:translateX(-50%) translateY(10px);z-index:9999;pointer-events:none;transition:all .28s cubic-bezier(.4,0,.2,1);opacity:0;min-width:200px;max-width:340px}
 .toast-wrap.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.toast-inner{
-  background:var(--w);color:var(--bk);
-  padding:11px 18px;font-size:12px;font-weight:700;
-  letter-spacing:.2px;text-align:center;
-  box-shadow:0 8px 32px rgba(0,0,0,.7);
-}
+.toast-inner{background:var(--w);color:var(--bk);padding:11px 18px;font-size:12px;font-weight:700;letter-spacing:.2px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.7)}
 .toast-wrap.t-green .toast-inner{background:var(--green);color:var(--w)}
 .toast-wrap.t-red .toast-inner{background:var(--red);color:var(--w)}
 .toast-wrap.t-gold .toast-inner{background:var(--gold);color:var(--bk)}
@@ -781,62 +647,34 @@ canvas{display:block;width:100%!important}
 </head>
 <body>
 
-<!-- ═══════════════════════════════════
-     PAGE 1 — HOME
-═══════════════════════════════════ -->
+<!-- ═══════ PAGE 1: HOME ═══════ -->
 <div id="pg-home" class="page active">
-
   <div class="topbar">
     <div class="logo-wrap">
-      <div class="logo-square">B</div>
-      <div>
-        <div class="logo-name">BlackRock</div>
-        <span class="logo-tag">Task Management</span>
-      </div>
+      <div class="logo-sq">B</div>
+      <div><div class="logo-name">BlackRock</div><span class="logo-tag">Task Management</span></div>
     </div>
     <div class="top-actions">
-      <div class="icon-btn" id="notif-btn" onclick="openNotifPanel()">
-        🔔<span class="notif-pip" id="notif-pip"></span>
-      </div>
+      <div class="icon-btn" id="notif-btn" onclick="openNotifPanel()">🔔<span class="notif-pip" id="notif-pip"></span></div>
       <div class="icon-btn" onclick="go('account')">👤</div>
     </div>
   </div>
-
-  <!-- Hero -->
   <div class="hero-section">
     <div class="hero-eyebrow">إجمالي نقاط الأداء</div>
-    <div class="hero-value" id="h-xp-val"><sup>⭐</sup><span id="h-xp-num">1,250</span></div>
-    <div class="hero-badge green-b" id="h-badge">▲ +85 نقطة هذا الأسبوع</div>
+    <div class="hero-value">⭐ <span id="h-xp-num">1,250</span></div>
+    <div class="hero-badge up" id="h-badge">▲ +85 نقطة هذا الأسبوع</div>
     <div class="hero-metrics">
-      <div class="hm-cell" onclick="go('tasks')">
-        <div class="hm-v" id="hm-done">12</div><div class="hm-l">مكتملة</div>
-      </div>
-      <div class="hm-cell" onclick="go('tasks')">
-        <div class="hm-v" id="hm-pend">5</div><div class="hm-l">متبقية</div>
-      </div>
-      <div class="hm-cell" onclick="go('upgrades')">
-        <div class="hm-v" id="hm-lvl">🏆</div><div class="hm-l">المستوى</div>
-      </div>
-      <div class="hm-cell">
-        <div class="hm-v" id="hm-streak">7🔥</div><div class="hm-l">سلسلة</div>
-      </div>
+      <div class="hm" onclick="go('tasks')"><div class="hm-v" id="hm-done">12</div><div class="hm-l">مكتملة</div></div>
+      <div class="hm" onclick="go('tasks')"><div class="hm-v" id="hm-pend">5</div><div class="hm-l">متبقية</div></div>
+      <div class="hm" onclick="go('upgrades')"><div class="hm-v" id="hm-lvl">🏆</div><div class="hm-l">المستوى</div></div>
+      <div class="hm"><div class="hm-v" id="hm-streak">7🔥</div><div class="hm-l">سلسلة</div></div>
     </div>
   </div>
-
-  <!-- XP Bar -->
   <div class="xp-section">
-    <div class="xp-header">
-      <span class="xp-title">تقدم المستوى</span>
-      <span class="xp-level-tag" id="h-tier-tag">GOLD TIER</span>
-    </div>
+    <div class="xp-header"><span class="xp-title">تقدم المستوى</span><span class="xp-lvl-tag" id="h-tier-tag">GOLD TIER</span></div>
     <div class="xp-track"><div class="xp-progress" id="h-xp-bar" style="width:62.5%"></div></div>
-    <div class="xp-footer">
-      <span id="h-xp-curr">1,250 XP</span>
-      <span id="h-xp-next">Diamond: 2,000 XP</span>
-    </div>
+    <div class="xp-footer"><span id="h-xp-curr">1,250 XP</span><span id="h-xp-next">Diamond: 2,000 XP</span></div>
   </div>
-
-  <!-- Chart -->
   <div class="chart-section">
     <div class="chart-header">
       <span class="chart-title">منحنى الأداء</span>
@@ -848,97 +686,44 @@ canvas{display:block;width:100%!important}
     </div>
     <canvas id="home-chart" height="90"></canvas>
   </div>
-
-  <!-- Streak -->
-  <div class="section-label"><h3>سلسلة الإنجاز</h3></div>
+  <div class="sec-lbl"><h3>سلسلة الإنجاز</h3></div>
   <div class="streak-widget">
     <div class="streak-fire">🔥</div>
     <div class="streak-body">
       <div class="streak-label">CONSECUTIVE DAYS</div>
       <div class="streak-count">7 أيام</div>
       <div class="streak-pips">
-        <div class="pip active"></div><div class="pip active"></div>
-        <div class="pip active"></div><div class="pip active"></div>
-        <div class="pip active"></div><div class="pip active"></div>
+        <div class="pip active"></div><div class="pip active"></div><div class="pip active"></div>
+        <div class="pip active"></div><div class="pip active"></div><div class="pip active"></div>
         <div class="pip current"></div>
       </div>
     </div>
     <div class="streak-best">أعلى سجل<br/><strong style="font-size:16px;color:var(--w)">7</strong></div>
   </div>
-
-  <!-- Quick Actions -->
-  <div class="section-label" style="margin-top:12px"><h3>إجراءات سريعة</h3></div>
+  <div class="sec-lbl" style="margin-top:12px"><h3>إجراءات سريعة</h3></div>
   <div class="qa-grid">
-    <div class="qa-cell" onclick="go('tasks')">
-      <span class="qa-icon">⏱️</span>
-      <div class="qa-text"><div class="qa-name">المهام اليومية</div><div class="qa-hint">DAILY TASKS</div></div>
-    </div>
-    <div class="qa-cell" onclick="go('upgrades')">
-      <span class="qa-icon">⬆️</span>
-      <div class="qa-text"><div class="qa-name">الترقيات</div><div class="qa-hint">UPGRADE STORE</div></div>
-    </div>
-    <div class="qa-cell" onclick="go('contact')">
-      <span class="qa-icon">💬</span>
-      <div class="qa-text"><div class="qa-name">الوكيل</div><div class="qa-hint">LIVE SUPPORT</div></div>
-    </div>
-    <div class="qa-cell" onclick="go('account')">
-      <span class="qa-icon">📊</span>
-      <div class="qa-text"><div class="qa-name">حسابي</div><div class="qa-hint">MY ACCOUNT</div></div>
-    </div>
+    <div class="qa-cell" onclick="go('tasks')"><span class="qa-icon">⏱️</span><div><div class="qa-name">المهام اليومية</div><div class="qa-hint">DAILY TASKS</div></div></div>
+    <div class="qa-cell" onclick="go('upgrades')"><span class="qa-icon">⬆️</span><div><div class="qa-name">الترقيات</div><div class="qa-hint">UPGRADE STORE</div></div></div>
+    <div class="qa-cell" onclick="go('contact')"><span class="qa-icon">💬</span><div><div class="qa-name">الوكيل</div><div class="qa-hint">LIVE SUPPORT</div></div></div>
+    <div class="qa-cell" onclick="go('account')"><span class="qa-icon">📊</span><div><div class="qa-name">حسابي</div><div class="qa-hint">MY ACCOUNT</div></div></div>
   </div>
-
-  <!-- Activity -->
-  <div class="section-label" style="margin-top:12px">
-    <h3>النشاط الأخير</h3>
-    <button onclick="go('tasks')">عرض الكل ›</button>
-  </div>
-  <div class="activity-list" id="home-activity">
-    <!-- rendered by JS -->
-  </div>
-
-  <!-- Tips -->
-  <div class="section-label" style="margin-top:8px">
-    <h3>نصائح BlackRock</h3>
-  </div>
+  <div class="sec-lbl" style="margin-top:12px"><h3>النشاط الأخير</h3><button onclick="go('tasks')">عرض الكل ›</button></div>
+  <div class="activity-list" id="home-activity"></div>
+  <div class="sec-lbl" style="margin-top:8px"><h3>نصائح BlackRock</h3></div>
   <div class="h-scroll">
-    <div class="h-card" onclick="showToast('💡 ابدأ بالأصعب أولاً','t-default')">
-      <div class="hc-tag">إنتاجية</div>
-      <div class="hc-title">أكمل أصعب مهمة في الصباح لتعظيم طاقتك المعرفية</div>
-      <div class="hc-meta">BlackRock Research</div>
-    </div>
-    <div class="h-card" onclick="showToast('⚠️ الإلغاء مكلف — فكّر مرتين','t-default')">
-      <div class="hc-tag">تحذير</div>
-      <div class="hc-title">كل إلغاء يخصم نقاطاً ويقفل المهمة حتى اليوم التالي</div>
-      <div class="hc-meta">BlackRock Policy</div>
-    </div>
-    <div class="h-card" onclick="go('contact')">
-      <div class="hc-tag">دعم</div>
-      <div class="hc-title">تواصل مع وكيلنا عبر Signal للحصول على دعم فوري</div>
-      <div class="hc-meta">BlackRock Support</div>
-    </div>
+    <div class="h-card" onclick="showToast('💡 ابدأ بالأصعب أولاً','t-default')"><div class="hc-tag">إنتاجية</div><div class="hc-title">أكمل أصعب مهمة في الصباح لتعظيم طاقتك المعرفية</div><div class="hc-meta">BlackRock Research</div></div>
+    <div class="h-card" onclick="showToast('⚠️ الإلغاء مكلف','t-default')"><div class="hc-tag">تحذير</div><div class="hc-title">كل إلغاء يخصم نقاطاً ويقفل المهمة حتى اليوم التالي</div><div class="hc-meta">BlackRock Policy</div></div>
+    <div class="h-card" onclick="go('contact')"><div class="hc-tag">دعم</div><div class="hc-title">تواصل مع وكيلنا عبر Signal للحصول على دعم فوري</div><div class="hc-meta">BlackRock Support</div></div>
   </div>
   <div style="height:8px"></div>
 </div>
 
-
-<!-- ═══════════════════════════════════
-     PAGE 2 — TASKS
-═══════════════════════════════════ -->
+<!-- ═══════ PAGE 2: TASKS ═══════ -->
 <div id="pg-tasks" class="page">
-
   <div class="topbar">
-    <div class="logo-wrap">
-      <div class="logo-square">B</div>
-      <div>
-        <div class="logo-name">BlackRock</div>
-        <span class="logo-tag">Daily Tasks</span>
-      </div>
-    </div>
-    <div class="top-actions">
-      <div class="icon-btn" onclick="openAddTaskModal()" style="font-size:22px;font-weight:200">＋</div>
-    </div>
+    <div class="logo-wrap"><div class="logo-sq">B</div><div><div class="logo-name">BlackRock</div><span class="logo-tag">Daily Tasks</span></div></div>
+    <div class="top-actions"><div class="icon-btn" onclick="openAddTaskModal()" style="font-size:22px;font-weight:200">＋</div></div>
   </div>
-
   <div class="tasks-header">
     <h2>المهام اليومية</h2>
     <p id="tasks-subtitle">أكمل المهام واكسب XP — الإلغاء يخصم نقاطاً ويقفل المهمة حتى الغد</p>
@@ -948,17 +733,10 @@ canvas{display:block;width:100%!important}
       <div class="kpi"><div class="kpi-v" id="kpi-pts">0</div><div class="kpi-l">XP اليوم</div></div>
     </div>
   </div>
-
-  <!-- Warning banner -->
   <div class="warn-banner" id="warn-banner">
     <div class="wb-icon">⚠️</div>
-    <div class="wb-body">
-      <strong id="wb-title">تم خصم نقاط</strong>
-      <small id="wb-sub">المهمة مقفلة حتى الغد</small>
-    </div>
+    <div class="wb-body"><strong id="wb-title">تم خصم نقاط</strong><small id="wb-sub">المهمة مقفلة حتى الغد</small></div>
   </div>
-
-  <!-- Filter -->
   <div class="filter-tabs">
     <button class="ftab on" onclick="setFilter('all',this)">الكل</button>
     <button class="ftab" onclick="setFilter('idle',this)">متاحة</button>
@@ -966,259 +744,106 @@ canvas{display:block;width:100%!important}
     <button class="ftab" onclick="setFilter('done',this)">مكتملة</button>
     <button class="ftab" onclick="setFilter('locked',this)">مقفلة</button>
   </div>
-
   <div class="tasks-list" id="tasks-list"></div>
-
-  <button class="fab" onclick="openAddTaskModal()" title="إضافة مهمة">＋</button>
+  <button class="fab" onclick="openAddTaskModal()">＋</button>
 </div>
 
-
-<!-- ═══════════════════════════════════
-     PAGE 3 — UPGRADES
-═══════════════════════════════════ -->
+<!-- ═══════ PAGE 3: UPGRADES ═══════ -->
 <div id="pg-upgrades" class="page">
-
   <div class="topbar">
-    <div class="logo-wrap">
-      <div class="logo-square">B</div>
-      <div>
-        <div class="logo-name">BlackRock</div>
-        <span class="logo-tag">Performance Tiers</span>
-      </div>
-    </div>
-    <div class="top-actions">
-      <div class="icon-btn" onclick="showToast('⭐ رصيدك: '+totalXP.toLocaleString()+' XP','t-default')">⭐</div>
-    </div>
+    <div class="logo-wrap"><div class="logo-sq">B</div><div><div class="logo-name">BlackRock</div><span class="logo-tag">Performance Tiers</span></div></div>
+    <div class="top-actions"><div class="icon-btn" onclick="showToast('⭐ رصيدك: '+totalXP.toLocaleString()+' XP','t-default')">⭐</div></div>
   </div>
-
-  <div class="up-header">
-    <h2>الترقيات</h2>
-    <p>طوّر مستواك واكسب مزايا حصرية</p>
-  </div>
-
-  <!-- Level hero -->
+  <div class="up-header"><h2>الترقيات</h2><p>طوّر مستواك واكسب مزايا حصرية</p></div>
   <div class="level-hero">
     <div class="lh-row">
-      <div class="lh-left">
-        <div class="lh-name" id="lh-username">Ahmed Al-Rashid</div>
-        <div class="lh-badge" id="lh-tier-badge">★ GOLD TIER</div>
-        <div class="lh-xp" id="lh-xp-txt">1,250 / 2,000 XP</div>
-      </div>
+      <div><div class="lh-name">Ahmed Al-Rashid</div><div class="lh-badge" id="lh-tier-badge">★ GOLD TIER</div><div class="lh-xp" id="lh-xp-txt">1,250 / 2,000 XP</div></div>
       <div class="lh-icon" id="lh-icon">🏆</div>
     </div>
     <div class="lh-track"><div class="lh-fill" id="lh-fill" style="width:62.5%"></div></div>
-    <div class="lh-meta">
-      <span id="lh-curr-label">Gold: 1,250 XP</span>
-      <span id="lh-next-label">Diamond: 2,000 XP</span>
-    </div>
+    <div class="lh-meta"><span id="lh-curr-label">Gold: 1,250 XP</span><span id="lh-next-label">Diamond: 2,000 XP</span></div>
   </div>
-
-  <!-- Achievements -->
-  <div class="section-label"><h3>الإنجازات</h3><button onclick="showToast('🏅 عرض كل 24 إنجاز','t-default')">الكل (24) ›</button></div>
-  <div class="ach-grid" id="ach-grid">
+  <div class="sec-lbl"><h3>الإنجازات</h3><button onclick="showToast('🏅 عرض كل 24 إنجاز','t-default')">الكل (24) ›</button></div>
+  <div class="ach-grid">
     <div class="ach-cell earned" onclick="showToast('🔥 سلسلة 7 أيام!','t-gold')"><div class="ach-icon">🔥</div><div class="ach-name">7 أيام</div></div>
-    <div class="ach-cell earned" onclick="showToast('💯 10 مهام مكتملة!','t-gold')"><div class="ach-icon">💯</div><div class="ach-name">10 مهام</div></div>
+    <div class="ach-cell earned" onclick="showToast('💯 10 مهام!','t-gold')"><div class="ach-icon">💯</div><div class="ach-name">10 مهام</div></div>
     <div class="ach-cell earned" onclick="showToast('⚡ منجز سريع!','t-gold')"><div class="ach-icon">⚡</div><div class="ach-name">سريع</div></div>
-    <div class="ach-cell earned" onclick="showToast('🌟 أول 1000 XP!','t-gold')"><div class="ach-icon">🌟</div><div class="ach-name">1000 XP</div></div>
+    <div class="ach-cell earned" onclick="showToast('🌟 1000 XP!','t-gold')"><div class="ach-icon">🌟</div><div class="ach-name">1000 XP</div></div>
     <div class="ach-cell earned" onclick="showToast('🎯 دقة عالية!','t-gold')"><div class="ach-icon">🎯</div><div class="ach-name">دقة عالية</div></div>
     <div class="ach-cell earned" onclick="showToast('🏆 Gold Tier!','t-gold')"><div class="ach-icon">🏆</div><div class="ach-name">Gold</div></div>
     <div class="ach-cell locked-ach"><div class="ach-icon">💎</div><div class="ach-name">Diamond</div></div>
     <div class="ach-cell locked-ach"><div class="ach-icon">👑</div><div class="ach-name">Legend</div></div>
   </div>
-
   <div class="divider"></div>
-  <div class="section-label"><h3>خريطة المستويات</h3></div>
+  <div class="sec-lbl"><h3>خريطة المستويات</h3></div>
   <div class="levels-list" id="levels-list"></div>
-
   <div class="divider"></div>
-  <div class="section-label">
-    <h3>متجر الترقيات</h3>
-    <button onclick="showToast('💰 رصيدك: '+totalXP.toLocaleString()+' XP','t-default')">رصيدك: ⭐</button>
-  </div>
+  <div class="sec-lbl"><h3>متجر الترقيات</h3><button onclick="showToast('💰 رصيدك: '+totalXP.toLocaleString()+' XP','t-default')">رصيدك ⭐</button></div>
   <div class="shop-grid" id="shop-grid"></div>
   <div style="height:16px"></div>
 </div>
 
-
-<!-- ═══════════════════════════════════
-     PAGE 4 — CONTACT
-═══════════════════════════════════ -->
+<!-- ═══════ PAGE 4: CONTACT ═══════ -->
 <div id="pg-contact" class="page">
-
   <div class="topbar">
-    <div class="logo-wrap">
-      <div class="logo-square">B</div>
-      <div>
-        <div class="logo-name">BlackRock</div>
-        <span class="logo-tag">Client Services</span>
-      </div>
-    </div>
-    <div class="top-actions">
-      <div class="icon-btn" onclick="showToast('🛡️ دعم متاح 24/7','t-default')">🛡️</div>
-    </div>
+    <div class="logo-wrap"><div class="logo-sq">B</div><div><div class="logo-name">BlackRock</div><span class="logo-tag">Client Services</span></div></div>
+    <div class="top-actions"><div class="icon-btn" onclick="showToast('🛡️ دعم متاح 24/7','t-default')">🛡️</div></div>
   </div>
-
-  <div class="contact-header">
-    <h2>تواصل معنا</h2>
-    <p>فريقنا المتخصص جاهز لمساعدتك في أي وقت عبر تطبيق Signal للحصول على دعم فوري وآمن.</p>
-  </div>
-
-  <div class="info-banner">
-    <div class="ib-title">ℹ️ ملاحظة مهمة</div>
-    <div class="ib-text">جميع تواصلاتنا تتم عبر تطبيق Signal فقط لضمان أمان وخصوصية بياناتك بالكامل. اضغط على الزر أدناه لفتح المحادثة مباشرةً في التطبيق.</div>
-  </div>
-
-  <!-- Agent Card 1 -->
+  <div class="contact-header"><h2>تواصل معنا</h2><p>فريقنا المتخصص جاهز لمساعدتك في أي وقت عبر تطبيق Signal للحصول على دعم فوري وآمن.</p></div>
+  <div class="info-banner"><div class="ib-title">ℹ️ ملاحظة مهمة</div><div class="ib-text">جميع تواصلاتنا تتم عبر تطبيق Signal فقط لضمان أمان وخصوصية بياناتك بالكامل.</div></div>
   <div class="agent-card online">
     <div class="agent-top">
-      <div class="agent-avatar">
-        🛡️<span class="agent-online-dot"></span>
-      </div>
+      <div class="agent-av">🛡️<span class="online-dot"></span></div>
       <div class="agent-info">
         <div class="agent-name">BlackRock — وكيل الدعم الرئيسي</div>
         <div class="agent-role">Senior Client Relations Manager</div>
-        <div class="agent-status-tag ast-online">● ONLINE NOW</div>
+        <div class="ast on">● ONLINE NOW</div>
       </div>
     </div>
     <div class="agent-stats">
-      <div class="ag-s"><div class="ag-sv">24/7</div><div class="ag-sl">متاح</div></div>
-      <div class="ag-s"><div class="ag-sv">&lt;5د</div><div class="ag-sl">وقت الرد</div></div>
-      <div class="ag-s"><div class="ag-sv">5.0★</div><div class="ag-sl">تقييم</div></div>
+      <div class="ags"><div class="ags-v">24/7</div><div class="ags-l">متاح</div></div>
+      <div class="ags"><div class="ags-v">&lt;5د</div><div class="ags-l">الرد</div></div>
+      <div class="ags"><div class="ags-v">5.0★</div><div class="ags-l">تقييم</div></div>
     </div>
-    <a href="https://signal.me/#eu/__kL4ayCt64xdRiSQWwYpMxOo5_u-Br5Y87rLvt7vQ9c0zoJJ3BEHIfxtpSC5JSE"
-       class="signal-btn" target="_blank" rel="noopener noreferrer"
-       onclick="showToast('📲 جاري فتح Signal...','t-default')">
+    <a href="https://signal.me/#eu/__kL4ayCt64xdRiSQWwYpMxOo5_u-Br5Y87rLvt7vQ9c0zoJJ3BEHIfxtpSC5JSE" class="signal-btn" target="_blank" rel="noopener" onclick="showToast('📲 جاري فتح Signal...','t-default')">
       <div class="signal-icon-box">📲</div>
-      <div class="signal-text">
-        <strong>تواصل عبر Signal</strong>
-        <small>اضغط لفتح المحادثة في تطبيق Signal</small>
-      </div>
+      <div class="signal-text"><strong>تواصل عبر Signal</strong><small>اضغط لفتح المحادثة مباشرةً في التطبيق</small></div>
       <span class="signal-arrow">›</span>
     </a>
-    <!-- Extra copy button -->
     <div style="display:flex;border-top:1px solid var(--border)">
-      <a href="https://signal.me/#eu/__kL4ayCt64xdRiSQWwYpMxOo5_u-Br5Y87rLvt7vQ9c0zoJJ3BEHIfxtpSC5JSE"
-         style="flex:1;padding:13px 10px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:5px;color:var(--blue);cursor:pointer;transition:background .15s"
-         target="_blank" rel="noopener noreferrer"
-         onclick="showToast('📲 فتح Signal...','t-default')">
-        📲 فتح Signal
-      </a>
-      <div style="flex:1;padding:13px 10px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:5px;color:var(--muted);cursor:pointer;border-right:1px solid var(--border);transition:background .15s"
-           onclick="copySignal()">
-        📋 نسخ الرابط
-      </div>
+      <a href="https://signal.me/#eu/__kL4ayCt64xdRiSQWwYpMxOo5_u-Br5Y87rLvt7vQ9c0zoJJ3BEHIfxtpSC5JSE" style="flex:1;padding:13px 10px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:5px;color:var(--blue);cursor:pointer" target="_blank" rel="noopener" onclick="showToast('📲 فتح Signal...','t-default')">📲 فتح Signal</a>
+      <div style="flex:1;padding:13px 10px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:5px;color:var(--muted);cursor:pointer;border-right:1px solid var(--border)" onclick="copySignal()">📋 نسخ الرابط</div>
     </div>
   </div>
-
-  <!-- Agent Card 2 -->
-  <div class="agent-card online">
-    <div class="agent-top">
-      <div class="agent-avatar">
-        🏦<span class="agent-online-dot"></span>
-      </div>
-      <div class="agent-info">
-        <div class="agent-name">BlackRock — الدعم الفني</div>
-        <div class="agent-role">Technical Support Specialist</div>
-        <div class="agent-status-tag ast-online">● ONLINE NOW</div>
-      </div>
-    </div>
-    <div class="agent-stats">
-      <div class="ag-s"><div class="ag-sv">100%</div><div class="ag-sl">حل</div></div>
-      <div class="ag-s"><div class="ag-sv">2K+</div><div class="ag-sl">عميل</div></div>
-      <div class="ag-s"><div class="ag-sv">AR/EN</div><div class="ag-sl">اللغة</div></div>
-    </div>
-    <a href="https://signal.me/#eu/__kL4ayCt64xdRiSQWwYpMxOo5_u-Br5Y87rLvt7vQ9c0zoJJ3BEHIfxtpSC5JSE"
-       class="signal-btn" target="_blank" rel="noopener noreferrer"
-       onclick="showToast('📲 جاري فتح Signal...','t-default')">
-      <div class="signal-icon-box">📲</div>
-      <div class="signal-text">
-        <strong>تواصل عبر Signal</strong>
-        <small>دعم فني فوري وآمن بالكامل</small>
-      </div>
-      <span class="signal-arrow">›</span>
-    </a>
+  <div class="sec-lbl"><h3>لماذا Signal؟</h3></div>
+  <div class="why-grid">
+    <div class="why-row"><div class="why-ico">🔒</div><div class="why-txt"><strong>تشفير نهاية لنهاية</strong><small>رسائلك محمية بالكامل</small></div></div>
+    <div class="why-row"><div class="why-ico">🕵️</div><div class="why-txt"><strong>خصوصية تامة</strong><small>لا يتم تخزين أي بيانات</small></div></div>
+    <div class="why-row"><div class="why-ico">⚡</div><div class="why-txt"><strong>رد فوري</strong><small>متوسط الرد أقل من 5 دقائق</small></div></div>
+    <div class="why-row"><div class="why-ico">🌍</div><div class="why-txt"><strong>متاح دولياً</strong><small>من أي مكان في العالم</small></div></div>
   </div>
-
-  <!-- Why Signal -->
-  <div class="section-label"><h3>لماذا Signal؟</h3></div>
-  <div class="why-signal">
-    <div class="ws-item">
-      <div class="ws-icon">🔒</div>
-      <div class="ws-text"><strong>تشفير نهاية لنهاية</strong><small>رسائلك محمية ومشفرة بالكامل</small></div>
-    </div>
-    <div class="ws-item">
-      <div class="ws-icon">🕵️</div>
-      <div class="ws-text"><strong>خصوصية تامة</strong><small>لا يتم تخزين أي بيانات</small></div>
-    </div>
-    <div class="ws-item">
-      <div class="ws-icon">⚡</div>
-      <div class="ws-text"><strong>رد فوري</strong><small>متوسط وقت الرد أقل من 5 دقائق</small></div>
-    </div>
-    <div class="ws-item">
-      <div class="ws-icon">🌍</div>
-      <div class="ws-text"><strong>متاح دولياً</strong><small>تواصل من أي مكان في العالم</small></div>
-    </div>
-  </div>
-
-  <!-- FAQ -->
-  <div class="section-label"><h3>الأسئلة الشائعة</h3></div>
+  <div class="sec-lbl"><h3>الأسئلة الشائعة</h3></div>
   <div class="faq-wrap">
-    <div class="faq-card">
-      <div class="faq-q" onclick="toggleFaq(this)">
-        <span class="faq-q-text">كيف أفتح رابط Signal؟</span>
-        <span class="faq-chevron">›</span>
-      </div>
-      <div class="faq-answer">اضغط على زر "تواصل عبر Signal" وسيفتح تطبيق Signal مباشرةً. إذا لم يكن التطبيق مثبتاً، سيتم توجيهك لتحميله من متجر التطبيقات.</div>
-    </div>
-    <div class="faq-card">
-      <div class="faq-q" onclick="toggleFaq(this)">
-        <span class="faq-q-text">ما أوقات الدعم المتاحة؟</span>
-        <span class="faq-chevron">›</span>
-      </div>
-      <div class="faq-answer">فريق الدعم متاح 24 ساعة يومياً، 7 أيام في الأسبوع. متوسط وقت الرد أقل من 5 دقائق خلال ساعات الذروة.</div>
-    </div>
-    <div class="faq-card">
-      <div class="faq-q" onclick="toggleFaq(this)">
-        <span class="faq-q-text">ما المشاكل التي يحلها الوكيل؟</span>
-        <span class="faq-chevron">›</span>
-      </div>
-      <div class="faq-answer">يمكن المساعدة في: الدعم الفني، استفسارات المهام والنقاط، مشاكل الترقيات، إعادة تعيين المهام المقفلة، وجميع استفساراتك الأخرى.</div>
-    </div>
-    <div class="faq-card">
-      <div class="faq-q" onclick="toggleFaq(this)">
-        <span class="faq-q-text">هل التواصل آمن ومشفر؟</span>
-        <span class="faq-chevron">›</span>
-      </div>
-      <div class="faq-answer">نعم تماماً. Signal يستخدم تشفير E2E (End-to-End Encryption) مما يجعل محادثاتك خاصة وآمنة بالكامل. حتى Signal نفسه لا يمكنه قراءة رسائلك.</div>
-    </div>
+    <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-txt">كيف أفتح رابط Signal؟</span><span class="faq-chev">›</span></div><div class="faq-ans">اضغط على زر "تواصل عبر Signal" وسيفتح تطبيق Signal مباشرةً. إذا لم يكن التطبيق مثبتاً، سيتم توجيهك لتحميله.</div></div>
+    <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-txt">ما أوقات الدعم المتاحة؟</span><span class="faq-chev">›</span></div><div class="faq-ans">فريق الدعم متاح 24 ساعة يومياً، 7 أيام في الأسبوع. متوسط وقت الرد أقل من 5 دقائق.</div></div>
+    <div class="faq-card"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-txt">هل التواصل آمن ومشفر؟</span><span class="faq-chev">›</span></div><div class="faq-ans">نعم. Signal يستخدم تشفير E2E مما يجعل محادثاتك خاصة وآمنة بالكامل. حتى Signal لا يمكنه قراءة رسائلك.</div></div>
   </div>
   <div style="height:16px"></div>
 </div>
 
-
 <!-- ═══════════════════════════════════
-     PAGE 5 — ACCOUNT
+     PAGE 5: ACCOUNT
 ═══════════════════════════════════ -->
 <div id="pg-account" class="page">
-
   <div class="topbar">
-    <div class="logo-wrap">
-      <div class="logo-square">B</div>
-      <div>
-        <div class="logo-name">BlackRock</div>
-        <span class="logo-tag">My Account</span>
-      </div>
-    </div>
-    <div class="top-actions">
-      <div class="icon-btn" onclick="showToast('⚙️ إعدادات متقدمة','t-default')">⚙️</div>
-    </div>
+    <div class="logo-wrap"><div class="logo-sq">B</div><div><div class="logo-name">BlackRock</div><span class="logo-tag">My Account</span></div></div>
+    <div class="top-actions"><div class="icon-btn" onclick="showToast('⚙️ إعدادات متقدمة','t-default')">⚙️</div></div>
   </div>
 
+  <!-- Avatar & Profile -->
   <div class="acc-header">
-    <div class="acc-avatar-wrap" onclick="showToast('📷 تغيير صورة الملف','t-default')">
-      👤<div class="acc-edit-pin">✏️</div>
-    </div>
-    <div class="acc-name" id="acc-username">Ahmed Al-Rashid</div>
+    <div class="acc-av-wrap" onclick="showToast('📷 تغيير صورة الملف','t-default')">👤<div class="acc-edit-pin">✏️</div></div>
+    <div class="acc-name">Ahmed Al-Rashid</div>
     <div class="acc-email">ahmed.alrashid@blackrock.com</div>
     <div class="acc-tier">★ BlackRock Gold Tier</div>
     <div class="acc-kpi">
@@ -1229,162 +854,332 @@ canvas{display:block;width:100%!important}
     </div>
   </div>
 
-  <!-- Level progress -->
+  <!-- Level Progress -->
   <div class="level-progress">
-    <div class="lp-row">
-      <span class="lp-label">Gold Tier — تقدم المستوى</span>
-      <span class="lp-val" id="lp-pct">62.5%</span>
-    </div>
+    <div class="lp-row"><span class="lp-label">Gold Tier — تقدم المستوى</span><span class="lp-val" id="lp-pct">62.5%</span></div>
     <div class="lp-track"><div class="lp-fill" id="lp-fill" style="width:62.5%"></div></div>
     <div class="lp-sub"><span id="lp-curr">1,250 XP</span><span id="lp-next">Diamond: 2,000 XP</span></div>
   </div>
 
   <!-- Performance -->
-  <div class="menu-group">
-    <div class="menu-group-title">الأداء والمهام</div>
-    <div class="menu-row" onclick="go('tasks')">
-      <div class="menu-icon">📋</div>
-      <div class="menu-text"><strong>المهام اليومية</strong><small id="acc-tasks-desc">إدارة مهامك</small></div>
-      <span class="menu-arrow">›</span>
-    </div>
-    <div class="menu-row" onclick="go('upgrades')">
-      <div class="menu-icon">⬆️</div>
-      <div class="menu-text"><strong>الترقيات والإنجازات</strong><small>3 ترقيات مكتسبة — 6 إنجازات</small></div>
-      <span class="menu-arrow">›</span>
-    </div>
-    <div class="menu-row" onclick="showToast('📊 تقرير الأداء الأسبوعي','t-default')">
-      <div class="menu-icon">📊</div>
-      <div class="menu-text"><strong>تقارير الأداء</strong><small>أسبوعية وشهرية</small></div>
-      <span class="menu-arrow">›</span>
-    </div>
-    <div class="menu-row" onclick="showToast('📤 جاري تصدير البيانات...','t-default')">
-      <div class="menu-icon">📤</div>
-      <div class="menu-text"><strong>تصدير البيانات</strong><small>CSV — PDF — JSON</small></div>
-      <span class="menu-arrow">›</span>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- Stats Summary -->
-  <div class="menu-group">
-    <div class="menu-group-title">ملخص الإحصائيات</div>
-    <div class="menu-row">
-      <div class="menu-icon">✅</div>
-      <div class="menu-text"><strong>مهام مكتملة</strong><small>إجمالي المنجزة</small></div>
-      <span class="menu-chip" id="acc-done-chip">12</span>
-    </div>
-    <div class="menu-row">
-      <div class="menu-icon">⚠️</div>
-      <div class="menu-text"><strong>مهام ملغاة</strong><small>تسببت في خصم XP</small></div>
-      <span class="menu-chip chip-red" id="acc-cancel-chip">2</span>
-    </div>
-    <div class="menu-row">
-      <div class="menu-icon">🔥</div>
-      <div class="menu-text"><strong>أطول سلسلة إنجاز</strong><small>أيام متتالية</small></div>
-      <span class="menu-chip">7 أيام</span>
-    </div>
-    <div class="menu-row">
-      <div class="menu-icon">📅</div>
-      <div class="menu-text"><strong>عضو منذ</strong><small>تاريخ الانضمام</small></div>
-      <span class="menu-chip">يناير 2026</span>
-    </div>
-  </div>
+  <div class="menu-grp-title">الأداء والمهام</div>
+  <div class="menu-row" onclick="go('tasks')"><div class="m-ico">📋</div><div class="m-txt"><strong>المهام اليومية</strong><small id="acc-tasks-desc">إدارة مهامك</small></div><span class="m-arr">›</span></div>
+  <div class="menu-row" onclick="go('upgrades')"><div class="m-ico">⬆️</div><div class="m-txt"><strong>الترقيات والإنجازات</strong><small>3 ترقيات مكتسبة</small></div><span class="m-arr">›</span></div>
+  <div class="menu-row" onclick="showToast('📊 تقرير الأداء الأسبوعي','t-default')"><div class="m-ico">📊</div><div class="m-txt"><strong>تقارير الأداء</strong><small>أسبوعية وشهرية</small></div><span class="m-arr">›</span></div>
+  <div class="menu-row" onclick="showToast('📤 جاري تصدير البيانات...','t-default')"><div class="m-ico">📤</div><div class="m-txt"><strong>تصدير البيانات</strong><small>CSV — PDF — JSON</small></div><span class="m-arr">›</span></div>
 
   <div class="divider"></div>
 
   <!-- Notifications -->
-  <div class="menu-group">
-    <div class="menu-group-title">الإشعارات والتفضيلات</div>
-    <div class="menu-row">
-      <div class="menu-icon">🔔</div>
-      <div class="menu-text"><strong>إشعارات المهام</strong><small>تذكير يومي بالمهام</small></div>
-      <div class="toggle on" onclick="toggleSwitch(this,'🔔 إشعارات المهام مفعّلة','🔕 إشعارات المهام معطّلة')"></div>
-    </div>
-    <div class="menu-row">
-      <div class="menu-icon">🔥</div>
-      <div class="menu-text"><strong>تنبيه السلسلة</strong><small>لا تكسر سلسلتك</small></div>
-      <div class="toggle on" onclick="toggleSwitch(this,'🔥 تنبيه السلسلة مفعّل','❌ تنبيه السلسلة معطّل')"></div>
-    </div>
-    <div class="menu-row">
-      <div class="menu-icon">⭐</div>
-      <div class="menu-text"><strong>إشعارات الترقيات</strong><small>عند الوصول لمستوى جديد</small></div>
-      <div class="toggle" onclick="toggleSwitch(this,'⭐ إشعارات الترقيات مفعّلة','❌ إشعارات الترقيات معطّلة')"></div>
-    </div>
-    <div class="menu-row" onclick="showToast('🌐 اللغة: العربية','t-default')">
-      <div class="menu-icon">🌐</div>
-      <div class="menu-text"><strong>اللغة</strong><small>العربية — Arabic</small></div>
-      <span class="menu-arrow">›</span>
-    </div>
-  </div>
+  <div class="menu-grp-title">الإشعارات والتفضيلات</div>
+  <div class="menu-row"><div class="m-ico">🔔</div><div class="m-txt"><strong>إشعارات المهام</strong><small>تذكير يومي بالمهام</small></div><div class="toggle on" onclick="toggleSwitch(this,'🔔 إشعارات المهام مفعّلة','🔕 إشعارات المهام معطّلة')"></div></div>
+  <div class="menu-row"><div class="m-ico">🔥</div><div class="m-txt"><strong>تنبيه السلسلة</strong><small>لا تكسر سلسلتك</small></div><div class="toggle on" onclick="toggleSwitch(this,'🔥 تنبيه السلسلة مفعّل','❌ معطّل')"></div></div>
+  <div class="menu-row"><div class="m-ico">⭐</div><div class="m-txt"><strong>إشعارات الترقيات</strong><small>عند الوصول لمستوى جديد</small></div><div class="toggle" onclick="toggleSwitch(this,'⭐ مفعّل','❌ معطّل')"></div></div>
+  <div class="menu-row" onclick="showToast('🌐 اللغة: العربية','t-default')"><div class="m-ico">🌐</div><div class="m-txt"><strong>اللغة</strong><small>العربية — Arabic</small></div><span class="m-arr">›</span></div>
 
   <div class="divider"></div>
 
-  <!-- Security -->
-  <div class="menu-group">
-    <div class="menu-group-title">الأمان والحساب</div>
-    <div class="menu-row" onclick="showToast('✏️ تعديل البيانات الشخصية','t-default')">
-      <div class="menu-icon">👤</div>
-      <div class="menu-text"><strong>البيانات الشخصية</strong><small>الاسم والبريد الإلكتروني</small></div>
-      <span class="menu-arrow">›</span>
-    </div>
-    <div class="menu-row" onclick="showToast('🔐 تغيير كلمة المرور','t-default')">
-      <div class="menu-icon">🔐</div>
-      <div class="menu-text"><strong>كلمة المرور</strong><small>تغيير أو إعادة تعيين</small></div>
-      <span class="menu-arrow">›</span>
-    </div>
-    <div class="menu-row">
-      <div class="menu-icon">🔒</div>
-      <div class="menu-text"><strong>التحقق بخطوتين</strong><small>أمان إضافي للحساب</small></div>
-      <div class="toggle on" onclick="toggleSwitch(this,'🔒 2FA مفعّل','⚠️ 2FA معطّل — حسابك في خطر')"></div>
-    </div>
+  <!-- Security Settings -->
+  <div class="menu-grp-title">الأمان والحساب</div>
+  <div class="menu-row" onclick="showToast('✏️ تعديل البيانات الشخصية','t-default')"><div class="m-ico">👤</div><div class="m-txt"><strong>البيانات الشخصية</strong><small>الاسم والبريد الإلكتروني</small></div><span class="m-arr">›</span></div>
+  <div class="menu-row" onclick="showToast('🔐 تغيير كلمة المرور','t-default')"><div class="m-ico">🔐</div><div class="m-txt"><strong>كلمة المرور</strong><small>تغيير أو إعادة تعيين</small></div><span class="m-arr">›</span></div>
+  <div class="menu-row"><div class="m-ico">🔒</div><div class="m-txt"><strong>التحقق بخطوتين</strong><small>أمان إضافي للحساب</small></div><div class="toggle on" onclick="toggleSwitch(this,'🔒 2FA مفعّل','⚠️ 2FA معطّل')"></div></div>
+
+  <div class="divider"></div>
+
+  <!-- ════════════════════════════════════
+       🛡️ الأمان والعقد — SECTION
+  ════════════════════════════════════ -->
+  <div class="sec-lbl">
+    <h3>الأمان والعقد</h3>
+    <button onclick="showToast('🛡️ وثائق رسمية موثقة','t-default')">موثق ✓</button>
   </div>
+
+  <div class="sec-contract">
+
+    <!-- Header card -->
+    <div class="sc-header-card">
+      <div class="sc-hdr-top">
+        <div class="sc-shield-ico">🛡️</div>
+        <div class="sc-hdr-info">
+          <div class="sc-hdr-title">الأمان والعقد</div>
+          <div class="sc-hdr-sub">BlackRock, Inc — Security & Legal Division</div>
+        </div>
+      </div>
+      <div class="sc-verified-row">
+        <span class="sc-verified-badge">✓ موثقة رسمياً</span>
+        <span class="sc-nyse-badge">NYSE: BLK</span>
+      </div>
+    </div>
+
+    <!-- Registration grid -->
+    <div class="sc-reg-grid">
+      <div class="sc-reg-cell">
+        <div class="sc-reg-label">Registration</div>
+        <div class="sc-reg-val">NYSE: BLK</div>
+        <div class="sc-reg-sub">New York Stock Exchange</div>
+      </div>
+      <div class="sc-reg-cell">
+        <div class="sc-reg-label">Tax ID</div>
+        <div class="sc-reg-val">EIN: 32-0174431</div>
+        <div class="sc-reg-sub">Federal Tax Identifier</div>
+      </div>
+      <div class="sc-reg-cell">
+        <div class="sc-reg-label">تشفير البيانات</div>
+        <div class="sc-reg-val">AES-256</div>
+        <div class="sc-reg-sub">Military Grade Encryption</div>
+      </div>
+      <div class="sc-reg-cell">
+        <div class="sc-reg-label">بروتوكول الاتصال</div>
+        <div class="sc-reg-val">SSL/TLS 3.0</div>
+        <div class="sc-reg-sub">Secure Protocol</div>
+      </div>
+    </div>
+
+    <!-- Encryption block -->
+    <div class="sc-encrypt-card">
+      <div class="sc-enc-title">Encryption — تشفير عسكري</div>
+      <div class="sc-enc-grid">
+        <div class="sc-enc-item">
+          <div class="sc-enc-ico">🔐</div>
+          <div class="sc-enc-val">AES-256</div>
+          <div class="sc-enc-lbl">تشفير عسكري</div>
+        </div>
+        <div class="sc-enc-item">
+          <div class="sc-enc-ico">🌐</div>
+          <div class="sc-enc-val">SSL/TLS 3.0</div>
+          <div class="sc-enc-lbl">بروتوكول آمن</div>
+        </div>
+        <div class="sc-enc-item">
+          <div class="sc-enc-ico">✅</div>
+          <div class="sc-enc-val">100%</div>
+          <div class="sc-enc-lbl">حماية الأموال</div>
+        </div>
+        <div class="sc-enc-item">
+          <div class="sc-enc-ico">👁️</div>
+          <div class="sc-enc-val">24/7</div>
+          <div class="sc-enc-lbl">مراقبة مستمرة</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Algeria Contract block -->
+    <div class="sc-contract-card">
+      <div class="sc-contract-title">العقد الجزائري — Algeria Contract</div>
+
+      <div class="sc-contract-grid">
+        <div class="sc-cg-cell"><div class="sc-cg-val">يناير 2025</div><div class="sc-cg-lbl">البداية</div></div>
+        <div class="sc-cg-cell"><div class="sc-cg-val">ديسمبر 2027</div><div class="sc-cg-lbl">النهاية</div></div>
+        <div class="sc-cg-cell"><div class="sc-cg-val" style="color:var(--green)">3 سنوات</div><div class="sc-cg-lbl">المدة</div></div>
+      </div>
+
+      <!-- Timeline visual -->
+      <div style="margin-bottom:4px">
+        <div class="sc-timeline">
+          <div class="sc-tl-dot"></div>
+          <div class="sc-tl-line"></div>
+          <div class="sc-tl-dot-end"></div>
+        </div>
+        <div class="sc-tl-labels">
+          <span>Jan 2025 ✅</span>
+          <span style="color:var(--muted)">الآن — 2026</span>
+          <span>Dec 2027</span>
+        </div>
+      </div>
+
+      <!-- Progress -->
+      <div style="margin-bottom:4px;font-size:9px;color:var(--muted);letter-spacing:.5px">تقدم العقد</div>
+      <div class="sc-progress-bar">
+        <div class="sc-progress-fill"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--muted);margin-bottom:14px">
+        <span>48% مكتمل</span><span>الوقت المتبقي: ~20 شهراً</span>
+      </div>
+
+      <!-- Algeria Contract -->
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+        <span style="font-size:18px">🇩🇿</span>
+        <span style="font-size:10px;font-weight:700;color:var(--gold);letter-spacing:1px;text-transform:uppercase">Algeria Contract — عقد رسمي</span>
+        <span style="font-size:9px;color:var(--green);border:1px solid rgba(0,200,83,.3);padding:1px 6px;background:rgba(0,200,83,.06)">✓ نشط</span>
+      </div>
+
+      <!-- Official text -->
+      <div class="sc-official-text">
+        <div class="sc-official-label">📜 النص الرسمي للعقد</div>
+        <div class="sc-official-body">
+          تقر شركة <em>BlackRock, Inc</em> بأنها أبرمت عقداً رسمياً مع <em>الجانب الجزائري</em> في <em>يناير 2025</em>، مدته <em>3 سنوات كاملة</em>، ينتهي في <em>ديسمبر 2027</em>. تلتزم الشركة بموجب هذا العقد بتقديم جميع خدماتها الاستثمارية وإدارة الأصول وفق أعلى المعايير المهنية والقانونية المعتمدة دولياً.
+        </div>
+      </div>
+    </div>
+
+    <!-- Fund Security -->
+    <div class="sc-fund-card">
+      <div class="sc-fund-row">
+        <div class="sc-fund-icon">🏦</div>
+        <div class="sc-fund-info">
+          <div class="sc-fund-title">أمان الأموال — Fund Security</div>
+          <div class="sc-fund-sub">جميع الأموال محمية ومؤمنة بالكامل وفق أعلى معايير الأمان المالي</div>
+        </div>
+        <div class="sc-fund-badge">100% ✓</div>
+      </div>
+    </div>
+
+    <!-- Signature block -->
+    <div class="sc-signature-block">
+      <div class="sc-sig-left">
+        <div class="sc-sig-name">Laurence D. Fink</div>
+        <div class="sc-sig-line"></div>
+        <div class="sc-sig-label">Laurence D. Fink — CEO, BlackRock, Inc</div>
+        <div style="font-size:9px;color:var(--muted);margin-top:4px">New York, NY 10055, USA</div>
+      </div>
+      <div style="text-align:center">
+        <div class="sc-sig-seal">🏛️</div>
+        <div class="sc-sig-date" style="margin-top:6px;font-size:9px;color:var(--muted)">January 2025<br/>Official Seal</div>
+      </div>
+    </div>
+
+  </div><!-- end sec-contract -->
+
+  <div class="divider"></div>
+
+  <!-- ════════════════════════════════════
+       🏢 عن الشركة — SECTION
+  ════════════════════════════════════ -->
+  <div class="sec-lbl">
+    <h3>عن الشركة</h3>
+    <button onclick="showToast('🏢 BlackRock, Inc — NYSE: BLK','t-default')">NYSE: BLK ›</button>
+  </div>
+
+  <div class="about-section">
+    <div class="about-company-card">
+
+      <!-- Profile Header -->
+      <div class="about-profile-hdr">
+        <div class="about-eyebrow">COMPANY PROFILE</div>
+        <div class="about-logo-row">
+          <div class="about-logo-sq">B</div>
+          <div>
+            <div class="about-company-name">BLACKROCK</div>
+            <div class="about-company-full">BlackRock, Inc — New York, USA</div>
+          </div>
+        </div>
+        <div class="about-badges-row">
+          <span class="about-badge ab-verified">✓ موثقة</span>
+          <span class="about-badge ab-nyse">NYSE: BLK</span>
+          <span class="about-badge ab-sec">SEC Registered</span>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="about-desc">
+        تأسست شركة <em>BlackRock, Inc</em> عام <em>1988</em> في مدينة نيويورك، وهي اليوم <em>أكبر شركة لإدارة الأصول في العالم</em> بأصول تحت الإدارة تجاوزت <em>10.2 تريليون دولار أمريكي</em>، مع حضور في أكثر من <em>38 دولة</em> حول العالم وفريق يضم أكثر من <em>19,000 موظف</em> متخصص.
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="about-stats-grid">
+        <div class="about-stat-cell">
+          <div class="asc-val blue">1988</div>
+          <div class="asc-label">سنة التأسيس</div>
+        </div>
+        <div class="about-stat-cell">
+          <div class="asc-val green">$10.2T</div>
+          <div class="asc-label">الأصول المدارة</div>
+        </div>
+        <div class="about-stat-cell">
+          <div class="asc-val gold">+19,000</div>
+          <div class="asc-label">الموظفين</div>
+        </div>
+        <div class="about-stat-cell">
+          <div class="asc-val">38</div>
+          <div class="asc-label">دولة حول العالم</div>
+        </div>
+      </div>
+
+      <!-- Security -->
+      <div class="about-security">
+        <div class="about-sec-title">الأمان والحماية</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:12px">
+          نستخدم تشفير <strong style="color:var(--green)">AES-256</strong> العسكري مع <strong style="color:var(--green)">SSL/TLS 3.0</strong> لحماية جميع بيانات المستخدمين والمعاملات المالية.
+        </div>
+        <div class="about-sec-grid">
+          <div class="about-sec-item">
+            <div class="asi-ico">🔐</div>
+            <div class="asi-val">AES-256</div>
+            <div class="asi-lbl">تشفير عسكري</div>
+          </div>
+          <div class="about-sec-item">
+            <div class="asi-ico">🌐</div>
+            <div class="asi-val">SSL/TLS 3.0</div>
+            <div class="asi-lbl">بروتوكول آمن</div>
+          </div>
+          <div class="about-sec-item">
+            <div class="asi-ico">💰</div>
+            <div class="asi-val">100%</div>
+            <div class="asi-lbl">حماية الأموال</div>
+          </div>
+          <div class="about-sec-item">
+            <div class="asi-ico">📡</div>
+            <div class="asi-val">24/7</div>
+            <div class="asi-lbl">مراقبة مستمرة</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Algeria -->
+      <div class="about-algeria">
+        <div class="aa-title">🇩🇿 العقد الجزائري</div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:12px">
+          عقد رسمي مع الجزائر يبدأ من يناير 2025 وينتهي في ديسمبر 2027، مدته 3 سنوات كاملة.
+        </div>
+        <div class="aa-row"><span class="aa-key">البداية</span><span class="aa-val green">Jan 2025 ✅</span></div>
+        <div class="aa-row"><span class="aa-key">النهاية</span><span class="aa-val gold">Dec 2027</span></div>
+        <div class="aa-row"><span class="aa-key">المدة</span><span class="aa-val">3 سنوات</span></div>
+        <div class="aa-row"><span class="aa-key">الحالة</span><span class="aa-val green">نشط ● ACTIVE</span></div>
+        <div class="aa-progress"><div class="aa-progress-fill"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--muted);margin-top:4px;margin-bottom:12px"><span>يناير 2025</span><span>48% مكتمل</span><span>ديسمبر 2027</span></div>
+        <div class="aa-contract-text">
+          تقر شركة BlackRock, Inc بأنها أبرمت عقداً رسمياً مع الجانب الجزائري في يناير 2025 مدته 3 سنوات ينتهي في ديسمبر 2027.
+        </div>
+      </div>
+
+      <!-- Signature -->
+      <div class="about-signature">
+        <div class="sig-left">
+          <div class="sig-handwriting">Laurence D. Fink</div>
+          <div class="sig-underline"></div>
+          <div class="sig-name">CEO — BlackRock, Inc</div>
+          <div style="font-size:9px;color:var(--muted2);margin-top:2px">New York • January 2025</div>
+        </div>
+        <div class="sig-right">
+          <div class="sig-seal-circle">🏛️</div>
+          <div class="sig-date-txt">Official Seal<br/>BlackRock, Inc</div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- end about-section -->
 
   <div class="divider"></div>
 
   <!-- Support -->
-  <div class="menu-group">
-    <div class="menu-group-title">الدعم والمساعدة</div>
-    <div class="menu-row" onclick="go('contact')">
-      <div class="menu-icon">💬</div>
-      <div class="menu-text"><strong>تواصل مع الوكيل</strong><small>Signal — دعم فوري</small></div>
-      <span class="menu-arrow">›</span>
-    </div>
-    <div class="menu-row" onclick="showToast('❓ مركز المساعدة','t-default')">
-      <div class="menu-icon">❓</div>
-      <div class="menu-text"><strong>مركز المساعدة</strong><small>الأسئلة الشائعة</small></div>
-      <span class="menu-arrow">›</span>
-    </div>
-    <div class="menu-row" onclick="showToast('⭐ شكراً لتقييمك!','t-gold')">
-      <div class="menu-icon">⭐</div>
-      <div class="menu-text"><strong>تقييم التطبيق</strong><small>ساعدنا في التحسين</small></div>
-      <span class="menu-arrow">›</span>
-    </div>
-    <div class="menu-row" onclick="showToast('ℹ️ BlackRock Tasks v3.0 — مايو 2026','t-default')">
-      <div class="menu-icon">ℹ️</div>
-      <div class="menu-text"><strong>عن التطبيق</strong><small>الإصدار 3.0.0</small></div>
-      <span class="menu-arrow">›</span>
-    </div>
-  </div>
+  <div class="menu-grp-title">الدعم والمساعدة</div>
+  <div class="menu-row" onclick="go('contact')"><div class="m-ico">💬</div><div class="m-txt"><strong>تواصل مع الوكيل</strong><small>Signal — دعم فوري</small></div><span class="m-arr">›</span></div>
+  <div class="menu-row" onclick="showToast('❓ مركز المساعدة','t-default')"><div class="m-ico">❓</div><div class="m-txt"><strong>مركز المساعدة</strong><small>الأسئلة الشائعة</small></div><span class="m-arr">›</span></div>
+  <div class="menu-row" onclick="showToast('⭐ شكراً لتقييمك!','t-gold')"><div class="m-ico">⭐</div><div class="m-txt"><strong>تقييم التطبيق</strong><small>ساعدنا في التحسين</small></div><span class="m-arr">›</span></div>
+  <div class="menu-row" onclick="showToast('ℹ️ BlackRock Tasks v3.0 — مايو 2026','t-default')"><div class="m-ico">ℹ️</div><div class="m-txt"><strong>عن التطبيق</strong><small>الإصدار 3.0.0</small></div><span class="m-arr">›</span></div>
 
   <button class="logout-btn" onclick="confirmLogout()">← تسجيل الخروج</button>
   <div style="height:8px"></div>
 </div>
 
-
-<!-- ═══════════════════════════════════
-     MODALS
-═══════════════════════════════════ -->
-
-<!-- Add Task Modal -->
+<!-- ═══════ MODALS ═══════ -->
 <div class="overlay" id="modal-add" onclick="closeOvIf('modal-add',event)">
   <div class="modal-sheet">
     <div class="modal-handle"></div>
     <div class="modal-title">إضافة مهمة جديدة</div>
     <div class="field"><label>عنوان المهمة *</label><input type="text" id="f-title" placeholder="ماذا تريد أن تنجز؟"/></div>
     <div class="field"><label>الوصف</label><textarea id="f-desc" rows="2" placeholder="تفاصيل إضافية..."></textarea></div>
-    <div class="field">
-      <label>مستوى الأولوية</label>
+    <div class="field"><label>مستوى الأولوية</label>
       <div class="pri-row">
         <div class="pri-opt" id="p-high" onclick="pickPri('high')">HIGH</div>
         <div class="pri-opt pm" id="p-med" onclick="pickPri('med')">MEDIUM</div>
@@ -1397,15 +1192,11 @@ canvas{display:block;width:100%!important}
     </div>
     <div class="field-row">
       <div class="field"><label>الخصم عند الإلغاء (XP)</label><input type="number" id="f-penalty" value="25" min="0" max="200"/></div>
-      <div class="field">
-        <label>الفئة</label>
+      <div class="field"><label>الفئة</label>
         <select id="f-cat">
-          <option value="عام">عام</option>
-          <option value="تعليم">تعليم</option>
-          <option value="عمل">عمل</option>
-          <option value="صحة">صحة</option>
-          <option value="شخصي">شخصي</option>
-          <option value="مشاريع">مشاريع</option>
+          <option value="عام">عام</option><option value="تعليم">تعليم</option>
+          <option value="عمل">عمل</option><option value="صحة">صحة</option>
+          <option value="شخصي">شخصي</option><option value="مشاريع">مشاريع</option>
         </select>
       </div>
     </div>
@@ -1416,40 +1207,31 @@ canvas{display:block;width:100%!important}
   </div>
 </div>
 
-<!-- Penalty Modal -->
 <div class="overlay" id="modal-penalty" onclick="closeOvIf('modal-penalty',event)">
   <div class="modal-sheet" style="border-top-color:var(--red)">
     <div class="modal-handle"></div>
     <span class="penalty-icon">⚠️</span>
     <div class="penalty-title">تم خصم النقاط!</div>
-    <div class="penalty-desc" id="pen-desc">لقد ألغيت المهمة قبل اكتمالها. سيتم تطبيق الخصم وقفل المهمة حتى اليوم التالي.</div>
-    <div class="penalty-box">
-      <div class="penalty-box-label">الخصم المطبق</div>
-      <div class="penalty-box-val" id="pen-val">−25 XP</div>
-    </div>
+    <div class="penalty-desc" id="pen-desc">لقد ألغيت المهمة قبل اكتمالها.</div>
+    <div class="penalty-box"><div class="penalty-box-label">الخصم المطبق</div><div class="penalty-box-val" id="pen-val">−25 XP</div></div>
     <div id="pen-extra" style="font-size:11px;color:var(--muted);text-align:center;margin-bottom:20px;line-height:1.65;padding:0 10px"></div>
     <button class="btn-confirm btn-red" style="width:100%;font-family:inherit" onclick="closeModal('modal-penalty')">مفهوم — إغلاق</button>
   </div>
 </div>
 
-<!-- Confirm Cancel Modal -->
 <div class="overlay" id="modal-confirm" onclick="closeOvIf('modal-confirm',event)">
   <div class="modal-sheet">
     <div class="modal-handle"></div>
     <div class="modal-title">تأكيد إلغاء المهمة</div>
-    <div style="font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:16px" id="confirm-body">هل أنت متأكد؟ سيتم خصم نقاط وقفل المهمة حتى الغد.</div>
-    <div class="penalty-box" style="margin-bottom:16px">
-      <div class="penalty-box-label">الخصم في حالة الإلغاء</div>
-      <div class="penalty-box-val" id="confirm-pen" style="font-size:26px">−25 XP</div>
-    </div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:16px" id="confirm-body">هل أنت متأكد؟</div>
+    <div class="penalty-box" style="margin-bottom:16px"><div class="penalty-box-label">الخصم في حالة الإلغاء</div><div class="penalty-box-val" id="confirm-pen" style="font-size:26px">−25 XP</div></div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeModal('modal-confirm')">العودة للمهمة</button>
-      <button class="btn-confirm btn-red" id="confirm-yes-btn" onclick="executeCancel()">إلغاء المهمة</button>
+      <button class="btn-confirm btn-red" onclick="executeCancel()" style="font-family:inherit">إلغاء المهمة</button>
     </div>
   </div>
 </div>
 
-<!-- Notifications Panel -->
 <div class="overlay" id="modal-notif" onclick="closeOvIf('modal-notif',event)">
   <div class="modal-sheet">
     <div class="modal-handle"></div>
@@ -1459,12 +1241,11 @@ canvas{display:block;width:100%!important}
   </div>
 </div>
 
-<!-- Logout Confirm -->
 <div class="overlay" id="modal-logout" onclick="closeOvIf('modal-logout',event)">
   <div class="modal-sheet">
     <div class="modal-handle"></div>
     <div class="modal-title">تسجيل الخروج</div>
-    <div style="font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:20px">هل تريد تسجيل الخروج من حسابك؟ جميع بياناتك محفوظة وستتمكن من الدخول مجدداً.</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:20px">هل تريد تسجيل الخروج؟ جميع بياناتك محفوظة.</div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeModal('modal-logout')">إلغاء</button>
       <button class="btn-confirm btn-red" onclick="doLogout()" style="font-family:inherit">تسجيل الخروج</button>
@@ -1472,736 +1253,387 @@ canvas{display:block;width:100%!important}
   </div>
 </div>
 
-
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav">
-  <button class="nav-btn on" id="nb-home" onclick="go('home')">
-    <span class="nav-icon">🏠</span><span class="nav-label">الرئيسية</span>
-  </button>
-  <button class="nav-btn" id="nb-tasks" onclick="go('tasks')">
-    <span class="nav-icon">⏱️</span><span class="nav-label">المهام</span>
-    <span class="nav-pip" id="nav-pip"></span>
-  </button>
-  <button class="nav-btn" id="nb-upgrades" onclick="go('upgrades')">
-    <span class="nav-icon">⬆️</span><span class="nav-label">الترقيات</span>
-  </button>
-  <button class="nav-btn" id="nb-contact" onclick="go('contact')">
-    <span class="nav-icon">💬</span><span class="nav-label">الوكيل</span>
-  </button>
-  <button class="nav-btn" id="nb-account" onclick="go('account')">
-    <span class="nav-icon">👤</span><span class="nav-label">حسابي</span>
-  </button>
+  <button class="nav-btn on" id="nb-home" onclick="go('home')"><span class="nav-icon">🏠</span><span class="nav-label">الرئيسية</span></button>
+  <button class="nav-btn" id="nb-tasks" onclick="go('tasks')"><span class="nav-icon">⏱️</span><span class="nav-label">المهام</span><span class="nav-pip" id="nav-pip"></span></button>
+  <button class="nav-btn" id="nb-upgrades" onclick="go('upgrades')"><span class="nav-icon">⬆️</span><span class="nav-label">الترقيات</span></button>
+  <button class="nav-btn" id="nb-contact" onclick="go('contact')"><span class="nav-icon">💬</span><span class="nav-label">الوكيل</span></button>
+  <button class="nav-btn" id="nb-account" onclick="go('account')"><span class="nav-icon">👤</span><span class="nav-label">حسابي</span></button>
 </nav>
 
-<!-- Toast -->
-<div class="toast-wrap" id="toast-wrap">
-  <div class="toast-inner" id="toast-text"></div>
-</div>
-
+<div class="toast-wrap" id="toast-wrap"><div class="toast-inner" id="toast-text"></div></div>
 
 <script>
-/* ═══════════════════════════════════════
+/* ═══════════════════════
    STATE
-═══════════════════════════════════════ */
-let totalXP = 1250;
-let doneCount = 12;
-let cancelCount = 2;
-let streakDays = 7;
-let selectedPri = 'med';
-let pendingCancelId = null;
-let activeFilter = 'all';
-let timers = {};
-let notifications = [
-  { id:1, text:'✅ أكملت مهمة: تعلم JavaScript (+50 XP)', time:'منذ ساعتين', read:false },
-  { id:2, text:'🏆 ترقية جديدة: Gold Tier', time:'أمس', read:false },
-  { id:3, text:'🔥 حققت سلسلة 7 أيام!', time:'اليوم', read:false },
+═══════════════════════ */
+let totalXP=1250,doneCount=12,cancelCount=2,streakDays=7;
+let selectedPri='med',pendingCancelId=null,activeFilter='all';
+let timers={};
+let notifications=[
+  {id:1,text:'✅ أكملت مهمة: تعلم JavaScript (+50 XP)',time:'منذ ساعتين',read:false},
+  {id:2,text:'🏆 ترقية جديدة: Gold Tier',time:'أمس',read:false},
+  {id:3,text:'🔥 حققت سلسلة 7 أيام!',time:'اليوم',read:false},
+];
+let taskList=[
+  {id:1,icon:'⏳',name:'الانتظار المركّز',desc:'انتظر 40 ثانية بدون استخدام الهاتف',dur:40,reward:50,penalty:20,pri:'low',cat:'عام',status:'idle',elapsed:0,lockedUntil:null},
+  {id:2,icon:'🧘',name:'التنفس العميق',desc:'5 دقائق تنفس عميق واسترخاء',dur:300,reward:80,penalty:30,pri:'med',cat:'صحة',status:'idle',elapsed:0,lockedUntil:null},
+  {id:3,icon:'📚',name:'القراءة اليومية',desc:'اقرأ 10 دقائق متواصلة دون انقطاع',dur:600,reward:100,penalty:40,pri:'med',cat:'تعليم',status:'idle',elapsed:0,lockedUntil:null},
+  {id:4,icon:'💪',name:'التمرين السريع',desc:'5 دقائق تمارين جسدية خفيفة',dur:300,reward:70,penalty:25,pri:'high',cat:'صحة',status:'idle',elapsed:0,lockedUntil:null},
+  {id:5,icon:'📝',name:'كتابة الأهداف',desc:'اكتب 3 أهداف ليوم غد مع خطة التنفيذ',dur:120,reward:60,penalty:20,pri:'high',cat:'شخصي',status:'idle',elapsed:0,lockedUntil:null},
+];
+let nextId=6;
+const LEVELS=[
+  {name:'Bronze',icon:'🥉',min:0,max:300,tier:'Entry Level'},
+  {name:'Silver',icon:'🥈',min:300,max:700,tier:'Developing'},
+  {name:'Advanced',icon:'🥇',min:700,max:1200,tier:'Proficient'},
+  {name:'Gold',icon:'🏆',min:1200,max:2000,tier:'Expert'},
+  {name:'Diamond',icon:'💎',min:2000,max:3500,tier:'Elite'},
+  {name:'Platinum',icon:'🌟',min:3500,max:6000,tier:'Master'},
+  {name:'Legendary',icon:'👑',min:6000,max:Infinity,tier:'BlackRock Elite'},
+];
+let SHOP=[
+  {id:1,icon:'⚡',name:'XP Booster',desc:'مضاعفة XP لمدة ساعة',cost:200,owned:true,effect:'xp2x'},
+  {id:2,icon:'🛡️',name:'Penalty Shield',desc:'إلغاء عقوبة مهمة دون خصم',cost:150,owned:true,effect:'shield'},
+  {id:3,icon:'🔓',name:'Instant Unlock',desc:'فتح أي مهمة مقفلة فوراً',cost:300,owned:false,effect:'unlock'},
+  {id:4,icon:'🔥',name:'Streak Saver',desc:'حماية السلسلة مرة واحدة',cost:250,owned:false,effect:'streak'},
+  {id:5,icon:'⏩',name:'Time Reducer',desc:'تخفيض مدة المهام 50%',cost:400,owned:false,effect:'half'},
+  {id:6,icon:'💰',name:'Daily Bonus',desc:'+25% XP على كل مهمة',cost:500,owned:false,effect:'bonus25'},
+];
+let activityLog=[
+  {title:'أكملت: تعلم JavaScript',sub:'منذ ساعتين · تعليم',pts:50,up:true},
+  {title:'ترقية جديدة: Gold Tier',sub:'أمس',pts:200,up:true},
+  {title:'إلغاء مهمة — خصم',sub:'منذ يومين',pts:25,up:false},
+  {title:'سلسلة 7 أيام مكتملة',sub:'اليوم',pts:100,up:true},
 ];
 
-let taskList = [
-  { id:1, icon:'⏳', name:'الانتظار المركّز', desc:'انتظر 40 ثانية بدون استخدام الهاتف', dur:40, reward:50, penalty:20, pri:'low', cat:'عام', status:'idle', elapsed:0, lockedUntil:null },
-  { id:2, icon:'🧘', name:'التنفس العميق', desc:'5 دقائق تنفس عميق واسترخاء كامل', dur:300, reward:80, penalty:30, pri:'med', cat:'صحة', status:'idle', elapsed:0, lockedUntil:null },
-  { id:3, icon:'📚', name:'القراءة اليومية', desc:'اقرأ 10 دقائق متواصلة دون انقطاع', dur:600, reward:100, penalty:40, pri:'med', cat:'تعليم', status:'idle', elapsed:0, lockedUntil:null },
-  { id:4, icon:'💪', name:'التمرين السريع', desc:'5 دقائق تمارين جسدية خفيفة', dur:300, reward:70, penalty:25, pri:'high', cat:'صحة', status:'idle', elapsed:0, lockedUntil:null },
-  { id:5, icon:'📝', name:'كتابة الأهداف', desc:'اكتب 3 أهداف ليوم غد مع خطة التنفيذ', dur:120, reward:60, penalty:20, pri:'high', cat:'شخصي', status:'idle', elapsed:0, lockedUntil:null },
-];
-let nextId = 6;
-
-/* ═══════════════════════════════════════
-   LEVELS & SHOP DATA
-═══════════════════════════════════════ */
-const LEVELS = [
-  { name:'Bronze', icon:'🥉', min:0, max:300, tier:'Entry Level' },
-  { name:'Silver', icon:'🥈', min:300, max:700, tier:'Developing' },
-  { name:'Advanced', icon:'🥇', min:700, max:1200, tier:'Proficient' },
-  { name:'Gold', icon:'🏆', min:1200, max:2000, tier:'Expert' },
-  { name:'Diamond', icon:'💎', min:2000, max:3500, tier:'Elite' },
-  { name:'Platinum', icon:'🌟', min:3500, max:6000, tier:'Master' },
-  { name:'Legendary', icon:'👑', min:6000, max:Infinity, tier:'BlackRock Elite' },
-];
-
-let SHOP = [
-  { id:1, icon:'⚡', name:'XP Booster', desc:'مضاعفة نقاط XP لمدة ساعة كاملة', cost:200, owned:true, effect:'xp2x' },
-  { id:2, icon:'🛡️', name:'Penalty Shield', desc:'إلغاء عقوبة مهمة واحدة دون خصم', cost:150, owned:true, effect:'shield' },
-  { id:3, icon:'🔓', name:'Instant Unlock', desc:'فتح أي مهمة مقفلة فورياً', cost:300, owned:false, effect:'unlock' },
-  { id:4, icon:'🔥', name:'Streak Saver', desc:'حماية سلسلتك مرة واحدة عند الانقطاع', cost:250, owned:false, effect:'streak' },
-  { id:5, icon:'⏩', name:'Time Reducer', desc:'تخفيض مدة المهام بنسبة 50%', cost:400, owned:false, effect:'half' },
-  { id:6, icon:'💰', name:'Daily Bonus', desc:'+25% XP إضافية على كل مهمة مكتملة', cost:500, owned:false, effect:'bonus25' },
-];
-
-/* ═══════════════════════════════════════
-   NAVIGATION
-═══════════════════════════════════════ */
-const PAGES = { home:'pg-home', tasks:'pg-tasks', upgrades:'pg-upgrades', contact:'pg-contact', account:'pg-account' };
-const NAV_BTNS = { home:'nb-home', tasks:'nb-tasks', upgrades:'nb-upgrades', contact:'nb-contact', account:'nb-account' };
-
-function go(pg) {
-  Object.values(PAGES).forEach(p => document.getElementById(p).classList.remove('active'));
-  Object.values(NAV_BTNS).forEach(n => document.getElementById(n).classList.remove('on'));
-  document.getElementById(PAGES[pg]).classList.add('active');
-  document.getElementById(NAV_BTNS[pg]).classList.add('on');
-  window.scrollTo(0, 0);
-  if (pg === 'home') { drawHomeChart('1W'); refreshHome(); }
-  if (pg === 'tasks') { renderTasks(); refreshTaskStats(); }
-  if (pg === 'upgrades') { renderLevels(); renderShop(); refreshUpgrades(); }
-  if (pg === 'account') refreshAccount();
+/* ═══ NAV ═══ */
+const PG={home:'pg-home',tasks:'pg-tasks',upgrades:'pg-upgrades',contact:'pg-contact',account:'pg-account'};
+const NB={home:'nb-home',tasks:'nb-tasks',upgrades:'nb-upgrades',contact:'nb-contact',account:'nb-account'};
+function go(pg){
+  Object.values(PG).forEach(p=>document.getElementById(p).classList.remove('active'));
+  Object.values(NB).forEach(n=>document.getElementById(n).classList.remove('on'));
+  document.getElementById(PG[pg]).classList.add('active');
+  document.getElementById(NB[pg]).classList.add('on');
+  window.scrollTo(0,0);
+  if(pg==='home'){drawHomeChart('1W');refreshHome();}
+  if(pg==='tasks'){renderTasks();refreshTaskStats();}
+  if(pg==='upgrades'){renderLevels();renderShop();refreshUpgrades();}
+  if(pg==='account')refreshAccount();
 }
 
-/* ═══════════════════════════════════════
-   CHART
-═══════════════════════════════════════ */
-const CHART = {
-  '1W': [850,920,870,970,1050,1120,1200,1250],
-  '1M': [600,680,710,820,870,960,1100,1250],
-  '3M': [180,340,510,690,840,1010,1160,1250],
-};
-function drawLineChart(canvasId, data) {
-  const cv = document.getElementById(canvasId); if (!cv) return;
-  const ctx = cv.getContext('2d');
-  const pw = Math.max(cv.parentElement.clientWidth - 40, 280);
-  cv.width = pw * 2; cv.height = parseInt(cv.getAttribute('height') || 90) * 2;
-  cv.style.width = pw + 'px';
-  ctx.scale(2, 2);
-  const W = pw, H = cv.height / 2;
-  const mn = Math.min(...data) - 50, mx = Math.max(...data) + 50;
-  const sX = W / (data.length - 1), sY = (H - 16) / (mx - mn);
-  ctx.clearRect(0, 0, W, H);
-  // Grid
-  ctx.strokeStyle = 'rgba(255,255,255,0.04)'; ctx.lineWidth = 1;
-  [0,1,2,3].forEach(i => {
-    const y = 8 + i * (H - 16) / 3;
-    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
-  });
-  // Fill
-  const g = ctx.createLinearGradient(0, 0, 0, H);
-  g.addColorStop(0, 'rgba(255,255,255,0.1)'); g.addColorStop(1, 'transparent');
-  ctx.beginPath(); ctx.moveTo(0, H);
-  data.forEach((v, i) => ctx.lineTo(i * sX, H - 8 - (v - mn) * sY));
-  ctx.lineTo((data.length - 1) * sX, H);
-  ctx.closePath(); ctx.fillStyle = g; ctx.fill();
-  // Line
-  ctx.beginPath(); ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 1.5;
-  ctx.lineJoin = 'round'; ctx.lineCap = 'round';
-  data.forEach((v, i) => {
-    const x = i * sX, y = H - 8 - (v - mn) * sY;
-    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-  });
-  ctx.stroke();
-  // Endpoint
-  const lx = (data.length - 1) * sX;
-  const ly = H - 8 - (data[data.length - 1] - mn) * sY;
-  ctx.beginPath(); ctx.arc(lx, ly, 3, 0, Math.PI * 2);
-  ctx.fillStyle = '#FFFFFF'; ctx.fill();
-  ctx.beginPath(); ctx.arc(lx, ly, 5.5, 0, Math.PI * 2);
-  ctx.strokeStyle = 'rgba(255,255,255,0.3)'; ctx.lineWidth = 1;
-  ctx.stroke();
+/* ═══ CHART ═══ */
+const CHART={'1W':[850,920,870,970,1050,1120,1200,1250],'1M':[600,680,710,820,870,960,1100,1250],'3M':[180,340,510,690,840,1010,1160,1250]};
+function drawLineChart(id,data){
+  const cv=document.getElementById(id);if(!cv)return;
+  const ctx=cv.getContext('2d');
+  const pw=Math.max(cv.parentElement.clientWidth-40,280);
+  cv.width=pw*2;cv.height=parseInt(cv.getAttribute('height')||90)*2;
+  cv.style.width=pw+'px';ctx.scale(2,2);
+  const W=pw,H=cv.height/2;
+  const mn=Math.min(...data)-50,mx=Math.max(...data)+50;
+  const sX=W/(data.length-1),sY=(H-16)/(mx-mn);
+  ctx.clearRect(0,0,W,H);
+  ctx.strokeStyle='rgba(255,255,255,0.04)';ctx.lineWidth=1;
+  [0,1,2,3].forEach(i=>{const y=8+i*(H-16)/3;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()});
+  const g=ctx.createLinearGradient(0,0,0,H);
+  g.addColorStop(0,'rgba(255,255,255,0.1)');g.addColorStop(1,'transparent');
+  ctx.beginPath();ctx.moveTo(0,H);
+  data.forEach((v,i)=>ctx.lineTo(i*sX,H-8-(v-mn)*sY));
+  ctx.lineTo((data.length-1)*sX,H);ctx.closePath();ctx.fillStyle=g;ctx.fill();
+  ctx.beginPath();ctx.strokeStyle='#FFFFFF';ctx.lineWidth=1.5;ctx.lineJoin='round';ctx.lineCap='round';
+  data.forEach((v,i)=>{const x=i*sX,y=H-8-(v-mn)*sY;i===0?ctx.moveTo(x,y):ctx.lineTo(x,y)});ctx.stroke();
+  const lx=(data.length-1)*sX,ly=H-8-(data[data.length-1]-mn)*sY;
+  ctx.beginPath();ctx.arc(lx,ly,3,0,Math.PI*2);ctx.fillStyle='#FFF';ctx.fill();
 }
-function drawHomeChart(p) { drawLineChart('home-chart', CHART[p] || CHART['1W']); }
-function switchChart(p, btn) {
-  document.querySelectorAll('.cp').forEach(b => b.classList.remove('on'));
-  btn.classList.add('on'); drawHomeChart(p);
-}
+function drawHomeChart(p){drawLineChart('home-chart',CHART[p]||CHART['1W'])}
+function switchChart(p,btn){document.querySelectorAll('.cp').forEach(b=>b.classList.remove('on'));btn.classList.add('on');drawHomeChart(p)}
 
-/* ═══════════════════════════════════════
-   REFRESH ALL DISPLAYS
-═══════════════════════════════════════ */
-function getCurrentLevel() {
-  return LEVELS.findIndex((lv, i) => totalXP >= lv.min && (lv.max === Infinity || totalXP < lv.max));
-}
-function getLevelData() {
-  const idx = getCurrentLevel();
-  return { idx, lv: LEVELS[idx] };
-}
+/* ═══ LEVEL HELPERS ═══ */
+function getCurrLvlIdx(){return LEVELS.findIndex((lv,i)=>totalXP>=lv.min&&(lv.max===Infinity||totalXP<lv.max))}
 
-function refreshHome() {
-  const done = taskList.filter(t => t.status === 'done').length + (doneCount - 12);
-  const pend = taskList.filter(t => t.status === 'idle' || t.status === 'running' || t.status === 'paused').length;
-  const { lv, idx } = getLevelData();
-  const nextLv = LEVELS[idx + 1];
-  const pct = nextLv ? Math.round(((totalXP - lv.min) / (nextLv.min - lv.min)) * 100) : 100;
-
-  const el = id => document.getElementById(id);
-  el('h-xp-num') && (el('h-xp-num').textContent = totalXP.toLocaleString());
-  el('hm-done') && (el('hm-done').textContent = doneCount);
-  el('hm-pend') && (el('hm-pend').textContent = pend);
-  el('hm-lvl') && (el('hm-lvl').textContent = lv.icon);
-  el('hm-streak') && (el('hm-streak').textContent = streakDays + '🔥');
-  el('h-tier-tag') && (el('h-tier-tag').textContent = lv.name.toUpperCase() + ' TIER');
-  el('h-xp-bar') && (el('h-xp-bar').style.width = pct + '%');
-  el('h-xp-curr') && (el('h-xp-curr').textContent = totalXP.toLocaleString() + ' XP');
-  el('h-xp-next') && (el('h-xp-next').textContent = nextLv ? nextLv.name + ': ' + nextLv.min.toLocaleString() + ' XP' : 'MAX LEVEL');
-  renderHomeActivity();
+/* ═══ REFRESH ═══ */
+function refreshHome(){
+  const idx=getCurrLvlIdx(),lv=LEVELS[idx],next=LEVELS[idx+1];
+  const pct=next?Math.round((totalXP-lv.min)/(next.min-lv.min)*100):100;
+  const pend=taskList.filter(t=>t.status==='idle'||t.status==='running'||t.status==='paused').length;
+  const el=id=>document.getElementById(id);
+  el('h-xp-num')&&(el('h-xp-num').textContent=totalXP.toLocaleString());
+  el('hm-done')&&(el('hm-done').textContent=doneCount);
+  el('hm-pend')&&(el('hm-pend').textContent=pend);
+  el('hm-lvl')&&(el('hm-lvl').textContent=lv.icon);
+  el('hm-streak')&&(el('hm-streak').textContent=streakDays+'🔥');
+  el('h-tier-tag')&&(el('h-tier-tag').textContent=lv.name.toUpperCase()+' TIER');
+  el('h-xp-bar')&&(el('h-xp-bar').style.width=pct+'%');
+  el('h-xp-curr')&&(el('h-xp-curr').textContent=totalXP.toLocaleString()+' XP');
+  el('h-xp-next')&&(el('h-xp-next').textContent=next?next.name+': '+next.min.toLocaleString()+' XP':'MAX LEVEL');
+  renderHomeActivity();updateNavPip();
+}
+function refreshTaskStats(){
+  const all=taskList.length,pend=taskList.filter(t=>t.status!=='done'&&t.status!=='locked').length;
+  const pts=taskList.filter(t=>t.status==='done').reduce((s,t)=>s+t.reward,0);
+  const el=id=>document.getElementById(id);
+  el('kpi-all')&&(el('kpi-all').textContent=all);
+  el('kpi-pend')&&(el('kpi-pend').textContent=pend);
+  el('kpi-pts')&&(el('kpi-pts').textContent=pts);
+  el('tasks-subtitle')&&(el('tasks-subtitle').textContent=pend>0?`لديك ${pend} مهمة متبقية — الإلغاء يخصم نقاطاً ويقفل المهمة حتى الغد`:'🎉 رائع! أنجزت جميع مهامك اليوم');
   updateNavPip();
 }
-
-function refreshTaskStats() {
-  const all = taskList.length;
-  const pend = taskList.filter(t => t.status !== 'done' && t.status !== 'locked').length;
-  const pts = taskList.filter(t => t.status === 'done').reduce((s, t) => s + t.reward, 0);
-  const el = id => document.getElementById(id);
-  el('kpi-all') && (el('kpi-all').textContent = all);
-  el('kpi-pend') && (el('kpi-pend').textContent = pend);
-  el('kpi-pts') && (el('kpi-pts').textContent = pts);
-  el('tasks-subtitle') && (el('tasks-subtitle').textContent = pend > 0
-    ? `لديك ${pend} مهمة متبقية — الإلغاء يخصم نقاطاً ويقفل المهمة حتى الغد`
-    : '🎉 رائع! أنجزت جميع مهامك اليوم');
-  updateNavPip();
+function refreshUpgrades(){
+  const idx=getCurrLvlIdx(),lv=LEVELS[idx],next=LEVELS[idx+1];
+  const pct=next?Math.round((totalXP-lv.min)/(next.min-lv.min)*1000)/10:100;
+  const el=id=>document.getElementById(id);
+  el('lh-tier-badge')&&(el('lh-tier-badge').textContent='★ '+lv.name.toUpperCase()+' TIER');
+  el('lh-icon')&&(el('lh-icon').textContent=lv.icon);
+  el('lh-xp-txt')&&(el('lh-xp-txt').textContent=totalXP.toLocaleString()+' / '+(next?next.min.toLocaleString():'∞')+' XP');
+  el('lh-fill')&&(el('lh-fill').style.width=pct+'%');
+  el('lh-curr-label')&&(el('lh-curr-label').textContent=lv.name+': '+totalXP.toLocaleString()+' XP');
+  el('lh-next-label')&&(el('lh-next-label').textContent=next?next.name+': '+next.min.toLocaleString()+' XP':'MAX LEVEL');
 }
-
-function refreshUpgrades() {
-  const { lv, idx } = getLevelData();
-  const nextLv = LEVELS[idx + 1];
-  const pct = nextLv ? Math.round(((totalXP - lv.min) / (nextLv.min - lv.min)) * 1000) / 10 : 100;
-  const el = id => document.getElementById(id);
-  el('lh-tier-badge') && (el('lh-tier-badge').textContent = '★ ' + lv.name.toUpperCase() + ' TIER');
-  el('lh-icon') && (el('lh-icon').textContent = lv.icon);
-  el('lh-xp-txt') && (el('lh-xp-txt').textContent = totalXP.toLocaleString() + ' / ' + (nextLv ? nextLv.min.toLocaleString() : '∞') + ' XP');
-  el('lh-fill') && (el('lh-fill').style.width = pct + '%');
-  el('lh-curr-label') && (el('lh-curr-label').textContent = lv.name + ': ' + totalXP.toLocaleString() + ' XP');
-  el('lh-next-label') && (el('lh-next-label').textContent = nextLv ? nextLv.name + ': ' + nextLv.min.toLocaleString() + ' XP' : 'MAX LEVEL');
+function refreshAccount(){
+  const idx=getCurrLvlIdx(),lv=LEVELS[idx],next=LEVELS[idx+1];
+  const pct=next?Math.round((totalXP-lv.min)/(next.min-lv.min)*1000)/10:100;
+  const el=id=>document.getElementById(id);
+  el('ak-xp')&&(el('ak-xp').textContent=totalXP.toLocaleString());
+  el('ak-tasks')&&(el('ak-tasks').textContent=taskList.length);
+  el('ak-streak')&&(el('ak-streak').textContent=streakDays+'🔥');
+  el('acc-tasks-desc')&&(el('acc-tasks-desc').textContent=taskList.length+' مهمة — '+taskList.filter(t=>t.status==='done').length+' مكتملة');
+  el('lp-pct')&&(el('lp-pct').textContent=pct+'%');
+  el('lp-fill')&&(el('lp-fill').style.width=pct+'%');
+  el('lp-curr')&&(el('lp-curr').textContent=totalXP.toLocaleString()+' XP');
+  el('lp-next')&&(el('lp-next').textContent=next?next.name+': '+next.min.toLocaleString()+' XP':'MAX LEVEL ✓');
 }
-
-function refreshAccount() {
-  const { lv, idx } = getLevelData();
-  const nextLv = LEVELS[idx + 1];
-  const pct = nextLv ? Math.round(((totalXP - lv.min) / (nextLv.min - lv.min)) * 1000) / 10 : 100;
-  const el = id => document.getElementById(id);
-  el('ak-xp') && (el('ak-xp').textContent = totalXP.toLocaleString());
-  el('ak-tasks') && (el('ak-tasks').textContent = taskList.length);
-  el('ak-streak') && (el('ak-streak').textContent = streakDays + '🔥');
-  el('acc-tasks-desc') && (el('acc-tasks-desc').textContent = taskList.length + ' مهمة — ' + taskList.filter(t => t.status === 'done').length + ' مكتملة');
-  el('acc-done-chip') && (el('acc-done-chip').textContent = doneCount);
-  el('acc-cancel-chip') && (el('acc-cancel-chip').textContent = cancelCount);
-  el('lp-pct') && (el('lp-pct').textContent = pct + '%');
-  el('lp-fill') && (el('lp-fill').style.width = pct + '%');
-  el('lp-curr') && (el('lp-curr').textContent = totalXP.toLocaleString() + ' XP');
-  el('lp-next') && (el('lp-next').textContent = nextLv ? nextLv.name + ': ' + nextLv.min.toLocaleString() + ' XP' : 'MAX LEVEL ✓');
-}
-
-/* ═══════════════════════════════════════
-   HOME ACTIVITY
-═══════════════════════════════════════ */
-let activityLog = [
-  { title:'أكملت: تعلم JavaScript', sub:'منذ ساعتين · تعليم', pts:50, up:true },
-  { title:'ترقية جديدة: Gold Tier', sub:'أمس', pts:200, up:true },
-  { title:'إلغاء مهمة — خصم', sub:'منذ يومين', pts:25, up:false },
-  { title:'سلسلة 7 أيام مكتملة', sub:'اليوم', pts:100, up:true },
-];
-
-function renderHomeActivity() {
-  const el = document.getElementById('home-activity');
-  if (!el) return;
-  el.innerHTML = activityLog.slice(0, 5).map(a => `
+function renderHomeActivity(){
+  const el=document.getElementById('home-activity');if(!el)return;
+  el.innerHTML=activityLog.slice(0,4).map(a=>`
     <div class="activity-row" onclick="showToast('${a.title}','t-default')">
-      <div class="ar-left">
-        <div class="ar-title">${a.title}</div>
-        <div class="ar-sub"><span>${a.sub}</span></div>
-      </div>
-      <div class="ar-right">
-        <div class="ar-pts ${a.up ? 'up' : 'dn'}">${a.up ? '+' : '−'}${a.pts} XP</div>
-        <span class="ar-time">${a.up ? 'مكتسب' : 'مخصوم'}</span>
-      </div>
-    </div>
-  `).join('');
+      <div class="ar-left"><div class="ar-title">${a.title}</div><div class="ar-sub">${a.sub}</div></div>
+      <div class="ar-right"><div class="ar-pts ${a.up?'up':'dn'}">${a.up?'+':'−'}${a.pts} XP</div><span class="ar-time">${a.up?'مكتسب':'مخصوم'}</span></div>
+    </div>`).join('');
 }
 
-/* ═══════════════════════════════════════
-   TASKS RENDER
-═══════════════════════════════════════ */
-function fmtTime(s) {
-  if (s <= 0) return '0ث';
-  const m = Math.floor(s / 60), sec = s % 60;
-  return m > 0 ? m + ':' + String(sec).padStart(2, '0') : sec + 'ث';
+/* ═══ TASKS ═══ */
+function fmtTime(s){if(s<=0)return'0ث';const m=Math.floor(s/60),sec=s%60;return m>0?m+':'+String(sec).padStart(2,'0'):sec+'ث'}
+function fmtDur(s){if(s<60)return s+' ثانية';const m=Math.floor(s/60);return m<60?m+' دقيقة':Math.floor(m/60)+' ساعة'}
+function checkLocks(){const now=new Date();taskList.forEach(t=>{if(t.status==='locked'&&t.lockedUntil&&new Date(t.lockedUntil)<=now){t.status='idle';t.elapsed=0}})}
+function setFilter(f,btn){activeFilter=f;document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderTasks()}
+function renderTasks(){
+  checkLocks();
+  let list=[...taskList];
+  if(activeFilter==='idle')list=list.filter(t=>t.status==='idle');
+  else if(activeFilter==='running')list=list.filter(t=>t.status==='running'||t.status==='paused');
+  else if(activeFilter==='done')list=list.filter(t=>t.status==='done');
+  else if(activeFilter==='locked')list=list.filter(t=>t.status==='locked');
+  const el=document.getElementById('tasks-list');if(!el)return;
+  if(!list.length){el.innerHTML=`<div class="empty-state"><div class="empty-icon">—</div><div class="empty-text">لا توجد مهام في هذه الفئة</div><div class="empty-hint">اضغط + لإضافة مهمة جديدة</div></div>`;return}
+  el.innerHTML=list.map(t=>buildCard(t)).join('');
 }
-function fmtDur(s) {
-  if (s < 60) return s + ' ثانية';
-  const m = Math.floor(s / 60);
-  return m < 60 ? m + ' دقيقة' : Math.floor(m / 60) + ' ساعة';
-}
-
-function checkTaskLocks() {
-  const now = new Date();
-  taskList.forEach(t => {
-    if (t.status === 'locked' && t.lockedUntil) {
-      if (new Date(t.lockedUntil) <= now) {
-        t.status = 'idle'; t.elapsed = 0;
-      }
-    }
-  });
-}
-
-function setFilter(f, btn) {
-  activeFilter = f;
-  document.querySelectorAll('.ftab').forEach(b => b.classList.remove('on'));
-  btn.classList.add('on');
-  renderTasks();
-}
-
-function renderTasks() {
-  checkTaskLocks();
-  let list = [...taskList];
-  if (activeFilter === 'idle') list = list.filter(t => t.status === 'idle');
-  else if (activeFilter === 'running') list = list.filter(t => t.status === 'running' || t.status === 'paused');
-  else if (activeFilter === 'done') list = list.filter(t => t.status === 'done');
-  else if (activeFilter === 'locked') list = list.filter(t => t.status === 'locked');
-
-  const el = document.getElementById('tasks-list');
-  if (!el) return;
-
-  if (!list.length) {
-    el.innerHTML = `<div class="empty-state">
-      <div class="empty-icon">—</div>
-      <div class="empty-text">لا توجد مهام في هذه الفئة</div>
-      <div class="empty-hint">اضغط + لإضافة مهمة جديدة</div>
-    </div>`;
-    return;
-  }
-
-  el.innerHTML = list.map(t => buildTaskCard(t)).join('');
-}
-
-function buildTaskCard(t) {
-  const pct = t.dur > 0 ? Math.round((t.elapsed / t.dur) * 100) : 0;
-  const remaining = Math.max(0, t.dur - t.elapsed);
-  const priCls = { high:'pri-h', med:'pri-m', low:'pri-l' }[t.pri];
-  const priTag = { high:'tag-pri-h HIGH', med:'tag-pri-m MEDIUM', low:'tag-pri-l LOW' }[t.pri];
-  const isRunning = t.status === 'running';
-  const isPaused = t.status === 'paused';
-  const isDone = t.status === 'done';
-  const isLocked = t.status === 'locked';
-  const isIdle = t.status === 'idle';
-
-  let lockStr = '';
-  if (isLocked && t.lockedUntil) {
-    const d = new Date(t.lockedUntil);
-    lockStr = 'مقفلة حتى: ' + d.toLocaleDateString('ar') + ' ' + d.toLocaleTimeString('ar', { hour:'2-digit', minute:'2-digit' });
-  }
-
-  const barColor = isPaused ? 'paused' : isDone ? 'done' : '';
-
-  return `<div class="task-card ${priCls} ${isRunning ? 'is-running' : ''} ${isDone ? 'is-done' : ''} ${isLocked ? 'is-locked' : ''} ${isPaused ? 'is-paused' : ''}" id="tc${t.id}">
+function buildCard(t){
+  const pct=t.dur>0?Math.round(t.elapsed/t.dur*100):0;
+  const rem=Math.max(0,t.dur-t.elapsed);
+  const priCls={high:'pri-h',med:'pri-m',low:'pri-l'}[t.pri];
+  const priTxt={high:'HIGH',med:'MEDIUM',low:'LOW'}[t.pri];
+  const priTagCls={high:'tag-ph',med:'tag-pm',low:'tag-pl'}[t.pri];
+  const isR=t.status==='running',isP=t.status==='paused',isD=t.status==='done',isL=t.status==='locked',isI=t.status==='idle';
+  let lockStr='';if(isL&&t.lockedUntil){const d=new Date(t.lockedUntil);lockStr='مقفلة حتى: '+d.toLocaleDateString('ar')+' '+d.toLocaleTimeString('ar',{hour:'2-digit',minute:'2-digit'})}
+  return`<div class="task-card ${priCls} ${isR?'is-running':''} ${isD?'is-done':''} ${isL?'is-locked':''} ${isP?'is-paused':''}" id="tc${t.id}">
     <div class="tc-top">
       <div class="tc-icon">${t.icon}</div>
       <div class="tc-content">
         <div class="tc-name">${t.name}</div>
         <div class="tc-desc">${t.desc}</div>
         <div class="tc-tags">
-          <span class="tag ${priTag.split(' ')[0]}">${priTag.split(' ')[1]}</span>
+          <span class="tag ${priTagCls}">${priTxt}</span>
           <span class="tag tag-reward">+${t.reward} XP</span>
           <span class="tag tag-penalty">−${t.penalty} XP إلغاء</span>
           <span class="tag tag-dur">${fmtDur(t.dur)}</span>
-          ${t.cat ? `<span class="tag tag-cat">${t.cat.toUpperCase()}</span>` : ''}
-          ${isDone ? '<span class="tag tag-done">✓ DONE</span>' : ''}
-          ${isLocked ? '<span class="tag tag-locked">🔒 LOCKED</span>' : ''}
-          ${isPaused ? '<span class="tag tag-paused">⏸ PAUSED</span>' : ''}
+          ${t.cat?`<span class="tag tag-cat">${t.cat.toUpperCase()}</span>`:''}
+          ${isD?'<span class="tag tag-done">✓ DONE</span>':''}
+          ${isL?'<span class="tag tag-locked">🔒 LOCKED</span>':''}
+          ${isP?'<span class="tag tag-paused">⏸ PAUSED</span>':''}
         </div>
       </div>
     </div>
-    ${(isRunning || isPaused) ? `
-      <div class="tc-timer">
-        <div class="timer-track">
-          <div class="timer-fill ${barColor}" id="tf${t.id}" style="width:${pct}%"></div>
-        </div>
-        <div class="timer-info">
-          <span class="timer-remaining" id="tr${t.id}">${fmtTime(remaining)}</span>
-          <span class="timer-pct" id="tp${t.id}">${pct}%</span>
-        </div>
-      </div>` : ''}
-    ${isDone ? `<div class="tc-status-msg msg-done">✓ مكتملة — تم اكتساب ${t.reward} XP بنجاح</div>` : ''}
-    ${isLocked ? `<div class="tc-status-msg msg-locked">🔒 ${lockStr}</div>` : ''}
-    ${isPaused ? `<div class="tc-status-msg msg-paused">⏸ في انتظارك — استأنف المهمة للمتابعة</div>` : ''}
-    ${(isIdle || isRunning || isPaused) ? `
-      <div class="tc-actions">
-        ${isIdle ? `<button class="tca tca-start" onclick="startTask(${t.id})">▶ بدء المهمة</button>` : ''}
-        ${isRunning ? `<button class="tca tca-pause" onclick="pauseTask(${t.id})">⏸ إيقاف</button>` : ''}
-        ${isPaused ? `<button class="tca tca-resume" onclick="resumeTask(${t.id})">▶ استئناف</button>` : ''}
-        ${(isRunning || isPaused) ? `<button class="tca tca-cancel" onclick="askCancel(${t.id})">✕ إلغاء</button>` : ''}
-        ${isIdle ? `<button class="tca tca-delete" onclick="deleteTask(${t.id})">🗑</button>` : ''}
-      </div>` : ''}
+    ${(isR||isP)?`<div class="tc-timer"><div class="timer-track"><div class="timer-fill ${isP?'paused-f':''}" id="tf${t.id}" style="width:${pct}%"></div></div><div class="timer-info"><span class="timer-rem" id="tr${t.id}">${fmtTime(rem)}</span><span class="timer-pct" id="tp${t.id}">${pct}%</span></div></div>`:''}
+    ${isD?`<div class="tc-msg msg-done">✓ مكتملة — تم اكتساب ${t.reward} XP بنجاح</div>`:''}
+    ${isL?`<div class="tc-msg msg-locked">🔒 ${lockStr}</div>`:''}
+    ${isP?`<div class="tc-msg msg-paused">⏸ في انتظارك — استأنف المهمة للمتابعة</div>`:''}
+    ${(isI||isR||isP)?`<div class="tc-actions">
+      ${isI?`<button class="tca tca-start" onclick="startTask(${t.id})">▶ بدء المهمة</button>`:''}
+      ${isR?`<button class="tca tca-pause" onclick="pauseTask(${t.id})">⏸ إيقاف</button>`:''}
+      ${isP?`<button class="tca tca-resume" onclick="resumeTask(${t.id})">▶ استئناف</button>`:''}
+      ${(isR||isP)?`<button class="tca tca-cancel" onclick="askCancel(${t.id})">✕ إلغاء</button>`:''}
+      ${isI?`<button class="tca tca-delete" onclick="deleteTask(${t.id})">🗑</button>`:''}
+    </div>`:''}
   </div>`;
 }
 
-/* ═══════════════════════════════════════
-   TASK ACTIONS
-═══════════════════════════════════════ */
-function startTask(id) {
-  const t = taskList.find(x => x.id === id);
-  if (!t || t.status !== 'idle') return;
-  // Stop others
-  taskList.forEach(task => {
-    if (task.status === 'running') {
-      clearInterval(timers[task.id]);
-      task.status = 'paused';
-    }
-  });
-  t.status = 'running';
-  renderTasks(); refreshTaskStats();
-  showToast('▶ بدأت: ' + t.name, 't-default');
-  runTimer(id);
+/* ═══ TASK ACTIONS ═══ */
+function startTask(id){
+  const t=taskList.find(x=>x.id===id);if(!t||t.status!=='idle')return;
+  taskList.forEach(tk=>{if(tk.status==='running'){clearInterval(timers[tk.id]);tk.status='paused'}});
+  t.status='running';renderTasks();refreshTaskStats();showToast('▶ بدأت: '+t.name,'t-default');runTimer(id);
 }
-
-function runTimer(id) {
-  const t = taskList.find(x => x.id === id);
-  if (!t) return;
-  timers[id] = setInterval(() => {
-    if (t.status !== 'running') { clearInterval(timers[id]); return; }
+function runTimer(id){
+  const t=taskList.find(x=>x.id===id);if(!t)return;
+  timers[id]=setInterval(()=>{
+    if(t.status!=='running'){clearInterval(timers[id]);return}
     t.elapsed++;
-    const remaining = Math.max(0, t.dur - t.elapsed);
-    const pct = Math.min(100, Math.round((t.elapsed / t.dur) * 100));
-    const tf = document.getElementById('tf' + id);
-    const tr = document.getElementById('tr' + id);
-    const tp = document.getElementById('tp' + id);
-    if (tf) tf.style.width = pct + '%';
-    if (tr) tr.textContent = fmtTime(remaining);
-    if (tp) tp.textContent = pct + '%';
-    if (t.elapsed >= t.dur) {
-      clearInterval(timers[id]);
-      completeTask(id);
-    }
-  }, 1000);
+    const rem=Math.max(0,t.dur-t.elapsed),pct=Math.min(100,Math.round(t.elapsed/t.dur*100));
+    const tf=document.getElementById('tf'+id),tr=document.getElementById('tr'+id),tp=document.getElementById('tp'+id);
+    if(tf)tf.style.width=pct+'%';if(tr)tr.textContent=fmtTime(rem);if(tp)tp.textContent=pct+'%';
+    if(t.elapsed>=t.dur){clearInterval(timers[id]);completeTask(id)}
+  },1000);
 }
-
-function pauseTask(id) {
-  const t = taskList.find(x => x.id === id);
-  if (!t || t.status !== 'running') return;
-  clearInterval(timers[id]);
-  t.status = 'paused';
-  renderTasks(); refreshTaskStats();
-  showToast('⏸ تم إيقاف: ' + t.name, 't-default');
+function pauseTask(id){
+  const t=taskList.find(x=>x.id===id);if(!t||t.status!=='running')return;
+  clearInterval(timers[id]);t.status='paused';renderTasks();refreshTaskStats();showToast('⏸ تم إيقاف: '+t.name,'t-default');
 }
-
-function resumeTask(id) {
-  const t = taskList.find(x => x.id === id);
-  if (!t || t.status !== 'paused') return;
-  // Pause others
-  taskList.forEach(task => {
-    if (task.status === 'running') {
-      clearInterval(timers[task.id]);
-      task.status = 'paused';
-    }
-  });
-  t.status = 'running';
-  renderTasks(); refreshTaskStats();
-  showToast('▶ استئناف: ' + t.name, 't-default');
-  runTimer(id);
+function resumeTask(id){
+  const t=taskList.find(x=>x.id===id);if(!t||t.status!=='paused')return;
+  taskList.forEach(tk=>{if(tk.status==='running'){clearInterval(timers[tk.id]);tk.status='paused'}});
+  t.status='running';renderTasks();refreshTaskStats();showToast('▶ استئناف: '+t.name,'t-default');runTimer(id);
 }
-
-function completeTask(id) {
-  const t = taskList.find(x => x.id === id);
-  if (!t) return;
-  t.status = 'done'; t.elapsed = t.dur;
-  const bonus = SHOP.find(s => s.effect === 'bonus25' && s.owned) ? Math.round(t.reward * 0.25) : 0;
-  const earned = t.reward + bonus;
-  totalXP += earned; doneCount++;
-  activityLog.unshift({ title: 'أكملت: ' + t.name, sub: 'الآن', pts: earned, up: true });
-  addNotif('✅ أكملت: ' + t.name + ' (+' + earned + ' XP)');
-  renderTasks(); refreshTaskStats(); refreshHome();
-  showToast('✓ رائع! +' + earned + ' XP — ' + t.name, 't-green');
+function completeTask(id){
+  const t=taskList.find(x=>x.id===id);if(!t)return;
+  t.status='done';t.elapsed=t.dur;
+  const bonus=SHOP.find(s=>s.effect==='bonus25'&&s.owned)?Math.round(t.reward*.25):0;
+  const earned=t.reward+bonus;
+  totalXP+=earned;doneCount++;
+  activityLog.unshift({title:'أكملت: '+t.name,sub:'الآن',pts:earned,up:true});
+  addNotif('✅ أكملت: '+t.name+' (+'+earned+' XP)');
+  renderTasks();refreshTaskStats();refreshHome();showToast('✓ رائع! +'+earned+' XP — '+t.name,'t-green');
 }
-
-function askCancel(id) {
-  const t = taskList.find(x => x.id === id);
-  if (!t) return;
-  pendingCancelId = id;
-  document.getElementById('confirm-body').textContent = 'هل أنت متأكد من إلغاء "' + t.name + '"؟ سيتم خصم النقاط وقفل المهمة حتى الغد.';
-  document.getElementById('confirm-pen').textContent = '−' + t.penalty + ' XP';
+function askCancel(id){
+  const t=taskList.find(x=>x.id===id);if(!t)return;
+  pendingCancelId=id;
+  document.getElementById('confirm-body').textContent='هل أنت متأكد من إلغاء "'+t.name+'"؟ سيتم خصم النقاط وقفل المهمة حتى الغد.';
+  document.getElementById('confirm-pen').textContent='−'+t.penalty+' XP';
   document.getElementById('modal-confirm').classList.add('open');
 }
-
-function executeCancel() {
+function executeCancel(){
   closeModal('modal-confirm');
-  const id = pendingCancelId;
-  const t = taskList.find(x => x.id === id);
-  if (!t) return;
+  const id=pendingCancelId;
+  const t=taskList.find(x=>x.id===id);if(!t)return;
   clearInterval(timers[id]);
-
-  // Check shield
-  const shield = SHOP.find(s => s.effect === 'shield' && s.owned);
-  let actualPenalty = t.penalty;
-  if (shield) {
-    shield.owned = false;
-    actualPenalty = 0;
-    showToast('🛡️ Penalty Shield استخدم — لا خصم!', 't-gold');
-  }
-  if (actualPenalty > 0) {
-    totalXP = Math.max(0, totalXP - actualPenalty);
-    cancelCount++;
-  }
-
-  // Lock until midnight
-  const tmrw = new Date();
-  tmrw.setDate(tmrw.getDate() + 1);
-  tmrw.setHours(0, 0, 0, 0);
-  t.lockedUntil = tmrw.toISOString();
-  t.status = 'locked'; t.elapsed = 0;
-
-  activityLog.unshift({ title: 'إلغاء: ' + t.name, sub: 'الآن', pts: actualPenalty, up: false });
-  addNotif('⚠️ إلغاء "' + t.name + '" — خصم ' + actualPenalty + ' XP');
-
-  // Show penalty modal if there was a deduction
-  if (actualPenalty > 0) {
-    document.getElementById('pen-val').textContent = '−' + actualPenalty + ' XP';
-    document.getElementById('pen-desc').textContent = 'تم إلغاء "' + t.name + '" قبل اكتمالها.';
-    document.getElementById('pen-extra').textContent = 'المهمة مقفلة حتى منتصف الليل. لا تستسلم — حاول مجدداً غداً!';
+  const shield=SHOP.find(s=>s.effect==='shield'&&s.owned);
+  let pen=t.penalty;
+  if(shield){shield.owned=false;pen=0;showToast('🛡️ Penalty Shield فعّل — لا خصم!','t-gold')}
+  if(pen>0){totalXP=Math.max(0,totalXP-pen);cancelCount++}
+  const tmrw=new Date();tmrw.setDate(tmrw.getDate()+1);tmrw.setHours(0,0,0,0);
+  t.lockedUntil=tmrw.toISOString();t.status='locked';t.elapsed=0;
+  activityLog.unshift({title:'إلغاء: '+t.name,sub:'الآن',pts:pen,up:false});
+  addNotif('⚠️ إلغاء "'+t.name+'" — خصم '+pen+' XP');
+  if(pen>0){
+    document.getElementById('pen-val').textContent='−'+pen+' XP';
+    document.getElementById('pen-desc').textContent='تم إلغاء "'+t.name+'" قبل اكتمالها.';
+    document.getElementById('pen-extra').textContent='المهمة مقفلة حتى منتصف الليل. حاول مجدداً غداً!';
     document.getElementById('modal-penalty').classList.add('open');
   }
+  const wb=document.getElementById('warn-banner');
+  if(wb){document.getElementById('wb-title').textContent=pen>0?'تم خصم '+pen+' XP — إلغاء: '+t.name:'تم إلغاء المهمة بدون خصم (Shield)';document.getElementById('wb-sub').textContent='المهمة مقفلة حتى منتصف الليل';wb.classList.add('show');setTimeout(()=>wb.classList.remove('show'),5000)}
+  renderTasks();refreshTaskStats();refreshHome();
+}
+function deleteTask(id){clearInterval(timers[id]);taskList=taskList.filter(x=>x.id!==id);renderTasks();refreshTaskStats();refreshHome();showToast('✕ تم حذف المهمة','t-default')}
 
-  // Show warn banner
-  const wb = document.getElementById('warn-banner');
-  if (wb) {
-    document.getElementById('wb-title').textContent = actualPenalty > 0 ? 'تم خصم ' + actualPenalty + ' XP — إلغاء: ' + t.name : 'تم إلغاء المهمة بدون خصم (Shield)';
-    document.getElementById('wb-sub').textContent = 'المهمة مقفلة حتى منتصف الليل';
-    wb.classList.add('show');
-    setTimeout(() => wb.classList.remove('show'), 5000);
-  }
-
-  renderTasks(); refreshTaskStats(); refreshHome();
+/* ═══ ADD TASK ═══ */
+function openAddTaskModal(){
+  document.getElementById('f-title').value='';document.getElementById('f-desc').value='';
+  document.getElementById('f-dur').value=60;document.getElementById('f-reward').value=50;
+  document.getElementById('f-penalty').value=25;document.getElementById('f-cat').value='عام';
+  pickPri('med');document.getElementById('modal-add').classList.add('open');
+  setTimeout(()=>document.getElementById('f-title').focus(),300);
+}
+function pickPri(p){
+  selectedPri=p;
+  document.getElementById('p-high').className='pri-opt'+(p==='high'?' ph':'');
+  document.getElementById('p-med').className='pri-opt'+(p==='med'?' pm':'');
+  document.getElementById('p-low').className='pri-opt'+(p==='low'?' pl':'');
+}
+function submitAddTask(){
+  const title=document.getElementById('f-title').value.trim();
+  if(!title){showToast('⚠️ أدخل عنوان المهمة','t-red');return}
+  const dur=Math.max(10,parseInt(document.getElementById('f-dur').value)||60);
+  const reward=Math.max(5,parseInt(document.getElementById('f-reward').value)||50);
+  const penalty=Math.max(0,parseInt(document.getElementById('f-penalty').value)||25);
+  const cat=document.getElementById('f-cat').value;
+  const desc=document.getElementById('f-desc').value.trim();
+  const icons={'عام':'📋','تعليم':'📚','عمل':'💼','صحة':'💪','شخصي':'🌟','مشاريع':'🚀'};
+  const tr=SHOP.find(s=>s.effect==='half'&&s.owned);
+  taskList.unshift({id:nextId++,icon:icons[cat]||'📋',name:title,desc:desc||'أكمل هذه المهمة لكسب النقاط',dur:tr?Math.ceil(dur/2):dur,reward,penalty,pri:selectedPri,cat,status:'idle',elapsed:0,lockedUntil:null});
+  closeModal('modal-add');renderTasks();refreshTaskStats();refreshHome();showToast('✓ تمت إضافة المهمة','t-green');
 }
 
-function deleteTask(id) {
-  clearInterval(timers[id]);
-  taskList = taskList.filter(x => x.id !== id);
-  renderTasks(); refreshTaskStats(); refreshHome();
-  showToast('✕ تم حذف المهمة', 't-default');
-}
-
-/* ═══════════════════════════════════════
-   ADD TASK MODAL
-═══════════════════════════════════════ */
-function openAddTaskModal() {
-  document.getElementById('f-title').value = '';
-  document.getElementById('f-desc').value = '';
-  document.getElementById('f-dur').value = 60;
-  document.getElementById('f-reward').value = 50;
-  document.getElementById('f-penalty').value = 25;
-  document.getElementById('f-cat').value = 'عام';
-  pickPri('med');
-  document.getElementById('modal-add').classList.add('open');
-  setTimeout(() => document.getElementById('f-title').focus(), 300);
-}
-
-function pickPri(p) {
-  selectedPri = p;
-  document.getElementById('p-high').className = 'pri-opt' + (p === 'high' ? ' ph' : '');
-  document.getElementById('p-med').className = 'pri-opt' + (p === 'med' ? ' pm' : '');
-  document.getElementById('p-low').className = 'pri-opt' + (p === 'low' ? ' pl' : '');
-}
-
-function submitAddTask() {
-  const title = document.getElementById('f-title').value.trim();
-  if (!title) { showToast('⚠️ أدخل عنوان المهمة', 't-red'); return; }
-  const dur = Math.max(10, parseInt(document.getElementById('f-dur').value) || 60);
-  const reward = Math.max(5, parseInt(document.getElementById('f-reward').value) || 50);
-  const penalty = Math.max(0, parseInt(document.getElementById('f-penalty').value) || 25);
-  const cat = document.getElementById('f-cat').value;
-  const desc = document.getElementById('f-desc').value.trim();
-  const catIcons = { 'عام':'📋','تعليم':'📚','عمل':'💼','صحة':'💪','شخصي':'🌟','مشاريع':'🚀' };
-  // Apply Time Reducer upgrade
-  const tr = SHOP.find(s => s.effect === 'half' && s.owned);
-  taskList.unshift({
-    id: nextId++, icon: catIcons[cat] || '📋',
-    name: title, desc: desc || 'أكمل هذه المهمة لكسب النقاط',
-    dur: tr ? Math.ceil(dur / 2) : dur,
-    reward, penalty, pri: selectedPri, cat,
-    status: 'idle', elapsed: 0, lockedUntil: null
-  });
-  closeModal('modal-add');
-  renderTasks(); refreshTaskStats(); refreshHome();
-  showToast('✓ تمت إضافة المهمة بنجاح', 't-green');
-}
-
-/* ═══════════════════════════════════════
-   UPGRADES
-═══════════════════════════════════════ */
-function renderLevels() {
-  const currentIdx = getCurrentLevel();
-  const el = document.getElementById('levels-list');
-  if (!el) return;
-  el.innerHTML = LEVELS.map((lv, i) => {
-    const isDone = i < currentIdx;
-    const isCurr = i === currentIdx;
-    const dotCls = isDone ? 'lv-done' : isCurr ? 'lv-current' : 'lv-locked';
-    const statusCls = isDone ? 'lv-s-done' : isCurr ? 'lv-s-current' : 'lv-s-locked';
-    const statusTxt = isDone ? 'DONE' : isCurr ? 'CURRENT' : 'LOCKED';
-    const xpStr = lv.max === Infinity ? lv.min.toLocaleString() + ' XP+' : lv.min.toLocaleString() + ' – ' + lv.max.toLocaleString() + ' XP';
-    return `<div class="lv-row">
-      <div class="lv-dot-col">
-        <div class="lv-dot ${dotCls}">${isCurr ? '★' : lv.icon}</div>
-        ${i < LEVELS.length - 1 ? '<div class="lv-line"></div>' : ''}
-      </div>
-      <div class="lv-info">
-        <strong>${lv.name} — ${lv.tier}</strong>
-        <span>${xpStr}</span>
-      </div>
-      <span class="lv-status ${statusCls}">${statusTxt}</span>
+/* ═══ UPGRADES ═══ */
+function renderLevels(){
+  const curr=getCurrLvlIdx();
+  const el=document.getElementById('levels-list');if(!el)return;
+  el.innerHTML=LEVELS.map((lv,i)=>{
+    const isDone=i<curr,isCurr=i===curr;
+    const dc=isDone?'lv-done':isCurr?'lv-curr':'lv-lock';
+    const sc=isDone?'lvs-done':isCurr?'lvs-curr':'lvs-lock';
+    const sl=isDone?'DONE':isCurr?'CURRENT':'LOCKED';
+    const xpStr=lv.max===Infinity?lv.min.toLocaleString()+' XP+':lv.min.toLocaleString()+' – '+lv.max.toLocaleString()+' XP';
+    return`<div class="lv-row">
+      <div class="lv-dc"><div class="lv-dot ${dc}">${isCurr?'★':lv.icon}</div>${i<LEVELS.length-1?'<div class="lv-line"></div>':''}</div>
+      <div class="lv-info"><strong>${lv.name} — ${lv.tier}</strong><span>${xpStr}</span></div>
+      <span class="lv-status ${sc}">${sl}</span>
     </div>`;
   }).join('');
 }
-
-function renderShop() {
-  const el = document.getElementById('shop-grid');
-  if (!el) return;
-  el.innerHTML = SHOP.map(item => {
-    const canAfford = totalXP >= item.cost;
-    const cls = item.owned ? 'owned' : !canAfford ? 'cant-afford' : '';
-    const priceEl = item.owned
-      ? '<span class="shop-price sp-owned">✓ OWNED</span>'
-      : canAfford
-        ? `<span class="shop-price sp-buy">⭐ ${item.cost.toLocaleString()} XP</span>`
-        : `<span class="shop-price sp-no">⭐ ${item.cost.toLocaleString()} XP</span>`;
-    return `<div class="shop-card ${cls}" onclick="buyItem(${item.id})">
-      ${item.owned ? '<span class="owned-badge">ACTIVE</span>' : ''}
-      <div class="shop-icon">${item.icon}</div>
-      <div class="shop-name">${item.name}</div>
-      <div class="shop-desc">${item.desc}</div>
-      ${priceEl}
-    </div>`;
+function renderShop(){
+  const el=document.getElementById('shop-grid');if(!el)return;
+  el.innerHTML=SHOP.map(item=>{
+    const canAfford=totalXP>=item.cost;
+    const cls=item.owned?'owned':!canAfford?'cant-afford':'';
+    const priceEl=item.owned?'<span class="shop-price sp-owned">✓ OWNED</span>':canAfford?`<span class="shop-price sp-buy">⭐ ${item.cost.toLocaleString()} XP</span>`:`<span class="shop-price sp-no">⭐ ${item.cost.toLocaleString()} XP</span>`;
+    return`<div class="shop-card ${cls}" onclick="buyItem(${item.id})">${item.owned?'<span class="owned-badge">ACTIVE</span>':''}<div class="shop-icon">${item.icon}</div><div class="shop-name">${item.name}</div><div class="shop-desc">${item.desc}</div>${priceEl}</div>`;
   }).join('');
 }
-
-function buyItem(id) {
-  const item = SHOP.find(x => x.id === id);
-  if (!item) return;
-  if (item.owned) { showToast('✓ ' + item.name + ' مفعّل بالفعل', 't-default'); return; }
-  if (totalXP < item.cost) { showToast('⚠️ رصيدك غير كافٍ (' + totalXP.toLocaleString() + ' XP)', 't-red'); return; }
-  totalXP -= item.cost;
-  item.owned = true;
-  // Apply effect
-  if (item.effect === 'unlock') {
-    const locked = taskList.find(t => t.status === 'locked');
-    if (locked) { locked.status = 'idle'; locked.lockedUntil = null; renderTasks(); showToast('🔓 تم فتح: ' + locked.name, 't-green'); }
-    else showToast('🔓 لا توجد مهام مقفلة حالياً', 't-default');
-  } else {
-    showToast('✓ تم شراء: ' + item.name, 't-gold');
-  }
-  renderShop(); refreshUpgrades(); refreshHome();
-  addNotif('🛒 اشتريت: ' + item.name);
+function buyItem(id){
+  const item=SHOP.find(x=>x.id===id);if(!item)return;
+  if(item.owned){showToast('✓ '+item.name+' مفعّل بالفعل','t-default');return}
+  if(totalXP<item.cost){showToast('⚠️ رصيدك غير كافٍ ('+totalXP.toLocaleString()+' XP)','t-red');return}
+  totalXP-=item.cost;item.owned=true;
+  if(item.effect==='unlock'){const locked=taskList.find(t=>t.status==='locked');if(locked){locked.status='idle';locked.lockedUntil=null;renderTasks();showToast('🔓 تم فتح: '+locked.name,'t-green')}else{showToast('🔓 لا توجد مهام مقفلة','t-default')}}
+  else showToast('✓ تم شراء: '+item.name,'t-gold');
+  renderShop();refreshUpgrades();refreshHome();addNotif('🛒 اشتريت: '+item.name);
 }
 
-/* ═══════════════════════════════════════
-   NOTIFICATIONS
-═══════════════════════════════════════ */
-function addNotif(text) {
-  notifications.unshift({ id: Date.now(), text, time: 'الآن', read: false });
-  const pip = document.getElementById('notif-pip');
-  if (pip) pip.style.display = 'block';
-}
-
-function openNotifPanel() {
-  const el = document.getElementById('notif-list');
-  if (el) {
-    el.innerHTML = notifications.length ? notifications.map(n => `
-      <div style="padding:13px 0;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:flex-start">
-        <div style="font-size:10px;color:var(--w);flex:1;line-height:1.5">${n.text}</div>
-        <span style="font-size:9px;color:var(--muted);flex-shrink:0;margin-top:1px">${n.time}</span>
-      </div>
-    `).join('') : '<div style="padding:20px;text-align:center;color:var(--muted);font-size:12px">لا توجد إشعارات</div>';
-  }
-  notifications.forEach(n => n.read = true);
+/* ═══ NOTIFICATIONS ═══ */
+function addNotif(text){notifications.unshift({id:Date.now(),text,time:'الآن',read:false});const pip=document.getElementById('notif-pip');if(pip)pip.style.display='block'}
+function openNotifPanel(){
+  const el=document.getElementById('notif-list');
+  if(el)el.innerHTML=notifications.length?notifications.map(n=>`<div style="padding:13px 0;border-bottom:1px solid var(--border);display:flex;gap:10px"><div style="font-size:10px;color:var(--w);flex:1;line-height:1.5">${n.text}</div><span style="font-size:9px;color:var(--muted);flex-shrink:0">${n.time}</span></div>`).join(''):'<div style="padding:20px;text-align:center;color:var(--muted);font-size:12px">لا توجد إشعارات</div>';
+  notifications.forEach(n=>n.read=true);
   document.getElementById('modal-notif').classList.add('open');
 }
+function clearNotifs(){notifications=[];const el=document.getElementById('notif-list');if(el)el.innerHTML='<div style="padding:20px;text-align:center;color:var(--muted);font-size:12px">تم مسح الإشعارات</div>';const pip=document.getElementById('notif-pip');if(pip)pip.style.display='none';showToast('✓ تم مسح الإشعارات','t-default')}
+function updateNavPip(){const pip=document.getElementById('nav-pip');if(pip)pip.style.display=taskList.filter(t=>t.status==='idle'||t.status==='running'||t.status==='paused').length>0?'block':'none'}
 
-function clearNotifs() {
-  notifications = [];
-  const el = document.getElementById('notif-list');
-  if (el) el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--muted);font-size:12px">تم مسح الإشعارات</div>';
-  const pip = document.getElementById('notif-pip');
-  if (pip) pip.style.display = 'none';
-  showToast('✓ تم مسح كل الإشعارات', 't-default');
-}
+/* ═══ MODAL HELPERS ═══ */
+function closeModal(id){document.getElementById(id).classList.remove('open')}
+function closeOvIf(id,e){if(e.target===document.getElementById(id))closeModal(id)}
+function toggleFaq(btn){btn.classList.toggle('open');btn.nextElementSibling.classList.toggle('visible')}
+function toggleSwitch(el,msgOn,msgOff){el.classList.toggle('on');showToast(el.classList.contains('on')?msgOn:msgOff,'t-default')}
+function confirmLogout(){document.getElementById('modal-logout').classList.add('open')}
+function doLogout(){closeModal('modal-logout');showToast('👋 تم تسجيل الخروج بأمان','t-default')}
+function copySignal(){const link='https://signal.me/#eu/__kL4ayCt64xdRiSQWwYpMxOo5_u-Br5Y87rLvt7vQ9c0zoJJ3BEHIfxtpSC5JSE';if(navigator.clipboard){navigator.clipboard.writeText(link).then(()=>showToast('✓ تم نسخ رابط Signal','t-default'))}else{showToast('رابط Signal منسوخ','t-default')}}
 
-function updateNavPip() {
-  const pip = document.getElementById('nav-pip');
-  if (pip) pip.style.display = taskList.filter(t => t.status === 'idle' || t.status === 'running' || t.status === 'paused').length > 0 ? 'block' : 'none';
-}
-
-/* ═══════════════════════════════════════
-   MODAL HELPERS
-═══════════════════════════════════════ */
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-function closeOvIf(id, e) { if (e.target === document.getElementById(id)) closeModal(id); }
-
-function toggleFaq(btn) {
-  btn.classList.toggle('open');
-  const ans = btn.nextElementSibling;
-  ans.classList.toggle('visible');
-}
-
-function toggleSwitch(el, msgOn, msgOff) {
-  el.classList.toggle('on');
-  showToast(el.classList.contains('on') ? msgOn : msgOff, 't-default');
-}
-
-function confirmLogout() {
-  document.getElementById('modal-logout').classList.add('open');
-}
-function doLogout() {
-  closeModal('modal-logout');
-  showToast('👋 تم تسجيل الخروج بأمان', 't-default');
-}
-
-function copySignal() {
-  const link = 'https://signal.me/#eu/__kL4ayCt64xdRiSQWwYpMxOo5_u-Br5Y87rLvt7vQ9c0zoJJ3BEHIfxtpSC5JSE';
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(link).then(() => showToast('✓ تم نسخ رابط Signal', 't-default'));
-  } else {
-    showToast('رابط Signal منسوخ', 't-default');
-  }
-}
-
-/* ═══════════════════════════════════════
-   TOAST
-═══════════════════════════════════════ */
+/* ═══ TOAST ═══ */
 let _tt;
-function showToast(msg, cls = 't-default') {
-  const wrap = document.getElementById('toast-wrap');
-  const txt = document.getElementById('toast-text');
-  wrap.className = 'toast-wrap ' + cls;
-  txt.textContent = msg;
-  wrap.classList.add('show');
-  clearTimeout(_tt);
-  _tt = setTimeout(() => wrap.classList.remove('show'), 3200);
-}
+function showToast(msg,cls='t-default'){const wrap=document.getElementById('toast-wrap');const txt=document.getElementById('toast-text');wrap.className='toast-wrap '+cls;txt.textContent=msg;wrap.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>wrap.classList.remove('show'),3200)}
 
-/* ═══════════════════════════════════════
-   INIT
-═══════════════════════════════════════ */
-(function init() {
+/* ═══ INIT ═══ */
+(function(){
   drawHomeChart('1W');
-  refreshHome();
-  renderHomeActivity();
-  renderTasks();
-  refreshTaskStats();
-  renderLevels();
-  renderShop();
-  refreshUpgrades();
-  refreshAccount();
-  updateNavPip();
-  // Show notif pip if unread
-  if (notifications.some(n => !n.read)) {
-    const pip = document.getElementById('notif-pip');
-    if (pip) pip.style.display = 'block';
-  }
+  refreshHome();renderHomeActivity();
+  renderTasks();refreshTaskStats();
+  renderLevels();renderShop();refreshUpgrades();
+  refreshAccount();updateNavPip();
+  if(notifications.some(n=>!n.read)){const pip=document.getElementById('notif-pip');if(pip)pip.style.display='block'}
 })();
 </script>
 </body>
-  </html>
+   </html>
