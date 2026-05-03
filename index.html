@@ -5,916 +5,594 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
 <title>BlackRock — Tasks</title>
 <style>
-
-/* ============================================
-   BLACKROCK DESIGN SYSTEM
-============================================ */
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
-  --bk:#000000;
-  --bk1:#0A0A0A;
-  --bk2:#111111;
-  --bk3:#161616;
-  --bk4:#1C1C1C;
-  --bk5:#222222;
-  --bk6:#2A2A2A;
-  --w:#FFFFFF;
-  --w2:#F5F5F5;
-  --w3:#E0E0E0;
-  --muted:#888888;
-  --muted2:#555555;
-  --blue:#0066CC;
-  --blue2:#0052A3;
-  --blue-l:rgba(0,102,204,0.12);
-  --green:#00A651;
-  --green-l:rgba(0,166,81,0.1);
-  --red:#CC0000;
-  --red-l:rgba(204,0,0,0.08);
-  --gold:#B8860B;
-  --gold-l:rgba(184,134,11,0.1);
-  --border:rgba(255,255,255,0.07);
-  --border2:rgba(255,255,255,0.12);
-  --r:4px;
-  --r2:8px;
-  --r3:12px;
-  --nav:68px;
+  --bk:#000;--bk1:#0A0A0A;--bk2:#111;--bk3:#161616;--bk4:#1C1C1C;--bk5:#222;--bk6:#2A2A2A;
+  --w:#FFF;--w2:#F5F5F5;--muted:#888;--muted2:#555;
+  --blue:#0066CC;--blue-l:rgba(0,102,204,0.1);
+  --green:#00A651;--green-l:rgba(0,166,81,0.1);
+  --red:#CC0000;--red-l:rgba(204,0,0,0.08);
+  --gold:#B8860B;--gold-l:rgba(184,134,11,0.1);
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+  --r:4px;--nav:68px;
 }
-
 html,body{background:var(--bk);color:var(--w);overflow-x:hidden}
-body{
-  font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
-  max-width:430px;margin:0 auto;
-  min-height:100vh;position:relative;
-}
+body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;max-width:430px;margin:0 auto;min-height:100vh}
 button{cursor:pointer;font-family:inherit;border:none;outline:none;background:none}
 input,select,textarea{font-family:inherit;outline:none;background:none}
 ::-webkit-scrollbar{width:0;height:0}
 
-/* ============================================
-   PAGES
-============================================ */
+/* ── PAGES ── */
 .page{display:none;min-height:100vh;padding-bottom:calc(var(--nav)+24px)}
 .page.active{display:block;animation:pg .2s ease}
 @keyframes pg{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 
-/* ============================================
-   TOPBAR — BlackRock Style
-============================================ */
+/* ── TOPBAR ── */
 .topbar{
   display:flex;justify-content:space-between;align-items:center;
-  padding:16px 20px 14px;
-  border-bottom:1px solid var(--border);
+  padding:14px 18px 12px;border-bottom:1px solid var(--border);
   position:sticky;top:0;z-index:50;
-  background:rgba(0,0,0,0.95);
-  backdrop-filter:blur(20px);
+  background:rgba(0,0,0,.97);backdrop-filter:blur(20px);
 }
 .br-logo{display:flex;align-items:center;gap:10px}
-.br-logo-mark{
-  width:32px;height:32px;background:var(--w);
-  display:flex;align-items:center;justify-content:center;
-  font-size:16px;font-weight:900;color:var(--bk);
-  letter-spacing:-1px;flex-shrink:0;
-}
-.br-logo-text{font-size:16px;font-weight:700;color:var(--w);letter-spacing:.5px}
-.br-logo-sub{font-size:9px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;display:block;margin-top:-1px}
-.topbar-right{display:flex;gap:8px;align-items:center}
-.top-icon{
-  width:36px;height:36px;
-  border:1px solid var(--border2);
-  display:flex;align-items:center;justify-content:center;
-  font-size:15px;cursor:pointer;position:relative;
-  transition:background .2s;
-}
-.top-icon:active{background:var(--bk4)}
-.badge{
-  position:absolute;top:6px;right:6px;
-  width:6px;height:6px;border-radius:50%;
-  background:var(--blue);border:1.5px solid var(--bk);
-}
+.br-mark{width:32px;height:32px;background:var(--w);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:var(--bk);flex-shrink:0}
+.br-text{font-size:15px;font-weight:700;color:var(--w);letter-spacing:.5px}
+.br-sub{font-size:9px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;display:block;margin-top:-1px}
+.top-right{display:flex;gap:8px}
+.top-btn{width:36px;height:36px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;position:relative;transition:background .2s}
+.top-btn:active{background:var(--bk4)}
+.badge-dot{position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:var(--blue);border:1.5px solid var(--bk)}
 
-/* ============================================
-   HERO / STATS CARD
-============================================ */
-.hero{
-  padding:24px 20px 20px;
-  border-bottom:1px solid var(--border);
-}
-.hero-label{
-  font-size:10px;color:var(--muted);
-  letter-spacing:2px;text-transform:uppercase;
-  margin-bottom:6px;
-}
-.hero-val{font-size:42px;font-weight:300;color:var(--w);letter-spacing:-1px;line-height:1}
-.hero-val span{font-size:18px;font-weight:300;color:var(--muted)}
-.hero-chg{
-  display:inline-flex;align-items:center;gap:6px;
-  margin-top:8px;
-  font-size:12px;font-weight:600;
-}
-.hero-chg.up{color:var(--green)}
-.hero-chg.dn{color:var(--red)}
-.hero-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:1px;background:var(--border);
-  margin-top:20px;border:1px solid var(--border);
-}
-.hg-cell{
-  background:var(--bk);padding:14px 10px;text-align:center;
-}
-.hg-val{font-size:20px;font-weight:700;color:var(--w)}
-.hg-lbl{font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:3px}
+/* ── HERO ── */
+.hero{padding:22px 18px 18px;border-bottom:1px solid var(--border)}
+.hero-label{font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px}
+.hero-val{font-size:38px;font-weight:300;color:var(--w);letter-spacing:-1px;line-height:1}
+.hero-val span{font-size:16px;font-weight:300;color:var(--muted)}
+.hero-chg{font-size:11px;font-weight:600;margin-top:6px;display:flex;align-items:center;gap:6px}
+.up{color:var(--green)}.dn{color:var(--red)}
+.hero-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-top:18px;border:1px solid var(--border)}
+.hg{background:var(--bk);padding:12px 8px;text-align:center}
+.hg-v{font-size:18px;font-weight:700;color:var(--w)}
+.hg-l{font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:2px}
 
-/* XP Bar */
-.xp-bar-section{padding:16px 20px;border-bottom:1px solid var(--border)}
-.xp-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.xp-label{font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
-.xp-level{font-size:11px;font-weight:700;color:var(--blue)}
-.xp-track{height:2px;background:var(--bk5);position:relative}
-.xp-fill{height:100%;background:var(--w);transition:width .8s cubic-bezier(.4,0,.2,1)}
-.xp-pct{font-size:10px;color:var(--muted);text-align:left;margin-top:5px}
+/* ── XP BAR ── */
+.xp-sec{padding:14px 18px;border-bottom:1px solid var(--border)}
+.xp-row{display:flex;justify-content:space-between;font-size:10px;margin-bottom:7px}
+.xp-lbl{color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.xp-lvl{color:var(--blue);font-weight:700}
+.xp-track{height:1px;background:var(--bk5)}
+.xp-fill{height:100%;background:var(--w);transition:width .8s ease}
+.xp-hint{font-size:9px;color:var(--muted2);margin-top:5px;text-align:left}
 
-/* ============================================
-   SECTION HEADERS
-============================================ */
-.sec-hdr{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:16px 20px 10px;
-}
-.sec-hdr h3{
-  font-size:10px;font-weight:700;color:var(--muted);
-  letter-spacing:2px;text-transform:uppercase;
-}
-.sec-hdr a{
-  font-size:11px;color:var(--blue);cursor:pointer;
-  font-weight:600;letter-spacing:.5px;
-}
+/* ── SECTION HEADER ── */
+.sec-hdr{display:flex;justify-content:space-between;align-items:center;padding:14px 18px 8px}
+.sec-hdr h3{font-size:9px;font-weight:700;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
+.sec-hdr a{font-size:10px;color:var(--blue);cursor:pointer;font-weight:700;letter-spacing:.5px}
 
-/* ============================================
-   STREAK ROW
-============================================ */
-.streak-row{
-  display:flex;align-items:center;gap:16px;
-  padding:14px 20px;
-  border-bottom:1px solid var(--border);
-}
-.streak-num{font-size:28px;font-weight:300;color:var(--w)}
-.streak-info{flex:1}
-.streak-lbl{font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase}
-.streak-days{display:flex;gap:4px;margin-top:8px}
-.sd{width:28px;height:3px;background:var(--bk5)}
-.sd.done{background:var(--w)}
-.sd.now{background:var(--blue)}
+/* ── STREAK ── */
+.streak-row{display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid var(--border)}
 .streak-fire{font-size:28px}
+.streak-info{flex:1}
+.streak-lbl{font-size:9px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase}
+.streak-num{font-size:26px;font-weight:300;color:var(--w);margin-top:2px}
+.streak-days{display:flex;gap:4px;margin-top:8px}
+.sd{width:26px;height:2px;background:var(--bk5)}
+.sd.done{background:var(--w)}.sd.now{background:var(--blue)}
 
-/* ============================================
-   ACTIVITY TABLE
-============================================ */
-.table{width:100%;border-collapse:collapse}
-.table-wrap{padding:0 20px;margin-bottom:16px}
-.tr{
-  display:grid;grid-template-columns:1fr auto;
-  padding:13px 0;border-bottom:1px solid var(--border);
-  cursor:pointer;transition:background .15s;
-  align-items:center;
-}
-.tr:last-child{border-bottom:none}
-.tr:active{background:var(--bk3);margin:0 -20px;padding:13px 20px}
-.td-main strong{font-size:13px;color:var(--w);font-weight:500;display:block}
-.td-main small{font-size:11px;color:var(--muted);margin-top:2px;display:block}
-.td-val{text-align:left}
-.td-val .v-main{font-size:13px;font-weight:600}
-.td-val .v-sub{font-size:10px;color:var(--muted);text-align:left;margin-top:2px;display:block}
-.v-up{color:var(--green)}
-.v-dn{color:var(--red)}
-
-/* ============================================
-   QUICK ACTIONS — BlackRock Style
-============================================ */
-.qa-row{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:1px;background:var(--border);
-  margin:0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
-}
-.qa{
-  background:var(--bk);padding:18px 16px;
-  cursor:pointer;transition:background .15s;
-  display:flex;align-items:center;gap:12px;
-}
+/* ── QUICK ACTIONS ── */
+.qa-row{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.qa{background:var(--bk);padding:16px 14px;cursor:pointer;transition:background .15s;display:flex;align-items:center;gap:12px}
 .qa:active{background:var(--bk4)}
-.qa-ic{font-size:20px;flex-shrink:0}
-.qa-label{font-size:13px;font-weight:600;color:var(--w)}
-.qa-sub{font-size:10px;color:var(--muted);margin-top:1px}
+.qa-ic{font-size:18px;flex-shrink:0}
+.qa-n{font-size:12px;font-weight:600;color:var(--w)}
+.qa-s{font-size:10px;color:var(--muted);margin-top:1px}
 
-/* ============================================
-   NEWS / CARDS SCROLL
-============================================ */
-.cards-scroll{display:flex;gap:0;overflow-x:auto;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-.news-item{
-  min-width:220px;padding:16px;border-left:1px solid var(--border);
-  flex-shrink:0;cursor:pointer;transition:background .15s;
-}
-.news-item:first-child{border-left:none}
-.news-item:active{background:var(--bk3)}
-.news-tag{font-size:9px;font-weight:700;color:var(--blue);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
-.news-title{font-size:13px;font-weight:500;color:var(--w);line-height:1.45;margin-bottom:8px}
-.news-meta{font-size:10px;color:var(--muted)}
+/* ── ACTIVITY TABLE ── */
+.tbl-wrap{padding:0 18px}
+.tr{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border);cursor:pointer}
+.tr:last-child{border-bottom:none}
+.tr:active{opacity:.7}
+.td-m strong{font-size:13px;color:var(--w);font-weight:500;display:block}
+.td-m small{font-size:10px;color:var(--muted);margin-top:1px;display:block}
+.td-v{text-align:left;white-space:nowrap}
+.td-v .vv{font-size:12px;font-weight:700}
+.td-v .vs{font-size:9px;color:var(--muted);margin-top:2px;display:block;text-align:left}
 
-/* ============================================
+/* ── NEWS SCROLL ── */
+.news-scroll{display:flex;overflow-x:auto;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.ni{min-width:210px;padding:14px;border-left:1px solid var(--border);flex-shrink:0;cursor:pointer;transition:background .15s}
+.ni:first-child{border-left:none}
+.ni:active{background:var(--bk3)}
+.ni-tag{font-size:9px;font-weight:700;color:var(--blue);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px}
+.ni-title{font-size:12px;font-weight:500;color:var(--w);line-height:1.4;margin-bottom:6px}
+.ni-meta{font-size:9px;color:var(--muted)}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━
    TASKS PAGE
-============================================ */
-.tasks-hero{
-  padding:20px 20px 16px;
-  border-bottom:1px solid var(--border);
-}
-.tasks-hero h2{font-size:28px;font-weight:300;color:var(--w);letter-spacing:-.5px}
-.tasks-hero p{font-size:12px;color:var(--muted);margin-top:4px}
-.tasks-stats{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:1px;background:var(--border);
-  border:1px solid var(--border);margin-top:16px;
-}
-.tstat{background:var(--bk);padding:12px;text-align:center}
-.tstat .tv{font-size:22px;font-weight:700;color:var(--w)}
-.tstat .tl{font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:3px}
+━━━━━━━━━━━━━━━━━━━━━━━━ */
+.tasks-hero{padding:18px 18px 14px;border-bottom:1px solid var(--border)}
+.tasks-hero h2{font-size:26px;font-weight:300;color:var(--w);letter-spacing:-.3px}
+.tasks-hero p{font-size:11px;color:var(--muted);margin-top:3px}
+.tasks-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:14px}
+.tstat{background:var(--bk);padding:11px;text-align:center}
+.tstat .tv{font-size:20px;font-weight:700;color:var(--w)}
+.tstat .tl{font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:2px}
 
 /* Filter bar */
-.filter-bar{
-  display:flex;overflow-x:auto;
-  border-bottom:1px solid var(--border);
-}
-.ftab{
-  padding:13px 18px;font-size:11px;font-weight:700;
-  color:var(--muted);letter-spacing:1px;text-transform:uppercase;
-  border-bottom:2px solid transparent;white-space:nowrap;
-  transition:all .2s;flex-shrink:0;
-}
+.filter-bar{display:flex;overflow-x:auto;border-bottom:1px solid var(--border)}
+.ftab{padding:12px 16px;font-size:10px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;flex-shrink:0}
 .ftab.on{color:var(--w);border-bottom-color:var(--w)}
 
-/* Task items */
-.task-list{padding:0 20px}
-.task-item{
-  display:flex;align-items:flex-start;gap:14px;
-  padding:16px 0;border-bottom:1px solid var(--border);
-  cursor:pointer;transition:all .15s;
+/* ── TASK CARD — Main ── */
+.task-card{
+  margin:10px 18px;border:1px solid var(--border);
+  background:var(--bk1);position:relative;overflow:hidden;
 }
-.task-item:last-child{border-bottom:none}
-.task-item:active{opacity:.7}
-.t-check{
-  width:20px;height:20px;flex-shrink:0;
-  border:1.5px solid var(--muted2);
-  margin-top:1px;transition:all .2s;
-  display:flex;align-items:center;justify-content:center;
+.task-card.running{border-color:rgba(0,102,204,.4)}
+.task-card.done-c{border-color:rgba(0,166,81,.3);opacity:.7}
+.task-card.locked-c{border-color:rgba(204,0,0,.2);opacity:.6}
+.tc-header{display:flex;align-items:center;gap:12px;padding:14px 14px 10px}
+.tc-ico{
+  width:44px;height:44px;flex-shrink:0;
+  border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;font-size:20px;
 }
-.t-check.done{background:var(--w);border-color:var(--w)}
-.t-check.done::after{content:'✓';font-size:11px;color:var(--bk);font-weight:900}
-.t-body{flex:1;min-width:0}
-.t-body h4{font-size:14px;font-weight:500;color:var(--w);margin-bottom:3px}
-.t-body p{font-size:11px;color:var(--muted);margin-bottom:8px;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.t-body.crossed h4{text-decoration:line-through;color:var(--muted2)}
-.t-tags{display:flex;flex-wrap:wrap;gap:5px}
-.t-tag{
-  font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
-  padding:3px 8px;border:1px solid;
-}
-.tag-h{color:var(--red);border-color:rgba(204,0,0,.3)}
-.tag-m{color:var(--gold);border-color:rgba(184,134,11,.3)}
-.tag-l{color:var(--green);border-color:rgba(0,166,81,.3)}
-.tag-pts{color:var(--blue);border-color:rgba(0,102,204,.3)}
-.tag-cat{color:var(--muted);border-color:var(--border2)}
-.t-right{text-align:left;flex-shrink:0}
-.t-del{
-  font-size:14px;color:var(--muted2);padding:2px;
-  transition:color .2s;
-}
-.t-del:active{color:var(--red)}
-.empty-state{
-  text-align:center;padding:60px 20px;color:var(--muted);
-}
-.empty-state .e-ico{font-size:40px;margin-bottom:12px;opacity:.3}
-.empty-state p{font-size:13px;letter-spacing:.5px}
+.tc-info{flex:1;min-width:0}
+.tc-name{font-size:14px;font-weight:600;color:var(--w)}
+.tc-desc{font-size:11px;color:var(--muted);margin-top:2px}
+.tc-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.t-tag{font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:2px 7px;border:1px solid}
+.tag-reward{color:var(--green);border-color:rgba(0,166,81,.3)}
+.tag-penalty{color:var(--red);border-color:rgba(204,0,0,.3)}
+.tag-dur{color:var(--blue);border-color:rgba(0,102,204,.3)}
+.tag-locked{color:var(--muted);border-color:var(--border2)}
+.tag-done{color:var(--green);border-color:rgba(0,166,81,.3)}
 
-/* FAB */
-.fab{
-  position:fixed;bottom:calc(var(--nav)+20px);
-  left:50%;transform:translateX(-50%);
-  width:52px;height:52px;
-  background:var(--w);color:var(--bk);
-  font-size:24px;font-weight:300;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 20px rgba(255,255,255,.15);
-  z-index:99;transition:transform .2s;cursor:pointer;
-}
-.fab:active{transform:translateX(-50%) scale(.93)}
+/* Timer bar */
+.tc-timer{padding:0 14px 10px}
+.timer-bar-track{height:3px;background:var(--bk5);margin-bottom:6px}
+.timer-bar-fill{height:100%;background:var(--blue);transition:width .5s linear}
+.timer-row{display:flex;justify-content:space-between;align-items:center}
+.timer-txt{font-size:12px;font-weight:700;color:var(--w);letter-spacing:1px;font-variant-numeric:tabular-nums}
+.timer-pct{font-size:10px;color:var(--muted)}
 
-/* ============================================
-   UPGRADES PAGE
-============================================ */
-.up-hero{
-  padding:22px 20px 18px;
-  border-bottom:1px solid var(--border);
+/* Task actions */
+.tc-actions{display:flex;gap:1px;background:var(--border);border-top:1px solid var(--border)}
+.tc-btn{
+  flex:1;padding:12px 8px;font-size:11px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  transition:background .15s;cursor:pointer;
 }
-.up-hero h2{font-size:28px;font-weight:300;color:var(--w);letter-spacing:-.5px}
-.up-hero p{font-size:12px;color:var(--muted);margin-top:4px}
+.tc-btn:active{background:var(--bk4)}
+.tc-start{color:var(--blue)}
+.tc-cancel{color:var(--red)}
+.tc-done-btn{color:var(--green);flex:none;width:100%}
+.locked-msg{padding:12px 14px;text-align:center;font-size:10px;color:var(--muted);letter-spacing:.5px;border-top:1px solid var(--border)}
+.done-msg{padding:12px 14px;text-align:center;font-size:10px;color:var(--green);letter-spacing:.5px;border-top:1px solid rgba(0,166,81,.2)}
 
-.level-block{
-  padding:20px;border-bottom:1px solid var(--border);
+/* Penalty notification */
+.penalty-banner{
+  display:none;
+  background:var(--red-l);border:1px solid rgba(204,0,0,.25);
+  padding:10px 14px;margin:0 18px 10px;
 }
-.lb-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
-.lb-info{}
-.lb-name{font-size:20px;font-weight:300;color:var(--w)}
-.lb-tier{
-  display:inline-block;font-size:9px;font-weight:700;
-  letter-spacing:1.5px;text-transform:uppercase;
-  color:var(--gold);border:1px solid rgba(184,134,11,.35);
-  padding:3px 8px;margin-top:6px;
-}
-.lb-xp{font-size:11px;color:var(--muted);margin-top:4px}
-.lb-badge{
-  width:64px;height:64px;
-  border:2px solid var(--border2);
-  display:flex;align-items:center;justify-content:center;
-  font-size:28px;
-}
-.lb-bar{height:1px;background:var(--bk5);margin-bottom:5px}
-.lb-bar-fill{height:100%;background:var(--w)}
-.lb-bar-info{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:5px}
+.penalty-banner.show{display:flex;gap:10px;align-items:flex-start}
+.penalty-banner .pb-ico{font-size:18px;flex-shrink:0}
+.penalty-banner .pb-txt strong{font-size:12px;color:var(--red);display:block;margin-bottom:2px}
+.penalty-banner .pb-txt small{font-size:10px;color:var(--muted)}
 
-/* Levels timeline */
-.levels-section{padding:0 20px;margin-bottom:2px}
-.lv-item{
-  display:flex;gap:14px;align-items:flex-start;
-  padding:12px 0;border-bottom:1px solid var(--border);
-}
+/* ━━━━━━━━━━━━━━━━━━━━━━━━
+   UPGRADES
+━━━━━━━━━━━━━━━━━━━━━━━━ */
+.up-hero{padding:18px 18px 14px;border-bottom:1px solid var(--border)}
+.up-hero h2{font-size:26px;font-weight:300;letter-spacing:-.3px}
+.up-hero p{font-size:11px;color:var(--muted);margin-top:3px}
+.level-block{padding:18px;border-bottom:1px solid var(--border)}
+.lb-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+.lb-name{font-size:18px;font-weight:300;color:var(--w)}
+.lb-tier{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(184,134,11,.35);padding:3px 8px;margin-top:5px}
+.lb-xp{font-size:10px;color:var(--muted);margin-top:3px}
+.lb-badge{width:58px;height:58px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:26px}
+.lb-bar{height:1px;background:var(--bk5)}.lb-bar-fill{height:100%;background:var(--w)}
+.lb-bar-info{display:flex;justify-content:space-between;font-size:9px;color:var(--muted);margin-top:4px}
+.ach-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.ach-c{background:var(--bk);padding:13px 6px;text-align:center;cursor:pointer;transition:background .15s}
+.ach-c:active{background:var(--bk4)}
+.ach-c.locked-a{opacity:.25;filter:grayscale(1)}
+.ach-ico{font-size:20px;margin-bottom:4px}
+.ach-nm{font-size:9px;color:var(--muted);letter-spacing:.3px;line-height:1.3}
+.ach-c.ach-unlocked .ach-nm{color:var(--gold)}
+.lv-timeline{padding:0 18px}
+.lv-item{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--border)}
 .lv-item:last-child{border-bottom:none}
-.lv-dot-col{display:flex;flex-direction:column;align-items:center;width:32px;flex-shrink:0;padding-top:2px}
-.lv-dot{
-  width:32px;height:32px;
-  border:1.5px solid var(--border2);
-  display:flex;align-items:center;justify-content:center;
-  font-size:14px;transition:all .3s;
-}
-.lv-dot.done{border-color:var(--muted2);background:var(--bk4)}
-.lv-dot.current{border-color:var(--w);background:var(--w);color:var(--bk)}
-.lv-dot.locked{border-color:var(--bk5);opacity:.4}
-.lv-line{width:1px;height:20px;background:var(--border);margin:2px 0}
-.lv-info{flex:1;padding-top:4px}
-.lv-info strong{font-size:13px;font-weight:500;color:var(--w);display:block}
-.lv-info span{font-size:10px;color:var(--muted);margin-top:2px;display:block}
-.lv-badge{
-  font-size:9px;font-weight:700;letter-spacing:1px;
-  text-transform:uppercase;padding:2px 7px;border:1px solid;
-  align-self:flex-start;margin-top:5px;
-}
-.lv-curr{color:var(--w);border-color:rgba(255,255,255,.3)}
-.lv-done{color:var(--muted);border-color:var(--border2)}
-.lv-lock{color:var(--muted2);border-color:var(--bk5);opacity:.4}
+.lv-dc{display:flex;flex-direction:column;align-items:center;width:30px;flex-shrink:0;padding-top:2px}
+.lv-dot{width:30px;height:30px;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:13px}
+.lv-dot.done{border-color:var(--muted2);background:var(--bk4)}.lv-dot.current{border-color:var(--w);background:var(--w);color:var(--bk)}.lv-dot.locked{border-color:var(--bk5);opacity:.35}
+.lv-ln{width:1px;height:18px;background:var(--border);margin:2px 0}
+.lv-body{flex:1;padding-top:3px}
+.lv-body strong{font-size:12px;font-weight:600;color:var(--w);display:block}
+.lv-body span{font-size:9px;color:var(--muted);margin-top:1px;display:block}
+.lv-badge{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border:1px solid;align-self:flex-start;margin-top:4px;flex-shrink:0}
+.lv-curr-b{color:var(--w);border-color:rgba(255,255,255,.3)}.lv-done-b{color:var(--muted);border-color:var(--border2)}.lv-lock-b{color:var(--muted2);border-color:var(--bk5);opacity:.4}
+.div{height:8px;background:var(--bk2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.shop-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.shop-i{background:var(--bk);padding:16px 12px;cursor:pointer;transition:background .15s;position:relative}
+.shop-i:active{background:var(--bk4)}.shop-i.owned-s{background:var(--bk2)}
+.shop-ico{font-size:24px;margin-bottom:8px}
+.shop-name{font-size:12px;font-weight:600;color:var(--w);margin-bottom:2px}
+.shop-desc{font-size:10px;color:var(--muted);margin-bottom:9px;line-height:1.4}
+.shop-cost{font-size:9px;font-weight:700;letter-spacing:.5px;color:var(--blue);border:1px solid rgba(0,102,204,.3);display:inline-block;padding:2px 7px}
+.shop-owned-tag{position:absolute;top:10px;right:10px;font-size:8px;font-weight:700;letter-spacing:1px;color:var(--green);border:1px solid rgba(0,166,81,.3);padding:2px 6px;text-transform:uppercase}
 
-/* Achievements */
-.ach-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:1px;background:var(--border);
-  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
-  margin-bottom:2px;
-}
-.ach-cell{
-  background:var(--bk);padding:14px 8px;text-align:center;
-  cursor:pointer;transition:background .15s;
-}
-.ach-cell:active{background:var(--bk4)}
-.ach-cell.locked-a{opacity:.25;filter:grayscale(1)}
-.ach-ico{font-size:22px;margin-bottom:5px}
-.ach-name{font-size:9px;color:var(--muted);letter-spacing:.5px;line-height:1.3}
-.ach-cell.unlocked .ach-name{color:var(--gold)}
-
-/* Shop */
-.shop-grid{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:1px;background:var(--border);
-  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
-}
-.shop-item{
-  background:var(--bk);padding:18px 14px;
-  cursor:pointer;transition:background .15s;
-  position:relative;
-}
-.shop-item:active{background:var(--bk4)}
-.shop-item.owned-i{background:var(--bk2)}
-.shop-ico{font-size:26px;margin-bottom:10px}
-.shop-name{font-size:13px;font-weight:600;color:var(--w);margin-bottom:3px}
-.shop-desc{font-size:10px;color:var(--muted);margin-bottom:10px;line-height:1.4}
-.shop-cost{
-  font-size:10px;font-weight:700;letter-spacing:.5px;
-  color:var(--blue);border:1px solid rgba(0,102,204,.3);
-  display:inline-block;padding:3px 8px;
-}
-.shop-owned-tag{
-  position:absolute;top:12px;right:12px;
-  font-size:9px;font-weight:700;letter-spacing:1px;
-  color:var(--green);border:1px solid rgba(0,166,81,.3);
-  padding:2px 7px;text-transform:uppercase;
-}
-
-/* ============================================
+/* ━━━━━━━━━━━━━━━━━━━━━━━━
    ACCOUNT PAGE
-============================================ */
-.acc-hero{
-  padding:28px 20px 22px;
-  border-bottom:1px solid var(--border);
-  position:relative;
-}
-.acc-av{
-  width:72px;height:72px;
-  border:2px solid var(--border2);
-  display:flex;align-items:center;justify-content:center;
-  font-size:32px;margin-bottom:14px;cursor:pointer;
-  position:relative;transition:border-color .2s;
-}
-.acc-av:hover{border-color:var(--muted)}
-.av-edit-btn{
-  position:absolute;bottom:-1px;right:-1px;
-  width:22px;height:22px;background:var(--bk);
-  border:1px solid var(--border2);
-  display:flex;align-items:center;justify-content:center;
-  font-size:10px;cursor:pointer;
-}
-.acc-name{font-size:24px;font-weight:300;color:var(--w);letter-spacing:-.3px}
-.acc-email{font-size:12px;color:var(--muted);margin-top:4px}
-.acc-tier-badge{
-  display:inline-flex;align-items:center;gap:6px;
-  margin-top:10px;
-  font-size:9px;font-weight:700;letter-spacing:1.5px;
-  text-transform:uppercase;color:var(--gold);
-  border:1px solid rgba(184,134,11,.3);padding:4px 12px;
-}
-.acc-stats-row{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:1px;background:var(--border);
-  border:1px solid var(--border);margin-top:18px;
-}
-.a-stat{background:var(--bk);padding:12px 8px;text-align:center}
-.a-stat strong{display:block;font-size:18px;font-weight:600;color:var(--w)}
-.a-stat span{display:block;font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:3px}
-
-/* Menu */
-.menu-section{margin-bottom:2px}
-.menu-section-title{
-  padding:16px 20px 8px;
-  font-size:9px;font-weight:700;color:var(--muted);
-  letter-spacing:2px;text-transform:uppercase;
-}
-.menu-item{
-  display:flex;align-items:center;gap:14px;
-  padding:15px 20px;border-top:1px solid var(--border);
-  cursor:pointer;transition:background .15s;
-}
+━━━━━━━━━━━━━━━━━━━━━━━━ */
+.acc-hero{padding:24px 18px 20px;border-bottom:1px solid var(--border)}
+.acc-av{width:68px;height:68px;border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:30px;margin-bottom:12px;cursor:pointer;position:relative}
+.av-edit{position:absolute;bottom:-1px;right:-1px;width:20px;height:20px;background:var(--bk);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:9px}
+.acc-name{font-size:22px;font-weight:300;color:var(--w);letter-spacing:-.3px}
+.acc-email{font-size:11px;color:var(--muted);margin-top:3px}
+.acc-tier-badge{display:inline-flex;align-items:center;gap:5px;margin-top:8px;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(184,134,11,.3);padding:3px 10px}
+.acc-stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:16px}
+.a-stat{background:var(--bk);padding:11px 6px;text-align:center}
+.a-stat strong{display:block;font-size:17px;font-weight:700;color:var(--w)}
+.a-stat span{display:block;font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+.menu-sec-title{padding:14px 18px 7px;font-size:9px;font-weight:700;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
+.menu-item{display:flex;align-items:center;gap:12px;padding:14px 18px;border-top:1px solid var(--border);cursor:pointer;transition:background .15s}
 .menu-item:active{background:var(--bk3)}
-.m-ico{
-  width:34px;height:34px;
-  border:1px solid var(--border2);
-  display:flex;align-items:center;justify-content:center;
-  font-size:15px;flex-shrink:0;
-}
+.m-ico{width:34px;height:34px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
 .m-txt{flex:1}
 .m-txt strong{display:block;font-size:13px;font-weight:500;color:var(--w)}
-.m-txt small{display:block;font-size:11px;color:var(--muted);margin-top:1px}
+.m-txt small{display:block;font-size:10px;color:var(--muted);margin-top:1px}
 .m-arr{font-size:16px;color:var(--muted2)}
-.m-badge{
-  font-size:9px;font-weight:700;letter-spacing:.5px;
-  color:var(--blue);border:1px solid rgba(0,102,204,.3);
-  padding:2px 7px;
-}
-
-/* Toggle BlackRock Style */
-.tog{
-  width:44px;height:22px;
-  border:1px solid var(--border2);
-  position:relative;cursor:pointer;transition:all .3s;flex-shrink:0;
-}
+.m-badge{font-size:9px;font-weight:700;letter-spacing:.5px;color:var(--blue);border:1px solid rgba(0,102,204,.3);padding:2px 7px}
+.tog{width:42px;height:22px;border:1px solid var(--border2);position:relative;cursor:pointer;transition:all .3s;flex-shrink:0}
 .tog.on{background:var(--w);border-color:var(--w)}
-.tog::after{
-  content:'';position:absolute;
-  width:14px;height:14px;background:var(--muted2);
-  top:3px;right:3px;transition:all .3s;
-}
+.tog::after{content:'';position:absolute;width:14px;height:14px;background:var(--muted2);top:3px;right:3px;transition:all .3s}
 .tog.on::after{background:var(--bk);right:calc(100% - 17px)}
-
-/* Divider */
-.div{height:8px;background:var(--bk2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-
-/* Progress bar (account) */
-.prog-mini{padding:0 20px;margin-bottom:2px}
-.pm-row{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-bottom:6px;padding-top:14px}
-.pm-bar{height:1px;background:var(--bk5)}
-.pm-fill{height:100%;background:var(--w)}
-.pm-sub{display:flex;justify-content:space-between;font-size:9px;color:var(--muted2);margin-top:5px;padding-bottom:14px;border-bottom:1px solid var(--border)}
-
-/* Logout */
-.logout{
-  width:calc(100% - 40px);margin:16px 20px;
-  padding:14px;background:transparent;
-  border:1px solid rgba(204,0,0,.25);
-  color:var(--red);font-size:12px;font-weight:700;
-  letter-spacing:1.5px;text-transform:uppercase;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  transition:all .2s;cursor:pointer;
-}
+.prog-mini{padding:0 18px}
+.pm-row{display:flex;justify-content:space-between;font-size:10px;padding-top:13px;margin-bottom:6px}
+.pm-bar{height:1px;background:var(--bk5)}.pm-fill{height:100%;background:var(--w)}
+.pm-sub{display:flex;justify-content:space-between;font-size:9px;color:var(--muted2);margin-top:4px;padding-bottom:13px;border-bottom:1px solid var(--border)}
+.logout{width:calc(100% - 36px);margin:14px 18px;padding:13px;background:transparent;border:1px solid rgba(204,0,0,.25);color:var(--red);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s}
 .logout:active{background:rgba(204,0,0,.08)}
 
-/* ============================================
-   MODAL
-============================================ */
-.overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,.9);
-  z-index:500;display:none;align-items:flex-end;
-  backdrop-filter:blur(10px);
+/* ━━━━━━━━━━━━━━━━━━━━━━━━
+   CONTACT / AGENT PAGE
+━━━━━━━━━━━━━━━━━━━━━━━━ */
+.contact-hero{
+  padding:24px 18px;border-bottom:1px solid var(--border);
+  background:var(--bk1);
 }
+.ch-label{font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.ch-title{font-size:22px;font-weight:300;color:var(--w);letter-spacing:-.3px;margin-bottom:6px}
+.ch-sub{font-size:12px;color:var(--muted);line-height:1.5}
+.agents-list{padding:0 18px;margin-top:4px}
+.agent-card{
+  border:1px solid var(--border2);margin:10px 0;
+  background:var(--bk1);overflow:hidden;
+}
+.agent-card.online-c{border-color:rgba(0,166,81,.3)}
+.agent-header{display:flex;align-items:center;gap:12px;padding:14px 14px 10px}
+.agent-av{
+  width:48px;height:48px;border:2px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;flex-shrink:0;position:relative;
+}
+.online-dot{
+  position:absolute;bottom:1px;right:1px;
+  width:11px;height:11px;border-radius:50%;
+  background:var(--green);border:2px solid var(--bk1);
+}
+.offline-dot{
+  position:absolute;bottom:1px;right:1px;
+  width:11px;height:11px;border-radius:50%;
+  background:var(--muted2);border:2px solid var(--bk1);
+}
+.agent-info{flex:1}
+.agent-name{font-size:14px;font-weight:600;color:var(--w)}
+.agent-role{font-size:10px;color:var(--muted);margin-top:2px}
+.agent-status{font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-top:5px;padding:2px 7px;border:1px solid;display:inline-block}
+.status-online{color:var(--green);border-color:rgba(0,166,81,.3)}
+.status-offline{color:var(--muted);border-color:var(--border2)}
+.agent-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border);
+  border-top:1px solid var(--border);
+}
+.ag-stat{background:var(--bk);padding:10px 8px;text-align:center}
+.ag-stat .av{font-size:14px;font-weight:700;color:var(--w)}
+.ag-stat .al{font-size:8px;color:var(--muted);letter-spacing:.8px;text-transform:uppercase;margin-top:2px}
+.agent-actions{display:flex;gap:1px;background:var(--border);border-top:1px solid var(--border)}
+.ag-btn{
+  flex:1;padding:13px 10px;font-size:10px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  cursor:pointer;transition:background .15s;
+}
+.ag-btn:active{background:var(--bk4)}
+.ag-signal{color:var(--blue)}
+.ag-signal-main{
+  background:rgba(0,102,204,.08);
+  border-top:1px solid rgba(0,102,204,.2);
+  padding:14px 18px;
+  display:flex;align-items:center;gap:12px;
+  cursor:pointer;transition:background .2s;
+  text-decoration:none;
+}
+.ag-signal-main:active{background:rgba(0,102,204,.15)}
+.signal-ico{
+  width:44px;height:44px;
+  background:var(--blue);
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;flex-shrink:0;
+}
+.signal-info{flex:1}
+.signal-info strong{font-size:13px;font-weight:600;color:var(--w);display:block}
+.signal-info small{font-size:10px;color:var(--muted);margin-top:2px;display:block}
+.signal-arrow{font-size:18px;color:var(--muted2)}
+
+/* Notice box */
+.notice-box{
+  margin:10px 18px;
+  border:1px solid rgba(0,102,204,.25);
+  padding:14px;background:rgba(0,102,204,.05);
+}
+.nb-title{font-size:10px;font-weight:700;color:var(--blue);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.nb-body{font-size:11px;color:var(--muted);line-height:1.6}
+
+/* FAQ */
+.faq-item{border-top:1px solid var(--border)}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;cursor:pointer;transition:background .15s}
+.faq-q:active{background:var(--bk3)}
+.faq-q span{font-size:12px;font-weight:500;color:var(--w)}
+.faq-q .fq-ic{font-size:14px;color:var(--muted);transition:transform .2s;flex-shrink:0}
+.faq-q.open .fq-ic{transform:rotate(90deg)}
+.faq-a{display:none;padding:0 18px 14px;font-size:11px;color:var(--muted);line-height:1.6}
+.faq-a.show{display:block}
+
+/* ── MODAL ── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:500;display:none;align-items:flex-end;backdrop-filter:blur(10px)}
 .overlay.open{display:flex}
-.modal{
-  background:var(--bk2);
-  border-top:1px solid var(--border2);
-  padding:0 20px 40px;
-  width:100%;max-width:430px;margin:0 auto;
-  animation:mUp .3s cubic-bezier(.4,0,.2,1);
-  max-height:88vh;overflow-y:auto;
-}
+.modal{background:var(--bk2);border-top:1px solid var(--border2);padding:0 18px 40px;width:100%;max-width:430px;margin:0 auto;animation:mUp .3s cubic-bezier(.4,0,.2,1);max-height:88vh;overflow-y:auto}
 @keyframes mUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.modal-bar{
-  width:32px;height:3px;background:var(--bk6);
-  margin:14px auto 20px;
-}
-.modal h3{
-  font-size:18px;font-weight:300;color:var(--w);
-  letter-spacing:-.3px;margin-bottom:20px;
-  padding-bottom:14px;border-bottom:1px solid var(--border);
-}
-.igrp{margin-bottom:14px}
-.igrp label{
-  display:block;font-size:9px;font-weight:700;
-  color:var(--muted);margin-bottom:7px;
-  letter-spacing:1.5px;text-transform:uppercase;
-}
-.igrp input,.igrp select,.igrp textarea{
-  width:100%;background:var(--bk3);
-  border:1px solid var(--border2);padding:13px 14px;
-  color:var(--w);font-size:14px;transition:border-color .2s;
-  font-weight:400;
-}
-.igrp input:focus,.igrp select:focus,.igrp textarea:focus{border-color:var(--muted)}
+.modal-bar{width:32px;height:3px;background:var(--bk6);margin:13px auto 18px}
+.modal h3{font-size:17px;font-weight:300;color:var(--w);letter-spacing:-.3px;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.igrp{margin-bottom:13px}
+.igrp label{display:block;font-size:9px;font-weight:700;color:var(--muted);margin-bottom:6px;letter-spacing:1.5px;text-transform:uppercase}
+.igrp input,.igrp select,.igrp textarea{width:100%;background:var(--bk3);border:1px solid var(--border2);padding:12px 13px;color:var(--w);font-size:13px;transition:border-color .2s}
+.igrp input:focus,.igrp select:focus{border-color:var(--muted)}
 .igrp select option{background:var(--bk2)}
 .igrp textarea{resize:none}
-.i2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.modal-btns{display:flex;gap:8px;margin-top:20px}
-.m-cancel{
-  flex:1;padding:14px;background:transparent;
-  border:1px solid var(--border2);color:var(--muted);
-  font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
-  transition:all .2s;
-}
-.m-cancel:active{background:var(--bk4)}
-.m-ok{
-  flex:2;padding:14px;background:var(--w);
-  color:var(--bk);font-size:12px;font-weight:700;
-  letter-spacing:1px;text-transform:uppercase;
-  transition:opacity .2s;border:none;
-}
-.m-ok:active{opacity:.85}
-
-/* Priority selector */
-.pri-sel{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px}
-.pri-btn{
-  padding:10px;border:1px solid var(--border2);
-  color:var(--muted);font-size:10px;font-weight:700;
-  letter-spacing:1px;text-transform:uppercase;
-  transition:all .2s;text-align:center;cursor:pointer;
-}
+.i2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pri-sel{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:4px}
+.pri-btn{padding:9px;border:1px solid var(--border2);color:var(--muted);font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;transition:all .2s;text-align:center;cursor:pointer}
 .pri-btn.sel-h{color:var(--red);border-color:rgba(204,0,0,.5);background:rgba(204,0,0,.05)}
 .pri-btn.sel-m{color:var(--gold);border-color:rgba(184,134,11,.5);background:rgba(184,134,11,.05)}
 .pri-btn.sel-l{color:var(--green);border-color:rgba(0,166,81,.5);background:rgba(0,166,81,.05)}
+.modal-btns{display:flex;gap:8px;margin-top:18px}
+.m-cancel{flex:1;padding:13px;background:transparent;border:1px solid var(--border2);color:var(--muted);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;transition:all .2s}
+.m-cancel:active{background:var(--bk4)}
+.m-ok{flex:2;padding:13px;background:var(--w);color:var(--bk);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;transition:opacity .2s;border:none}
+.m-ok:active{opacity:.85}
 
-/* ============================================
-   BOTTOM NAV — BlackRock Style
-============================================ */
-.bnav{
-  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
-  width:100%;max-width:430px;height:var(--nav);
-  background:rgba(0,0,0,.97);
-  border-top:1px solid var(--border2);
-  display:flex;z-index:200;
-  backdrop-filter:blur(30px);
+/* ── PENALTY MODAL ── */
+.penalty-modal{background:var(--bk2);border-top:2px solid var(--red)}
+.penalty-icon{font-size:48px;text-align:center;margin:20px 0 10px}
+.penalty-title{font-size:20px;font-weight:300;text-align:center;color:var(--red);margin-bottom:8px}
+.penalty-desc{font-size:12px;color:var(--muted);text-align:center;line-height:1.6;margin-bottom:20px}
+.penalty-amount{
+  background:var(--red-l);border:1px solid rgba(204,0,0,.25);
+  padding:14px;text-align:center;margin-bottom:18px;
 }
-.nb{
-  flex:1;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  gap:5px;cursor:pointer;position:relative;
-  transition:all .2s;
-}
+.pa-label{font-size:9px;color:var(--red);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px}
+.pa-val{font-size:28px;font-weight:700;color:var(--red)}
+
+/* ── BOTTOM NAV ── */
+.bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;height:var(--nav);background:rgba(0,0,0,.97);border-top:1px solid var(--border2);display:flex;z-index:200;backdrop-filter:blur(30px)}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;position:relative;transition:all .2s}
 .nb-ico{font-size:20px;transition:transform .2s}
-.nb-lbl{
-  font-size:9px;color:var(--muted);font-weight:700;
-  letter-spacing:1px;text-transform:uppercase;transition:color .2s;
-}
+.nb-lbl{font-size:9px;color:var(--muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;transition:color .2s}
 .nb.on .nb-ico{transform:translateY(-1px)}
 .nb.on .nb-lbl{color:var(--w)}
-.nb.on::after{
-  content:'';position:absolute;bottom:0;
-  left:50%;transform:translateX(-50%);
-  width:20px;height:2px;background:var(--w);
-}
-.nb-dot{
-  position:absolute;top:10px;right:calc(50% - 16px);
-  width:6px;height:6px;border-radius:50%;
-  background:var(--blue);border:1.5px solid var(--bk);
-}
+.nb.on::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:18px;height:2px;background:var(--w)}
+.nb-dot{position:absolute;top:9px;right:calc(50% - 15px);width:6px;height:6px;border-radius:50%;background:var(--blue);border:1.5px solid var(--bk);display:none}
 
-/* ============================================
-   TOAST
-============================================ */
-.toast{
-  position:fixed;bottom:calc(var(--nav)+24px);
-  left:50%;transform:translateX(-50%) translateY(8px);
-  background:var(--w);color:var(--bk);
-  padding:11px 18px;font-size:12px;font-weight:700;
-  letter-spacing:.3px;
-  box-shadow:0 4px 20px rgba(0,0,0,.6);
-  z-index:9999;opacity:0;pointer-events:none;
-  transition:all .25s cubic-bezier(.4,0,.2,1);
-  white-space:nowrap;max-width:340px;
-  text-align:center;
-}
+/* ── TOAST ── */
+.toast{position:fixed;bottom:calc(var(--nav)+22px);left:50%;transform:translateX(-50%) translateY(8px);background:var(--w);color:var(--bk);padding:11px 18px;font-size:12px;font-weight:700;letter-spacing:.3px;box-shadow:0 4px 20px rgba(0,0,0,.6);z-index:9999;opacity:0;pointer-events:none;transition:all .25s cubic-bezier(.4,0,.2,1);white-space:nowrap;max-width:360px;text-align:center}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.toast-red{background:var(--red);color:var(--w)}
+.toast.toast-green{background:var(--green);color:var(--w)}
 
-/* ============================================
-   CHART MINI
-============================================ */
+/* chart */
 canvas{display:block;width:100%!important}
-.chart-mini{
-  padding:16px 20px;
-  border-bottom:1px solid var(--border);
-}
-.chart-mini-hdr{
-  display:flex;justify-content:space-between;align-items:center;
-  margin-bottom:12px;
-}
-.chart-mini-title{font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase}
-.chart-tabs{display:flex;gap:0;border:1px solid var(--border2)}
-.ct{
-  padding:5px 10px;font-size:9px;font-weight:700;
-  color:var(--muted);letter-spacing:1px;text-transform:uppercase;
-  border-left:1px solid var(--border2);transition:all .2s;cursor:pointer;
-}
-.ct:first-child{border-left:none}
-.ct.on{background:var(--w);color:var(--bk)}
+.chart-sec{padding:14px 18px;border-bottom:1px solid var(--border)}
+.chart-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px}
+.chart-title{font-size:9px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase}
+.chart-tabs-row{display:flex;border:1px solid var(--border2)}
+.ct{padding:4px 9px;font-size:9px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;border-left:1px solid var(--border2);transition:all .2s;cursor:pointer}
+.ct:first-child{border-left:none}.ct.on{background:var(--w);color:var(--bk)}
 
+/* empty */
+.empty{text-align:center;padding:50px 18px;color:var(--muted)}
+.empty .ei{font-size:36px;margin-bottom:10px;opacity:.3}
+.empty p{font-size:12px;letter-spacing:.5px}
 </style>
 </head>
 <body>
 
-
-<!-- ==========================================
-     PAGE 1: HOME — الرئيسية
-========================================== -->
+<!-- ══════════════════════════════════
+     PAGE 1: HOME
+══════════════════════════════════ -->
 <div id="pg-home" class="page active">
-
-  <!-- Topbar -->
   <div class="topbar">
     <div class="br-logo">
-      <div class="br-logo-mark">B</div>
-      <div>
-        <div class="br-logo-text">BlackRock</div>
-        <div class="br-logo-sub">Task Management</div>
-      </div>
+      <div class="br-mark">B</div>
+      <div><div class="br-text">BlackRock</div><div class="br-sub">Task Management</div></div>
     </div>
-    <div class="topbar-right">
-      <div class="top-icon" onclick="toast('🔔 لا توجد إشعارات جديدة')">
-        🔔<span class="badge"></span>
-      </div>
-      <div class="top-icon" onclick="go('account')">👤</div>
+    <div class="top-right">
+      <div class="top-btn" onclick="toast('🔔 لا توجد إشعارات جديدة')">🔔<span class="badge-dot"></span></div>
+      <div class="top-btn" onclick="go('account')">👤</div>
     </div>
   </div>
 
-  <!-- Hero -->
   <div class="hero">
-    <div class="hero-label">مجموع نقاط الأداء</div>
+    <div class="hero-label">إجمالي نقاط الأداء</div>
     <div class="hero-val" id="h-pts">1,250 <span>XP</span></div>
     <div class="hero-chg up" id="h-chg">▲ +85 نقطة هذا الأسبوع</div>
     <div class="hero-grid">
-      <div class="hg-cell">
-        <div class="hg-val" id="hg-done">12</div>
-        <div class="hg-lbl">مكتملة</div>
-      </div>
-      <div class="hg-cell">
-        <div class="hg-val" id="hg-pend">5</div>
-        <div class="hg-lbl">متبقية</div>
-      </div>
-      <div class="hg-cell">
-        <div class="hg-val">3</div>
-        <div class="hg-lbl">ترقيات</div>
-      </div>
-      <div class="hg-cell">
-        <div class="hg-val">7🔥</div>
-        <div class="hg-lbl">سلسلة</div>
-      </div>
+      <div class="hg"><div class="hg-v" id="hg-done">12</div><div class="hg-l">مكتملة</div></div>
+      <div class="hg"><div class="hg-v" id="hg-pend">5</div><div class="hg-l">متبقية</div></div>
+      <div class="hg"><div class="hg-v">3</div><div class="hg-l">ترقيات</div></div>
+      <div class="hg"><div class="hg-v">7🔥</div><div class="hg-l">سلسلة</div></div>
     </div>
   </div>
 
-  <!-- XP Progress -->
-  <div class="xp-bar-section">
-    <div class="xp-row">
-      <span class="xp-label">مستوى الأداء</span>
-      <span class="xp-level">GOLD TIER — 62.5%</span>
-    </div>
+  <div class="xp-sec">
+    <div class="xp-row"><span class="xp-lbl">مستوى الأداء</span><span class="xp-lvl">GOLD TIER — 62.5%</span></div>
     <div class="xp-track"><div class="xp-fill" style="width:62.5%"></div></div>
-    <div class="xp-pct">750 نقطة حتى المستوى التالي — Diamond Tier</div>
+    <div class="xp-hint">750 نقطة حتى Diamond Tier</div>
   </div>
 
-  <!-- Chart -->
-  <div class="chart-mini">
-    <div class="chart-mini-hdr">
-      <span class="chart-mini-title">أداء الأسبوع</span>
-      <div class="chart-tabs">
-        <span class="ct on" onclick="switchHomeChart('1W',this)">1أ</span>
-        <span class="ct" onclick="switchHomeChart('1M',this)">1ش</span>
-        <span class="ct" onclick="switchHomeChart('3M',this)">3ش</span>
+  <div class="chart-sec">
+    <div class="chart-hdr">
+      <span class="chart-title">أداء النقاط</span>
+      <div class="chart-tabs-row">
+        <span class="ct on" onclick="switchChart('1W',this)">1أ</span>
+        <span class="ct" onclick="switchChart('1M',this)">1ش</span>
+        <span class="ct" onclick="switchChart('3M',this)">3ش</span>
       </div>
     </div>
     <canvas id="home-chart" height="80"></canvas>
   </div>
 
-  <!-- Streak -->
   <div class="streak-row">
     <div class="streak-fire">🔥</div>
     <div class="streak-info">
       <div class="streak-lbl">سلسلة الإنجاز المتواصل</div>
       <div class="streak-num">7 أيام</div>
       <div class="streak-days">
-        <div class="sd done"></div><div class="sd done"></div>
-        <div class="sd done"></div><div class="sd done"></div>
-        <div class="sd done"></div><div class="sd done"></div>
+        <div class="sd done"></div><div class="sd done"></div><div class="sd done"></div>
+        <div class="sd done"></div><div class="sd done"></div><div class="sd done"></div>
         <div class="sd now"></div>
       </div>
     </div>
   </div>
 
-  <!-- Quick Actions -->
   <div class="sec-hdr"><h3>الإجراءات السريعة</h3></div>
   <div class="qa-row">
-    <div class="qa" onclick="go('tasks');setTimeout(openModal,250)">
-      <span class="qa-ic">➕</span>
-      <div><div class="qa-label">مهمة جديدة</div><div class="qa-sub">إضافة إلى قائمتك</div></div>
+    <div class="qa" onclick="go('tasks')">
+      <span class="qa-ic">⏱️</span>
+      <div><div class="qa-n">المهام اليومية</div><div class="qa-s">أكمل وارتح XP</div></div>
     </div>
     <div class="qa" onclick="go('upgrades')">
       <span class="qa-ic">⬆️</span>
-      <div><div class="qa-label">الترقيات</div><div class="qa-sub">طوّر مستواك</div></div>
+      <div><div class="qa-n">الترقيات</div><div class="qa-s">طوّر مستواك</div></div>
     </div>
-    <div class="qa" onclick="go('tasks')">
-      <span class="qa-ic">📋</span>
-      <div><div class="qa-label">المهام</div><div class="qa-sub">عرض كل المهام</div></div>
+    <div class="qa" onclick="go('contact')">
+      <span class="qa-ic">🛡️</span>
+      <div><div class="qa-n">تواصل معنا</div><div class="qa-s">وكلاؤنا متاحون</div></div>
     </div>
     <div class="qa" onclick="go('account')">
       <span class="qa-ic">📊</span>
-      <div><div class="qa-label">إحصائياتي</div><div class="qa-sub">تقرير الأداء</div></div>
+      <div><div class="qa-n">حسابي</div><div class="qa-s">الإحصائيات</div></div>
     </div>
   </div>
 
-  <!-- Recent Activity -->
   <div class="sec-hdr"><h3>النشاط الأخير</h3><a onclick="go('tasks')">عرض الكل</a></div>
-  <div class="table-wrap">
+  <div class="tbl-wrap">
     <div class="tr">
-      <div class="td-main">
-        <strong>أكملت: تعلم JavaScript</strong>
-        <small>منذ ساعتين — تعليم</small>
-      </div>
-      <div class="td-val">
-        <div class="v-main v-up">+50 XP</div>
-        <span class="v-sub">مكتمل</span>
-      </div>
+      <div class="td-m"><strong>أكملت: الانتظار 40 ثانية</strong><small>منذ ساعتين</small></div>
+      <div class="td-v"><span class="vv up">+50 XP</span><span class="vs">مكتمل</span></div>
     </div>
     <div class="tr">
-      <div class="td-main">
-        <strong>ترقية جديدة: Gold Tier</strong>
-        <small>أمس</small>
-      </div>
-      <div class="td-val">
-        <div class="v-main v-up">+200 XP</div>
-        <span class="v-sub">ترقية</span>
-      </div>
+      <div class="td-m"><strong>ترقية جديدة: Gold Tier</strong><small>أمس</small></div>
+      <div class="td-v"><span class="vv up">+200 XP</span><span class="vs">ترقية</span></div>
     </div>
     <div class="tr">
-      <div class="td-main">
-        <strong>إضافة مهمة: تصميم UI</strong>
-        <small>منذ يومين — عمل</small>
-      </div>
-      <div class="td-val">
-        <div class="v-main v-up">+5 XP</div>
-        <span class="v-sub">جديد</span>
-      </div>
+      <div class="td-m"><strong>إلغاء مهمة — خصم</strong><small>منذ يومين</small></div>
+      <div class="td-v"><span class="vv dn">-25 XP</span><span class="vs">ملغى</span></div>
     </div>
     <div class="tr">
-      <div class="td-main">
-        <strong>سلسلة 7 أيام مكتملة</strong>
-        <small>اليوم</small>
-      </div>
-      <div class="td-val">
-        <div class="v-main v-up">+100 XP</div>
-        <span class="v-sub">🔥 سلسلة</span>
-      </div>
-    </div>
-    <div class="tr">
-      <div class="td-main">
-        <strong>مهمة: مراجعة الكود — فائتة</strong>
-        <small>منذ 3 أيام</small>
-      </div>
-      <div class="td-val">
-        <div class="v-main v-dn">-10 XP</div>
-        <span class="v-sub">فائت</span>
-      </div>
+      <div class="td-m"><strong>سلسلة 7 أيام مكتملة</strong><small>اليوم</small></div>
+      <div class="td-v"><span class="vv up">+100 XP</span><span class="vs">🔥 سلسلة</span></div>
     </div>
   </div>
 
-  <!-- Tips -->
   <div class="sec-hdr"><h3>نصائح الأداء</h3></div>
-  <div class="cards-scroll">
-    <div class="news-item" onclick="toast('💡 نصيحة: ابدأ بالمهام عالية الأهمية')">
-      <div class="news-tag">إنتاجية</div>
-      <div class="news-title">اعمل على المهام عالية الأهمية في الصباح الباكر لتعظيم إنتاجيتك</div>
-      <div class="news-meta">BlackRock Insights</div>
+  <div class="news-scroll">
+    <div class="ni" onclick="toast('💡 ابدأ بأصعب مهمة أولاً')">
+      <div class="ni-tag">إنتاجية</div>
+      <div class="ni-title">لا تلغِ المهام — كل إلغاء يكلفك نقاطاً وتأجيلاً</div>
+      <div class="ni-meta">BlackRock Tips</div>
     </div>
-    <div class="news-item" onclick="toast('🎯 نصيحة: حدد 3 أهداف يومية')">
-      <div class="news-tag">تخطيط</div>
-      <div class="news-title">حدد 3 مهام أساسية يومياً بدلاً من قائمة مهام طويلة لا نهائية</div>
-      <div class="news-meta">BlackRock Performance</div>
+    <div class="ni" onclick="toast('🎯 الاتساق مفتاح النجاح')">
+      <div class="ni-tag">تخطيط</div>
+      <div class="ni-title">أكمل مهمة واحدة يومياً للحفاظ على سلسلتك</div>
+      <div class="ni-meta">BlackRock Research</div>
     </div>
-    <div class="news-item" onclick="toast('🔥 حافظ على سلسلتك!')">
-      <div class="news-tag">سلسلة</div>
-      <div class="news-title">الاتساق أهم من الكمال — أكمل مهمة واحدة على الأقل كل يوم</div>
-      <div class="news-meta">BlackRock Research</div>
+    <div class="ni" onclick="go('contact')">
+      <div class="ni-tag">دعم</div>
+      <div class="ni-title">تواصل مع وكلائنا عبر Signal للمساعدة الفورية</div>
+      <div class="ni-meta">BlackRock Support</div>
     </div>
   </div>
-
 </div>
 
 
-<!-- ==========================================
-     PAGE 2: TASKS — المهام
-========================================== -->
+<!-- ══════════════════════════════════
+     PAGE 2: TASKS — المهام اليومية
+══════════════════════════════════ -->
 <div id="pg-tasks" class="page">
-
   <div class="topbar">
     <div class="br-logo">
-      <div class="br-logo-mark">B</div>
-      <div>
-        <div class="br-logo-text">BlackRock</div>
-        <div class="br-logo-sub">Task Management</div>
-      </div>
+      <div class="br-mark">B</div>
+      <div><div class="br-text">BlackRock</div><div class="br-sub">Daily Tasks</div></div>
     </div>
-    <div class="topbar-right">
-      <div class="top-icon" onclick="openModal()" style="font-size:22px;font-weight:300">＋</div>
+    <div class="top-right">
+      <div class="top-btn" onclick="toast('📋 مهامك اليومية — أكملها لتربح XP')">❓</div>
     </div>
   </div>
 
   <div class="tasks-hero">
-    <h2>المهام</h2>
-    <p id="tasks-desc">إدارة وتتبع مهامك اليومية</p>
+    <h2>المهام اليومية</h2>
+    <p id="tasks-desc">أكمل المهام واكسب النقاط — تحذير: الإلغاء يخصم نقاطاً!</p>
     <div class="tasks-stats">
       <div class="tstat"><div class="tv" id="ts-all">0</div><div class="tl">الكل</div></div>
       <div class="tstat"><div class="tv" id="ts-pend">0</div><div class="tl">متبقية</div></div>
-      <div class="tstat"><div class="tv" id="ts-pts">0</div><div class="tl">نقاط مكتسبة</div></div>
+      <div class="tstat"><div class="tv" id="ts-pts">0</div><div class="tl">XP اليوم</div></div>
     </div>
   </div>
 
-  <!-- Filters -->
-  <div class="filter-bar">
-    <button class="ftab on" onclick="setF('all',this)">الكل</button>
-    <button class="ftab" onclick="setF('pending',this)">متبقية</button>
-    <button class="ftab" onclick="setF('done',this)">مكتملة</button>
-    <button class="ftab" onclick="setF('high',this)">عالية</button>
-    <button class="ftab" onclick="setF('med',this)">متوسطة</button>
-    <button class="ftab" onclick="setF('low',this)">منخفضة</button>
+  <!-- Penalty Banner -->
+  <div class="penalty-banner" id="penalty-banner">
+    <div class="pb-ico">⚠️</div>
+    <div class="pb-txt">
+      <strong id="pb-text">تم خصم نقاط بسبب إلغاء مهمة</strong>
+      <small id="pb-sub">المهمة ستتاح من جديد غداً</small>
+    </div>
   </div>
 
-  <!-- List -->
-  <div class="task-list" id="task-list"></div>
+  <!-- Task Cards -->
+  <div id="tasks-container"></div>
 
-  <button class="fab" onclick="openModal()">＋</button>
+  <!-- Add custom task FAB -->
+  <button class="fab" style="position:fixed;bottom:calc(var(--nav)+20px);left:50%;transform:translateX(-50%);width:52px;height:52px;background:var(--w);color:var(--bk);font-size:24px;font-weight:300;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(255,255,255,.15);z-index:99;transition:transform .2s" onclick="openAddModal()">＋</button>
 </div>
 
 
-<!-- ==========================================
-     PAGE 3: UPGRADES — الترقيات
-========================================== -->
+<!-- ══════════════════════════════════
+     PAGE 3: UPGRADES
+══════════════════════════════════ -->
 <div id="pg-upgrades" class="page">
-
   <div class="topbar">
     <div class="br-logo">
-      <div class="br-logo-mark">B</div>
-      <div>
-        <div class="br-logo-text">BlackRock</div>
-        <div class="br-logo-sub">Performance Tiers</div>
-      </div>
+      <div class="br-mark">B</div>
+      <div><div class="br-text">BlackRock</div><div class="br-sub">Performance Tiers</div></div>
     </div>
-    <div class="topbar-right">
-      <div class="top-icon" onclick="toast('⭐ رصيدك: 1,250 نقطة')">⭐</div>
+    <div class="top-right">
+      <div class="top-btn" onclick="toast('⭐ رصيدك: '+totalXP+' XP')">⭐</div>
     </div>
   </div>
 
@@ -923,290 +601,322 @@ canvas{display:block;width:100%!important}
     <p>طوّر مستواك واكسب مزايا حصرية</p>
   </div>
 
-  <!-- Level Block -->
   <div class="level-block">
     <div class="lb-top">
-      <div class="lb-info">
-        <div class="lb-name">Ahmed Al-Rashid</div>
-        <div class="lb-tier">★ Gold Tier</div>
-        <div class="lb-xp">1,250 / 2,000 نقطة XP</div>
+      <div>
+        <div class="lb-name" id="up-user-name">Ahmed Al-Rashid</div>
+        <div class="lb-tier" id="up-tier">★ GOLD TIER</div>
+        <div class="lb-xp" id="up-xp-txt">1,250 / 2,000 XP</div>
       </div>
-      <div class="lb-badge">🏆</div>
+      <div class="lb-badge" id="up-badge">🏆</div>
     </div>
-    <div class="lb-bar"><div class="lb-bar-fill" style="width:62.5%"></div></div>
-    <div class="lb-bar-info">
-      <span>Gold: 1,250 XP</span>
-      <span>Diamond: 2,000 XP</span>
-    </div>
+    <div class="lb-bar"><div class="lb-bar-fill" id="up-bar" style="width:62.5%"></div></div>
+    <div class="lb-bar-info"><span id="up-curr-tier">Gold: 1,250 XP</span><span id="up-next-tier">Diamond: 2,000 XP</span></div>
   </div>
 
-  <!-- Achievements -->
   <div class="sec-hdr"><h3>الإنجازات</h3><a onclick="toast('🏅 عرض كل 24 إنجاز')">الكل (24)</a></div>
   <div class="ach-grid">
-    <div class="ach-cell unlocked" onclick="toast('🔥 سلسلة 7 أيام!')">
-      <div class="ach-ico">🔥</div><div class="ach-name">7 أيام</div>
-    </div>
-    <div class="ach-cell unlocked" onclick="toast('💯 10 مهام مكتملة!')">
-      <div class="ach-ico">💯</div><div class="ach-name">10 مهام</div>
-    </div>
-    <div class="ach-cell unlocked" onclick="toast('⚡ منجز سريع!')">
-      <div class="ach-ico">⚡</div><div class="ach-name">منجز سريع</div>
-    </div>
-    <div class="ach-cell unlocked" onclick="toast('🌟 أول 1000 XP!')">
-      <div class="ach-ico">🌟</div><div class="ach-name">1000 XP</div>
-    </div>
-    <div class="ach-cell unlocked" onclick="toast('🎯 دقة 100%!')">
-      <div class="ach-ico">🎯</div><div class="ach-name">دقة عالية</div>
-    </div>
-    <div class="ach-cell unlocked" onclick="toast('🏆 Gold Tier!')">
-      <div class="ach-ico">🏆</div><div class="ach-name">Gold Tier</div>
-    </div>
-    <div class="ach-cell unlocked" onclick="toast('🚀 50 مهمة!')">
-      <div class="ach-ico">🚀</div><div class="ach-name">50 مهمة</div>
-    </div>
-    <div class="ach-cell unlocked" onclick="toast('👑 أسبوع مثالي!')">
-      <div class="ach-ico">👑</div><div class="ach-name">أسبوع مثالي</div>
-    </div>
-    <div class="ach-cell locked-a"><div class="ach-ico">💎</div><div class="ach-name">Diamond</div></div>
-    <div class="ach-cell locked-a"><div class="ach-ico">🌈</div><div class="ach-name">كل الفئات</div></div>
-    <div class="ach-cell locked-a"><div class="ach-ico">🎓</div><div class="ach-name">100 مهمة</div></div>
-    <div class="ach-cell locked-a"><div class="ach-ico">🌙</div><div class="ach-name">30 يوم</div></div>
+    <div class="ach-c ach-unlocked" onclick="toast('🔥 سلسلة 7 أيام!')"><div class="ach-ico">🔥</div><div class="ach-nm">7 أيام</div></div>
+    <div class="ach-c ach-unlocked" onclick="toast('💯 10 مهام!')"><div class="ach-ico">💯</div><div class="ach-nm">10 مهام</div></div>
+    <div class="ach-c ach-unlocked" onclick="toast('⚡ منجز سريع!')"><div class="ach-ico">⚡</div><div class="ach-nm">سريع</div></div>
+    <div class="ach-c ach-unlocked" onclick="toast('🌟 1000 XP!')"><div class="ach-ico">🌟</div><div class="ach-nm">1000 XP</div></div>
+    <div class="ach-c ach-unlocked" onclick="toast('🎯 دقة عالية!')"><div class="ach-ico">🎯</div><div class="ach-nm">دقة عالية</div></div>
+    <div class="ach-c ach-unlocked" onclick="toast('🏆 Gold Tier!')"><div class="ach-ico">🏆</div><div class="ach-nm">Gold</div></div>
+    <div class="ach-c locked-a"><div class="ach-ico">💎</div><div class="ach-nm">Diamond</div></div>
+    <div class="ach-c locked-a"><div class="ach-ico">👑</div><div class="ach-nm">Legend</div></div>
   </div>
 
   <div class="div"></div>
-
-  <!-- Levels Timeline -->
   <div class="sec-hdr"><h3>مستويات الأداء</h3></div>
-  <div class="levels-section" id="lvl-list"></div>
+  <div class="lv-timeline" id="lvl-list"></div>
 
   <div class="div"></div>
-
-  <!-- Shop -->
-  <div class="sec-hdr"><h3>متجر الترقيات</h3><a onclick="toast('💰 رصيدك: 1,250 XP')">رصيدك: 1,250 ⭐</a></div>
+  <div class="sec-hdr"><h3>متجر الترقيات</h3><a onclick="toast('رصيدك: '+totalXP+' XP')">رصيدك ⭐</a></div>
   <div class="shop-grid" id="shop-grid"></div>
-
 </div>
 
 
-<!-- ==========================================
-     PAGE 4: ACCOUNT — الحساب
-========================================== -->
-<div id="pg-account" class="page">
-
+<!-- ══════════════════════════════════
+     PAGE 4: CONTACT — التواصل
+══════════════════════════════════ -->
+<div id="pg-contact" class="page">
   <div class="topbar">
     <div class="br-logo">
-      <div class="br-logo-mark">B</div>
-      <div>
-        <div class="br-logo-text">BlackRock</div>
-        <div class="br-logo-sub">My Account</div>
+      <div class="br-mark">B</div>
+      <div><div class="br-text">BlackRock</div><div class="br-sub">Client Services</div></div>
+    </div>
+    <div class="top-right">
+      <div class="top-btn" onclick="toast('🛡️ دعم متاح 24/7')">🛡️</div>
+    </div>
+  </div>
+
+  <div class="contact-hero">
+    <div class="ch-label">BlackRock — Client Services</div>
+    <div class="ch-title">تواصل مع وكلائنا</div>
+    <div class="ch-sub">فريقنا المتخصص جاهز لمساعدتك في أي وقت. تواصل معنا عبر Signal للحصول على دعم فوري وآمن.</div>
+  </div>
+
+  <!-- Notice -->
+  <div class="notice-box">
+    <div class="nb-title">ℹ️ ملاحظة مهمة</div>
+    <div class="nb-body">جميع تواصلاتنا تتم عبر تطبيق Signal فقط لضمان أمان وخصوصية بياناتك. الرابط أدناه سيفتح تطبيق Signal مباشرةً.</div>
+  </div>
+
+  <!-- Main Agent Card -->
+  <div class="agents-list">
+    <div class="agent-card online-c">
+      <div class="agent-header">
+        <div class="agent-av">
+          🛡️
+          <span class="online-dot"></span>
+        </div>
+        <div class="agent-info">
+          <div class="agent-name">BlackRock — وكيل الدعم</div>
+          <div class="agent-role">Senior Client Relations Manager</div>
+          <div class="agent-status status-online">● ONLINE NOW</div>
+        </div>
+      </div>
+      <div class="agent-stats">
+        <div class="ag-stat"><div class="av">24/7</div><div class="al">متاح</div></div>
+        <div class="ag-stat"><div class="av">&lt;5د</div><div class="al">وقت الرد</div></div>
+        <div class="ag-stat"><div class="av">AR</div><div class="al">اللغة</div></div>
+      </div>
+      <!-- Main Signal Button -->
+      <a href="https://signal.me/#eu/__kL4ayCt64xdRiSQWwYpMxOo5_u-Br5Y87rLvt7vQ9c0zoJJ3BEHIfxtpSC5JSE"
+         class="ag-signal-main"
+         target="_blank"
+         rel="noopener"
+         onclick="toast('📲 فتح Signal...')">
+        <div class="signal-ico">📲</div>
+        <div class="signal-info">
+          <strong>تواصل عبر Signal</strong>
+          <small>اضغط لفتح المحادثة في تطبيق Signal مباشرةً</small>
+        </div>
+        <span class="signal-arrow">›</span>
+      </a>
+      <div class="agent-actions">
+        <a href="https://signal.me/#eu/__kL4ayCt64xdRiSQWwYpMxOo5_u-Br5Y87rLvt7vQ9c0zoJJ3BEHIfxtpSC5JSE"
+           class="ag-btn ag-signal" target="_blank" rel="noopener"
+           onclick="toast('📲 فتح Signal...')">
+          📲 فتح Signal
+        </a>
+        <div class="ag-btn" onclick="copySignalLink()" style="color:var(--muted)">
+          📋 نسخ الرابط
+        </div>
       </div>
     </div>
-    <div class="topbar-right">
-      <div class="top-icon" onclick="toast('⚙️ الإعدادات')">⚙️</div>
+
+    <!-- Support Info Card -->
+    <div class="agent-card">
+      <div class="agent-header">
+        <div class="agent-av">
+          🏦
+          <span class="online-dot"></span>
+        </div>
+        <div class="agent-info">
+          <div class="agent-name">BlackRock — الدعم الفني</div>
+          <div class="agent-role">Technical Support Specialist</div>
+          <div class="agent-status status-online">● ONLINE NOW</div>
+        </div>
+      </div>
+      <div class="agent-stats">
+        <div class="ag-stat"><div class="av">100%</div><div class="al">حل</div></div>
+        <div class="ag-stat"><div class="av">2K+</div><div class="al">عميل</div></div>
+        <div class="ag-stat"><div class="av">5★</div><div class="al">تقييم</div></div>
+      </div>
+      <a href="https://signal.me/#eu/__kL4ayCt64xdRiSQWwYpMxOo5_u-Br5Y87rLvt7vQ9c0zoJJ3BEHIfxtpSC5JSE"
+         class="ag-signal-main" target="_blank" rel="noopener"
+         onclick="toast('📲 فتح Signal...')">
+        <div class="signal-ico">📲</div>
+        <div class="signal-info">
+          <strong>تواصل عبر Signal</strong>
+          <small>دعم فني فوري وآمن</small>
+        </div>
+        <span class="signal-arrow">›</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Why Signal -->
+  <div class="sec-hdr"><h3>لماذا Signal؟</h3></div>
+  <div style="margin:0 18px;border:1px solid var(--border);margin-bottom:10px">
+    <div class="menu-item" style="border-top:none">
+      <div class="m-ico">🔒</div>
+      <div class="m-txt"><strong>تشفير كامل</strong><small>رسائلك مشفرة بالكامل</small></div>
+    </div>
+    <div class="menu-item">
+      <div class="m-ico">🕵️</div>
+      <div class="m-txt"><strong>خصوصية تامة</strong><small>لا يتم تخزين بياناتك</small></div>
+    </div>
+    <div class="menu-item">
+      <div class="m-ico">⚡</div>
+      <div class="m-txt"><strong>رد فوري</strong><small>متوسط وقت الرد أقل من 5 دقائق</small></div>
+    </div>
+    <div class="menu-item">
+      <div class="m-ico">🌍</div>
+      <div class="m-txt"><strong>متاح دولياً</strong><small>تواصل من أي مكان في العالم</small></div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="sec-hdr"><h3>الأسئلة الشائعة</h3></div>
+  <div style="margin-bottom:16px">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>كيف أفتح رابط Signal؟</span>
+        <span class="fq-ic">›</span>
+      </div>
+      <div class="faq-a">اضغط على زر "تواصل عبر Signal" وسيفتح تطبيق Signal مباشرةً. إذا لم يكن مثبتاً، سيتم توجيهك لتحميله من المتجر.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>ما هي أوقات الدعم؟</span>
+        <span class="fq-ic">›</span>
+      </div>
+      <div class="faq-a">فريق الدعم متاح 24 ساعة يومياً، 7 أيام في الأسبوع. متوسط وقت الرد أقل من 5 دقائق خلال ساعات الذروة.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>ما المشاكل التي يمكن المساعدة فيها؟</span>
+        <span class="fq-ic">›</span>
+      </div>
+      <div class="faq-a">الدعم الفني، استفسارات المهام والنقاط، مشاكل الترقيات، إعادة تعيين المهام المحظورة، وجميع استفساراتك الأخرى.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>هل التواصل آمن؟</span>
+        <span class="fq-ic">›</span>
+      </div>
+      <div class="faq-a">نعم تماماً. Signal يستخدم تشفير نهاية لنهاية (End-to-End Encryption) مما يجعل محادثاتك خاصة وآمنة بالكامل.</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     PAGE 5: ACCOUNT
+══════════════════════════════════ -->
+<div id="pg-account" class="page">
+  <div class="topbar">
+    <div class="br-logo">
+      <div class="br-mark">B</div>
+      <div><div class="br-text">BlackRock</div><div class="br-sub">My Account</div></div>
     </div>
   </div>
 
   <div class="acc-hero">
-    <div class="acc-av" onclick="toast('📷 تغيير صورة الملف الشخصي')">
-      👤
-      <div class="av-edit-btn">✏️</div>
+    <div class="acc-av" onclick="toast('📷 تغيير الصورة')">
+      👤<div class="av-edit">✏️</div>
     </div>
     <div class="acc-name">Ahmed Al-Rashid</div>
-    <div class="acc-email">ahmed.alrashid@email.com</div>
+    <div class="acc-email">ahmed@blackrock.com</div>
     <div class="acc-tier-badge">★ BlackRock Gold Tier</div>
     <div class="acc-stats-row">
-      <div class="a-stat"><strong>1,250</strong><span>نقطة XP</span></div>
+      <div class="a-stat"><strong id="ah-pts">1,250</strong><span>XP</span></div>
       <div class="a-stat"><strong id="ah-tasks">17</strong><span>مهمة</span></div>
       <div class="a-stat"><strong>3</strong><span>ترقية</span></div>
       <div class="a-stat"><strong>7🔥</strong><span>سلسلة</span></div>
     </div>
   </div>
 
-  <!-- Progress to next level -->
   <div class="prog-mini">
-    <div class="pm-row">
-      <span>تقدم المستوى — Gold Tier</span>
-      <span style="color:var(--gold);font-weight:700">62.5%</span>
-    </div>
+    <div class="pm-row"><span>Gold Tier — تقدم المستوى</span><span style="color:var(--gold);font-weight:700">62.5%</span></div>
     <div class="pm-bar"><div class="pm-fill" style="width:62.5%"></div></div>
-    <div class="pm-sub">
-      <span>1,250 XP</span>
-      <span>Diamond Tier: 2,000 XP</span>
-    </div>
+    <div class="pm-sub"><span>1,250 XP</span><span>Diamond: 2,000 XP</span></div>
   </div>
 
-  <!-- Performance -->
-  <div class="menu-section">
-    <div class="menu-section-title">الأداء والمهام</div>
-    <div class="menu-item" onclick="go('tasks')">
-      <div class="m-ico">📋</div>
-      <div class="m-txt"><strong>إدارة المهام</strong><small id="ah-desc">17 مهمة إجمالاً</small></div>
-      <span class="m-arr">›</span>
-    </div>
-    <div class="menu-item" onclick="go('upgrades')">
-      <div class="m-ico">⬆️</div>
-      <div class="m-txt"><strong>الترقيات والإنجازات</strong><small>3 ترقيات مكتسبة — 8 إنجازات</small></div>
-      <span class="m-arr">›</span>
-    </div>
-    <div class="menu-item" onclick="toast('📊 تقرير الأداء الأسبوعي')">
-      <div class="m-ico">📊</div>
-      <div class="m-txt"><strong>تقارير الأداء</strong><small>أسبوعية وشهرية</small></div>
-      <span class="m-arr">›</span>
-    </div>
-    <div class="menu-item" onclick="toast('📤 تصدير البيانات')">
-      <div class="m-ico">📤</div>
-      <div class="m-txt"><strong>تصدير البيانات</strong><small>CSV • PDF • JSON</small></div>
-      <span class="m-arr">›</span>
-    </div>
+  <div class="menu-sec-title">الأداء والمهام</div>
+  <div class="menu-item" onclick="go('tasks')">
+    <div class="m-ico">📋</div>
+    <div class="m-txt"><strong>المهام اليومية</strong><small id="ah-desc">إدارة مهامك</small></div>
+    <span class="m-arr">›</span>
+  </div>
+  <div class="menu-item" onclick="go('upgrades')">
+    <div class="m-ico">⬆️</div>
+    <div class="m-txt"><strong>الترقيات والإنجازات</strong><small>3 ترقيات — 6 إنجازات</small></div>
+    <span class="m-arr">›</span>
+  </div>
+  <div class="menu-item" onclick="toast('📊 التقرير الأسبوعي')">
+    <div class="m-ico">📊</div>
+    <div class="m-txt"><strong>تقارير الأداء</strong><small>أسبوعية وشهرية</small></div>
+    <span class="m-arr">›</span>
   </div>
 
   <div class="div"></div>
-
-  <!-- Stats Summary -->
-  <div class="menu-section">
-    <div class="menu-section-title">ملخص الإحصائيات</div>
-    <div class="menu-item">
-      <div class="m-ico">✅</div>
-      <div class="m-txt"><strong>مهام مكتملة</strong><small>إجمالي المهام المنجزة</small></div>
-      <span class="m-badge" id="ah-done-badge">12</span>
-    </div>
-    <div class="menu-item">
-      <div class="m-ico">🔥</div>
-      <div class="m-txt"><strong>أطول سلسلة إنجاز</strong><small>أيام متتالية</small></div>
-      <span class="m-badge">7 أيام</span>
-    </div>
-    <div class="menu-item">
-      <div class="m-ico">⭐</div>
-      <div class="m-txt"><strong>إجمالي النقاط المكتسبة</strong><small>منذ بداية الاستخدام</small></div>
-      <span class="m-badge">1,250 XP</span>
-    </div>
-    <div class="menu-item">
-      <div class="m-ico">📅</div>
-      <div class="m-txt"><strong>تاريخ الانضمام</strong><small>عضو منذ</small></div>
-      <span class="m-badge">يناير 2026</span>
-    </div>
+  <div class="menu-sec-title">الإحصائيات</div>
+  <div class="menu-item">
+    <div class="m-ico">✅</div>
+    <div class="m-txt"><strong>مهام مكتملة</strong><small>إجمالي المنجزة</small></div>
+    <span class="m-badge" id="ah-done-b">12</span>
+  </div>
+  <div class="menu-item">
+    <div class="m-ico">⚠️</div>
+    <div class="m-txt"><strong>مهام ملغاة</strong><small>تسببت في خصم XP</small></div>
+    <span class="m-badge" id="ah-cancel-b" style="color:var(--red);border-color:rgba(204,0,0,.3)">2</span>
+  </div>
+  <div class="menu-item">
+    <div class="m-ico">🔥</div>
+    <div class="m-txt"><strong>أطول سلسلة</strong><small>أيام متتالية</small></div>
+    <span class="m-badge">7 أيام</span>
+  </div>
+  <div class="menu-item">
+    <div class="m-ico">📅</div>
+    <div class="m-txt"><strong>عضو منذ</strong><small>تاريخ الانضمام</small></div>
+    <span class="m-badge">يناير 2026</span>
   </div>
 
   <div class="div"></div>
-
-  <!-- Account Settings -->
-  <div class="menu-section">
-    <div class="menu-section-title">الحساب والأمان</div>
-    <div class="menu-item" onclick="toast('✏️ تعديل الملف الشخصي')">
-      <div class="m-ico">👤</div>
-      <div class="m-txt"><strong>الملف الشخصي</strong><small>الاسم والبريد الإلكتروني</small></div>
-      <span class="m-arr">›</span>
-    </div>
-    <div class="menu-item" onclick="toast('🔐 تغيير كلمة المرور')">
-      <div class="m-ico">🔐</div>
-      <div class="m-txt"><strong>كلمة المرور والأمان</strong><small>تغيير أو إعادة تعيين</small></div>
-      <span class="m-arr">›</span>
-    </div>
-    <div class="menu-item">
-      <div class="m-ico">🔒</div>
-      <div class="m-txt"><strong>التحقق بخطوتين</strong><small>أمان إضافي للحساب</small></div>
-      <div class="tog on" onclick="this.classList.toggle('on');toast(this.classList.contains('on')?'🔒 2FA مفعّل':'⚠️ 2FA معطّل')"></div>
-    </div>
+  <div class="menu-sec-title">الإعدادات والدعم</div>
+  <div class="menu-item">
+    <div class="m-ico">🔔</div>
+    <div class="m-txt"><strong>إشعارات المهام</strong><small>تذكير يومي</small></div>
+    <div class="tog on" onclick="this.classList.toggle('on');toast(this.classList.contains('on')?'🔔 مفعّل':'🔕 معطّل')"></div>
+  </div>
+  <div class="menu-item">
+    <div class="m-ico">🔒</div>
+    <div class="m-txt"><strong>التحقق بخطوتين</strong><small>أمان إضافي</small></div>
+    <div class="tog on" onclick="this.classList.toggle('on');toast(this.classList.contains('on')?'🔒 2FA مفعّل':'⚠️ 2FA معطّل')"></div>
+  </div>
+  <div class="menu-item" onclick="go('contact')">
+    <div class="m-ico">💬</div>
+    <div class="m-txt"><strong>تواصل مع الوكيل</strong><small>Signal — دعم فوري</small></div>
+    <span class="m-arr">›</span>
+  </div>
+  <div class="menu-item" onclick="toast('ℹ️ BlackRock Tasks v2.1 — مايو 2026')">
+    <div class="m-ico">ℹ️</div>
+    <div class="m-txt"><strong>عن التطبيق</strong><small>الإصدار 2.1.0</small></div>
+    <span class="m-arr">›</span>
   </div>
 
-  <div class="div"></div>
-
-  <!-- Notifications -->
-  <div class="menu-section">
-    <div class="menu-section-title">الإشعارات والتفضيلات</div>
-    <div class="menu-item">
-      <div class="m-ico">🔔</div>
-      <div class="m-txt"><strong>إشعارات المهام</strong><small>تذكير بالمهام المتبقية</small></div>
-      <div class="tog on" onclick="this.classList.toggle('on');toast(this.classList.contains('on')?'🔔 مفعّل':'🔕 معطّل')"></div>
-    </div>
-    <div class="menu-item">
-      <div class="m-ico">🔥</div>
-      <div class="m-txt"><strong>تنبيه السلسلة</strong><small>لا تكسر سلسلة إنجازك</small></div>
-      <div class="tog on" onclick="this.classList.toggle('on');toast(this.classList.contains('on')?'🔥 مفعّل':'❌ معطّل')"></div>
-    </div>
-    <div class="menu-item">
-      <div class="m-ico">⭐</div>
-      <div class="m-txt"><strong>إشعارات الترقيات</strong><small>عند الوصول لمستوى جديد</small></div>
-      <div class="tog" onclick="this.classList.toggle('on');toast(this.classList.contains('on')?'⭐ مفعّل':'❌ معطّل')"></div>
-    </div>
-    <div class="menu-item" onclick="toast('🌐 اللغة: العربية')">
-      <div class="m-ico">🌐</div>
-      <div class="m-txt"><strong>اللغة</strong><small>العربية — Arabic</small></div>
-      <span class="m-arr">›</span>
-    </div>
-  </div>
-
-  <div class="div"></div>
-
-  <!-- Support -->
-  <div class="menu-section">
-    <div class="menu-section-title">المساعدة والدعم</div>
-    <div class="menu-item" onclick="toast('❓ مركز المساعدة')">
-      <div class="m-ico">❓</div>
-      <div class="m-txt"><strong>مركز المساعدة</strong><small>الأسئلة الشائعة والإرشادات</small></div>
-      <span class="m-arr">›</span>
-    </div>
-    <div class="menu-item" onclick="toast('💬 الدعم الفوري')">
-      <div class="m-ico">💬</div>
-      <div class="m-txt"><strong>تواصل مع الدعم</strong><small>متاح 24/7</small></div>
-      <span class="m-arr">›</span>
-    </div>
-    <div class="menu-item" onclick="toast('⭐ شكراً لتقييمك!')">
-      <div class="m-ico">⭐</div>
-      <div class="m-txt"><strong>تقييم التطبيق</strong><small>ساعدنا في التحسين</small></div>
-      <span class="m-arr">›</span>
-    </div>
-    <div class="menu-item" onclick="toast('ℹ️ BlackRock Tasks v2.0 — مايو 2026')">
-      <div class="m-ico">ℹ️</div>
-      <div class="m-txt"><strong>عن التطبيق</strong><small>الإصدار 2.0.0</small></div>
-      <span class="m-arr">›</span>
-    </div>
-  </div>
-
-  <button class="logout" onclick="toast('👋 تم تسجيل الخروج بأمان')">
-    ← تسجيل الخروج
-  </button>
-
+  <button class="logout" onclick="toast('👋 تم تسجيل الخروج بأمان')">← تسجيل الخروج</button>
 </div>
 
 
-<!-- ==========================================
+<!-- ══════════════════════════════════
      ADD TASK MODAL
-========================================== -->
+══════════════════════════════════ -->
 <div class="overlay" id="modal-add" onclick="closeOut('modal-add',event)">
   <div class="modal">
     <div class="modal-bar"></div>
     <h3>إضافة مهمة جديدة</h3>
-
-    <div class="igrp">
-      <label>عنوان المهمة *</label>
-      <input type="text" id="m-title" placeholder="ماذا تريد أن تنجز؟"/>
-    </div>
-    <div class="igrp">
-      <label>الوصف</label>
-      <textarea id="m-desc" rows="2" placeholder="تفاصيل إضافية..."></textarea>
-    </div>
-
+    <div class="igrp"><label>عنوان المهمة *</label><input type="text" id="m-title" placeholder="ماذا تريد أن تنجز؟"/></div>
+    <div class="igrp"><label>الوصف</label><textarea id="m-desc" rows="2" placeholder="تفاصيل..."></textarea></div>
     <div class="igrp">
       <label>مستوى الأولوية</label>
       <div class="pri-sel">
-        <button class="pri-btn" id="pb-high" onclick="selectPri('high')">HIGH</button>
-        <button class="pri-btn sel-m" id="pb-med" onclick="selectPri('med')">MEDIUM</button>
-        <button class="pri-btn" id="pb-low" onclick="selectPri('low')">LOW</button>
+        <button class="pri-btn" id="pb-high" onclick="selPri('high')">HIGH</button>
+        <button class="pri-btn sel-m" id="pb-med" onclick="selPri('med')">MEDIUM</button>
+        <button class="pri-btn" id="pb-low" onclick="selPri('low')">LOW</button>
       </div>
     </div>
-
     <div class="i2">
-      <div class="igrp">
-        <label>نقاط XP</label>
-        <input type="number" id="m-pts" value="30" min="5" max="500"/>
-      </div>
-      <div class="igrp">
-        <label>الموعد النهائي</label>
-        <input type="date" id="m-date"/>
-      </div>
+      <div class="igrp"><label>مدة المهمة (ثانية)</label><input type="number" id="m-dur" value="60" min="10" max="3600"/></div>
+      <div class="igrp"><label>مكافأة XP</label><input type="number" id="m-pts" value="50" min="5" max="500"/></div>
     </div>
-
+    <div class="igrp">
+      <label>خصم الإلغاء (XP)</label>
+      <input type="number" id="m-pen" value="25" min="0" max="200"/>
+    </div>
     <div class="igrp">
       <label>الفئة</label>
       <select id="m-cat">
@@ -1215,371 +925,603 @@ canvas{display:block;width:100%!important}
         <option value="عمل">عمل — Work</option>
         <option value="صحة">صحة — Health</option>
         <option value="شخصي">شخصي — Personal</option>
-        <option value="مشاريع">مشاريع — Projects</option>
       </select>
     </div>
-
     <div class="modal-btns">
       <button class="m-cancel" onclick="closeModal('modal-add')">إلغاء</button>
-      <button class="m-ok" onclick="addTask()">إضافة المهمة</button>
+      <button class="m-ok" onclick="addCustomTask()">إضافة المهمة</button>
     </div>
   </div>
 </div>
 
+<!-- PENALTY MODAL -->
+<div class="overlay" id="modal-penalty" onclick="closeOut('modal-penalty',event)">
+  <div class="modal penalty-modal">
+    <div class="modal-bar"></div>
+    <div class="penalty-icon">⚠️</div>
+    <div class="penalty-title">تم خصم النقاط!</div>
+    <div class="penalty-desc">لقد ألغيت المهمة قبل اكتمالها.<br/>سيتم خصم النقاط وإعادة جدولة المهمة للغد.</div>
+    <div class="penalty-amount">
+      <div class="pa-label">الخصم المطبق</div>
+      <div class="pa-val" id="penalty-val">-25 XP</div>
+    </div>
+    <div style="font-size:11px;color:var(--muted);text-align:center;margin-bottom:20px;line-height:1.6" id="penalty-detail">
+      المهمة ستتاح مجدداً غداً. حاول إكمالها في المرة القادمة!
+    </div>
+    <button class="m-ok" style="width:100%;padding:14px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase" onclick="closeModal('modal-penalty')">
+      حسناً — مفهوم
+    </button>
+  </div>
+</div>
 
-<!-- ==========================================
-     BOTTOM NAV
-========================================== -->
+<!-- BOTTOM NAV -->
 <nav class="bnav">
-  <button class="nb on" id="nb-home" onclick="go('home')">
-    <span class="nb-ico">🏠</span>
-    <span class="nb-lbl">الرئيسية</span>
-  </button>
+  <button class="nb on" id="nb-home" onclick="go('home')"><span class="nb-ico">🏠</span><span class="nb-lbl">الرئيسية</span></button>
   <button class="nb" id="nb-tasks" onclick="go('tasks')">
-    <span class="nb-ico">📋</span>
-    <span class="nb-lbl">المهام</span>
+    <span class="nb-ico">⏱️</span><span class="nb-lbl">المهام</span>
     <span class="nb-dot" id="nav-dot"></span>
   </button>
-  <button class="nb" id="nb-upgrades" onclick="go('upgrades')">
-    <span class="nb-ico">⬆️</span>
-    <span class="nb-lbl">الترقيات</span>
-  </button>
-  <button class="nb" id="nb-account" onclick="go('account')">
-    <span class="nb-ico">👤</span>
-    <span class="nb-lbl">حسابي</span>
-  </button>
+  <button class="nb" id="nb-upgrades" onclick="go('upgrades')"><span class="nb-ico">⬆️</span><span class="nb-lbl">الترقيات</span></button>
+  <button class="nb" id="nb-contact" onclick="go('contact')"><span class="nb-ico">💬</span><span class="nb-lbl">الوكيل</span></button>
+  <button class="nb" id="nb-account" onclick="go('account')"><span class="nb-ico">👤</span><span class="nb-lbl">حسابي</span></button>
 </nav>
 
 <div class="toast" id="toast-el"></div>
 
-
-<!-- ==========================================
+<!-- ══════════════════════════════════
      JAVASCRIPT
-========================================== -->
+══════════════════════════════════ -->
 <script>
 
-/* ============================================
+/* ==============================
    DATA
-============================================ */
-let tasks=[
-  {id:1,title:'تعلم HTML وCSS الاحترافي',desc:'إنهاء دورة HTML5+CSS3',pri:'high',pts:80,cat:'تعليم',date:'2026-05-05',done:false},
-  {id:2,title:'بناء مشروع JavaScript',desc:'تطبيق قائمة المهام التفاعلي',pri:'high',pts:100,cat:'مشاريع',date:'2026-05-08',done:false},
-  {id:3,title:'قراءة كتاب العادات الذرية',desc:'30 صفحة يومياً',pri:'med',pts:40,cat:'شخصي',date:'2026-05-10',done:false},
-  {id:4,title:'ممارسة الرياضة يومياً',desc:'30 دقيقة جري + 20 قوة',pri:'low',pts:30,cat:'صحة',date:'2026-05-04',done:false},
-  {id:5,title:'دورة Python الأساسية',desc:'تعلم بايثون من الصفر',pri:'med',pts:60,cat:'تعليم',date:'2026-05-12',done:false},
-  {id:6,title:'مراجعة الكود القديم',desc:'تحسين جودة الكود',pri:'low',pts:25,cat:'عمل',date:'2026-05-06',done:true},
-  {id:7,title:'تصميم واجهة Figma',desc:'نموذج أولي لتطبيق الجوال',pri:'high',pts:70,cat:'عمل',date:'2026-05-07',done:true},
-  {id:8,title:'التخطيط الأسبوعي',desc:'أهداف وخطة الأسبوع',pri:'med',pts:20,cat:'شخصي',date:'2026-05-05',done:false},
-];
-let nextId=9;
-let activeFilter='all';
-let selectedPri='med';
+============================== */
+let totalXP = 1250;
+let cancelCount = 2;
+let doneCount = 12;
+let selectedPri = 'med';
+let taskTimers = {}; // running timers
 
-const LEVELS=[
-  {name:'Bronze',icon:'🥉',min:0,max:300,tier:'Entry Level'},
-  {name:'Silver',icon:'🥈',min:300,max:700,tier:'Developing'},
-  {name:'Advanced',icon:'🥇',min:700,max:1200,tier:'Proficient'},
-  {name:'Gold',icon:'🏆',min:1200,max:2000,tier:'Expert'},
-  {name:'Diamond',icon:'💎',min:2000,max:3500,tier:'Elite'},
-  {name:'Platinum',icon:'🌟',min:3500,max:6000,tier:'Master'},
-  {name:'Legendary',icon:'👑',min:6000,max:Infinity,tier:'BlackRock Elite'},
+// Default daily tasks
+let allTasks = [
+  {
+    id: 1, icon: '⏳', name: 'الانتظار المركّز',
+    desc: 'انتظر 40 ثانية بدون أي نشاط على الهاتف',
+    duration: 40, reward: 50, penalty: 20,
+    pri: 'low', cat: 'عام',
+    status: 'idle', // idle | running | done | locked
+    lockedUntil: null, elapsed: 0
+  },
+  {
+    id: 2, icon: '🧘', name: 'التنفس العميق',
+    desc: 'أكمل 5 دقائق من التنفس العميق والاسترخاء',
+    duration: 300, reward: 80, penalty: 30,
+    pri: 'med', cat: 'صحة',
+    status: 'idle', lockedUntil: null, elapsed: 0
+  },
+  {
+    id: 3, icon: '📚', name: 'القراءة اليومية',
+    desc: 'اقرأ لمدة 10 دقائق متواصلة',
+    duration: 600, reward: 100, penalty: 40,
+    pri: 'med', cat: 'تعليم',
+    status: 'idle', lockedUntil: null, elapsed: 0
+  },
+  {
+    id: 4, icon: '💪', name: 'التمرين السريع',
+    desc: '5 دقائق تمارين جسدية خفيفة',
+    duration: 300, reward: 70, penalty: 25,
+    pri: 'high', cat: 'صحة',
+    status: 'idle', lockedUntil: null, elapsed: 0
+  },
+  {
+    id: 5, icon: '📝', name: 'كتابة الأهداف',
+    desc: 'اكتب 3 أهداف لليوم وخطة تنفيذها',
+    duration: 120, reward: 60, penalty: 20,
+    pri: 'high', cat: 'شخصي',
+    status: 'idle', lockedUntil: null, elapsed: 0
+  },
 ];
+let nextId = 6;
 
-const SHOP=[
-  {id:1,icon:'⚡',name:'XP Booster',desc:'مضاعفة النقاط لمدة ساعة',cost:200,owned:true},
-  {id:2,icon:'🛡️',name:'Deadline Shield',desc:'تمديد الموعد 3 مرات',cost:150,owned:true},
-  {id:3,icon:'🎯',name:'Priority Access',desc:'مهام حصرية عالية القيمة',cost:350,owned:false},
-  {id:4,icon:'🔥',name:'Focus Mode',desc:'تعطيل الإشعارات تلقائياً',cost:100,owned:true},
-  {id:5,icon:'💰',name:'Daily Bonus',desc:'+25% نقاط إضافية يومياً',cost:500,owned:false},
-  {id:6,icon:'🎨',name:'Custom Themes',desc:'ثيمات وأيقونات حصرية',cost:300,owned:false},
-  {id:7,icon:'📊',name:'Analytics Pro',desc:'تقارير مفصلة وإحصائيات',cost:400,owned:false},
-  {id:8,icon:'🌙',name:'Night Mode Pro',desc:'واجهة مخصصة للعمل الليلي',cost:120,owned:false},
-];
-
-/* ============================================
+/* ==============================
    NAVIGATION
-============================================ */
-const PG={home:'pg-home',tasks:'pg-tasks',upgrades:'pg-upgrades',account:'pg-account'};
-const NB={home:'nb-home',tasks:'nb-tasks',upgrades:'nb-upgrades',account:'nb-account'};
+============================== */
+const PG = {home:'pg-home',tasks:'pg-tasks',upgrades:'pg-upgrades',contact:'pg-contact',account:'pg-account'};
+const NB = {home:'nb-home',tasks:'nb-tasks',upgrades:'nb-upgrades',contact:'nb-contact',account:'nb-account'};
 
-function go(pg){
-  Object.values(PG).forEach(p=>document.getElementById(p).classList.remove('active'));
-  Object.values(NB).forEach(n=>document.getElementById(n).classList.remove('on'));
+function go(pg) {
+  Object.values(PG).forEach(p => document.getElementById(p).classList.remove('active'));
+  Object.values(NB).forEach(n => document.getElementById(n).classList.remove('on'));
   document.getElementById(PG[pg]).classList.add('active');
   document.getElementById(NB[pg]).classList.add('on');
-  window.scrollTo(0,0);
-  if(pg==='home'){drawHomeChart('1W');updateHome()}
-  if(pg==='tasks'){renderTasks();updateTaskStats()}
-  if(pg==='upgrades'){renderLevels();renderShop()}
-  if(pg==='account')updateAccount();
+  window.scrollTo(0, 0);
+  if (pg === 'home') { drawHomeChart('1W'); updateHome(); }
+  if (pg === 'tasks') renderAllTasks();
+  if (pg === 'upgrades') { renderLevels(); renderShop(); }
+  if (pg === 'account') updateAccount();
 }
 
-/* ============================================
+/* ==============================
    CHART
-============================================ */
-const CHART_DATA={
-  '1W':[850,920,880,950,1050,1100,1200,1250],
-  '1M':[600,680,720,800,850,950,1100,1250],
-  '3M':[200,350,500,700,850,1000,1150,1250],
+============================== */
+const CHART_DATA = {
+  '1W': [850,920,880,950,1050,1100,1200,1250],
+  '1M': [600,680,720,800,850,950,1100,1250],
+  '3M': [200,350,500,700,850,1000,1150,1250],
 };
-
-function drawLineChart(id,data,color){
-  const cv=document.getElementById(id);if(!cv)return;
-  const ctx=cv.getContext('2d');
-  const pw=cv.parentElement.clientWidth-40||300;
-  cv.width=pw*2;cv.height=(parseInt(cv.getAttribute('height'))||80)*2;
-  cv.style.width=pw+'px';
-  ctx.scale(2,2);
-  const W=pw,H=cv.height/2;
-  const mn=Math.min(...data)-20,mx=Math.max(...data)+20;
-  const sX=W/(data.length-1),sY=(H-16)/(mx-mn);
-  ctx.clearRect(0,0,W,H);
-
-  // Grid lines
-  ctx.strokeStyle='rgba(255,255,255,0.04)';ctx.lineWidth=1;
-  for(let i=0;i<3;i++){
-    const y=8+i*(H-16)/2;
-    ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();
+function drawLineChart(id, data) {
+  const cv = document.getElementById(id); if (!cv) return;
+  const ctx = cv.getContext('2d');
+  const pw = cv.parentElement.clientWidth - 36 || 300;
+  cv.width = pw * 2; cv.height = parseInt(cv.getAttribute('height') || 80) * 2;
+  cv.style.width = pw + 'px';
+  ctx.scale(2, 2);
+  const W = pw, H = cv.height / 2;
+  const mn = Math.min(...data) - 30, mx = Math.max(...data) + 30;
+  const sX = W / (data.length - 1), sY = (H - 14) / (mx - mn);
+  ctx.clearRect(0, 0, W, H);
+  ctx.strokeStyle = 'rgba(255,255,255,0.04)'; ctx.lineWidth = 1;
+  for (let i = 0; i < 3; i++) {
+    const y = 7 + i * (H - 14) / 2;
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
   }
-
-  // Fill gradient
-  const g=ctx.createLinearGradient(0,0,0,H);
-  g.addColorStop(0,color+'20');g.addColorStop(1,'transparent');
-  ctx.beginPath();ctx.moveTo(0,H);
-  data.forEach((v,i)=>ctx.lineTo(i*sX,H-8-(v-mn)*sY));
-  ctx.lineTo((data.length-1)*sX,H);ctx.closePath();
-  ctx.fillStyle=g;ctx.fill();
-
-  // Line
-  ctx.beginPath();ctx.strokeStyle=color;ctx.lineWidth=1.5;
-  ctx.lineJoin='round';ctx.lineCap='round';
-  data.forEach((v,i)=>{
-    const x=i*sX,y=H-8-(v-mn)*sY;
-    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
-  });ctx.stroke();
-
-  // End dot
-  const lx=(data.length-1)*sX;
-  const ly=H-8-(data[data.length-1]-mn)*sY;
-  ctx.beginPath();ctx.arc(lx,ly,3,0,Math.PI*2);
-  ctx.fillStyle=color;ctx.fill();
+  const g = ctx.createLinearGradient(0, 0, 0, H);
+  g.addColorStop(0, 'rgba(255,255,255,0.12)'); g.addColorStop(1, 'transparent');
+  ctx.beginPath(); ctx.moveTo(0, H);
+  data.forEach((v, i) => ctx.lineTo(i * sX, H - 7 - (v - mn) * sY));
+  ctx.lineTo((data.length - 1) * sX, H);
+  ctx.closePath(); ctx.fillStyle = g; ctx.fill();
+  ctx.beginPath(); ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 1.5;
+  ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+  data.forEach((v, i) => {
+    const x = i * sX, y = H - 7 - (v - mn) * sY;
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  ctx.stroke();
+  const lx = (data.length - 1) * sX;
+  const ly = H - 7 - (data[data.length - 1] - mn) * sY;
+  ctx.beginPath(); ctx.arc(lx, ly, 3, 0, Math.PI * 2);
+  ctx.fillStyle = '#FFFFFF'; ctx.fill();
+}
+function drawHomeChart(p) { drawLineChart('home-chart', CHART_DATA[p] || CHART_DATA['1W']); }
+function switchChart(p, btn) {
+  document.querySelectorAll('.ct').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on'); drawHomeChart(p);
 }
 
-function drawHomeChart(p){
-  drawLineChart('home-chart',CHART_DATA[p]||CHART_DATA['1W'],'#FFFFFF');
-}
-function switchHomeChart(p,btn){
-  document.querySelectorAll('.ct').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');drawHomeChart(p);
-}
-
-/* ============================================
-   HOME
-============================================ */
-function updateHome(){
-  document.getElementById('hg-done').textContent=tasks.filter(t=>t.done).length;
-  document.getElementById('hg-pend').textContent=tasks.filter(t=>!t.done).length;
-  updateNavDot();
-}
-
-/* ============================================
-   TASKS
-============================================ */
-function updateTaskStats(){
-  const all=tasks.length;
-  const pend=tasks.filter(t=>!t.done).length;
-  const pts=tasks.filter(t=>t.done).reduce((s,t)=>s+t.pts,0);
-  document.getElementById('ts-all').textContent=all;
-  document.getElementById('ts-pend').textContent=pend;
-  document.getElementById('ts-pts').textContent=pts;
-  document.getElementById('tasks-desc').textContent=
-    pend>0?`لديك ${pend} مهمة متبقية اليوم`:'🎉 أنجزت جميع مهامك!';
-  updateNavDot();
-}
-
-function setF(f,btn){
-  activeFilter=f;
-  document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  renderTasks();
-}
-
-function renderTasks(){
-  let list=[...tasks];
-  if(activeFilter==='pending') list=list.filter(t=>!t.done);
-  else if(activeFilter==='done') list=list.filter(t=>t.done);
-  else if(activeFilter==='high') list=list.filter(t=>t.pri==='high');
-  else if(activeFilter==='med') list=list.filter(t=>t.pri==='med');
-  else if(activeFilter==='low') list=list.filter(t=>t.pri==='low');
-
-  const el=document.getElementById('task-list');
-  if(!list.length){
-    el.innerHTML=`<div class="empty-state"><div class="e-ico">—</div><p>لا توجد مهام في هذه الفئة</p></div>`;
+/* ==============================
+   RENDER TASKS
+============================== */
+function renderAllTasks() {
+  updateTaskStats();
+  const container = document.getElementById('tasks-container');
+  if (!allTasks.length) {
+    container.innerHTML = '<div class="empty"><div class="ei">—</div><p>لا توجد مهام حالياً</p></div>';
     return;
   }
+  container.innerHTML = allTasks.map(t => renderTaskCard(t)).join('');
+  updateNavDot();
+}
 
-  const priLabel={high:'HIGH',med:'MEDIUM',low:'LOW'};
-  const priClass={high:'tag-h',med:'tag-m',low:'tag-l'};
+function renderTaskCard(t) {
+  // Check if task is locked and if unlock time has passed
+  if (t.status === 'locked' && t.lockedUntil) {
+    const now = new Date();
+    const unlockDate = new Date(t.lockedUntil);
+    if (now >= unlockDate) {
+      t.status = 'idle';
+      t.elapsed = 0;
+    }
+  }
 
-  el.innerHTML=list.map(t=>`
-    <div class="task-item">
-      <div class="t-check ${t.done?'done':''}" onclick="toggleTask(${t.id})"></div>
-      <div class="t-body ${t.done?'crossed':''}">
-        <h4>${t.title}</h4>
-        ${t.desc?`<p>${t.desc}</p>`:''}
-        <div class="t-tags">
-          <span class="t-tag ${priClass[t.pri]}">${priLabel[t.pri]}</span>
-          <span class="t-tag tag-pts">+${t.pts} XP</span>
-          ${t.cat?`<span class="t-tag tag-cat">${t.cat.toUpperCase()}</span>`:''}
-          ${t.date?`<span class="t-tag tag-cat">${t.date}</span>`:''}
+  const priLabel = { high: 'HIGH', med: 'MEDIUM', low: 'LOW' };
+  const priClass = { high: 'tag-penalty', med: 'tag-dur', low: 'tag-done' };
+  const durStr = formatDur(t.duration);
+  const isRunning = t.status === 'running';
+  const isDone = t.status === 'done';
+  const isLocked = t.status === 'locked';
+  const isIdle = t.status === 'idle';
+
+  let lockMsg = '';
+  if (isLocked && t.lockedUntil) {
+    const d = new Date(t.lockedUntil);
+    lockMsg = `محظورة حتى: ${d.toLocaleDateString('ar')} ${d.toLocaleTimeString('ar', {hour:'2-digit',minute:'2-digit'})}`;
+  }
+
+  const pct = t.duration > 0 ? Math.round((t.elapsed / t.duration) * 100) : 0;
+  const remaining = Math.max(0, t.duration - t.elapsed);
+
+  return `
+    <div class="task-card ${isRunning ? 'running' : ''} ${isDone ? 'done-c' : ''} ${isLocked ? 'locked-c' : ''}" id="tc-${t.id}">
+      <div class="tc-header">
+        <div class="tc-ico">${t.icon}</div>
+        <div class="tc-info">
+          <div class="tc-name">${t.name}</div>
+          <div class="tc-desc">${t.desc}</div>
+          <div class="tc-tags">
+            <span class="t-tag ${priClass[t.pri]}">${priLabel[t.pri]}</span>
+            <span class="t-tag tag-reward">+${t.reward} XP</span>
+            <span class="t-tag tag-penalty">-${t.penalty} XP إلغاء</span>
+            <span class="t-tag tag-dur">${durStr}</span>
+            ${t.cat ? `<span class="t-tag tag-locked">${t.cat.toUpperCase()}</span>` : ''}
+            ${isDone ? '<span class="t-tag tag-done">✓ DONE</span>' : ''}
+            ${isLocked ? '<span class="t-tag tag-locked">🔒 LOCKED</span>' : ''}
+          </div>
         </div>
       </div>
-      <button class="t-del" onclick="deleteTask(${t.id})">✕</button>
+
+      ${(isRunning || (isIdle && t.elapsed > 0)) ? `
+        <div class="tc-timer">
+          <div class="timer-bar-track">
+            <div class="timer-bar-fill" id="bar-${t.id}" style="width:${pct}%"></div>
+          </div>
+          <div class="timer-row">
+            <div class="timer-txt" id="time-${t.id}">${formatTime(remaining)}</div>
+            <div class="timer-pct" id="pct-${t.id}">${pct}%</div>
+          </div>
+        </div>
+      ` : ''}
+
+      ${isDone ? `
+        <div class="done-msg">✓ مكتملة — تم اكتساب ${t.reward} XP بنجاح</div>
+      ` : isLocked ? `
+        <div class="locked-msg">🔒 ${lockMsg}</div>
+      ` : isRunning ? `
+        <div class="tc-actions">
+          <div class="tc-btn tc-cancel" onclick="cancelTask(${t.id})">✕ إلغاء المهمة</div>
+        </div>
+      ` : `
+        <div class="tc-actions">
+          <div class="tc-btn tc-start" onclick="startTask(${t.id})">▶ بدء المهمة</div>
+          <div class="tc-btn" style="color:var(--muted);flex:0.5" onclick="deleteTask(${t.id})">🗑</div>
+        </div>
+      `}
     </div>
-  `).join('');
+  `;
 }
 
-function toggleTask(id){
-  const t=tasks.find(x=>x.id===id);t.done=!t.done;
-  toast(t.done?`✓ مكتمل — +${t.pts} XP`:'↩ تم إعادة المهمة');
-  renderTasks();updateTaskStats();updateHome();updateAccount();
+/* ==============================
+   TASK ACTIONS
+============================== */
+function startTask(id) {
+  const t = allTasks.find(x => x.id === id);
+  if (!t || t.status !== 'idle') return;
+
+  // Stop any other running task
+  allTasks.forEach(task => {
+    if (task.status === 'running') {
+      clearInterval(taskTimers[task.id]);
+      task.status = 'idle';
+      task.elapsed = 0;
+    }
+  });
+
+  t.status = 'running';
+  t.elapsed = 0;
+  renderAllTasks();
+  toast('▶ بدأت المهمة: ' + t.name);
+
+  taskTimers[id] = setInterval(() => {
+    t.elapsed++;
+    const remaining = Math.max(0, t.duration - t.elapsed);
+    const pct = Math.round((t.elapsed / t.duration) * 100);
+
+    const barEl = document.getElementById('bar-' + id);
+    const timeEl = document.getElementById('time-' + id);
+    const pctEl = document.getElementById('pct-' + id);
+
+    if (barEl) barEl.style.width = pct + '%';
+    if (timeEl) timeEl.textContent = formatTime(remaining);
+    if (pctEl) pctEl.textContent = pct + '%';
+
+    if (t.elapsed >= t.duration) {
+      clearInterval(taskTimers[id]);
+      completeTask(id);
+    }
+  }, 1000);
 }
 
-function deleteTask(id){
-  tasks=tasks.filter(x=>x.id!==id);
-  toast('✕ تم حذف المهمة');
-  renderTasks();updateTaskStats();updateHome();updateAccount();
+function completeTask(id) {
+  const t = allTasks.find(x => x.id === id);
+  if (!t) return;
+  t.status = 'done';
+  totalXP += t.reward;
+  doneCount++;
+  renderAllTasks();
+  updateHome();
+  updateAccount();
+  toastType('✓ أحسنت! +' + t.reward + ' XP مكتسبة — ' + t.name, 'toast-green');
 }
 
-/* ============================================
-   MODAL
-============================================ */
-function openModal(){
+function cancelTask(id) {
+  const t = allTasks.find(x => x.id === id);
+  if (!t || t.status !== 'running') return;
+
+  clearInterval(taskTimers[id]);
+
+  // Apply penalty
+  const pen = t.penalty;
+  totalXP = Math.max(0, totalXP - pen);
+  cancelCount++;
+
+  // Lock until tomorrow same time
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  tomorrow.setHours(0, 0, 0, 0);
+  t.lockedUntil = tomorrow.toISOString();
+  t.status = 'locked';
+  t.elapsed = 0;
+
+  // Show penalty modal
+  document.getElementById('penalty-val').textContent = '-' + pen + ' XP';
+  document.getElementById('penalty-detail').textContent =
+    'تم إلغاء "' + t.name + '" وخصم ' + pen + ' XP. المهمة ستتاح مجدداً غداً.';
+  document.getElementById('modal-penalty').classList.add('open');
+
+  // Show penalty banner
+  const banner = document.getElementById('penalty-banner');
+  document.getElementById('pb-text').textContent = 'تم خصم ' + pen + ' XP — إلغاء: ' + t.name;
+  document.getElementById('pb-sub').textContent = 'المهمة مقفلة حتى الغد';
+  banner.classList.add('show');
+
+  renderAllTasks();
+  updateHome();
+  updateAccount();
+  setTimeout(() => banner.classList.remove('show'), 5000);
+}
+
+function deleteTask(id) {
+  clearInterval(taskTimers[id]);
+  allTasks = allTasks.filter(x => x.id !== id);
+  renderAllTasks();
+  toast('تم حذف المهمة');
+}
+
+/* ==============================
+   ADD CUSTOM TASK
+============================== */
+function openAddModal() {
   document.getElementById('modal-add').classList.add('open');
-  document.getElementById('m-date').value=new Date().toISOString().split('T')[0];
   document.getElementById('m-title').focus();
 }
-function closeModal(id){document.getElementById(id).classList.remove('open')}
-function closeOut(id,e){if(e.target===document.getElementById(id))closeModal(id)}
 
-function selectPri(p){
-  selectedPri=p;
-  document.getElementById('pb-high').className='pri-btn'+(p==='high'?' sel-h':'');
-  document.getElementById('pb-med').className='pri-btn'+(p==='med'?' sel-m':'');
-  document.getElementById('pb-low').className='pri-btn'+(p==='low'?' sel-l':'');
+function selPri(p) {
+  selectedPri = p;
+  document.getElementById('pb-high').className = 'pri-btn' + (p === 'high' ? ' sel-h' : '');
+  document.getElementById('pb-med').className = 'pri-btn' + (p === 'med' ? ' sel-m' : '');
+  document.getElementById('pb-low').className = 'pri-btn' + (p === 'low' ? ' sel-l' : '');
 }
 
-function addTask(){
-  const title=document.getElementById('m-title').value.trim();
-  if(!title){toast('⚠ الرجاء إدخال عنوان المهمة');return}
-  tasks.unshift({
-    id:nextId++,title,
-    desc:document.getElementById('m-desc').value.trim(),
-    pri:selectedPri,
-    pts:parseInt(document.getElementById('m-pts').value)||30,
-    cat:document.getElementById('m-cat').value,
-    date:document.getElementById('m-date').value,
-    done:false
+function addCustomTask() {
+  const title = document.getElementById('m-title').value.trim();
+  if (!title) { toast('⚠ أدخل عنوان المهمة'); return; }
+  const dur = parseInt(document.getElementById('m-dur').value) || 60;
+  const pts = parseInt(document.getElementById('m-pts').value) || 50;
+  const pen = parseInt(document.getElementById('m-pen').value) || 25;
+  const cat = document.getElementById('m-cat').value;
+  const desc = document.getElementById('m-desc').value.trim();
+
+  const icons = { 'عام': '📋', 'تعليم': '📚', 'عمل': '💼', 'صحة': '💪', 'شخصي': '🌟' };
+  allTasks.unshift({
+    id: nextId++, icon: icons[cat] || '📋',
+    name: title, desc: desc || 'أكمل هذه المهمة لتكسب النقاط',
+    duration: dur, reward: pts, penalty: pen,
+    pri: selectedPri, cat: cat,
+    status: 'idle', lockedUntil: null, elapsed: 0
   });
+
   closeModal('modal-add');
-  renderTasks();updateTaskStats();updateHome();updateAccount();
-  toast('✓ تمت إضافة المهمة بنجاح');
-  // Reset form
-  document.getElementById('m-title').value='';
-  document.getElementById('m-desc').value='';
-  document.getElementById('m-pts').value=30;
-  selectPri('med');
+  renderAllTasks();
+  updateTaskStats();
+  updateHome();
+  toast('✓ تمت إضافة المهمة');
+  document.getElementById('m-title').value = '';
+  document.getElementById('m-desc').value = '';
+  document.getElementById('m-dur').value = 60;
+  document.getElementById('m-pts').value = 50;
+  document.getElementById('m-pen').value = 25;
+  selPri('med');
 }
 
-/* ============================================
+/* ==============================
+   STATS
+============================== */
+function updateTaskStats() {
+  const all = allTasks.length;
+  const pend = allTasks.filter(t => t.status !== 'done' && t.status !== 'locked').length;
+  const pts = allTasks.filter(t => t.status === 'done').reduce((s, t) => s + t.reward, 0);
+  const el1 = document.getElementById('ts-all');
+  const el2 = document.getElementById('ts-pend');
+  const el3 = document.getElementById('ts-pts');
+  if (el1) el1.textContent = all;
+  if (el2) el2.textContent = pend;
+  if (el3) el3.textContent = pts;
+  const desc = document.getElementById('tasks-desc');
+  if (desc) desc.textContent = pend > 0 ? `لديك ${pend} مهمة متبقية — الإلغاء يخصم نقاطاً!` : '🎉 أنجزت كل مهامك اليوم!';
+}
+
+function updateHome() {
+  const done = allTasks.filter(t => t.status === 'done').length;
+  const pend = allTasks.filter(t => t.status !== 'done' && t.status !== 'locked').length;
+  const dEl = document.getElementById('hg-done');
+  const pEl = document.getElementById('hg-pend');
+  const ptEl = document.getElementById('h-pts');
+  if (dEl) dEl.textContent = doneCount;
+  if (pEl) pEl.textContent = pend;
+  if (ptEl) ptEl.innerHTML = totalXP.toLocaleString() + ' <span>XP</span>';
+  updateNavDot();
+}
+
+function updateAccount() {
+  const tEl = document.getElementById('ah-tasks');
+  const ptEl = document.getElementById('ah-pts');
+  const dbEl = document.getElementById('ah-done-b');
+  const cbEl = document.getElementById('ah-cancel-b');
+  const dEl = document.getElementById('ah-desc');
+  if (tEl) tEl.textContent = allTasks.length;
+  if (ptEl) ptEl.textContent = totalXP.toLocaleString();
+  if (dbEl) dbEl.textContent = doneCount;
+  if (cbEl) cbEl.textContent = cancelCount;
+  if (dEl) dEl.textContent = allTasks.length + ' مهمة إجمالاً';
+}
+
+function updateNavDot() {
+  const dot = document.getElementById('nav-dot');
+  if (dot) {
+    const pend = allTasks.filter(t => t.status === 'idle' || t.status === 'running').length;
+    dot.style.display = pend > 0 ? 'block' : 'none';
+  }
+}
+
+/* ==============================
    UPGRADES
-============================================ */
-function renderLevels(){
-  document.getElementById('lvl-list').innerHTML=LEVELS.map((lv,i)=>{
-    const cur=i===3,done=i<3,locked=i>3;
-    const dc=cur?'current':done?'done':'locked';
-    const bc=cur?'lv-curr':done?'lv-done':'lv-lock';
-    const bl=cur?'CURRENT':done?'COMPLETED':'LOCKED';
-    return`<div class="lv-item">
-      <div class="lv-dot-col">
+============================== */
+const LEVELS = [
+  { name: 'Bronze', icon: '🥉', min: 0, max: 300, tier: 'Entry Level' },
+  { name: 'Silver', icon: '🥈', min: 300, max: 700, tier: 'Developing' },
+  { name: 'Advanced', icon: '🥇', min: 700, max: 1200, tier: 'Proficient' },
+  { name: 'Gold', icon: '🏆', min: 1200, max: 2000, tier: 'Expert' },
+  { name: 'Diamond', icon: '💎', min: 2000, max: 3500, tier: 'Elite' },
+  { name: 'Platinum', icon: '🌟', min: 3500, max: 6000, tier: 'Master' },
+  { name: 'Legendary', icon: '👑', min: 6000, max: Infinity, tier: 'BlackRock Elite' },
+];
+
+const SHOP = [
+  { id: 1, icon: '⚡', name: 'XP Booster', desc: 'مضاعفة النقاط لمدة ساعة', cost: 200, owned: true },
+  { id: 2, icon: '🛡️', name: 'Penalty Shield', desc: 'إلغاء عقوبة مهمة واحدة', cost: 150, owned: true },
+  { id: 3, icon: '🔓', name: 'Instant Unlock', desc: 'فتح مهمة محظورة فوراً', cost: 300, owned: false },
+  { id: 4, icon: '🔥', name: 'Streak Saver', desc: 'حماية السلسلة مرة واحدة', cost: 250, owned: false },
+  { id: 5, icon: '💰', name: 'Daily Bonus', desc: '+25% XP إضافية يومياً', cost: 500, owned: false },
+  { id: 6, icon: '⏩', name: 'Time Reducer', desc: 'تخفيض مدة المهام 50%', cost: 400, owned: false },
+];
+
+function renderLevels() {
+  const currentLvl = LEVELS.findIndex((lv, i) =>
+    totalXP >= lv.min && (lv.max === Infinity || totalXP < lv.max)
+  );
+  document.getElementById('lvl-list').innerHTML = LEVELS.map((lv, i) => {
+    const cur = i === currentLvl, done = i < currentLvl, locked = i > currentLvl;
+    const dc = cur ? 'current' : done ? 'done' : 'locked';
+    const bc = cur ? 'lv-curr-b' : done ? 'lv-done-b' : 'lv-lock-b';
+    const bl = cur ? 'CURRENT' : done ? 'DONE' : 'LOCKED';
+    const xpTxt = lv.max === Infinity ? lv.min.toLocaleString() + ' XP+' : lv.min.toLocaleString() + ' – ' + lv.max.toLocaleString() + ' XP';
+    return `<div class="lv-item">
+      <div class="lv-dc">
         <div class="lv-dot ${dc}">${lv.icon}</div>
-        ${i<LEVELS.length-1?'<div class="lv-line"></div>':''}
+        ${i < LEVELS.length - 1 ? '<div class="lv-ln"></div>' : ''}
       </div>
-      <div class="lv-info">
+      <div class="lv-body">
         <strong>${lv.name} — ${lv.tier}</strong>
-        <span>${lv.max===Infinity?lv.min.toLocaleString()+' XP+':lv.min.toLocaleString()+' – '+lv.max.toLocaleString()+' XP'}</span>
+        <span>${xpTxt}</span>
       </div>
       <span class="lv-badge ${bc}">${bl}</span>
     </div>`;
   }).join('');
 }
 
-function renderShop(){
-  document.getElementById('shop-grid').innerHTML=SHOP.map(u=>`
-    <div class="shop-item ${u.owned?'owned-i':''}" onclick="${u.owned?`toast('✓ ${u.name} — مفعّل بالفعل')`:`buyUpgrade(${u.id})`}">
-      ${u.owned?'<span class="shop-owned-tag">ACTIVE</span>':''}
+function renderShop() {
+  document.getElementById('shop-grid').innerHTML = SHOP.map(u => `
+    <div class="shop-i ${u.owned ? 'owned-s' : ''}" onclick="${u.owned ? `toast('✓ ${u.name} مفعّل')` : `buyUpgrade(${u.id})`}">
+      ${u.owned ? '<span class="shop-owned-tag">ACTIVE</span>' : ''}
       <div class="shop-ico">${u.icon}</div>
       <div class="shop-name">${u.name}</div>
       <div class="shop-desc">${u.desc}</div>
-      ${u.owned?`<span class="shop-cost" style="color:var(--green);border-color:rgba(0,166,81,.3)">✓ OWNED</span>`:`<span class="shop-cost">⭐ ${u.cost} XP</span>`}
+      ${u.owned
+        ? '<span class="shop-cost" style="color:var(--green);border-color:rgba(0,166,81,.3)">✓ OWNED</span>'
+        : `<span class="shop-cost">⭐ ${u.cost} XP</span>`}
     </div>
   `).join('');
 }
 
-function buyUpgrade(id){
-  const u=SHOP.find(x=>x.id===id);
-  if(u){u.owned=true;renderShop();toast(`✓ تم شراء: ${u.name}`)}
+function buyUpgrade(id) {
+  const u = SHOP.find(x => x.id === id);
+  if (!u) return;
+  if (totalXP < u.cost) { toast('⚠ رصيدك غير كافٍ — ' + totalXP + ' XP'); return; }
+  totalXP -= u.cost;
+  u.owned = true;
+  renderShop();
+  updateHome();
+  toast('✓ تم شراء: ' + u.name);
+  // Special: Instant Unlock
+  if (id === 3) {
+    const locked = allTasks.find(t => t.status === 'locked');
+    if (locked) {
+      locked.status = 'idle';
+      locked.lockedUntil = null;
+      renderAllTasks();
+      toast('🔓 تم فتح المهمة: ' + locked.name);
+    }
+  }
 }
 
-/* ============================================
-   ACCOUNT
-============================================ */
-function updateAccount(){
-  const done=tasks.filter(t=>t.done).length;
-  const total=tasks.length;
-  const el1=document.getElementById('ah-tasks');
-  const el2=document.getElementById('ah-desc');
-  const el3=document.getElementById('ah-done-badge');
-  if(el1)el1.textContent=total;
-  if(el2)el2.textContent=total+' مهمة إجمالاً';
-  if(el3)el3.textContent=done;
+/* ==============================
+   CONTACT
+============================== */
+function copySignalLink() {
+  const link = 'https://signal.me/#eu/__kL4ayCt64xdRiSQWwYpMxOo5_u-Br5Y87rLvt7vQ9c0zoJJ3BEHIfxtpSC5JSE';
+  navigator.clipboard.writeText(link).then(() => {
+    toast('✓ تم نسخ رابط Signal');
+  }).catch(() => {
+    toast('رابط Signal: ' + link.substring(0, 40) + '...');
+  });
 }
 
-/* ============================================
-   NAV DOT
-============================================ */
-function updateNavDot(){
-  const dot=document.getElementById('nav-dot');
-  if(dot)dot.style.display=tasks.filter(t=>!t.done).length>0?'block':'none';
+function toggleFaq(el) {
+  el.classList.toggle('open');
+  const ans = el.nextElementSibling;
+  ans.classList.toggle('show');
 }
 
-/* ============================================
+/* ==============================
+   MODAL
+============================== */
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function closeOut(id, e) { if (e.target === document.getElementById(id)) closeModal(id); }
+
+/* ==============================
    TOAST
-============================================ */
+============================== */
 let _tt;
-function toast(msg){
-  const el=document.getElementById('toast-el');
-  el.textContent=msg;el.classList.add('show');
-  clearTimeout(_tt);_tt=setTimeout(()=>el.classList.remove('show'),3000);
+function toast(msg) {
+  const el = document.getElementById('toast-el');
+  el.className = 'toast';
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(_tt);
+  _tt = setTimeout(() => el.classList.remove('show'), 3000);
+}
+function toastType(msg, cls) {
+  const el = document.getElementById('toast-el');
+  el.className = 'toast ' + cls;
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(_tt);
+  _tt = setTimeout(() => el.classList.remove('show'), 3500);
 }
 
-/* ============================================
-   CLOCK
-============================================ */
-function clock(){
-  const n=new Date();
-  const t=n.getHours().toString().padStart(2,'0')+':'+n.getMinutes().toString().padStart(2,'0');
+/* ==============================
+   UTILS
+============================== */
+function formatTime(s) {
+  const m = Math.floor(s / 60);
+  const sec = s % 60;
+  if (m > 0) return m + ':' + String(sec).padStart(2, '0');
+  return sec + 'ث';
 }
-clock();setInterval(clock,60000);
+function formatDur(s) {
+  if (s < 60) return s + ' ثانية';
+  const m = Math.floor(s / 60);
+  return m + ' دقيقة';
+}
 
-/* ============================================
+/* ==============================
    INIT
-============================================ */
-(function(){
+============================== */
+(function init() {
   drawHomeChart('1W');
   updateHome();
   updateNavDot();
-  renderTasks();
+  renderAllTasks();
   updateTaskStats();
   renderLevels();
   renderShop();
@@ -1587,4 +1529,4 @@ clock();setInterval(clock,60000);
 })();
 </script>
 </body>
-   </html>
+     </html>
